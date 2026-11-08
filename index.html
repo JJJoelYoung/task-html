@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Task HTML - Central Hub for Research Reports, Visualizations, and Web Deliverables.">
+  <title>Task HTML · Central Knowledge Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+/* Hallmark · shape: Long Document · genre: modern-minimal · theme: Console · redesign: none
+ * hero: Stage · nav: edge-aligned · footer: mast · imagery: none · signature: hairline audit trail and tabular telemetry · console: graphite
+ * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: H, refined search and filter interactions */
+
+:root {
+  color-scheme: dark;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem;
+  --text-display: clamp(2.25rem, 4vw + 0.5rem, 3.5rem);
+  --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.5rem);
+  --container: 1280px; --gutter: 32px;
+  --color-paper: oklch(17% 0.008 250); --color-paper-2: oklch(21% 0.009 250); --color-paper-3: oklch(13.5% 0.007 250);
+  --color-ink: oklch(95% 0.005 250); --color-ink-2: oklch(83% 0.008 250); --color-muted: oklch(71% 0.01 250);
+  --color-rule: oklch(31% 0.01 250); --color-rule-2: oklch(42% 0.012 250);
+  --color-accent: oklch(82% 0.15 80); --color-accent-ink: oklch(18% 0.04 75); --color-accent-soft: oklch(29% 0.05 80); --color-focus: oklch(82% 0.15 80);
+  --color-cool: oklch(77% 0.12 245); --color-cool-soft: oklch(29% 0.05 245);
+  --color-ok: oklch(76% 0.15 150); --color-ok-soft: oklch(24.5% 0.03 150); --color-bad: oklch(70% 0.17 25);
+  --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-cjk: "Noto Sans TC", -apple-system, sans-serif;
+  --font-body: var(--font-display), var(--font-cjk);
+  --font-outlier: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
+  --radius-card: 10px; --radius-pill: 6px; --rule-hair: 1px;
+  --tracking-display: -0.03em;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; margin: 0; }
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding-block: var(--space-xl);
+}
+
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); text-wrap: balance; }
+
+.hub-container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Header & Intro */
+.hub-header {
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.hub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-paper-3);
+  color: var(--color-accent);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2xs) var(--space-sm);
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.hub-badge-sep { color: var(--color-rule-2); }
+
+.hub-title {
+  font-size: var(--text-display);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.hub-subtitle {
+  color: var(--color-muted);
+  font-size: var(--text-md);
+  max-width: 65ch;
+  margin-bottom: var(--space-lg);
+}
+
+/* Controls Toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: space-between;
+  align-items: center;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  padding-top: var(--space-lg);
+}
+
+.filter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.filter-btn {
+  background: var(--color-paper-3);
+  color: var(--color-muted);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+  color: var(--color-ink);
+  border-color: var(--color-rule-2);
+}
+
+.filter-btn.active {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.search-box {
+  min-width: 260px;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-focus);
+}
+
+/* Artifacts Grid */
+.artifacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+@media (max-width: 480px) {
+  .artifacts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.artifact-card {
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.artifact-card:hover {
+  border-color: var(--color-cool);
+  transform: translateY(-2px);
+}
+
+.artifact-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.artifact-category {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  background: var(--color-paper-3);
+  border: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radius-pill);
+}
+
+.artifact-date {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.artifact-heading {
+  font-size: var(--text-title);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.artifact-desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+  flex-grow: 1;
+}
+
+.artifact-telemetry {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xs);
+  background: var(--color-paper-3);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.telemetry-item {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.telemetry-val {
+  font-family: var(--font-outlier);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.artifact-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.artifact-card:hover .artifact-action {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+
+/* Empty State */
+.empty-box {
+  grid-column: 1 / -1;
+  background: var(--color-paper-2);
+  border: var(--rule-hair) dashed var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: var(--space-2xl);
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* Footer */
+.hub-footer {
+  border-top: var(--rule-hair) solid var(--color-rule);
+  padding-block: var(--space-xl);
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.hub-footer a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+  </style>
+</head>
+<body>
+
+<div class="hub-container">
+
+  <!-- Header Section -->
+  <header class="hub-header">
+    <div class="hub-badge">
+      <span>task-html</span>
+      <span class="hub-badge-sep">/</span>
+      <span>github pages portal</span>
+      <span class="hub-badge-sep">/</span>
+      <span>knowledge hub</span>
+    </div>
+    <h1 class="hub-title">Task HTML Deliverables Hub</h1>
+    <p class="hub-subtitle">
+      專業級研究報告、互動數據視覺化與網頁成果展示中心。採用零依賴獨立架構，隨點即讀。
+    </p>
+
+    <!-- Toolbar: Filter and Search -->
+    <div class="toolbar">
+      <nav class="filter-nav" aria-label="分類篩選">
+        <button class="filter-btn active" data-category="all">全部成果 (All)</button>
+        <button class="filter-btn" data-category="equity">個股報告 (Equity)</button>
+        <button class="filter-btn" data-category="industry">產業研究 (Industry)</button>
+        <button class="filter-btn" data-category="macro">總體經濟 (Macro)</button>
+        <button class="filter-btn" data-category="visualizers">數據視覺 (Viz)</button>
+        <button class="filter-btn" data-category="prototypes">介面原型 (UI)</button>
+      </nav>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="搜尋報告標題或股票代號..." aria-label="搜尋報告">
+      </div>
+    </div>
+  </header>
+
+  <!-- Artifacts Grid -->
+  <main class="artifacts-grid" id="artifactsContainer">
+
+    <!-- Card 1: Phison 8299 -->
+    <article class="artifact-card" data-category="equity" data-keywords="8299 群聯 群聯電子 phison 半導體 ai ssd per pbr">
+      <div>
+        <div class="artifact-meta-top">
+          <span class="artifact-category">equity research</span>
+          <span class="artifact-date">2026-11-09</span>
+        </div>
+        <h2 class="artifact-heading">
+          <a href="./reports/equity/8299-phison.html">8299 群聯電子 360 度綜合研究分析報告</a>
+        </h2>
+        <p class="artifact-desc">
+          聚焦 AI 伺服器與 enterprise ssd 需求放量期之價量收斂、外資場外籌碼移轉、千億存貨隱憂與週期估值折價定價。
+        </p>
+
+        <div class="artifact-telemetry">
+          <div class="telemetry-item">收盤：<span class="telemetry-val">1,500 元</span></div>
+          <div class="telemetry-item">本益比：<span class="telemetry-val">4.33x</span></div>
+          <div class="telemetry-item">10月營收：<span class="telemetry-val">315.3 億</span></div>
+          <div class="telemetry-item">近四季EPS：<span class="telemetry-val">347.45 元</span></div>
+        </div>
+      </div>
+
+      <a href="./reports/equity/8299-phison.html" class="artifact-action" aria-label="閱讀 8299 群聯電子報告">
+        <span>閱讀完整報告</span>
+        <span>→</span>
+      </a>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="hub-footer">
+    <p>託管於 GitHub Pages · 原始碼倉庫：<a href="https://github.com/JJJoelYoung/task-html" target="_blank" rel="noopener noreferrer">JJJoelYoung/task-html</a></p>
+    <p style="margin-top: var(--space-2xs); color: var(--color-rule-2);">© 2026 Task HTML Knowledge Hub. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Simple, robust client-side filter and search
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.artifact-card');
+  const searchInput = document.getElementById('searchInput');
+  const container = document.getElementById('artifactsContainer');
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  function updateCards() {
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const cardCategory = card.getAttribute('data-category');
+      const cardText = (card.innerText + ' ' + (card.getAttribute('data-keywords') || '')).toLowerCase();
+      
+      const matchesCategory = (currentCategory === 'all' || cardCategory === currentCategory);
+      const matchesSearch = !searchQuery || cardText.includes(searchQuery);
+
+      if (matchesCategory && matchesSearch) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Handle empty state
+    let emptyEl = document.getElementById('emptyNotice');
+    if (visibleCount === 0) {
+      if (!emptyEl) {
+        emptyEl = document.createElement('div');
+        emptyEl.id = 'emptyNotice';
+        emptyEl.className = 'empty-box';
+        emptyEl.innerHTML = '<p style="margin: 0; font-size: 1.1rem; color: var(--color-ink);">尚無符合條件的研究成果</p><p style="margin: 8px 0 0 0; font-size: 0.9rem;">可切換分類標籤或清除搜尋關鍵字以檢視其他報告。</p>';
+        container.appendChild(emptyEl);
+      }
+    } else if (emptyEl) {
+      emptyEl.remove();
+    }
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-category');
+      updateCards();
+    });
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim().toLowerCase();
+    updateCards();
+  });
+</script>
+
+</body>
+</html>
