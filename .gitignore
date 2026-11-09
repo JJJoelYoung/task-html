@@ -28,7 +28,8 @@ yarn-error.log*
 __pycache__/
 *.py[cod]
 
-# Agent runtime and design audits
-.agents/
+# Agent runtime and design audits (project skills under .agents/skills/ are tracked)
+.agents/*
+!.agents/skills/
 .hallmark/
 
