@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="2330 台積電 (TSMC) 360度綜合深度投資分析報告：涵蓋近1個月價量走勢、均線收斂、三大法人籌碼、月營收成長、5年估值河道與交易策略矩陣。">
+  <title>2330 台積電 (TSMC) 360度綜合投資分析報告 | Institutional Equity Research</title>
+
+  <!-- Typography Links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Zero-FOUC Theme Initialization Engine -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('task-html-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-mode', theme);
+      } catch(e) {}
+    })();
+  </script>
+
+  <!-- Hallmark Almanac Stylesheet -->
+  <style>
+/* Hallmark · shape: Almanac · genre: editorial · theme: Almanac (deal 1/3) · job: research · draw: 2330-tsmc
+ * hero: Stage · nav: edge-aligned · footer: mast · signature: Trade Setup Overlays & 5-Year Valuation River
+ * axes: mid/grotesk-sans/chromatic-indigo · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: S, tailored semiconductor foundry & AI cycle metrics */
+/* Hallmark · dismissed 58 · Comprehensive institutional equity research requires 6 analytical dimensions with detailed quantitative narrative */
+/* Hallmark · dismissed 69 · Institutional research cross-references base target price across tear sheet, valuation scenarios, and trade setup */
+
+:root {
+  color-scheme: light dark;
+
+  /* Strict 4px Token Spacing Rhythm */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-display: clamp(2.25rem, 3.5vw + 0.5rem, 3.25rem);
+  --text-section: clamp(1.5rem, 2vw + 0.5rem, 2rem);
+  --text-title: 1.25rem;
+
+  /* Motion & Transitions (Gate 10a: Transform & Opacity Only) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+
+  /* Layout Boundaries */
+  --container: 1360px;
+  --gutter: 32px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* 3 Font Families */
+  --font-display: "Plus Jakarta Sans", "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Newsreader", "Source Serif 4", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+
+  /* LIGHT MODE TOKENS (Anchor Hue 250 - Cool Slate Sheet Stock) */
+  --color-paper: oklch(98.5% 0.005 250);
+  --color-paper-2: oklch(95.0% 0.009 250);
+  --color-paper-3: oklch(92.0% 0.012 250);
+  --color-sheet: oklch(99.4% 0.003 250);
+
+  --color-ink: oklch(17.0% 0.022 250);
+  --color-ink-2: oklch(27.0% 0.018 250);
+  --color-muted: oklch(44.0% 0.015 250);
+
+  --color-rule: oklch(86.0% 0.008 250);
+  --color-rule-2: oklch(34.0% 0.020 250);
+
+  /* Primary Institutional Accent (Hue 260: Cobalt / Navy) */
+  --color-accent: oklch(34.0% 0.160 260);
+  --color-accent-hover: oklch(28.0% 0.160 260);
+  --color-accent-soft: oklch(94.5% 0.035 260);
+  --color-accent-ink: oklch(99.5% 0.002 250);
+  --color-focus: oklch(46.0% 0.180 260);
+
+  /* Taiwan Market Directional Semantics (Red Rise ▲ / Green Fall ▼) */
+  --color-tw-rise: oklch(48.0% 0.200 25);
+  --color-tw-rise-soft: oklch(95.0% 0.030 25);
+  --color-tw-fall: oklch(46.0% 0.130 150);
+  --color-tw-fall-soft: oklch(94.0% 0.030 150);
+
+  /* Valuation River Band Palette */
+  --color-river-top: oklch(50.0% 0.140 25);
+  --color-river-high: oklch(62.0% 0.120 45);
+  --color-river-mid: oklch(72.0% 0.090 85);
+  --color-river-low: oklch(70.0% 0.100 180);
+  --color-river-bottom: oklch(60.0% 0.120 230);
+}
+
+/* DARK MODE OVERRIDES (Mathematical Elevation Parity) */
+[data-theme="dark"], [data-mode="dark"] {
+  --color-paper: oklch(15.0% 0.012 250);
+  --color-paper-2: oklch(18.5% 0.014 250);
+  --color-paper-3: oklch(22.0% 0.016 250);
+  --color-sheet: oklch(17.0% 0.013 250);
+
+  --color-ink: oklch(93.0% 0.008 250);
+  --color-ink-2: oklch(82.0% 0.010 250);
+  --color-muted: oklch(62.0% 0.012 250);
+
+  --color-rule: oklch(28.0% 0.012 250);
+  --color-rule-2: oklch(48.0% 0.015 250);
+
+  --color-accent: oklch(64.0% 0.130 260);
+  --color-accent-hover: oklch(70.0% 0.130 260);
+  --color-accent-soft: oklch(25.0% 0.040 260);
+  --color-accent-ink: oklch(8.0% 0.010 250);
+  --color-focus: oklch(65.0% 0.140 260);
+
+  --color-tw-rise: oklch(62.0% 0.180 25);
+  --color-tw-rise-soft: oklch(24.0% 0.040 25);
+  --color-tw-fall: oklch(62.0% 0.120 150);
+  --color-tw-fall-soft: oklch(24.0% 0.035 150);
+
+  --color-river-top: oklch(42.0% 0.110 25);
+  --color-river-high: oklch(48.0% 0.090 45);
+  --color-river-mid: oklch(54.0% 0.070 85);
+  --color-river-low: oklch(52.0% 0.080 180);
+  --color-river-bottom: oklch(46.0% 0.090 230);
+}
+
+/* Universal Document Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: clip;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection & Scrollbar Theming (Gate F16) */
+::selection {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+* {
+  scrollbar-color: var(--color-rule) var(--color-paper);
+}
+
+/* Motion Guard (Floor 2, Gate 27) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus Visibility (Floor 6) */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Container Layout (Floor 14) */
+.report-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--gutter);
+}
+
+/* Masthead Header */
+.report-masthead {
+  border-bottom: 2px solid var(--color-rule-2);
+  padding-bottom: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.masthead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-lg);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.ticker-badge {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+.masthead-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-lg);
+}
+
+.report-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-ink);
+  overflow-wrap: break-word;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+.report-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-muted);
+  margin-top: var(--space-xs);
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.masthead-badge-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.rating-badge {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-md);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+}
+
+.rating-buy {
+  background: var(--color-tw-rise);
+  color: var(--color-sheet);
+}
+
+.target-badge {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+}
+
+.target-label {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.target-value {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* Theme Toggle Button (Quiet / Outline - Gate F4) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border: 1px solid var(--color-rule);
+  background: transparent;
+  color: var(--color-ink);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn:active, .tab-btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled, .tab-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Executive Tear Sheet (Top 6 KPI Cards) */
+.hero-exec-summary {
+  margin-bottom: var(--space-3xl);
+}
+
+.tear-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.kpi-card {
+  background: var(--color-sheet);
+  color: var(--color-ink);
+  border: 1px solid var(--color-rule);
+  border-top: 3px solid var(--color-accent);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+}
+
+.kpi-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-bottom: var(--space-2xs);
+}
+
+.kpi-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+.kpi-sub {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-top: var(--space-2xs);
+}
+
+.thesis-box {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-sm);
+}
+
+.thesis-title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 700;
+  color: var(--color-ink-2);
+  margin-bottom: var(--space-xs);
+}
+
+.thesis-prose {
+  font-size: var(--text-md);
+  color: var(--color-ink);
+  line-height: 1.7;
+}
+
+/* Analytical Sections */
+.report-section {
+  margin-bottom: var(--space-4xl);
+}
+
+.section-header {
+  border-bottom: 1px solid var(--color-rule);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+}
+
+.section-tag {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 700;
+  display: block;
+  margin-bottom: var(--space-3xs);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-section);
+  font-weight: 700;
+  color: var(--color-ink);
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.section-prose {
+  font-size: var(--text-md);
+  color: var(--color-ink);
+  line-height: 1.75;
+  margin-bottom: var(--space-xl);
+}
+
+/* Chart Container & Micro Readout */
+.chart-container {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  position: relative;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-readout {
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-paper-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-ink-2);
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+/* Interactive Tabs */
+.tab-strip {
+  display: inline-flex;
+  gap: var(--space-2xs);
+  background: var(--color-paper-2);
+  padding: var(--space-3xs);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-rule);
+}
+
+.tab-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+
+.tab-btn.active {
+  background: var(--color-sheet);
+  color: var(--color-ink);
+  border: 1px solid var(--color-rule);
+}
+
+/* Semantic Tables */
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: var(--space-xl);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  background: var(--color-sheet);
+}
+
+.sub-table-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink-2);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-rule);
+  background: var(--color-paper-2);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.report-table th, .report-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.report-table th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  background: var(--color-paper-2);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.report-table tbody tr:hover {
+  background: var(--color-paper-2);
+}
+
+.report-table .highlight-row {
+  background: var(--color-accent-soft);
+}
+
+.num {
+  text-align: right;
+}
+
+/* Narrative Grid for Dimension 5 */
+.narrative-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.narrative-col {
+  background: var(--color-sheet);
+  color: var(--color-ink);
+  border: 1px solid var(--color-rule);
+  padding: var(--space-xl);
+  border-radius: var(--radius-sm);
+}
+
+.narrative-col-title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 700;
+  color: var(--color-ink-2);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.narrative-list {
+  list-style: none;
+}
+
+.narrative-item {
+  margin-bottom: var(--space-md);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.narrative-item strong {
+  color: var(--color-ink);
+  display: block;
+  margin-bottom: var(--space-3xs);
+}
+
+/* Directional Text Classes */
+.tw-rise {
+  color: var(--color-tw-rise);
+}
+
+.tw-fall {
+  color: var(--color-tw-fall);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Colophon Footer */
+.report-footer {
+  border-top: 2px solid var(--color-rule-2);
+  padding-top: var(--space-xl);
+  margin-top: var(--space-4xl);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.footer-disclaimer {
+  line-height: 1.7;
+  border-top: 1px solid var(--color-rule);
+  padding-top: var(--space-md);
+}
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    <!-- 1. Report Masthead -->
+    <header class="report-masthead">
+      <div class="masthead-meta">
+        <span class="meta-item ticker-badge font-mono">2330.TW / TSM.US</span>
+        <span class="meta-item">Semiconductor Foundry / Pure-Play IC</span>
+        <span class="meta-item">Valuation Date: 2026-11-06</span>
+        <span class="meta-item">Report Publish Date: 2026-11-09</span>
+      </div>
+      <div class="masthead-title-row">
+        <div class="title-block">
+          <h1 class="report-title">台積電 (TSMC / 2330.TW)</h1>
+          <p class="report-subtitle">360度機構級深度投資分析報告：先進製程壟斷、AI算力基建與交易策略矩陣</p>
+        </div>
+        <div class="masthead-badge-group">
+          <div class="rating-badge rating-buy font-mono"><abbr title="Conviction Buy">CONVICTION BUY</abbr></div>
+          <div class="target-badge">
+            <span class="target-label">12M Target</span>
+            <span class="target-value font-mono">NT$ 2,650.0</span>
+            <span class="target-upside font-mono tw-rise">+24.12%</span>
+          </div>
+          <button id="themeToggle" class="btn btn-secondary" aria-label="切換深淺色主題" title="切換深淺色主題">切換主題</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Executive Tear Sheet (Top 6 KPI Cards) -->
+    <section class="hero-exec-summary">
+      <div class="tear-sheet">
+        <!-- Card 1: Market Price -->
+        <div class="kpi-card">
+          <div class="kpi-label">最新收盤價 (Price)</div>
+          <div class="kpi-value font-mono">NT$ 2,135.0</div>
+          <div class="kpi-sub tw-fall">2026-11-06 基準日 (單月 -14.26%)</div>
+        </div>
+        <!-- Card 2: Conviction Rating -->
+        <div class="kpi-card">
+          <div class="kpi-label">機構投資評等 (Rating)</div>
+          <div class="kpi-value font-mono tw-rise"><abbr title="Conviction Buy">CONVICTION BUY</abbr></div>
+          <div class="kpi-sub">全球頂級外資券商綜合買進評等</div>
+        </div>
+        <!-- Card 3: Base Target Price -->
+        <div class="kpi-card">
+          <div class="kpi-label">基準目標價 (Base Target)</div>
+          <div class="kpi-value font-mono tw-rise">NT$ 2,650.0</div>
+          <div class="kpi-sub tw-rise">潛在上漲空間 +24.12%</div>
+        </div>
+        <!-- Card 4: Actionable Entry Zone -->
+        <div class="kpi-card">
+          <div class="kpi-label">建議進場區間 (Entry Zone)</div>
+          <div class="kpi-value font-mono">NT$ 2,080 - 2,150</div>
+          <div class="kpi-sub">恐慌下影線與投信成本防線</div>
+        </div>
+        <!-- Card 5: Hard Stop-Loss -->
+        <div class="kpi-card">
+          <div class="kpi-label">硬停損價位 (Hard Stop-Loss)</div>
+          <div class="kpi-value font-mono tw-fall">NT$ 1,980.0</div>
+          <div class="kpi-sub tw-fall">跌破 11/06 破底翻結構 (-7.26%)</div>
+        </div>
+        <!-- Card 6: Risk-Reward Ratio -->
+        <div class="kpi-card">
+          <div class="kpi-label">風報比 (Risk-Reward)</div>
+          <div class="kpi-value font-mono tw-rise">3.32 : 1</div>
+          <div class="kpi-sub">上行空間 NT$ 515 / 下行風險 NT$ 155</div>
+        </div>
+      </div>
+
+      <!-- Core Executive Thesis Statement -->
+      <div class="thesis-box">
+        <h2 class="thesis-title">外資研究團隊核心投資觀點 (Executive Investment Thesis)</h2>
+        <p class="thesis-prose">
+          台積電 (2330.TW) 在經歷 2026 年 10 月以來受地緣政治情緒及外資被動型基金調節帶來的估值壓縮後，股價於 11 月 6 日觸及 NT$ 2,020 爆量 11 萬張恐慌換手下影線，確立中長期極度超跌買點。目前 TTM 本益比僅 24.75x (位於 5 年歷史第 56.1 分位)，相較台股半導體龍頭同業中位數 38.13x 折價達 35.1%。憑藉 3nm/2nm GAA 先進製程超過 90% 的絕對壟斷優勢與 CoWoS 3D 封裝產能倍增，預期 FY26 EPS 將達 NT$ 95.0，重申「CONVICTION BUY」評等，給予 12 個月基準目標價 NT$ 2,650.0。
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Main Analytical Content Sections -->
+    <main class="report-content">
+      <!-- Section 1: Price & Moving Averages -->
+      <section id="dim1" class="report-section">
+        <header class="section-header">
+          <div>
+            <span class="section-tag font-mono">Dimension 01</span>
+            <h2 class="section-title">價量結構與均線軌道走勢分析 (Price, Volume & Moving Averages)</h2>
+          </div>
+        </header>
+        <p class="section-prose">
+          台積電過去 1 個月呈現震盪回檔格局，自 10 月 6 日高點 NT$ 2,590.0 修正至 11 月 6 日低點 NT$ 2,020.0，單月震幅達 28.22%，跌幅 -14.26%。截至 2026 年 11 月 6 日收盤價 NT$ 2,135.0，均線結構呈現短線空頭排列 (收盤價 &lt; 5MA 2,252.00 &lt; 10MA 2,325.50 &lt; 20MA 2,400.75)，負乖離率達 -11.07%。然而 11 月 6 日單日爆出 110,715 張 (110.7M 股) 歷史級大量，單日週轉率達 0.43%，拉出 115 元長下影線，符合典型「爆量長下影線」之末跌段換手特徵。
+        </p>
+        <div class="chart-container">
+          <svg id="chartPriceVolume" class="chart-svg" viewBox="0 0 960 480" role="img" aria-label="2330 台積電 近1個月價量走勢、均線軌道與交易策略疊加圖">
+      <line x1="70" y1="264.0" x2="825" y2="264.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="268.0" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,000</text><line x1="70" y1="212.0" x2="825" y2="212.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="216.0" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,200</text><line x1="70" y1="160.0" x2="825" y2="160.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="164.0" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,400</text><line x1="70" y1="108.0" x2="825" y2="108.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="112.0" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,600</text><line x1="70" y1="56.0" x2="825" y2="56.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="60.0" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,800</text><line x1="70" y1="406.7" x2="825" y2="406.7" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="410.7" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-muted)" text-anchor="end">40M</text><line x1="70" y1="368.3" x2="825" y2="368.3" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="372.3" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-muted)" text-anchor="end">80M</text><line x1="70" y1="330.0" x2="825" y2="330.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="334.0" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-muted)" text-anchor="end">120M</text>
+      <line x1="70" y1="290" x2="825" y2="290" stroke="var(--color-rule-2)" stroke-width="1" />
+      <line x1="70" y1="445" x2="825" y2="445" stroke="var(--color-rule-2)" stroke-width="1" />
+
+      <rect class="trade-corridor" x="70" y="225.0" width="755.0" height="18.2" fill="color-mix(in oklab, var(--color-accent) 15%, transparent)" stroke="var(--color-accent)" stroke-width="1" stroke-dasharray="4,4" /><rect x="833" y="222.0" width="118" height="22" rx="2" fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="1" /><text x="892.0" y="236.0" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-accent)" text-anchor="middle">Entry 2,080-2,150</text><line class="trade-target-t1" x1="70" y1="147.0" x2="825" y2="147.0" stroke="var(--color-tw-rise)" stroke-width="1.6" stroke-dasharray="5,3" /><rect x="833" y="137.0" width="118" height="22" rx="2" fill="var(--color-tw-rise-soft)" stroke="var(--color-tw-rise)" stroke-width="1" /><text x="892.0" y="151.0" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">T1: 2,450 (+14.8%)</text><line class="trade-target-t2" x1="70" y1="95.0" x2="825" y2="95.0" stroke="var(--color-tw-rise)" stroke-width="2.2" stroke-dasharray="6,2" /><rect x="833" y="85.0" width="118" height="22" rx="2" fill="var(--color-tw-rise-soft)" stroke="var(--color-tw-rise)" stroke-width="1.2" /><text x="892.0" y="99.0" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--color-tw-rise)" text-anchor="middle">T2: 2,650 (+24.1%)</text><line class="trade-stop" x1="70" y1="269.2" x2="825" y2="269.2" stroke="var(--color-tw-fall)" stroke-width="1.8" stroke-dasharray="4,2" /><rect x="833" y="259.2" width="118" height="22" rx="2" fill="var(--color-tw-fall-soft)" stroke="var(--color-tw-fall)" stroke-width="1" /><text x="892.0" y="273.2" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-tw-fall)" text-anchor="middle">Stop: 1,980 (-7.3%)</text>
+      <line x1="70.0" y1="131.4" x2="70.0" y2="137.9" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="66.0" y="131.4" width="8" height="5.2" fill="var(--color-tw-rise)" rx="1" /><line x1="102.8" y1="130.1" x2="102.8" y2="135.3" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="98.8" y="132.7" width="8" height="1.5" fill="var(--color-tw-fall)" rx="1" /><line x1="135.7" y1="113.2" x2="135.7" y2="122.3" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="131.7" y="114.5" width="8" height="6.5" fill="var(--color-tw-rise)" rx="1" /><line x1="168.5" y1="110.6" x2="168.5" y2="117.1" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="164.5" y="111.9" width="8" height="2.6" fill="var(--color-tw-rise)" rx="1" /><line x1="201.3" y1="111.9" x2="201.3" y2="118.4" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="197.3" y="111.9" width="8" height="5.2" fill="var(--color-tw-rise)" rx="1" /><line x1="234.1" y1="114.5" x2="234.1" y2="121.0" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="230.1" y="121.0" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="267.0" y1="121.0" x2="267.0" y2="131.4" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="263.0" y="123.6" width="8" height="7.8" fill="var(--color-tw-rise)" rx="1" /><line x1="299.8" y1="131.4" x2="299.8" y2="136.6" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="295.8" y="134.0" width="8" height="2.6" fill="var(--color-tw-fall)" rx="1" /><line x1="332.6" y1="124.9" x2="332.6" y2="136.6" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="328.6" y="132.7" width="8" height="3.9" fill="var(--color-tw-fall)" rx="1" /><line x1="365.4" y1="147.0" x2="365.4" y2="154.8" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="361.4" y="149.6" width="8" height="5.2" fill="var(--color-tw-rise)" rx="1" /><line x1="398.3" y1="148.3" x2="398.3" y2="154.8" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="394.3" y="152.2" width="8" height="2.6" fill="var(--color-tw-fall)" rx="1" /><line x1="431.1" y1="154.8" x2="431.1" y2="162.6" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="427.1" y="154.8" width="8" height="6.5" fill="var(--color-tw-rise)" rx="1" /><line x1="463.9" y1="156.1" x2="463.9" y2="161.3" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="459.9" y="158.7" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="496.7" y1="150.9" x2="496.7" y2="160.0" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="492.7" y="153.5" width="8" height="1.5" fill="var(--color-tw-fall)" rx="1" /><line x1="529.6" y1="150.9" x2="529.6" y2="163.9" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="525.6" y="150.9" width="8" height="13.0" fill="var(--color-tw-fall)" rx="1" /><line x1="562.4" y1="158.7" x2="562.4" y2="165.2" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="558.4" y="160.0" width="8" height="5.2" fill="var(--color-tw-rise)" rx="1" /><line x1="595.2" y1="152.2" x2="595.2" y2="157.4" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="591.2" y="153.5" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="628.0" y1="153.5" x2="628.0" y2="162.6" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="624.0" y="154.8" width="8" height="1.5" fill="var(--color-tw-fall)" rx="1" /><line x1="660.9" y1="165.2" x2="660.9" y2="170.4" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="656.9" y="165.2" width="8" height="2.6" fill="var(--color-tw-fall)" rx="1" /><line x1="693.7" y1="174.3" x2="693.7" y2="183.4" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="689.7" y="178.2" width="8" height="5.2" fill="var(--color-tw-rise)" rx="1" /><line x1="726.5" y1="176.9" x2="726.5" y2="191.2" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="722.5" y="186.0" width="8" height="1.5" fill="var(--color-tw-fall)" rx="1" /><line x1="759.3" y1="180.8" x2="759.3" y2="202.9" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="755.3" y="180.8" width="8" height="15.6" fill="var(--color-tw-fall)" rx="1" /><line x1="792.2" y1="189.9" x2="792.2" y2="202.9" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect class="candle-body" x="788.2" y="199.0" width="8" height="2.6" fill="var(--color-tw-fall)" rx="1" /><line x1="825.0" y1="213.3" x2="825.0" y2="258.8" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect class="candle-body" x="821.0" y="228.9" width="8" height="29.9" fill="var(--color-tw-rise)" rx="1" />
+      <polyline points="70.0,148.9 102.8,147.5 135.7,145.1 168.5,142.8 201.3,141.1 234.1,140.1 267.0,139.1 299.8,138.6 332.6,137.6 365.4,136.8 398.3,136.3 431.1,135.8 463.9,136.1 496.7,136.6 529.6,137.8 562.4,138.6 595.2,139.6 628.0,140.4 660.9,141.7 693.7,143.7 726.5,146.5 759.3,149.6 792.2,154.0 825.0,159.8" fill="none" stroke="var(--color-muted)" stroke-width="1.8" />
+      <polyline points="70.0,143.2 102.8,140.1 135.7,136.2 168.5,133.0 201.3,130.2 234.1,127.9 267.0,126.8 299.8,126.5 332.6,126.1 365.4,127.1 398.3,129.4 431.1,131.5 463.9,135.9 496.7,140.2 529.6,145.4 562.4,149.3 595.2,152.3 628.0,154.3 660.9,157.4 693.7,160.3 726.5,163.5 759.3,167.7 792.2,172.0 825.0,179.4" fill="none" stroke="var(--color-accent)" stroke-width="1.8" />
+      <polyline points="70.0,137.1 102.8,137.1 135.7,131.9 168.5,126.2 201.3,120.7 234.1,118.7 267.0,116.6 299.8,121.0 332.6,125.9 365.4,133.5 398.3,140.2 431.1,146.5 463.9,150.9 496.7,154.5 529.6,157.4 562.4,158.4 595.2,158.2 628.0,157.7 660.9,160.3 693.7,163.1 726.5,168.6 759.3,177.2 792.2,186.3 825.0,198.5" fill="none" stroke="var(--color-tw-rise)" stroke-width="2.2" />
+
+      <rect class="vol-bar" x="66.0" y="425.2" width="8" height="19.8" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="98.8" y="429.9" width="8" height="15.1" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="131.7" y="419.3" width="8" height="25.7" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="164.5" y="425.1" width="8" height="19.9" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="197.3" y="428.8" width="8" height="16.2" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="230.1" y="422.8" width="8" height="22.2" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="263.0" y="422.4" width="8" height="22.6" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="295.8" y="405.9" width="8" height="39.1" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="328.6" y="418.1" width="8" height="26.9" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="361.4" y="389.0" width="8" height="56.0" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="394.3" y="403.7" width="8" height="41.3" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="427.1" y="418.5" width="8" height="26.5" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="459.9" y="423.5" width="8" height="21.5" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="492.7" y="419.0" width="8" height="26.0" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="525.6" y="416.4" width="8" height="28.6" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="558.4" y="408.4" width="8" height="36.6" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="591.2" y="424.0" width="8" height="21.0" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="624.0" y="427.4" width="8" height="17.6" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="656.9" y="409.9" width="8" height="35.1" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="689.7" y="405.6" width="8" height="39.4" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect class="vol-bar" x="722.5" y="400.8" width="8" height="44.2" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="755.3" y="393.4" width="8" height="51.6" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="788.2" y="401.7" width="8" height="43.3" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect class="vol-bar" x="821.0" y="338.9" width="8" height="106.1" fill="var(--color-tw-rise)" opacity="0.85" rx="1" />
+      <text x="70.0" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-01</text><text x="201.3" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-07</text><text x="332.6" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-14</text><text x="463.9" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-20</text><text x="595.2" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-28</text><text x="726.5" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">11-03</text><text x="825.0" y="461" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">11-06</text>
+
+      <!-- Dynamic Crosshair Line -->
+      <line id="crosshairPrice" x1="0" y1="30" x2="0" y2="445" stroke="var(--color-ink)" stroke-width="1" stroke-dasharray="3,3" opacity="0" pointer-events="none" />
+      <rect class="hover-slice" x="53.6" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="0" data-info="2026-10-01 | 收盤: NT$ 2,510.0 | 開: 2,490.0 高: 2,510.0 低: 2,485.0 | 成交量: 20,666 張 | 5MA: 2,488.0 | 20MA: 2,442.5" /><rect class="hover-slice" x="86.4" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="1" data-info="2026-10-02 | 收盤: NT$ 2,500.0 | 開: 2,505.0 高: 2,515.0 低: 2,495.0 | 成交量: 15,792 張 | 5MA: 2,488.0 | 20MA: 2,448.2" /><rect class="hover-slice" x="119.2" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="2" data-info="2026-10-05 | 收盤: NT$ 2,575.0 | 開: 2,550.0 高: 2,580.0 低: 2,545.0 | 成交量: 26,800 張 | 5MA: 2,508.0 | 20MA: 2,457.5" /><rect class="hover-slice" x="152.1" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="3" data-info="2026-10-06 | 收盤: NT$ 2,585.0 | 開: 2,575.0 高: 2,590.0 低: 2,565.0 | 成交量: 20,801 張 | 5MA: 2,530.0 | 20MA: 2,466.2" /><rect class="hover-slice" x="184.9" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="4" data-info="2026-10-07 | 收盤: NT$ 2,585.0 | 開: 2,565.0 高: 2,585.0 低: 2,560.0 | 成交量: 16,941 張 | 5MA: 2,551.0 | 20MA: 2,472.5" /><rect class="hover-slice" x="217.7" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="5" data-info="2026-10-08 | 收盤: NT$ 2,550.0 | 開: 2,550.0 高: 2,575.0 低: 2,550.0 | 成交量: 23,145 張 | 5MA: 2,559.0 | 20MA: 2,476.5" /><rect class="hover-slice" x="250.5" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="6" data-info="2026-10-12 | 收盤: NT$ 2,540.0 | 開: 2,510.0 高: 2,550.0 低: 2,510.0 | 成交量: 23,555 張 | 5MA: 2,567.0 | 20MA: 2,480.2" /><rect class="hover-slice" x="283.4" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="7" data-info="2026-10-13 | 收盤: NT$ 2,490.0 | 開: 2,500.0 高: 2,510.0 低: 2,490.0 | 成交量: 40,796 張 | 5MA: 2,550.0 | 20MA: 2,482.2" /><rect class="hover-slice" x="316.2" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="8" data-info="2026-10-14 | 收盤: NT$ 2,490.0 | 開: 2,505.0 高: 2,535.0 低: 2,490.0 | 成交量: 28,111 張 | 5MA: 2,531.0 | 20MA: 2,486.2" /><rect class="hover-slice" x="349.0" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="9" data-info="2026-10-15 | 收盤: NT$ 2,440.0 | 開: 2,420.0 高: 2,450.0 低: 2,420.0 | 成交量: 58,486 張 | 5MA: 2,502.0 | 20MA: 2,489.2" /><rect class="hover-slice" x="381.8" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="10" data-info="2026-10-16 | 收盤: NT$ 2,420.0 | 開: 2,430.0 高: 2,445.0 低: 2,420.0 | 成交量: 43,046 張 | 5MA: 2,476.0 | 20MA: 2,491.0" /><rect class="hover-slice" x="414.7" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="11" data-info="2026-10-19 | 收盤: NT$ 2,420.0 | 開: 2,395.0 高: 2,420.0 低: 2,390.0 | 成交量: 27,694 張 | 5MA: 2,452.0 | 20MA: 2,493.0" /><rect class="hover-slice" x="447.5" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="12" data-info="2026-10-20 | 收盤: NT$ 2,405.0 | 開: 2,400.0 高: 2,415.0 低: 2,395.0 | 成交量: 22,402 張 | 5MA: 2,435.0 | 20MA: 2,492.0" /><rect class="hover-slice" x="480.3" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="13" data-info="2026-10-21 | 收盤: NT$ 2,420.0 | 開: 2,425.0 高: 2,435.0 低: 2,400.0 | 成交量: 27,095 張 | 5MA: 2,421.0 | 20MA: 2,490.0" /><rect class="hover-slice" x="513.2" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="14" data-info="2026-10-22 | 收盤: NT$ 2,385.0 | 開: 2,435.0 高: 2,435.0 低: 2,385.0 | 成交量: 29,796 張 | 5MA: 2,410.0 | 20MA: 2,485.2" /><rect class="hover-slice" x="546.0" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="15" data-info="2026-10-27 | 收盤: NT$ 2,400.0 | 開: 2,380.0 高: 2,405.0 低: 2,380.0 | 成交量: 38,173 張 | 5MA: 2,406.0 | 20MA: 2,482.2" /><rect class="hover-slice" x="578.8" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="16" data-info="2026-10-28 | 收盤: NT$ 2,425.0 | 開: 2,420.0 高: 2,430.0 低: 2,410.0 | 成交量: 21,866 張 | 5MA: 2,407.0 | 20MA: 2,478.5" /><rect class="hover-slice" x="611.6" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="17" data-info="2026-10-29 | 收盤: NT$ 2,415.0 | 開: 2,420.0 高: 2,425.0 低: 2,390.0 | 成交量: 18,403 張 | 5MA: 2,409.0 | 20MA: 2,475.5" /><rect class="hover-slice" x="644.5" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="18" data-info="2026-10-30 | 收盤: NT$ 2,370.0 | 開: 2,380.0 高: 2,380.0 低: 2,360.0 | 成交量: 36,615 張 | 5MA: 2,399.0 | 20MA: 2,470.2" /><rect class="hover-slice" x="677.3" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="19" data-info="2026-11-02 | 收盤: NT$ 2,330.0 | 開: 2,310.0 高: 2,345.0 低: 2,310.0 | 成交量: 41,165 張 | 5MA: 2,388.0 | 20MA: 2,462.8" /><rect class="hover-slice" x="710.1" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="20" data-info="2026-11-03 | 收盤: NT$ 2,295.0 | 開: 2,300.0 高: 2,335.0 低: 2,280.0 | 成交量: 46,137 張 | 5MA: 2,367.0 | 20MA: 2,452.0" /><rect class="hover-slice" x="742.9" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="21" data-info="2026-11-04 | 收盤: NT$ 2,260.0 | 開: 2,320.0 高: 2,320.0 低: 2,235.0 | 成交量: 53,879 張 | 5MA: 2,334.0 | 20MA: 2,440.0" /><rect class="hover-slice" x="775.8" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="22" data-info="2026-11-05 | 收盤: NT$ 2,240.0 | 開: 2,250.0 高: 2,285.0 低: 2,235.0 | 成交量: 45,175 張 | 5MA: 2,299.0 | 20MA: 2,423.2" /><rect class="hover-slice" x="808.6" y="30" width="32.8" height="415" fill="transparent" data-chart="price" data-idx="23" data-info="2026-11-06 | 收盤: NT$ 2,135.0 | 開: 2,020.0 高: 2,195.0 低: 2,020.0 | 成交量: 110,714 張 | 5MA: 2,252.0 | 20MA: 2,400.8" />
+    </svg>
+          <div id="priceReadout" class="chart-readout font-mono">滑鼠懸停於圖表柱狀或K線上以檢視每日價量與均線即時數據</div>
+        </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>交易日期</th>
+            <th class="num">收盤價 (TWD)</th>
+            <th class="num">開盤價</th>
+            <th class="num">最高價</th>
+            <th class="num">最低價</th>
+            <th class="num">成交量 (張)</th>
+            <th class="num">5MA</th>
+            <th class="num">10MA</th>
+            <th class="num">20MA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td class="font-mono">2026-10-22</td>
+          <td class="font-mono num tw-fall">2,385.0</td>
+          <td class="font-mono num">2,435.0</td>
+          <td class="font-mono num">2,435.0</td>
+          <td class="font-mono num">2,385.0</td>
+          <td class="font-mono num">29,796</td>
+          <td class="font-mono num">2,410.0</td>
+          <td class="font-mono num">2,456.0</td>
+          <td class="font-mono num">2,485.2</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-27</td>
+          <td class="font-mono num tw-rise">2,400.0</td>
+          <td class="font-mono num">2,380.0</td>
+          <td class="font-mono num">2,405.0</td>
+          <td class="font-mono num">2,380.0</td>
+          <td class="font-mono num">38,173</td>
+          <td class="font-mono num">2,406.0</td>
+          <td class="font-mono num">2,441.0</td>
+          <td class="font-mono num">2,482.2</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-28</td>
+          <td class="font-mono num tw-rise">2,425.0</td>
+          <td class="font-mono num">2,420.0</td>
+          <td class="font-mono num">2,430.0</td>
+          <td class="font-mono num">2,410.0</td>
+          <td class="font-mono num">21,866</td>
+          <td class="font-mono num">2,407.0</td>
+          <td class="font-mono num">2,429.5</td>
+          <td class="font-mono num">2,478.5</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-29</td>
+          <td class="font-mono num tw-fall">2,415.0</td>
+          <td class="font-mono num">2,420.0</td>
+          <td class="font-mono num">2,425.0</td>
+          <td class="font-mono num">2,390.0</td>
+          <td class="font-mono num">18,403</td>
+          <td class="font-mono num">2,409.0</td>
+          <td class="font-mono num">2,422.0</td>
+          <td class="font-mono num">2,475.5</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-30</td>
+          <td class="font-mono num tw-fall">2,370.0</td>
+          <td class="font-mono num">2,380.0</td>
+          <td class="font-mono num">2,380.0</td>
+          <td class="font-mono num">2,360.0</td>
+          <td class="font-mono num">36,615</td>
+          <td class="font-mono num">2,399.0</td>
+          <td class="font-mono num">2,410.0</td>
+          <td class="font-mono num">2,470.2</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-02</td>
+          <td class="font-mono num tw-rise">2,330.0</td>
+          <td class="font-mono num">2,310.0</td>
+          <td class="font-mono num">2,345.0</td>
+          <td class="font-mono num">2,310.0</td>
+          <td class="font-mono num">41,165</td>
+          <td class="font-mono num">2,388.0</td>
+          <td class="font-mono num">2,399.0</td>
+          <td class="font-mono num">2,462.8</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-03</td>
+          <td class="font-mono num tw-fall">2,295.0</td>
+          <td class="font-mono num">2,300.0</td>
+          <td class="font-mono num">2,335.0</td>
+          <td class="font-mono num">2,280.0</td>
+          <td class="font-mono num">46,137</td>
+          <td class="font-mono num">2,367.0</td>
+          <td class="font-mono num">2,386.5</td>
+          <td class="font-mono num">2,452.0</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-04</td>
+          <td class="font-mono num tw-fall">2,260.0</td>
+          <td class="font-mono num">2,320.0</td>
+          <td class="font-mono num">2,320.0</td>
+          <td class="font-mono num">2,235.0</td>
+          <td class="font-mono num">53,879</td>
+          <td class="font-mono num">2,334.0</td>
+          <td class="font-mono num">2,370.5</td>
+          <td class="font-mono num">2,440.0</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-05</td>
+          <td class="font-mono num tw-fall">2,240.0</td>
+          <td class="font-mono num">2,250.0</td>
+          <td class="font-mono num">2,285.0</td>
+          <td class="font-mono num">2,235.0</td>
+          <td class="font-mono num">45,175</td>
+          <td class="font-mono num">2,299.0</td>
+          <td class="font-mono num">2,354.0</td>
+          <td class="font-mono num">2,423.2</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-06</td>
+          <td class="font-mono num tw-rise">2,135.0</td>
+          <td class="font-mono num">2,020.0</td>
+          <td class="font-mono num">2,195.0</td>
+          <td class="font-mono num">2,020.0</td>
+          <td class="font-mono num">110,714</td>
+          <td class="font-mono num">2,252.0</td>
+          <td class="font-mono num">2,325.5</td>
+          <td class="font-mono num">2,400.8</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+
+      <!-- Section 2: Institutional Net Flows & Chips -->
+      <section id="dim2" class="report-section">
+        <header class="section-header">
+          <div>
+            <span class="section-tag font-mono">Dimension 02</span>
+            <h2 class="section-title">籌碼結構與三大法人買賣超 (Institutional Flows & Shareholding)</h2>
+          </div>
+        </header>
+        <p class="section-prose">
+          近 1 個月三大法人籌碼呈現顯著之「外資調節、本土投信與自營商逆勢低接」態勢。外資累計淨賣超 239,057.86 張 (-239,057,859 股)，外資持股比率由 69.19% 小幅降至 68.17% (-1.02%)；反觀國內投信累計逆勢加碼買超 41,168.87 張 (+41,168,870 股)，自營商亦買超 42,326.00 張 (+42,326,005 股)，合計內資法人承接超過 83,494 張。在散戶融資券方面，融資餘額由 30,658 張增至 35,072 張 (+4,414 張)，法定融資使用率僅 0.54%；融券餘額僅 75 張，券資比 0.21%，融券使用率 0.001%。散戶槓桿壓力幾乎為零，籌碼結構極度穩固。
+        </p>
+        <div class="chart-container">
+          <svg id="chartInstitutional" class="chart-svg" viewBox="0 0 960 420" role="img" aria-label="2330 台積電 三大法人買賣超與融資融券走勢圖">
+      <line x1="75" y1="210.0" x2="885" y2="210.0" stroke="var(--color-rule)" stroke-width="1" /><text x="65" y="214.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">-40000張</text><line x1="75" y1="170.0" x2="885" y2="170.0" stroke="var(--color-rule)" stroke-width="1" /><text x="65" y="174.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">-20000張</text><line x1="75" y1="130.0" x2="885" y2="130.0" stroke="var(--color-ink-2)" stroke-width="1.5" /><text x="65" y="134.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">+0張</text><line x1="75" y1="90.0" x2="885" y2="90.0" stroke="var(--color-rule)" stroke-width="1" /><text x="65" y="94.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">+20000張</text><line x1="75" y1="50.0" x2="885" y2="50.0" stroke="var(--color-rule)" stroke-width="1" /><text x="65" y="54.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">+40000張</text><line x1="75" y1="348.3" x2="885" y2="348.3" stroke="var(--color-rule)" stroke-width="1" /><text x="65" y="352.3" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="end">68.0%</text><line x1="75" y1="316.7" x2="885" y2="316.7" stroke="var(--color-rule)" stroke-width="1" /><text x="65" y="320.7" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="end">69.0%</text><text x="895" y="336.5" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-tw-rise)" text-anchor="start">30,000張</text><text x="895" y="312.8" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-tw-rise)" text-anchor="start">35,000張</text>
+      <line x1="75" y1="380" x2="885" y2="380" stroke="var(--color-rule-2)" stroke-width="1" />
+      <rect class="inst-bar" x="69.5" y="123.8" width="3.6" height="6.2" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="73.2" y="128.8" width="3.6" height="1.2" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="76.9" y="128.8" width="3.6" height="1.2" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="104.7" y="130.0" width="3.6" height="11.8" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="108.4" y="129.5" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="112.1" y="129.4" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="139.9" y="110.5" width="3.6" height="19.5" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="143.6" y="128.8" width="3.6" height="1.2" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="147.3" y="129.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="175.2" y="130.0" width="3.6" height="3.3" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="178.9" y="129.7" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="182.6" y="129.2" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="210.4" y="130.0" width="3.6" height="2.3" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="214.1" y="129.9" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="217.8" y="129.1" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="245.6" y="130.0" width="3.6" height="24.6" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="249.3" y="128.4" width="3.6" height="1.6" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="253.0" y="129.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="280.8" y="130.0" width="3.6" height="18.8" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="284.5" y="128.8" width="3.6" height="1.2" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="288.2" y="127.3" width="3.6" height="2.7" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="316.0" y="130.0" width="3.6" height="51.3" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="319.7" y="124.0" width="3.6" height="6.0" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="323.4" y="125.0" width="3.6" height="5.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="351.2" y="130.0" width="3.6" height="13.5" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="354.9" y="128.4" width="3.6" height="1.6" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="358.6" y="128.9" width="3.6" height="1.1" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="386.5" y="130.0" width="3.6" height="68.2" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="390.2" y="123.5" width="3.6" height="6.5" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="393.9" y="115.2" width="3.6" height="14.8" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="421.7" y="130.0" width="3.6" height="44.1" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="425.4" y="128.6" width="3.6" height="1.4" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="429.1" y="130.0" width="3.6" height="2.1" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="456.9" y="130.0" width="3.6" height="19.7" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="460.6" y="122.2" width="3.6" height="7.8" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="464.3" y="127.3" width="3.6" height="2.7" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="492.1" y="130.0" width="3.6" height="18.7" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="495.8" y="127.9" width="3.6" height="2.1" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="499.5" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="527.3" y="130.0" width="3.6" height="12.3" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="531.0" y="127.2" width="3.6" height="2.8" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="534.7" y="130.0" width="3.6" height="2.1" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="562.5" y="130.0" width="3.6" height="25.4" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="566.2" y="127.3" width="3.6" height="2.7" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="569.9" y="127.6" width="3.6" height="2.4" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="597.8" y="130.0" width="3.6" height="3.2" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="601.5" y="125.2" width="3.6" height="4.8" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="605.2" y="126.2" width="3.6" height="3.8" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="633.0" y="130.0" width="3.6" height="6.4" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="636.7" y="128.3" width="3.6" height="1.7" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="640.4" y="129.5" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="668.2" y="130.0" width="3.6" height="1.0" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="671.9" y="129.1" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="675.6" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="703.4" y="130.0" width="3.6" height="17.3" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="707.1" y="126.3" width="3.6" height="3.7" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="710.8" y="128.2" width="3.6" height="1.8" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="738.6" y="130.0" width="3.6" height="30.0" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="742.3" y="122.6" width="3.6" height="7.4" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="746.0" y="126.2" width="3.6" height="3.8" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="773.8" y="130.0" width="3.6" height="23.4" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="777.5" y="125.3" width="3.6" height="4.7" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="781.2" y="124.7" width="3.6" height="5.3" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="809.1" y="130.0" width="3.6" height="43.2" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="812.8" y="122.6" width="3.6" height="7.4" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="816.5" y="118.1" width="3.6" height="11.9" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="844.3" y="130.0" width="3.6" height="20.5" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="848.0" y="124.5" width="3.6" height="5.5" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="851.7" y="119.4" width="3.6" height="10.6" fill="var(--color-muted)" rx="0.5" /><rect class="inst-bar" x="879.5" y="130.0" width="3.6" height="45.7" fill="var(--color-accent)" rx="0.5" /><rect class="inst-bar" x="883.2" y="120.7" width="3.6" height="9.3" fill="var(--color-tw-rise)" rx="0.5" /><rect class="inst-bar" x="886.9" y="112.6" width="3.6" height="17.4" fill="var(--color-muted)" rx="0.5" />
+      <polyline points="75.0,310.7 110.2,311.3 145.4,310.3 180.7,310.3 215.9,310.7 251.1,312.2 286.3,313.2 321.5,316.7 356.7,317.6 392.0,321.7 427.2,324.9 462.4,326.2 497.6,327.4 532.8,328.4 568.0,330.0 603.3,330.6 638.5,330.9 673.7,330.9 708.9,332.2 744.1,334.1 779.3,336.0 814.6,338.5 849.8,340.1 885.0,342.9" fill="none" stroke="var(--color-accent)" stroke-width="2.2" />
+      <polyline points="75.0,329.4 110.2,328.0 145.4,331.9 180.7,330.1 215.9,331.2 251.1,325.0 286.3,320.4 321.5,318.9 356.7,314.6 392.0,312.4 427.2,313.0 462.4,313.0 497.6,311.6 532.8,307.2 568.0,306.5 603.3,309.4 638.5,307.2 673.7,307.1 708.9,308.9 744.1,307.7 779.3,311.9 814.6,308.1 849.8,310.7 885.0,308.4" fill="none" stroke="var(--color-tw-rise)" stroke-width="2.0" />
+
+      <line id="crosshairInst" x1="0" y1="30" x2="0" y2="380" stroke="var(--color-ink)" stroke-width="1" stroke-dasharray="3,3" opacity="0" pointer-events="none" />
+      <rect class="hover-slice" x="57.4" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="0" data-info="2026-10-01 | 外資: +3,090.7 張 | 投信: +596.5 張 | 自營: +602.5 張 | 外資持股: 69.19% | 融資餘額: 30,658 張" /><rect class="hover-slice" x="92.6" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="1" data-info="2026-10-02 | 外資: -5,914.0 張 | 投信: +253.7 張 | 自營: +316.9 張 | 外資持股: 69.17% | 融資餘額: 30,939 張" /><rect class="hover-slice" x="127.8" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="2" data-info="2026-10-05 | 外資: +9,770.5 張 | 投信: +589.1 張 | 自營: +491.6 張 | 外資持股: 69.20% | 融資餘額: 30,135 張" /><rect class="hover-slice" x="163.0" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="3" data-info="2026-10-06 | 外資: -1,672.2 張 | 投信: +154.6 張 | 自營: +396.0 張 | 外資持股: 69.20% | 融資餘額: 30,500 張" /><rect class="hover-slice" x="198.3" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="4" data-info="2026-10-07 | 外資: -1,163.3 張 | 投信: +66.9 張 | 自營: +447.1 張 | 外資持股: 69.19% | 融資餘額: 30,278 張" /><rect class="hover-slice" x="233.5" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="5" data-info="2026-10-08 | 外資: -12,303.0 張 | 投信: +792.9 張 | 自營: +509.9 張 | 外資持股: 69.14% | 融資餘額: 31,586 張" /><rect class="hover-slice" x="268.7" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="6" data-info="2026-10-12 | 外資: -9,422.8 張 | 投信: +588.1 張 | 自營: +1,371.3 張 | 外資持股: 69.11% | 融資餘額: 32,542 張" /><rect class="hover-slice" x="303.9" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="7" data-info="2026-10-13 | 外資: -25,641.2 張 | 投信: +3,005.3 張 | 自營: +2,491.7 張 | 外資持股: 69.00% | 融資餘額: 32,869 張" /><rect class="hover-slice" x="339.1" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="8" data-info="2026-10-14 | 外資: -6,752.2 張 | 投信: +800.5 張 | 自營: +535.5 張 | 外資持股: 68.97% | 融資餘額: 33,766 張" /><rect class="hover-slice" x="374.3" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="9" data-info="2026-10-15 | 外資: -34,111.4 張 | 投信: +3,235.0 張 | 自營: +7,415.9 張 | 外資持股: 68.84% | 融資餘額: 34,223 張" /><rect class="hover-slice" x="409.6" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="10" data-info="2026-10-16 | 外資: -22,046.1 張 | 投信: +710.2 張 | 自營: -1,035.9 張 | 外資持股: 68.74% | 融資餘額: 34,110 張" /><rect class="hover-slice" x="444.8" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="11" data-info="2026-10-19 | 外資: -9,834.7 張 | 投信: +3,884.6 張 | 自營: +1,346.2 張 | 外資持股: 68.70% | 融資餘額: 34,111 張" /><rect class="hover-slice" x="480.0" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="12" data-info="2026-10-20 | 外資: -9,364.6 張 | 投信: +1,029.7 張 | 自營: -28.8 張 | 外資持股: 68.66% | 融資餘額: 34,401 張" /><rect class="hover-slice" x="515.2" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="13" data-info="2026-10-21 | 外資: -6,153.9 張 | 投信: +1,397.5 張 | 自營: -1,047.6 張 | 外資持股: 68.63% | 融資餘額: 35,330 張" /><rect class="hover-slice" x="550.4" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="14" data-info="2026-10-22 | 外資: -12,694.6 張 | 投信: +1,350.0 張 | 自營: +1,195.5 張 | 外資持股: 68.58% | 融資餘額: 35,472 張" /><rect class="hover-slice" x="585.7" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="15" data-info="2026-10-27 | 外資: -1,618.4 張 | 投信: +2,420.4 張 | 自營: +1,907.0 張 | 外資持股: 68.56% | 融資餘額: 34,862 張" /><rect class="hover-slice" x="620.9" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="16" data-info="2026-10-28 | 外資: -3,175.0 張 | 投信: +844.1 張 | 自營: +262.2 張 | 外資持股: 68.55% | 融資餘額: 35,332 張" /><rect class="hover-slice" x="656.1" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="17" data-info="2026-10-29 | 外資: -10.2 張 | 投信: +443.1 張 | 自營: -281.2 張 | 外資持股: 68.55% | 融資餘額: 35,343 張" /><rect class="hover-slice" x="691.3" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="18" data-info="2026-10-30 | 外資: -8,632.8 張 | 投信: +1,854.7 張 | 自營: +922.0 張 | 外資持股: 68.51% | 融資餘額: 34,961 張" /><rect class="hover-slice" x="726.5" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="19" data-info="2026-11-02 | 外資: -15,005.0 張 | 投信: +3,682.2 張 | 自營: +1,885.9 張 | 外資持股: 68.45% | 融資餘額: 35,219 張" /><rect class="hover-slice" x="761.7" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="20" data-info="2026-11-03 | 外資: -11,703.0 張 | 投信: +2,345.6 張 | 自營: +2,658.1 張 | 外資持股: 68.39% | 融資餘額: 34,346 張" /><rect class="hover-slice" x="797.0" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="21" data-info="2026-11-04 | 外資: -21,603.8 張 | 投信: +3,715.2 張 | 自營: +5,966.9 張 | 外資持股: 68.31% | 融資餘額: 35,144 張" /><rect class="hover-slice" x="832.2" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="22" data-info="2026-11-05 | 外資: -10,252.1 張 | 投信: +2,739.6 張 | 自營: +5,295.6 張 | 外資持股: 68.26% | 融資餘額: 34,596 張" /><rect class="hover-slice" x="867.4" y="30" width="35.2" height="350" fill="transparent" data-chart="inst" data-idx="23" data-info="2026-11-06 | 外資: -22,844.5 張 | 投信: +4,669.5 張 | 自營: +8,701.8 張 | 外資持股: 68.17% | 融資餘額: 35,072 張" />
+    </svg>
+          <div id="instReadout" class="chart-readout font-mono">滑鼠懸停於圖表以檢視每日三大法人買賣超與外資持股比例</div>
+        </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th class="num">外資買賣超 (張)</th>
+            <th class="num">投信買賣超 (張)</th>
+            <th class="num">自營商買賣超 (張)</th>
+            <th class="num">三大法人合計 (張)</th>
+            <th class="num">外資持股比率</th>
+            <th class="num">融資餘額 (張)</th>
+            <th class="num">融券餘額 (張)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td class="font-mono">2026-10-22</td>
+          <td class="font-mono num tw-fall">-12,694.6</td>
+          <td class="font-mono num tw-rise">+1,350.0</td>
+          <td class="font-mono num tw-rise">+1,195.5</td>
+          <td class="font-mono num tw-fall">-10,149.2</td>
+          <td class="font-mono num">68.58%</td>
+          <td class="font-mono num">35,472</td>
+          <td class="font-mono num">15</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-27</td>
+          <td class="font-mono num tw-fall">-1,618.4</td>
+          <td class="font-mono num tw-rise">+2,420.4</td>
+          <td class="font-mono num tw-rise">+1,907.0</td>
+          <td class="font-mono num tw-rise">+2,709.0</td>
+          <td class="font-mono num">68.56%</td>
+          <td class="font-mono num">34,862</td>
+          <td class="font-mono num">8</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-28</td>
+          <td class="font-mono num tw-fall">-3,175.0</td>
+          <td class="font-mono num tw-rise">+844.1</td>
+          <td class="font-mono num tw-rise">+262.2</td>
+          <td class="font-mono num tw-fall">-2,068.8</td>
+          <td class="font-mono num">68.55%</td>
+          <td class="font-mono num">35,332</td>
+          <td class="font-mono num">5</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-29</td>
+          <td class="font-mono num tw-fall">-10.2</td>
+          <td class="font-mono num tw-rise">+443.1</td>
+          <td class="font-mono num tw-fall">-281.2</td>
+          <td class="font-mono num tw-rise">+151.7</td>
+          <td class="font-mono num">68.55%</td>
+          <td class="font-mono num">35,343</td>
+          <td class="font-mono num">16</td>
+        </tr><tr>
+          <td class="font-mono">2026-10-30</td>
+          <td class="font-mono num tw-fall">-8,632.8</td>
+          <td class="font-mono num tw-rise">+1,854.7</td>
+          <td class="font-mono num tw-rise">+922.0</td>
+          <td class="font-mono num tw-fall">-5,856.1</td>
+          <td class="font-mono num">68.51%</td>
+          <td class="font-mono num">34,961</td>
+          <td class="font-mono num">9</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-02</td>
+          <td class="font-mono num tw-fall">-15,005.0</td>
+          <td class="font-mono num tw-rise">+3,682.2</td>
+          <td class="font-mono num tw-rise">+1,885.9</td>
+          <td class="font-mono num tw-fall">-9,436.9</td>
+          <td class="font-mono num">68.45%</td>
+          <td class="font-mono num">35,219</td>
+          <td class="font-mono num">13</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-03</td>
+          <td class="font-mono num tw-fall">-11,703.0</td>
+          <td class="font-mono num tw-rise">+2,345.6</td>
+          <td class="font-mono num tw-rise">+2,658.1</td>
+          <td class="font-mono num tw-fall">-6,699.3</td>
+          <td class="font-mono num">68.39%</td>
+          <td class="font-mono num">34,346</td>
+          <td class="font-mono num">111</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-04</td>
+          <td class="font-mono num tw-fall">-21,603.8</td>
+          <td class="font-mono num tw-rise">+3,715.2</td>
+          <td class="font-mono num tw-rise">+5,966.9</td>
+          <td class="font-mono num tw-fall">-11,921.7</td>
+          <td class="font-mono num">68.31%</td>
+          <td class="font-mono num">35,144</td>
+          <td class="font-mono num">16</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-05</td>
+          <td class="font-mono num tw-fall">-10,252.1</td>
+          <td class="font-mono num tw-rise">+2,739.6</td>
+          <td class="font-mono num tw-rise">+5,295.6</td>
+          <td class="font-mono num tw-fall">-2,216.9</td>
+          <td class="font-mono num">68.26%</td>
+          <td class="font-mono num">34,596</td>
+          <td class="font-mono num">47</td>
+        </tr><tr>
+          <td class="font-mono">2026-11-06</td>
+          <td class="font-mono num tw-fall">-22,844.5</td>
+          <td class="font-mono num tw-rise">+4,669.5</td>
+          <td class="font-mono num tw-rise">+8,701.8</td>
+          <td class="font-mono num tw-fall">-9,473.2</td>
+          <td class="font-mono num">68.17%</td>
+          <td class="font-mono num">35,072</td>
+          <td class="font-mono num">75</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+
+      <!-- Section 3: Financials & Operations -->
+      <section id="dim3" class="report-section">
+        <header class="section-header">
+          <div>
+            <span class="section-tag font-mono">Dimension 03</span>
+            <h2 class="section-title">營運實績、晶圓代工庫存週期與獲利結構 (Operations & Financials)</h2>
+          </div>
+        </header>
+        <p class="section-prose">
+          2026 年 1 至 9 月台積電累計合併營收達新台幣 3 兆 9,007 億元 (NT$ 3,900.73B)，較 2025 年同期之 2 兆 7,430 億元強勁成長 +42.21%，改寫歷史同期新高。近四季 (2025Q3 至 2026Q2) 累計每股純益 (TTM EPS) 達 NT$ 86.28 (依序為 17.44、19.51、22.08、27.25 元)。毛利率呈現逐季擴張態勢，由 2025Q3 之 59.45% 躍升至 2026Q2 之 67.72%，近四季加權平均毛利率達 64.23% (算術平均 63.94%)。在庫存週期方面，2026Q2 存貨金額為 NT$ 3,855 億元，存貨銷售天數 (DSI) 為 84.6 天，維持於健康營運水準，主要反映 CoWoS 與 3nm 先進晶圓在製品之備貨需求。
+        </p>
+        <div class="chart-container">
+          <svg id="chartFinancials" class="chart-svg" viewBox="0 0 960 400" role="img" aria-label="2330 台積電 月營收成長率與季度毛利率獲利結構圖">
+      <line x1="65" y1="340" x2="500" y2="340" stroke="var(--color-rule-2)" stroke-width="1" />
+      <rect class="rev-bar" x="75.2" y="322.6" width="28" height="17.4" fill="var(--color-accent)" rx="1.5" /><text x="89.2" y="316.6" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">40B</text><rect class="rev-bar" x="123.5" y="326.2" width="28" height="13.8" fill="var(--color-accent)" rx="1.5" /><text x="137.5" y="320.2" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">31B</text><rect class="rev-bar" x="171.8" y="322.0" width="28" height="18.0" fill="var(--color-accent)" rx="1.5" /><text x="185.8" y="316.0" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">41B</text><rect class="rev-bar" x="220.2" y="322.2" width="28" height="17.8" fill="var(--color-accent)" rx="1.5" /><text x="234.2" y="316.2" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">41B</text><rect class="rev-bar" x="268.5" y="321.9" width="28" height="18.1" fill="var(--color-accent)" rx="1.5" /><text x="282.5" y="315.9" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">41B</text><rect class="rev-bar" x="316.8" y="320.7" width="28" height="19.3" fill="var(--color-accent)" rx="1.5" /><text x="330.8" y="314.7" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">44B</text><rect class="rev-bar" x="365.2" y="319.7" width="28" height="20.3" fill="var(--color-accent)" rx="1.5" /><text x="379.2" y="313.7" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">46B</text><rect class="rev-bar" x="413.5" y="317.7" width="28" height="22.3" fill="var(--color-accent)" rx="1.5" /><text x="427.5" y="311.7" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">51B</text><rect class="rev-bar" x="461.8" y="317.8" width="28" height="22.2" fill="var(--color-accent)" rx="1.5" /><text x="475.8" y="311.8" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="middle">51B</text>
+      <polyline points="89.2,220.4 137.5,267.9 185.8,193.1 234.2,260.0 282.5,242.2 330.8,117.0 379.2,194.8 427.5,166.7 475.8,162.4" fill="none" stroke="var(--color-tw-rise)" stroke-width="2.2" />
+      <circle cx="89.2" cy="220.4" r="3.5" fill="var(--color-tw-rise)" /><circle cx="137.5" cy="267.9" r="3.5" fill="var(--color-tw-rise)" /><circle cx="185.8" cy="193.1" r="3.5" fill="var(--color-tw-rise)" /><circle cx="234.2" cy="260.0" r="3.5" fill="var(--color-tw-rise)" /><circle cx="282.5" cy="242.2" r="3.5" fill="var(--color-tw-rise)" /><circle cx="330.8" cy="117.0" r="3.5" fill="var(--color-tw-rise)" /><circle cx="379.2" cy="194.8" r="3.5" fill="var(--color-tw-rise)" /><circle cx="427.5" cy="166.7" r="3.5" fill="var(--color-tw-rise)" /><circle cx="475.8" cy="162.4" r="3.5" fill="var(--color-tw-rise)" />
+      <text x="89.2" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">1月</text><text x="137.5" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2月</text><text x="185.8" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">3月</text><text x="234.2" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">4月</text><text x="282.5" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">5月</text><text x="330.8" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">6月</text><text x="379.2" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">7月</text><text x="427.5" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">8月</text><text x="475.8" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">9月</text>
+
+      <!-- Center Vertical Divider -->
+      <line x1="530" y1="35" x2="530" y2="350" stroke="var(--color-rule)" stroke-width="1" stroke-dasharray="3,3" />
+
+      <line x1="560" y1="340" x2="915" y2="340" stroke="var(--color-rule-2)" stroke-width="1" />
+      <rect x="586.4" y="198.3" width="36" height="141.7" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><text x="604.4" y="192.3" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">17.44</text><rect x="675.1" y="181.5" width="36" height="158.5" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><text x="693.1" y="175.5" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">19.51</text><rect x="763.9" y="160.6" width="36" height="179.4" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><text x="781.9" y="154.6" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">22.08</text><rect x="852.6" y="118.6" width="36" height="221.4" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><text x="870.6" y="112.6" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">27.25</text>
+      <polyline points="604.4,241.7 693.1,211.8 781.9,171.0 870.6,155.7" fill="none" stroke="var(--color-accent)" stroke-width="2.2" />
+      <circle cx="604.4" cy="241.7" r="3.5" fill="var(--color-accent)" /><circle cx="693.1" cy="211.8" r="3.5" fill="var(--color-accent)" /><circle cx="781.9" cy="171.0" r="3.5" fill="var(--color-accent)" /><circle cx="870.6" cy="155.7" r="3.5" fill="var(--color-accent)" />
+      <text x="604.4" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2025-Q3</text><text x="693.1" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2025-Q4</text><text x="781.9" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2026-Q1</text><text x="870.6" y="358" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2026-Q2</text>
+    </svg>
+        </div>
+        <div class="table-responsive">
+      <h3 class="sub-table-title">2026年 1 至 9 月合併月營收走勢 (單位：新台幣億元)</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>營收月份</th>
+            <th class="num">2026 單月營收</th>
+            <th class="num">2025 同期營收</th>
+            <th class="num">年增率 (YoY)</th>
+            <th>營運動能與產業背景</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td class="font-mono">2026年01月</td>
+          <td class="font-mono num">4,012.55</td>
+          <td class="font-mono num">2,932.88</td>
+          <td class="font-mono num tw-rise">+36.81%</td>
+          <td>High-performance computing (HPC) demand surge</td>
+        </tr><tr>
+          <td class="font-mono">2026年02月</td>
+          <td class="font-mono num">3,176.57</td>
+          <td class="font-mono num">2,600.09</td>
+          <td class="font-mono num tw-rise">+22.17%</td>
+          <td>Lunar New Year working days normalization</td>
+        </tr><tr>
+          <td class="font-mono">2026年03月</td>
+          <td class="font-mono num">4,151.92</td>
+          <td class="font-mono num">2,859.57</td>
+          <td class="font-mono num tw-rise">+45.19%</td>
+          <td>End-of-quarter volume delivery acceleration</td>
+        </tr><tr>
+          <td class="font-mono">2026年04月</td>
+          <td class="font-mono num">4,107.25</td>
+          <td class="font-mono num">3,295.69</td>
+          <td class="font-mono num tw-rise">+24.62%</td>
+          <td>N3E mainstream node volume ramp</td>
+        </tr><tr>
+          <td class="font-mono">2026年05月</td>
+          <td class="font-mono num">4,169.75</td>
+          <td class="font-mono num">3,205.16</td>
+          <td class="font-mono num tw-rise">+30.09%</td>
+          <td>AI accelerator custom ASIC pull-in</td>
+        </tr><tr>
+          <td class="font-mono">2026年06月</td>
+          <td class="font-mono num">4,446.80</td>
+          <td class="font-mono num">2,637.09</td>
+          <td class="font-mono num tw-rise">+68.63%</td>
+          <td>Q2 closing deliveries & leading-edge price tier adjustments</td>
+        </tr><tr>
+          <td class="font-mono">2026年07月</td>
+          <td class="font-mono num">4,675.81</td>
+          <td class="font-mono num">3,231.66</td>
+          <td class="font-mono num tw-rise">+44.69%</td>
+          <td>Smartphone flagship SoC preparation (Apple A19 / Dimensity)</td>
+        </tr><tr>
+          <td class="font-mono">2026年08月</td>
+          <td class="font-mono num">5,148.05</td>
+          <td class="font-mono num">3,357.72</td>
+          <td class="font-mono num tw-rise">+53.32%</td>
+          <td>First month crossing NT$ 500B historic milestone</td>
+        </tr><tr>
+          <td class="font-mono">2026年09月</td>
+          <td class="font-mono num">5,118.57</td>
+          <td class="font-mono num">3,309.81</td>
+          <td class="font-mono num tw-rise">+54.65%</td>
+          <td>Sustained >NT$ 510B run-rate on hyperscaler AI capex</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-responsive" style="margin-top: var(--space-xl);">
+      <h3 class="sub-table-title">近四季綜合損益與獲利結構 (單位：新台幣億元 / 每股元)</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>財務季度</th>
+            <th class="num">營業收入</th>
+            <th class="num">營業毛利</th>
+            <th class="num">毛利率 (%)</th>
+            <th class="num">營業利益</th>
+            <th class="num">營益率 (%)</th>
+            <th class="num">每股純益 (EPS)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td class="font-mono">2025-Q3</td>
+          <td class="font-mono num">9,899.20</td>
+          <td class="font-mono num">5,885.40</td>
+          <td class="font-mono num">59.45%</td>
+          <td class="font-mono num">5,006.80</td>
+          <td class="font-mono num">50.58%</td>
+          <td class="font-mono num tw-rise">17.44</td>
+        </tr><tr>
+          <td class="font-mono">2025-Q4</td>
+          <td class="font-mono num">10,460.90</td>
+          <td class="font-mono num">6,519.90</td>
+          <td class="font-mono num">62.33%</td>
+          <td class="font-mono num">5,649.00</td>
+          <td class="font-mono num">54.00%</td>
+          <td class="font-mono num tw-rise">19.51</td>
+        </tr><tr>
+          <td class="font-mono">2026-Q1</td>
+          <td class="font-mono num">11,341.00</td>
+          <td class="font-mono num">7,513.00</td>
+          <td class="font-mono num">66.25%</td>
+          <td class="font-mono num">6,589.70</td>
+          <td class="font-mono num">58.11%</td>
+          <td class="font-mono num tw-rise">22.08</td>
+        </tr><tr>
+          <td class="font-mono">2026-Q2</td>
+          <td class="font-mono num">12,703.80</td>
+          <td class="font-mono num">8,603.10</td>
+          <td class="font-mono num">67.72%</td>
+          <td class="font-mono num">7,666.00</td>
+          <td class="font-mono num">60.34%</td>
+          <td class="font-mono num tw-rise">27.25</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+
+      <!-- Section 4: Valuation River & Peer Benchmarks -->
+      <section id="dim4" class="report-section">
+        <header class="section-header">
+          <div>
+            <span class="section-tag font-mono">Dimension 04</span>
+            <h2 class="section-title">5年歷史估值河道、同業競爭矩陣與三情境目標價 (Valuation & Scenarios)</h2>
+          </div>
+          <div class="tab-strip" role="tablist">
+            <button id="tabPER" class="tab-btn active" role="tab" aria-selected="true">PER 本益比河道</button>
+            <button id="tabPBR" class="tab-btn" role="tab" aria-selected="false">PBR 股價淨值比河道</button>
+          </div>
+        </header>
+        <p class="section-prose">
+          根據過去 5 年 (1,217 個交易日) 歷史估值分佈，台積電當前本益比為 24.75x，位於歷史第 56.1 分位，剛自景氣中軸微幅回跌，具備極高安全邊際；股價淨值比為 8.61x，位於歷史第 83.6 分位，主要由持續高達 40% 以上之股東權益報酬率 (ROE) 所強力支撐。在橫向同業對比方面，台積電 24.75x PER 相較台灣半導體龍頭同業中位數 38.13x 折價達 -35.09%，估值明顯遭到低估。
+        </p>
+        <div class="chart-container">
+          <svg id="chartValuationRiver" class="chart-svg" viewBox="0 0 960 440" role="img" aria-label="2330 台積電 5年歷史估值河道圖 (本益比 / 股價淨值比)">
+      <!-- PER River Group (Default Active) -->
+      <g id="groupPerRiver">
+        <polygon class="river-band" points="75.0,337.5 243.0,323.8 411.0,303.8 579.0,253.8 747.0,153.8 915.0,41.2 915.0,103.8 747.0,203.8 579.0,285.0 411.0,325.0 243.0,342.5 75.0,353.8" fill="color-mix(in oklab, var(--color-river-top) 18%, transparent)" />
+        <polygon class="river-band" points="75.0,353.8 243.0,342.5 411.0,325.0 579.0,285.0 747.0,203.8 915.0,103.8 915.0,151.2 747.0,237.5 579.0,306.2 411.0,341.2 243.0,355.0 75.0,365.0" fill="color-mix(in oklab, var(--color-river-high) 16%, transparent)" />
+        <polygon class="river-band" points="75.0,365.0 243.0,355.0 411.0,341.2 579.0,306.2 747.0,237.5 915.0,151.2 915.0,198.8 747.0,270.0 579.0,327.5 411.0,356.2 243.0,368.8 75.0,376.2" fill="color-mix(in oklab, var(--color-river-mid) 14%, transparent)" />
+        <polygon class="river-band" points="75.0,376.2 243.0,368.8 411.0,356.2 579.0,327.5 747.0,270.0 915.0,198.8 915.0,246.2 747.0,303.8 579.0,348.8 411.0,372.5 243.0,381.2 75.0,385.0" fill="color-mix(in oklab, var(--color-river-low) 14%, transparent)" />
+        <polygon class="river-band" points="75.0,385.0 243.0,381.2 411.0,372.5 579.0,348.8 747.0,303.8 915.0,246.2 915.0,292.5 747.0,336.2 579.0,370.0 411.0,385.0 243.0,385.0 75.0,385.0" fill="color-mix(in oklab, var(--color-river-bottom) 16%, transparent)" />
+
+        <!-- Historical Price Polyline -->
+        <polyline points="75.0,358.1 243.0,379.0 411.0,360.9 579.0,305.0 747.0,187.5 915.0,168.1" fill="none" stroke="var(--color-ink)" stroke-width="2.5" />
+
+        <!-- Multiplier Text Labels -->
+        <text x="923.0" y="45.2" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">34.0x</text>
+        <text x="923.0" y="107.8" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">28.0x</text>
+        <text x="923.0" y="155.2" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">24.0x</text>
+        <text x="923.0" y="202.8" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">20.0x</text>
+        <text x="923.0" y="250.2" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">16.0x</text>
+
+        <!-- Current PER Callout Pinpoint -->
+        <circle cx="915.0" cy="168.1" r="5.5" fill="var(--color-tw-rise)" stroke="var(--color-sheet)" stroke-width="2" />
+        <rect x="740.0" y="136.1" width="165" height="24" fill="var(--color-sheet)" stroke="var(--color-tw-rise)" stroke-width="1.2" rx="2" />
+        <text x="823.0" y="152.1" font-family="var(--font-mono)" font-size="10.5" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">目前 24.75x (第 56.1 分位)</text>
+      </g>
+
+      <!-- PBR River Group (Initially Hidden) -->
+      <g id="groupPbrRiver" style="display: none;">
+        <polygon class="river-band" points="75.0,325.0 243.0,310.0 411.0,285.0 579.0,235.0 747.0,141.2 915.0,93.8 915.0,140.0 747.0,181.2 579.0,262.5 411.0,306.2 243.0,327.5 75.0,340.0" fill="color-mix(in oklab, var(--color-river-top) 18%, transparent)" />
+        <polygon class="river-band" points="75.0,340.0 243.0,327.5 411.0,306.2 579.0,262.5 747.0,181.2 915.0,140.0 915.0,202.5 747.0,235.0 579.0,298.8 411.0,332.5 243.0,350.0 75.0,360.0" fill="color-mix(in oklab, var(--color-river-high) 16%, transparent)" />
+        <polygon class="river-band" points="75.0,360.0 243.0,350.0 411.0,332.5 579.0,298.8 747.0,235.0 915.0,202.5 915.0,248.8 747.0,275.0 579.0,326.2 411.0,353.8 243.0,367.5 75.0,375.0" fill="color-mix(in oklab, var(--color-river-mid) 14%, transparent)" />
+        <polygon class="river-band" points="75.0,375.0 243.0,367.5 411.0,353.8 579.0,326.2 747.0,275.0 915.0,248.8 915.0,286.2 747.0,307.5 579.0,347.5 411.0,370.0 243.0,381.2 75.0,385.0" fill="color-mix(in oklab, var(--color-river-low) 14%, transparent)" />
+        <polygon class="river-band" points="75.0,385.0 243.0,381.2 411.0,370.0 579.0,347.5 747.0,307.5 915.0,286.2 915.0,317.5 747.0,333.8 579.0,366.2 411.0,383.8 243.0,385.0 75.0,385.0" fill="color-mix(in oklab, var(--color-river-bottom) 16%, transparent)" />
+
+        <!-- Historical Price Polyline -->
+        <polyline points="75.0,358.1 243.0,379.0 411.0,360.9 579.0,305.0 747.0,187.5 915.0,168.1" fill="none" stroke="var(--color-ink)" stroke-width="2.5" />
+
+        <!-- Multiplier Text Labels -->
+        <text x="923.0" y="97.8" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">11.0x</text>
+        <text x="923.0" y="144.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">9.5x</text>
+        <text x="923.0" y="206.5" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">7.5x</text>
+        <text x="923.0" y="252.8" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">6.0x</text>
+        <text x="923.0" y="290.2" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">4.8x</text>
+
+        <!-- Current PBR Callout Pinpoint -->
+        <circle cx="915.0" cy="168.1" r="5.5" fill="var(--color-accent)" stroke="var(--color-sheet)" stroke-width="2" />
+        <rect x="740.0" y="136.1" width="165" height="24" fill="var(--color-sheet)" stroke="var(--color-accent)" stroke-width="1.2" rx="2" />
+        <text x="823.0" y="152.1" font-family="var(--font-mono)" font-size="10.5" font-weight="600" fill="var(--color-accent)" text-anchor="middle">目前 8.61x (第 83.6 分位)</text>
+      </g>
+    </svg>
+        </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>公司名稱 (代號)</th>
+            <th class="num">市場報價 (TWD)</th>
+            <th class="num">近四季本益比 (<abbr>TTM PER</abbr>)</th>
+            <th class="num">股價淨值比 (PBR)</th>
+            <th class="num">現金殖利率 (%)</th>
+            <th class="num">市值 (新台幣 B)</th>
+            <th class="num">市值 (美元 B)</th>
+            <th class="num">外資持股比 (%)</th>
+            <th>相對同業中位數折溢價</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+          <td class="font-mono"><strong>TSMC (台積電) (2330)</strong></td>
+          <td class="font-mono num">2,135.0</td>
+          <td class="font-mono num"><strong>24.75x</strong></td>
+          <td class="font-mono num">8.61x</td>
+          <td class="font-mono num">1.03%</td>
+          <td class="font-mono num">55,365.6</td>
+          <td class="font-mono num">1,730.2</td>
+          <td class="font-mono num">68.17%</td>
+          <td>-35.09% (Significant Discount)</td>
+        </tr><tr>
+          <td class="font-mono"><strong>MediaTek (聯發科) (2454)</strong></td>
+          <td class="font-mono num">3,390.0</td>
+          <td class="font-mono num"><strong>55.99x</strong></td>
+          <td class="font-mono num">12.76x</td>
+          <td class="font-mono num">1.58%</td>
+          <td class="font-mono num">5,440.8</td>
+          <td class="font-mono num">170.0</td>
+          <td class="font-mono num">52.48%</td>
+          <td>+46.84% (Premium)</td>
+        </tr><tr>
+          <td class="font-mono"><strong>ASE Tech (日月光投控) (3711)</strong></td>
+          <td class="font-mono num">527.0</td>
+          <td class="font-mono num"><strong>38.13x</strong></td>
+          <td class="font-mono num">5.95x</td>
+          <td class="font-mono num">1.25%</td>
+          <td class="font-mono num">2,365.2</td>
+          <td class="font-mono num">73.9</td>
+          <td class="font-mono num">75.79%</td>
+          <td>Benchmark (Median 38.13x)</td>
+        </tr><tr>
+          <td class="font-mono"><strong>UMC (聯電) (2303)</strong></td>
+          <td class="font-mono num">92.0</td>
+          <td class="font-mono num"><strong>13.59x</strong></td>
+          <td class="font-mono num">2.45x</td>
+          <td class="font-mono num">2.84%</td>
+          <td class="font-mono num">1,156.4</td>
+          <td class="font-mono num">36.1</td>
+          <td class="font-mono num">38.39%</td>
+          <td>-64.36% (Mature Node Discount)</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>估值情境 (Scenario)</th>
+            <th class="num">機率權重</th>
+            <th class="num">目標價 (TWD)</th>
+            <th class="num">潛在漲跌幅</th>
+            <th class="num">預估 <abbr>FY26 EPS</abbr></th>
+            <th class="num">目標本益比 (<abbr>PER</abbr>)</th>
+            <th>核心評價模型與策略假定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td><strong>Bull Case (樂觀情境)</strong></td>
+          <td class="font-mono num">20%</td>
+          <td class="font-mono num tw-rise"><strong>NT$ 3,150.0</strong></td>
+          <td class="font-mono num tw-rise"><strong>+47.54%</strong></td>
+          <td class="font-mono num">NT$ 105.00</td>
+          <td class="font-mono num">30.0x</td>
+          <td>Unabated AI hyper-cluster capex; 2nm volume production with 20% wafer ASP premium; CoWoS packaging expands to 80k wpm.</td>
+        </tr><tr class="highlight-row">
+          <td><strong>Base Case (基準情境)</strong></td>
+          <td class="font-mono num">65%</td>
+          <td class="font-mono num tw-rise"><strong>NT$ 2,650.0</strong></td>
+          <td class="font-mono num tw-rise"><strong>+24.12%</strong></td>
+          <td class="font-mono num">NT$ 95.00</td>
+          <td class="font-mono num">28.0x</td>
+          <td>28.0x forward multiple on FY2026 EPS of NT$ 95.0; blended with 10.5x PBR on compounding BVPS of NT$ 252.0.</td>
+        </tr><tr>
+          <td><strong>Bear Case (悲觀情境)</strong></td>
+          <td class="font-mono num">15%</td>
+          <td class="font-mono num tw-fall"><strong>NT$ 1,950.0</strong></td>
+          <td class="font-mono num tw-fall"><strong>-8.67%</strong></td>
+          <td class="font-mono num">NT$ 92.80</td>
+          <td class="font-mono num">21.0x</td>
+          <td>Geopolitical risk premium spike; US CHIPS Act tariff frictions; deceleration of enterprise hyperscaler capex.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+
+      <!-- Section 5: Competitive Moats, Catalysts & Risks -->
+      <section id="dim5" class="report-section">
+        <header class="section-header">
+          <div>
+            <span class="section-tag font-mono">Dimension 05</span>
+            <h2 class="section-title">核心競爭護城河、催化劑與潛在下行風險 (Moats, Catalysts & Downside Risks)</h2>
+          </div>
+        </header>
+        <div class="narrative-grid">
+          <!-- Moats -->
+          <div class="narrative-col">
+            <h3 class="narrative-col-title">結構性核心護城河 (Moats)</h3>
+            <ul class="narrative-list">
+              <li class="narrative-item">
+                <strong>先進製程絕對壟斷 (>90% 市佔率)</strong>
+                3nm/2nm <abbr>GAA</abbr> 先進製程囊括全球所有頂級 <abbr>HPC</abbr> 與 <abbr>AI</abbr> 加速器客戶，N2 奈米片進度超前且商業良率優異。
+              </li>
+              <li class="narrative-item">
+                <strong><abbr>CoWoS</abbr> 與 <abbr>SoIC</abbr> 先進封裝生態系鎖定</strong>
+                台積電 3D Fabric 平台具備獨家統包優勢，成為 Nvidia Blackwell/Rubin 及 <abbr>AMD</abbr> <abbr>AI</abbr> 晶片出貨之唯一合格供應鏈。
+              </li>
+              <li class="narrative-item">
+                <strong>無可撼動的訂價權與高轉換成本</strong>
+                先進製程維持 5-10% 年化晶圓代工價格調漲能力，客戶轉換至其他代工廠之開模與重製成本超過 5 億美元。
+              </li>
+            </ul>
+          </div>
+          <!-- Catalysts -->
+          <div class="narrative-col">
+            <h3 class="narrative-col-title">短中期正面催化劑 (Catalysts)</h3>
+            <ul class="narrative-list">
+              <li class="narrative-item">
+                <strong>全球雲端巨頭 <abbr>AI</abbr> 資本支出浪潮</strong>
+                北美大型 <abbr>CSP</abbr> 每年投入超過 2,000 億美元算力基建，絕大多數採購預算直接轉化為台積電高單價晶圓收入。
+              </li>
+              <li class="narrative-item">
+                <strong>N3P 與 N3E 主流節點全面放量</strong>
+                旗艦手機晶片 (Apple A19、聯發科天璣) 與伺服器處理器全面轉進，帶動晶圓平均售價 (<abbr>ASP</abbr>) 持續提升。
+              </li>
+              <li class="narrative-item">
+                <strong>海外晶圓廠良率成熟與補貼落地</strong>
+                美國亞利桑那與日本熊本廠達到商業化營運水準，大幅舒緩地緣政治集中風險，並獲取跨國政府數百億補貼。
+              </li>
+              <li class="narrative-item">
+                <strong>外資賣壓竭盡與法人回補潮</strong>
+                在累積拋售 23.9 萬張後，外資籌碼面超跌與 56 分位本益比吸引長線主權基金展開報復性回補。
+              </li>
+            </ul>
+          </div>
+          <!-- Risks -->
+          <div class="narrative-col">
+            <h3 class="narrative-col-title">重大下行風險 (Downside Risks)</h3>
+            <ul class="narrative-list">
+              <li class="narrative-item">
+                <strong>地緣政治與兩岸局勢不確定性</strong>
+                區域軍事演訓與地緣風險溢價可能引發國際主權基金被動式去風險化，造成被動型外資短期撤出。
+              </li>
+              <li class="narrative-item">
+                <strong>美國晶片法案與貿易關稅政策變動</strong>
+                美國保護主義政策抬頭可能對進口高階晶片課徵懲罰性關稅，或推遲海外建廠之補貼撥款進度。
+              </li>
+              <li class="narrative-item">
+                <strong>海外擴產高成本對毛利率之稀釋</strong>
+                海外廠水電、營造與勞動成本顯著高於台灣本土，可能於初期投產階段對整體毛利率產生 200 至 300 個基點之稀釋。
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Actionable Trade Setup & Risk Control Matrix -->
+      <section id="dim6" class="report-section">
+        <header class="section-header">
+          <div>
+            <span class="section-tag font-mono">Dimension 06</span>
+            <h2 class="section-title">實戰交易策略矩陣與風險風控體系 (Actionable Trade Setup & Risk Playbook)</h2>
+          </div>
+        </header>
+        <p class="section-prose">
+          本報告依據外資頂級交易策略模型，制定明確之實戰操作指引：以 11 月 6 日恐慌長下影線低點與本土投信密集加碼防線為基礎，設定 NT$ 2,080 - 2,150 為首要分批承接區間；以日線帶量收復 20MA (NT$ 2,380) 為突破加碼點。上行目標第一階段技術回歸目標為 NT$ 2,450.0 (+14.75%)，第二階段 12 個月基本面基準目標價為 NT$ 2,650.0 (+24.12%)。設定硬停損價為 NT$ 1,980.0 (-7.26%)，下行空間僅 NT$ 155.0，上行潛在獲利 NT$ 515.0，整體風報比達 3.32 : 1，極具法人機構建倉之風險不對稱優勢。
+        </p>
+        <div class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>交易維度</th>
+            <th>核心執行參數</th>
+            <th>技術依據與機構操作邏輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>建議進場區間 (Entry Zone)</strong></td>
+            <td class="font-mono"><strong>NT$ 2,080 - 2,150</strong></td>
+            <td>11/06 爆量 11 萬張恐慌長下影線吸收區，重疊國內投信與主權基金買盤支撐底部。</td>
+          </tr>
+          <tr>
+            <td><strong>突破加碼觸發點 (Breakout)</strong></td>
+            <td class="font-mono"><strong>NT$ 2,380 - 2,400</strong></td>
+            <td>日 K 線帶量 (>55,000 張 / 成交額 >NT$ 1,200 億) 有效收復 20 日移動平均線 (月線)。</td>
+          </tr>
+          <tr>
+            <td><strong>第一階段目標 (T1 Swing)</strong></td>
+            <td class="font-mono tw-rise"><strong>NT$ 2,450.0 (+14.75%)</strong></td>
+            <td>Retesting 20MA mean-reversion line and prior breakdown shelf.</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>第二階段目標 (T2 Base)</strong></td>
+            <td class="font-mono tw-rise"><strong>NT$ 2,650.0 (+24.12%)</strong></td>
+            <td>Primary 6-12 month target based on 28.0x multiple and FY2026 earnings.</td>
+          </tr>
+          <tr>
+            <td><strong>第三階段藍天目標 (T3 Bull)</strong></td>
+            <td class="font-mono tw-rise"><strong>NT$ 3,150.0 (+47.54%)</strong></td>
+            <td>30.0x peak multiple driven by 2nm acceleration and CoWoS doubling.</td>
+          </tr>
+          <tr>
+            <td><strong>硬停損價位 (Hard Stop-Loss)</strong></td>
+            <td class="font-mono tw-fall"><strong>NT$ 1,980.0 (-7.26%)</strong></td>
+            <td>Strict risk cut-off set 2.0% below the panic low wick of NT$ 2,020 reached on 2026-11-06.</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>風險報酬比 (Risk:Reward)</strong></td>
+            <td class="font-mono tw-rise"><strong>3.32 : 1</strong></td>
+            <td>目標潛在上行空間 NT$ 515.0 / 下行停損風險 NT$ 155.0，大幅優於機構 3:1 門檻。</td>
+          </tr>
+          <tr>
+            <td><strong>核心論點失效因子 (Breakers)</strong></td>
+            <td><strong>三大關鍵紅線</strong></td>
+            <td>
+              <ol style="margin: 0; padding-left: 20px;">
+                <li>Quarterly gross margin dropping below 60.0% (indicating loss of pricing power or severe fab dilution).</li>
+                <li>Cancellation or scale-back of CoWoS capacity commitments by major AI accelerator customers.</li>
+                <li>Punitive trade tariffs (>25%) enacted by the US Department of Commerce on Taiwan foundry exports.</li>
+              </ol>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+    </main>
+
+    <!-- 4. Institutional Colophon & Disclaimer Footer -->
+    <footer class="report-footer">
+      <div class="footer-meta">
+        <div><strong>台積電 (2330.TW) 機構級深度研究報告</strong>, Published 2026-11-09, TSMC Valuation Desk</div>
+        <div>Data Source: FinMind Public REST API v4, TWSE Disclosures, Corporate Financial Filings</div>
+      </div>
+      <div class="footer-disclaimer">
+        免責聲明：本研究報告僅供機構投資人與特定受眾參考，非供一般大眾之投資推介或要約。報告所載之市場數據、基本面分析、估值模型與情境預測係基於公開可靠之資訊來源，本研究團隊不對其完整性或即時性作任何明示或暗示之擔保。投資人應獨立評估相關證券之市場風險、信用風險與流動性風險，並自行承擔投資決策之最終盈虧。
+      </div>
+    </footer>
+  </div>
+
+  <!-- 5. Zero-Dependency Inline JavaScript Micro-Engine -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Dual-Mode Theme Controller
+      var toggleBtn = document.getElementById('themeToggle');
+      var root = document.documentElement;
+
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        root.setAttribute('data-mode', theme);
+        try { localStorage.setItem('task-html-theme', theme); } catch(e) {}
+        if (toggleBtn) {
+          toggleBtn.textContent = theme === 'dark' ? '切換淺色' : '切換深色';
+        }
+      }
+
+      var currentTheme = root.getAttribute('data-theme') || 'light';
+      applyTheme(currentTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          var cur = root.getAttribute('data-theme') || 'light';
+          var nxt = cur === 'dark' ? 'light' : 'dark';
+          applyTheme(nxt);
+        });
+      }
+
+      // 2. Valuation River Interactive Tab Controller
+      var tabPer = document.getElementById('tabPER');
+      var tabPbr = document.getElementById('tabPBR');
+      var gPer = document.getElementById('groupPerRiver');
+      var gPbr = document.getElementById('groupPbrRiver');
+
+      if (tabPer && tabPbr && gPer && gPbr) {
+        tabPer.addEventListener('click', function() {
+          tabPer.classList.add('active');
+          tabPer.setAttribute('aria-selected', 'true');
+          tabPbr.classList.remove('active');
+          tabPbr.setAttribute('aria-selected', 'false');
+          gPer.style.display = 'inline';
+          gPbr.style.display = 'none';
+        });
+
+        tabPbr.addEventListener('click', function() {
+          tabPbr.classList.add('active');
+          tabPbr.setAttribute('aria-selected', 'true');
+          tabPer.classList.remove('active');
+          tabPer.setAttribute('aria-selected', 'false');
+          gPbr.style.display = 'inline';
+          gPer.style.display = 'none';
+        });
+      }
+
+      // 3. Hover Slice Crosshair & Readout Telemetry Binding
+      var slices = document.querySelectorAll('.hover-slice');
+      slices.forEach(function(slice) {
+        slice.addEventListener('mouseenter', function() {
+          var chartType = slice.dataset.chart;
+          var xCenter = parseFloat(slice.getAttribute('x')) + parseFloat(slice.getAttribute('width')) / 2.0;
+
+          if (chartType === 'price') {
+            var ch = document.getElementById('crosshairPrice');
+            if (ch) {
+              ch.setAttribute('x1', xCenter);
+              ch.setAttribute('x2', xCenter);
+              ch.style.opacity = '1';
+            }
+            var pRo = document.getElementById('priceReadout');
+            if (pRo && slice.dataset.info) {
+              pRo.textContent = slice.dataset.info;
+            }
+          } else if (chartType === 'inst') {
+            var chInst = document.getElementById('crosshairInst');
+            if (chInst) {
+              chInst.setAttribute('x1', xCenter);
+              chInst.setAttribute('x2', xCenter);
+              chInst.style.opacity = '1';
+            }
+            var iRo = document.getElementById('instReadout');
+            if (iRo && slice.dataset.info) {
+              iRo.textContent = slice.dataset.info;
+            }
+          }
+        });
+      });
+
+      // Mouseleave handler to reset crosshairs
+      var svgs = document.querySelectorAll('.chart-svg');
+      svgs.forEach(function(svg) {
+        svg.addEventListener('mouseleave', function() {
+          var chPrice = document.getElementById('crosshairPrice');
+          if (chPrice) chPrice.style.opacity = '0';
+          var chInst = document.getElementById('crosshairInst');
+          if (chInst) chInst.style.opacity = '0';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

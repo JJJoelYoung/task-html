@@ -270,6 +270,38 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   border-color: var(--color-accent);
 }
 
+.artifact-title-link:hover {
+  color: var(--color-accent);
+}
+
+.artifact-badge {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  background: var(--color-paper-3);
+  border: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radius-pill);
+}
+
+.artifact-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.telemetry-value {
+  font-family: var(--font-outlier);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
 /* Empty State */
 .empty-box {
   grid-column: 1 / -1;
@@ -333,6 +365,34 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
   <!-- Artifacts Grid -->
   <main class="artifacts-grid" id="artifactsContainer">
+
+    <!-- Card: TSMC 2330 -->
+    <article class="artifact-card" data-category="equity" data-keywords="2330 台積電 tsmc equity research semiconductor foundry cowos 2nm n3 5ma 10ma 20ma finmind twse per pbr river bands trade setup risk reward">
+      <div>
+        <div class="artifact-meta-top">
+          <span class="artifact-category">equity research</span>
+          <span class="artifact-date">2026-11-09</span>
+        </div>
+        <h2 class="artifact-heading">
+          <a href="reports/equity/2330-tsmc-20261109.html" class="artifact-title-link">2330 台積電 (TSMC) 360度綜合深度投資分析報告</a>
+        </h2>
+        <p class="artifact-desc">
+          聚焦晶圓代工超級循環、先進製程 2nm 與 CoWoS 產能放量。收盤價 2,135 元，本益比 24.75x，前 9 月累計營收達 3,900.7 億元（全年前三季約 3.90T），TTM EPS 86.28 元。完整剖析 6 大核心研究維度、5 年本益比河流圖折價修復契機與實戰交易架構。
+        </p>
+
+        <div class="artifact-telemetry">
+          <div class="telemetry-item">目標價：<span class="telemetry-val telemetry-value text-accent">NT$ 2,650</span></div>
+          <div class="telemetry-item">潛在上漲：<span class="telemetry-val telemetry-value text-accent">+24.1%</span></div>
+          <div class="telemetry-item">投資評等：<span class="telemetry-val">CONVICTION BUY</span></div>
+          <div class="telemetry-item">風險報酬比：<span class="telemetry-val">3.32 : 1</span></div>
+        </div>
+      </div>
+
+      <div class="artifact-footer">
+        <span class="artifact-badge">Autonomous HTML</span>
+        <a href="reports/equity/2330-tsmc-20261109.html" class="artifact-action" aria-label="閱讀台積電研究報告">閱讀報告 →</a>
+      </div>
+    </article>
 
     <!-- Card 1: Phison Electronics 8299 -->
     <article class="artifact-card" data-category="equity" data-keywords="8299 群聯 群聯電子 phison 半導體 ai ssd per pbr 儲存 控制晶片 nand pcie aidaptiv 1500">
