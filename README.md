@@ -34,6 +34,7 @@ task-html/
 | Category | Deliverable | Live Link | Local Path |
 | :--- | :--- | :--- | :--- |
 | **Equity Research** | 8299 Phison (群聯電子) 360° Comprehensive Analysis | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/8299-phison.html) | [`reports/equity/8299-phison.html`](./reports/equity/8299-phison.html) |
+| **Equity Research** | 2501 Cathay Real Estate (國泰建設) 360° Comprehensive Analysis | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2501-cathay-real-estate.html) | [`reports/equity/2501-cathay-real-estate.html`](./reports/equity/2501-cathay-real-estate.html) |
 
 ---
 

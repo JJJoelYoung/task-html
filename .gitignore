@@ -25,3 +25,10 @@ yarn-error.log*
 *.tmp
 *.log
 .temp/
+__pycache__/
+*.py[cod]
+
+# Agent runtime and design audits
+.agents/
+.hallmark/
+
