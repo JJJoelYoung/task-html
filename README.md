@@ -17,9 +17,11 @@ This repository is designed with strict domain separation, allowing new artifact
 task-html/
 ├── index.html                   # Central navigation portal & live searchable dashboard
 ├── reports/                     # In-depth research reports and strategic analyses
-│   ├── equity/                  # Single-stock research (e.g., 2501-cathay-real-estate.html)
+│   ├── equity/                  # Single-stock research (e.g., 2501-cathay-real-estate.html, 8299-phison-20261109.html)
 │   ├── industry/                # Thematic industry supply chain studies
 │   └── macro/                   # Macroeconomic trends and liquidity tracking
+├── scripts/                     # Data acquisition pipelines, generator scripts, and E2E test suites
+│   └── equity/                  # Single-stock research pipelines (e.g., 2501/, 8299-20261109/)
 ├── visualizers/                 # Interactive charts, backtests, and data tools
 ├── prototypes/                  # UI/UX mockups, design systems, and component drafts
 ├── docs/                        # Technical specifications, cheatsheets, and manuals
@@ -33,6 +35,7 @@ task-html/
 
 | Category | Deliverable | Live Link | Local Path |
 | :--- | :--- | :--- | :--- |
+| **Equity Research** | 8299 Phison Electronics (群聯電子) 360° Comprehensive Analysis | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/8299-phison-20261109.html) | [`reports/equity/8299-phison-20261109.html`](./reports/equity/8299-phison-20261109.html) |
 | **Equity Research** | 2501 Cathay Real Estate (國泰建設) 360° Comprehensive Analysis | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2501-cathay-real-estate.html) | [`reports/equity/2501-cathay-real-estate.html`](./reports/equity/2501-cathay-real-estate.html) |
 
 ---

@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="8299 群聯電子 (Phison) 360度綜合研究分析報告與目標價推導。">
+  <title>8299 群聯電子 (Phison) 360度綜合研究分析報告 | Institutional Equity Research</title>
+  
+  <!-- Preconnect & Offline Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    // Immediate FOUC-prevention theme initializer
+    (function() {
+      try {
+        var saved = localStorage.getItem('task-html-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-mode', theme);
+      } catch(e) {}
+    })();
+  </script>
+
+  <style>
+/* Hallmark · shape: Almanac · genre: editorial · theme: Almanac (deal 1/3) · job: research · draw: 8299-phison
+ * hero: Stage · nav: edge-aligned · footer: mast · imagery: none · signature: 5-year valuation river & interactive SVG suite
+ * axes: mid/grotesk-sans/chromatic-indigo · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: S, tailored semiconductor controller & memory cycle metrics */
+/* Hallmark · dismissed 58 · Comprehensive institutional equity research requires 5 analytical dimensions with detailed quantitative narrative */
+
+:root {
+  color-scheme: light dark;
+
+  /* Strict 4px Token Spacing Rhythm (Gate 24a/24b) */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-display: clamp(2.25rem, 3.5vw + 0.5rem, 3.25rem);
+  --text-section: clamp(1.5rem, 2vw + 0.5rem, 2rem);
+  --text-title: 1.25rem;
+
+  /* Motion & Transitions (Gate 10a: Transform & Opacity Only) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  /* Layout Boundaries */
+  --container: 1360px;
+  --gutter: 32px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* Strict 3 Typography Families (Gate 37) */
+  --font-display: "Plus Jakarta Sans", "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Newsreader", "Source Serif 4", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+
+  /* LIGHT MODE TOKENS (Anchor Hue 250 - Cool Slate Sheet Stock) */
+  --color-paper: oklch(98.5% 0.005 250);
+  --color-paper-2: oklch(95.0% 0.009 250);
+  --color-paper-3: oklch(92.0% 0.012 250);
+  --color-sheet: oklch(99.4% 0.003 250);
+
+  --color-ink: oklch(17.0% 0.022 250);
+  --color-ink-2: oklch(27.0% 0.018 250);
+  --color-muted: oklch(44.0% 0.015 250);
+
+  --color-rule: oklch(86.0% 0.008 250);
+  --color-rule-2: oklch(34.0% 0.020 250);
+
+  /* Primary Accent: Institutional Cobalt (Hue 260) */
+  --color-accent: oklch(34.0% 0.160 260);
+  --color-accent-hover: oklch(28.0% 0.160 260);
+  --color-accent-soft: oklch(94.5% 0.035 260);
+  --color-accent-ink: oklch(99.5% 0.002 250);
+  --color-focus: oklch(46.0% 0.180 260);
+
+  /* Taiwan Market Directional Semantics */
+  --color-tw-rise: oklch(48.0% 0.200 25);
+  --color-tw-rise-soft: oklch(95.0% 0.030 25);
+  --color-tw-fall: oklch(46.0% 0.130 150);
+  --color-tw-fall-soft: oklch(94.0% 0.030 150);
+
+  /* Valuation River Band Palette */
+  --color-river-top: oklch(50.0% 0.140 25);
+  --color-river-high: oklch(62.0% 0.120 45);
+  --color-river-mid: oklch(72.0% 0.090 85);
+  --color-river-low: oklch(70.0% 0.100 180);
+  --color-river-bottom: oklch(60.0% 0.120 230);
+}
+
+/* DARK MODE TOKENS (Mathematical Parity) */
+[data-theme="dark"], [data-mode="dark"] {
+  --color-paper: oklch(15.0% 0.012 250);
+  --color-paper-2: oklch(18.5% 0.014 250);
+  --color-paper-3: oklch(22.0% 0.016 250);
+  --color-sheet: oklch(17.0% 0.013 250);
+
+  --color-ink: oklch(93.0% 0.008 250);
+  --color-ink-2: oklch(82.0% 0.010 250);
+  --color-muted: oklch(62.0% 0.012 250);
+
+  --color-rule: oklch(28.0% 0.012 250);
+  --color-rule-2: oklch(48.0% 0.015 250);
+
+  --color-accent: oklch(64.0% 0.130 260);
+  --color-accent-hover: oklch(70.0% 0.130 260);
+  --color-accent-soft: oklch(25.0% 0.040 260);
+  --color-accent-ink: oklch(8.0% 0.010 250);
+  --color-focus: oklch(65.0% 0.140 260);
+
+  --color-tw-rise: oklch(62.0% 0.180 25);
+  --color-tw-rise-soft: oklch(24.0% 0.040 25);
+  --color-tw-fall: oklch(62.0% 0.120 150);
+  --color-tw-fall-soft: oklch(24.0% 0.035 150);
+
+  --color-river-top: oklch(42.0% 0.110 25);
+  --color-river-high: oklch(48.0% 0.090 45);
+  --color-river-mid: oklch(54.0% 0.070 85);
+  --color-river-low: oklch(52.0% 0.080 180);
+  --color-river-bottom: oklch(46.0% 0.090 230);
+}
+
+/* Reset & Core Base Rules */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: clip;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+* {
+  scrollbar-color: var(--color-rule-2) var(--color-paper-2);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.report-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Typography Invariants */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+.num, td.num, th.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Semantic Directional Colors */
+.tw-rise { color: var(--color-tw-rise); }
+.tw-fall { color: var(--color-tw-fall); }
+
+/* Institutional Masthead */
+header.report-masthead {
+  border-bottom: 2px solid var(--color-ink);
+  padding: var(--space-xl) 0 var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.masthead-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.masthead-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.report-headline {
+  font-size: var(--text-display);
+  letter-spacing: -0.02em;
+}
+
+.ticker-badge {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent);
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  color: var(--color-ink);
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--dur-short) var(--ease-out);
+}
+
+.theme-toggle-btn:hover {
+  opacity: 0.85;
+}
+
+/* Executive Tear Sheet Grid */
+.tear-sheet {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-rule);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: var(--space-lg);
+  border-radius: var(--radius-md);
+}
+
+.tear-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tear-block.primary {
+  border-right: 1px solid var(--color-rule);
+  padding-right: var(--space-md);
+}
+
+.tear-label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-2xs);
+}
+
+.tear-value {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.tear-value.target {
+  color: var(--color-accent);
+}
+
+.tear-sub {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-top: var(--space-2xs);
+}
+
+/* Research Sections */
+section.dimension-section {
+  margin-bottom: var(--space-4xl);
+}
+
+.section-header {
+  border-bottom: 1px solid var(--color-rule-2);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.section-title {
+  font-size: var(--text-section);
+  letter-spacing: -0.01em;
+}
+
+.section-tag {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.section-prose {
+  font-size: var(--text-lg);
+  color: var(--color-ink-2);
+  margin-bottom: var(--space-xl);
+  max-width: 72ch;
+}
+
+/* Chart Containers & SVG Styling */
+.chart-container {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-rule);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  border-radius: var(--radius-md);
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-readout {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  min-height: 24px;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-rule);
+  margin-top: var(--space-md);
+}
+
+/* River Tabs */
+.river-tabs {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.tab-btn {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  color: var(--color-ink);
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+table.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  text-align: left;
+}
+
+table.report-table caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+table.report-table th {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-muted);
+  background: var(--color-paper-2);
+  padding: var(--space-xs) var(--space-sm);
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule-2);
+}
+
+table.report-table td {
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+table.report-table tr:hover td {
+  background: var(--color-paper-2);
+}
+
+table.report-table tr.row-highlight td {
+  background: var(--color-accent-soft);
+  font-weight: 600;
+}
+
+/* Two Column Grids */
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+.stats-callout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.stat-card {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-rule);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+}
+
+.stat-label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: var(--space-2xs);
+}
+
+.stat-val {
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2xs);
+}
+
+.stat-sub {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* Dimension 5 Cards */
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.content-card {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-rule);
+  padding: var(--space-lg);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+}
+
+.card-header-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.accent-square {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+}
+
+.accent-square.moat { background: var(--color-accent); }
+.accent-square.catalyst { background: var(--color-tw-rise); }
+.accent-square.risk { background: var(--color-tw-fall); }
+
+.content-card h3, .content-card h4 {
+  font-size: var(--text-title);
+  margin-bottom: var(--space-xs);
+}
+
+.content-card p {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  line-height: 1.6;
+}
+
+/* Footer */
+footer.report-footer {
+  border-top: 2px solid var(--color-ink);
+  padding: var(--space-2xl) 0;
+  margin-top: var(--space-4xl);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 960px) {
+  .tear-sheet {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tear-block.primary {
+    grid-column: span 2;
+    border-right: none;
+    border-bottom: 1px solid var(--color-rule);
+    padding-bottom: var(--space-md);
+  }
+  .grid-2-col, .stats-callout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .tear-sheet {
+    grid-template-columns: 1fr;
+  }
+  .tear-block.primary {
+    grid-column: span 1;
+  }
+}
+
+/* Print Stylesheet */
+@media print {
+  body {
+    background: var(--color-paper) !important;
+    color: var(--color-ink) !important;
+  }
+  .theme-toggle-btn, .river-tabs {
+    display: none !important;
+  }
+  .chart-container, .content-card, .table-responsive {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    
+    <!-- Institutional Masthead -->
+    <header class="report-masthead">
+      <div class="masthead-meta">
+        <div>Tier-1 Foreign Institutional Equity Research (Taiwan Technology Sector)</div>
+        <div>
+          <span>Publication Date: 2026-11-09</span>
+          <button id="themeToggle" class="theme-toggle-btn" style="margin-left: 12px;">Toggle Theme</button>
+        </div>
+      </div>
+      <div class="masthead-title-row">
+        <div>
+          <h1 class="report-headline">8299.TWO 群聯電子 (Phison Electronics)</h1>
+          <p style="color: var(--color-muted); margin-top: 4px;">全球 NAND Flash 控制晶片領導霸主, 360 度機構法人深度投資研究報告</p>
+        </div>
+        <div>
+          <span class="ticker-badge">8299 · BUY / OVERWEIGHT</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Executive Tear Sheet Grid -->
+      <div class="tear-sheet">
+        <div class="tear-block primary">
+          <span class="tear-label">投資評等與目標價 (Rating & Target Price)</span>
+          <div class="tear-value target">BUY / NT$ 2,215</div>
+          <div class="tear-sub font-mono">潛在漲幅空間: <strong class="tw-rise">+47.67%</strong> (現價 NT$ 1,500.00)</div>
+        </div>
+        <div class="tear-block">
+          <span class="tear-label">本益比估值 (per multiple)</span>
+          <div class="tear-value font-mono">4.33x</div>
+          <div class="tear-sub">歷史第 0.0 分位 · 極度超跌</div>
+        </div>
+        <div class="tear-block">
+          <span class="tear-label">股價淨值比 (pbr multiple)</span>
+          <div class="tear-value font-mono">2.78x</div>
+          <div class="tear-sub">每股淨值 NT$ 539.57 (第 71.6 分位)</div>
+        </div>
+        <div class="tear-block">
+          <span class="tear-label">2026 前 10 月累計營收</span>
+          <div class="tear-value font-mono">2,264.62 億</div>
+          <div class="tear-sub tw-rise">累計年增率 YoY: +297.78%</div>
+        </div>
+        <div class="tear-block">
+          <span class="tear-label">近四季每股盈餘 (ttm eps)</span>
+          <div class="tear-value font-mono">347.45 元</div>
+          <div class="tear-sub">綜合加權毛利率: 60.05%</div>
+        </div>
+      </div>
+
+      <!-- Dimension 1: Price / Volume & Moving Averages -->
+      <section id="dim1" class="dimension-section">
+        <div class="section-header">
+          <h2 class="section-title">維度 1: 價量結構與移動平均線發散/收斂分析 (Price & Volume Dynamics)</h2>
+          <span class="section-tag">Dimension 1: Technical Trajectory</span>
+        </div>
+        <p class="section-prose">
+          群聯電子 (8299.TWO) 截至 2026-11-06 收盤價為 1,500.00 元。近一個月股價呈現急跌空頭排列，自 2026-10-01 的月高點 2,165.00 元持續回檔修正，於 2026-11-06 觸及月低點 1,405.00 元，單月波幅達 54.09%。目前 5MA (1,667.00 元)、10MA (1,814.50 元)、20MA (1,879.50 元) 呈現空頭級聯排列，20MA 負乖離率擴大至 -20.19% (▲ tw-rise 買盤醞釀超跌反彈)。2026-11-06 當日爆出 6,267 張成交大量 (6,267 仟股)，單日換手率衝上 2.83%，成交量呈現典型的恐慌性拋售與終極殺清盤 (Capitulation Climax)，顯示籌碼正由融資散戶流向長期價值型外資與投信法人接手。
+        </p>
+        <div class="chart-container">
+          <svg id="chartPriceVolume" class="chart-svg" viewBox="0 0 960 440" role="img" aria-label="8299 群聯電子 近1個月價量與均線結構走勢圖">
+      <line x1="70" y1="251.7" x2="930" y2="251.7" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="255.7" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">1,400</text><line x1="70" y1="198.3" x2="930" y2="198.3" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="202.3" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">1,600</text><line x1="70" y1="145.0" x2="930" y2="145.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="149.0" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">1,800</text><line x1="70" y1="91.7" x2="930" y2="91.7" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="95.7" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,000</text><line x1="70" y1="38.3" x2="930" y2="38.3" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="42.3" font-family="var(--font-mono)" font-size="10.5" fill="var(--color-muted)" text-anchor="end">2,200</text><line x1="70" y1="367.5" x2="930" y2="367.5" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="371.5" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-muted)" text-anchor="end">2,500k</text><line x1="70" y1="330.0" x2="930" y2="330.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="334.0" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-muted)" text-anchor="end">5,000k</text>
+      <line x1="70" y1="265" x2="930" y2="265" stroke="var(--color-rule-2)" stroke-width="1" />
+      <line x1="70" y1="405" x2="930" y2="405" stroke="var(--color-rule-2)" stroke-width="1" />
+
+      <line x1="70.0" y1="47.7" x2="70.0" y2="63.7" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="66.0" y="47.7" width="8" height="14.7" fill="var(--color-tw-fall)" rx="1" /><line x1="107.4" y1="54.3" x2="107.4" y2="69.0" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="103.4" y="57.0" width="8" height="9.3" fill="var(--color-tw-fall)" rx="1" /><line x1="144.8" y1="55.7" x2="144.8" y2="77.0" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="140.8" y="65.0" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="182.2" y1="59.7" x2="182.2" y2="69.0" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="178.2" y="62.3" width="8" height="5.3" fill="var(--color-tw-fall)" rx="1" /><line x1="219.6" y1="62.3" x2="219.6" y2="75.7" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="215.6" y="65.0" width="8" height="10.7" fill="var(--color-tw-fall)" rx="1" /><line x1="257.0" y1="66.3" x2="257.0" y2="78.3" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="253.0" y="71.7" width="8" height="4.0" fill="var(--color-tw-fall)" rx="1" /><line x1="294.3" y1="61.0" x2="294.3" y2="83.7" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="290.3" y="77.0" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="331.7" y1="91.7" x2="331.7" y2="117.0" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="327.7" y="93.0" width="8" height="8.0" fill="var(--color-tw-fall)" rx="1" /><line x1="369.1" y1="94.3" x2="369.1" y2="106.3" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="365.1" y="97.0" width="8" height="4.0" fill="var(--color-tw-fall)" rx="1" /><line x1="406.5" y1="119.7" x2="406.5" y2="145.0" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="402.5" y="127.7" width="8" height="9.3" fill="var(--color-tw-fall)" rx="1" /><line x1="443.9" y1="105.0" x2="443.9" y2="125.0" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="439.9" y="121.0" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="481.3" y1="130.3" x2="481.3" y2="149.0" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="477.3" y="133.0" width="8" height="4.0" fill="var(--color-tw-rise)" rx="1" /><line x1="518.7" y1="119.7" x2="518.7" y2="137.0" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="514.7" y="133.0" width="8" height="1.5" fill="var(--color-tw-rise)" rx="1" /><line x1="556.1" y1="106.3" x2="556.1" y2="121.0" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="552.1" y="110.3" width="8" height="6.7" fill="var(--color-tw-rise)" rx="1" /><line x1="593.5" y1="106.3" x2="593.5" y2="126.3" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="589.5" y="107.7" width="8" height="16.0" fill="var(--color-tw-fall)" rx="1" /><line x1="630.9" y1="105.0" x2="630.9" y2="127.7" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="626.9" y="113.0" width="8" height="2.7" fill="var(--color-tw-fall)" rx="1" /><line x1="668.3" y1="77.0" x2="668.3" y2="102.3" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="664.3" y="81.0" width="8" height="16.0" fill="var(--color-tw-rise)" rx="1" /><line x1="705.7" y1="67.7" x2="705.7" y2="87.7" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="701.7" y="73.0" width="8" height="5.3" fill="var(--color-tw-fall)" rx="1" /><line x1="743.0" y1="99.7" x2="743.0" y2="118.3" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="739.0" y="102.3" width="8" height="8.0" fill="var(--color-tw-fall)" rx="1" /><line x1="780.4" y1="117.0" x2="780.4" y2="143.7" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="776.4" y="125.0" width="8" height="13.3" fill="var(--color-tw-rise)" rx="1" /><line x1="817.8" y1="133.0" x2="817.8" y2="174.3" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="813.8" y="137.0" width="8" height="37.3" fill="var(--color-tw-fall)" rx="1" /><line x1="855.2" y1="159.7" x2="855.2" y2="201.0" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="851.2" y="159.7" width="8" height="9.3" fill="var(--color-tw-fall)" rx="1" /><line x1="892.6" y1="182.3" x2="892.6" y2="211.7" stroke="var(--color-tw-fall)" stroke-width="1.2" /><rect x="888.6" y="191.7" width="8" height="17.3" fill="var(--color-tw-fall)" rx="1" /><line x1="930.0" y1="219.7" x2="930.0" y2="250.3" stroke="var(--color-tw-rise)" stroke-width="1.2" /><rect x="926.0" y="225.0" width="8" height="25.3" fill="var(--color-tw-rise)" rx="1" />
+      <polyline points="70.0,73.0 107.4,72.6 144.8,71.3 182.2,70.3 219.6,70.7 257.0,71.1 294.3,71.5 331.7,72.8 369.1,73.1 406.5,74.5 443.9,74.9 481.3,76.8 518.7,78.5 556.1,81.3 593.5,84.9 630.9,88.5 668.3,90.9 705.7,91.9 743.0,94.3 780.4,98.0 817.8,103.6 855.2,108.7 892.6,115.9 930.0,123.8" fill="none" stroke="var(--color-muted)" stroke-width="1.8" />
+      <polyline points="70.0,61.1 107.4,58.2 144.8,54.7 182.2,56.1 219.6,58.5 257.0,61.8 294.3,66.1 331.7,70.3 369.1,74.3 406.5,82.9 443.9,88.7 481.3,95.4 518.7,102.2 556.1,106.5 593.5,111.3 630.9,115.3 668.3,115.7 705.7,113.4 743.0,114.3 780.4,113.1 817.8,118.5 855.2,122.1 892.6,129.7 930.0,141.1" fill="none" stroke="var(--color-accent)" stroke-width="1.8" />
+      <polyline points="70.0,53.5 107.4,59.9 144.8,61.3 182.2,62.6 219.6,67.4 257.0,70.1 294.3,72.2 331.7,79.4 369.1,86.1 406.5,98.3 443.9,107.4 481.3,118.6 518.7,125.0 556.1,126.9 593.5,124.2 630.9,123.1 668.3,112.7 705.7,101.8 743.0,101.8 780.4,102.1 817.8,113.8 855.2,131.4 892.6,157.5 930.0,180.5" fill="none" stroke="var(--color-tw-rise)" stroke-width="2.2" />
+
+      <rect x="66.0" y="375.6" width="8" height="29.4" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="103.4" y="372.3" width="8" height="32.7" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="140.8" y="367.0" width="8" height="38.0" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="178.2" y="383.0" width="8" height="22.0" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="215.6" y="378.4" width="8" height="26.6" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="253.0" y="371.5" width="8" height="33.5" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="290.3" y="374.7" width="8" height="30.3" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="327.7" y="323.7" width="8" height="81.3" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="365.1" y="378.7" width="8" height="26.3" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="402.5" y="319.1" width="8" height="85.9" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="439.9" y="352.4" width="8" height="52.6" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="477.3" y="367.4" width="8" height="37.6" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="514.7" y="381.8" width="8" height="23.2" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="552.1" y="374.5" width="8" height="30.5" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="589.5" y="376.5" width="8" height="28.5" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="626.9" y="362.6" width="8" height="42.4" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="664.3" y="355.8" width="8" height="49.2" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="701.7" y="358.6" width="8" height="46.4" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="739.0" y="358.5" width="8" height="46.5" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="776.4" y="364.6" width="8" height="40.4" fill="var(--color-tw-rise)" opacity="0.85" rx="1" /><rect x="813.8" y="339.9" width="8" height="65.1" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="851.2" y="340.2" width="8" height="64.8" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="888.6" y="332.6" width="8" height="72.4" fill="var(--color-tw-fall)" opacity="0.85" rx="1" /><rect x="926.0" y="311.0" width="8" height="94.0" fill="var(--color-tw-rise)" opacity="0.85" rx="1" />
+      <text x="70.0" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-01</text><text x="219.6" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-07</text><text x="369.1" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-14</text><text x="518.7" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-20</text><text x="668.3" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10-28</text><text x="817.8" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">11-03</text><text x="930.0" y="421" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">11-06</text>
+
+      <!-- Dynamic Crosshair Line -->
+      <line id="crosshairPrice" x1="0" y1="25" x2="0" y2="405" stroke="var(--color-ink)" stroke-width="1" stroke-dasharray="3,3" opacity="0" pointer-events="none" />
+      <rect class="hover-slice" x="51.3" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="0" /><rect class="hover-slice" x="88.7" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="1" /><rect class="hover-slice" x="126.1" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="2" /><rect class="hover-slice" x="163.5" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="3" /><rect class="hover-slice" x="200.9" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="4" /><rect class="hover-slice" x="238.3" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="5" /><rect class="hover-slice" x="275.7" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="6" /><rect class="hover-slice" x="313.0" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="7" /><rect class="hover-slice" x="350.4" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="8" /><rect class="hover-slice" x="387.8" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="9" /><rect class="hover-slice" x="425.2" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="10" /><rect class="hover-slice" x="462.6" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="11" /><rect class="hover-slice" x="500.0" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="12" /><rect class="hover-slice" x="537.4" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="13" /><rect class="hover-slice" x="574.8" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="14" /><rect class="hover-slice" x="612.2" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="15" /><rect class="hover-slice" x="649.6" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="16" /><rect class="hover-slice" x="687.0" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="17" /><rect class="hover-slice" x="724.3" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="18" /><rect class="hover-slice" x="761.7" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="19" /><rect class="hover-slice" x="799.1" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="20" /><rect class="hover-slice" x="836.5" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="21" /><rect class="hover-slice" x="873.9" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="22" /><rect class="hover-slice" x="911.3" y="25" width="37.4" height="380" fill="transparent" data-chart="price" data-idx="23" />
+    </svg>
+          <div id="priceReadout" class="chart-readout">圖表說明: 橫向滑動查看各交易日價量明細與 5ma/10ma/20ma 均線數值</div>
+        </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <caption>8299 群聯電子 近 10 個交易日量價與移動平均線統計表</caption>
+        <thead>
+          <tr>
+            <th scope="col">交易日期</th>
+            <th scope="col">開盤價</th>
+            <th scope="col">最高價</th>
+            <th scope="col">最低價</th>
+            <th scope="col">收盤價</th>
+            <th scope="col">單日漲跌</th>
+            <th scope="col">成交量 (張)</th>
+            <th scope="col">週轉率</th>
+            <th scope="col">5日均線</th>
+            <th scope="col">10日均線</th>
+            <th scope="col">20日均線</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>2026-10-22</td>
+          <td class="num">1,940.0</td>
+          <td class="num">1,945.0</td>
+          <td class="num">1,870.0</td>
+          <td class="num font-bold">1,880.0</td>
+          <td class="num tw-fall">▼ 50.0</td>
+          <td class="num">1,897</td>
+          <td class="num">0.86%</td>
+          <td class="num">1,878.0</td>
+          <td class="num">1,926.5</td>
+          <td class="num">2,025.5</td>
+        </tr><tr>
+          <td>2026-10-27</td>
+          <td class="num">1,920.0</td>
+          <td class="num">1,950.0</td>
+          <td class="num">1,865.0</td>
+          <td class="num font-bold">1,910.0</td>
+          <td class="num tw-rise">▲ 30.0</td>
+          <td class="num">2,825</td>
+          <td class="num">1.28%</td>
+          <td class="num">1,882.0</td>
+          <td class="num">1,911.5</td>
+          <td class="num">2,011.8</td>
+        </tr><tr>
+          <td>2026-10-28</td>
+          <td class="num">1,980.0</td>
+          <td class="num">2,055.0</td>
+          <td class="num">1,960.0</td>
+          <td class="num font-bold">2,040.0</td>
+          <td class="num tw-rise">▲ 130.0</td>
+          <td class="num">3,277</td>
+          <td class="num">1.48%</td>
+          <td class="num">1,921.0</td>
+          <td class="num">1,910.0</td>
+          <td class="num">2,003.0</td>
+        </tr><tr>
+          <td>2026-10-29</td>
+          <td class="num">2,070.0</td>
+          <td class="num">2,090.0</td>
+          <td class="num">2,015.0</td>
+          <td class="num font-bold">2,050.0</td>
+          <td class="num tw-rise">▲ 10.0</td>
+          <td class="num">3,091</td>
+          <td class="num">1.40%</td>
+          <td class="num">1,962.0</td>
+          <td class="num">1,918.5</td>
+          <td class="num">1,999.2</td>
+        </tr><tr>
+          <td>2026-10-30</td>
+          <td class="num">1,960.0</td>
+          <td class="num">1,970.0</td>
+          <td class="num">1,900.0</td>
+          <td class="num font-bold">1,930.0</td>
+          <td class="num tw-fall">▼ 120.0</td>
+          <td class="num">3,098</td>
+          <td class="num">1.40%</td>
+          <td class="num">1,962.0</td>
+          <td class="num">1,915.0</td>
+          <td class="num">1,990.0</td>
+        </tr><tr>
+          <td>2026-11-02</td>
+          <td class="num">1,825.0</td>
+          <td class="num">1,905.0</td>
+          <td class="num">1,805.0</td>
+          <td class="num font-bold">1,875.0</td>
+          <td class="num tw-fall">▼ 55.0</td>
+          <td class="num">2,691</td>
+          <td class="num">1.22%</td>
+          <td class="num">1,961.0</td>
+          <td class="num">1,919.5</td>
+          <td class="num">1,976.2</td>
+        </tr><tr>
+          <td>2026-11-03</td>
+          <td class="num">1,830.0</td>
+          <td class="num">1,845.0</td>
+          <td class="num">1,690.0</td>
+          <td class="num font-bold">1,690.0</td>
+          <td class="num tw-fall">▼ 185.0</td>
+          <td class="num">4,342</td>
+          <td class="num">1.96%</td>
+          <td class="num">1,917.0</td>
+          <td class="num">1,899.5</td>
+          <td class="num">1,955.2</td>
+        </tr><tr>
+          <td>2026-11-04</td>
+          <td class="num">1,745.0</td>
+          <td class="num">1,745.0</td>
+          <td class="num">1,590.0</td>
+          <td class="num font-bold">1,710.0</td>
+          <td class="num tw-rise">▲ 20.0</td>
+          <td class="num">4,318</td>
+          <td class="num">1.95%</td>
+          <td class="num">1,851.0</td>
+          <td class="num">1,886.0</td>
+          <td class="num">1,936.0</td>
+        </tr><tr>
+          <td>2026-11-05</td>
+          <td class="num">1,625.0</td>
+          <td class="num">1,660.0</td>
+          <td class="num">1,550.0</td>
+          <td class="num font-bold">1,560.0</td>
+          <td class="num tw-fall">▼ 150.0</td>
+          <td class="num">4,828</td>
+          <td class="num">2.18%</td>
+          <td class="num">1,753.0</td>
+          <td class="num">1,857.5</td>
+          <td class="num">1,909.0</td>
+        </tr><tr>
+          <td>2026-11-06</td>
+          <td class="num">1,405.0</td>
+          <td class="num">1,520.0</td>
+          <td class="num">1,405.0</td>
+          <td class="num font-bold">1,500.0</td>
+          <td class="num tw-fall">▼ 60.0</td>
+          <td class="num">6,267</td>
+          <td class="num">2.83%</td>
+          <td class="num">1,667.0</td>
+          <td class="num">1,814.5</td>
+          <td class="num">1,879.5</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+
+      <!-- Dimension 2: Institutional & Retail Positioning -->
+      <section id="dim2" class="dimension-section">
+        <div class="section-header">
+          <h2 class="section-title">維度 2: 三大法人籌碼洗牌與信用交易槓桿評估 (Institutional & Retail Positioning)</h2>
+          <span class="section-tag">Dimension 2: Capital Flows</span>
+        </div>
+        <p class="section-prose">
+          籌碼面結構呈現強烈內外資分歧與散戶融資大退場。近一個月外資 (Foreign Investors) 累計賣超 -1,914.5 張 (-1,914 仟股)，自營商 (Dealers) 賣超 -748.8 張 (-748 仟股)，然而本土投信法人 (Investment Trusts) 展現堅實支撐，逆勢加碼淨買超 +366.6 張 (+366 仟股)。整體外資持股比率由月初 44.35% 微幅攀升至 45.34% (+0.99 個百分點)，總持股達 100,247,448 股。在散戶信用交易方面，融資餘額自月初 10,682 張降至 9,173 張，融資大減 -1,509 張 (-14.13%)，融資使用率僅 16.57%；融券餘額僅 8 張，資券比 (Margin-to-Short Ratio) 高達 1,146.6x (券資比僅 0.09%)。散戶槓桿壓力與斷頭追繳風險極低 (▼ tw-fall 融資浮額肅清)，籌碼沉澱具備強大籌碼支撐底部。
+        </p>
+        <div class="chart-container">
+          <svg id="chartInstitutional" class="chart-svg" viewBox="0 0 960 400" role="img" aria-label="8299 群聯電子 三大法人買賣超與融資餘額走勢圖">
+      <line x1="70" y1="210.0" x2="890" y2="210.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="214.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">-2000k</text><line x1="70" y1="170.0" x2="890" y2="170.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="174.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">-1000k</text><line x1="70" y1="130.0" x2="890" y2="130.0" stroke="var(--color-ink-2)" stroke-width="1.5" /><text x="60" y="134.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">+0k</text><line x1="70" y1="90.0" x2="890" y2="90.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="94.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">+1000k</text><line x1="70" y1="50.0" x2="890" y2="50.0" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="54.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="end">+2000k</text><line x1="70" y1="346.2" x2="890" y2="346.2" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="350.2" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="end">44.5%</text><line x1="70" y1="322.5" x2="890" y2="322.5" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="326.5" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="end">45.0%</text><line x1="70" y1="298.8" x2="890" y2="298.8" stroke="var(--color-rule)" stroke-width="1" /><text x="60" y="302.8" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-accent)" text-anchor="end">45.5%</text><text x="900" y="350.2" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-tw-rise)" text-anchor="start">9,000張</text><text x="900" y="326.5" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-tw-rise)" text-anchor="start">10,000張</text><text x="900" y="302.8" font-family="var(--font-mono)" font-size="9.5" fill="var(--color-tw-rise)" text-anchor="start">11,000張</text>
+      <line x1="70" y1="370" x2="890" y2="370" stroke="var(--color-rule-2)" stroke-width="1" />
+      <rect x="64.5" y="130.0" width="3.6" height="18.1" fill="var(--color-accent)" rx="0.5" /><rect x="68.2" y="129.7" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="71.9" y="130.0" width="3.6" height="1.7" fill="var(--color-muted)" rx="0.5" /><rect x="100.2" y="130.0" width="3.6" height="17.4" fill="var(--color-accent)" rx="0.5" /><rect x="103.9" y="129.4" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="107.6" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="135.8" y="116.8" width="3.6" height="13.2" fill="var(--color-accent)" rx="0.5" /><rect x="139.5" y="129.1" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="143.2" y="129.2" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="171.5" y="130.0" width="3.6" height="6.9" fill="var(--color-accent)" rx="0.5" /><rect x="175.2" y="130.0" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="178.9" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="207.1" y="130.0" width="3.6" height="14.3" fill="var(--color-accent)" rx="0.5" /><rect x="210.8" y="129.3" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="214.5" y="130.0" width="3.6" height="1.9" fill="var(--color-muted)" rx="0.5" /><rect x="242.8" y="130.0" width="3.6" height="9.9" fill="var(--color-accent)" rx="0.5" /><rect x="246.5" y="128.9" width="3.6" height="1.1" fill="var(--color-tw-rise)" rx="0.5" /><rect x="250.2" y="129.9" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="278.4" y="130.0" width="3.6" height="12.0" fill="var(--color-accent)" rx="0.5" /><rect x="282.1" y="130.0" width="3.6" height="2.7" fill="var(--color-tw-rise)" rx="0.5" /><rect x="285.8" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="314.1" y="130.0" width="3.6" height="44.2" fill="var(--color-accent)" rx="0.5" /><rect x="317.8" y="125.9" width="3.6" height="4.1" fill="var(--color-tw-rise)" rx="0.5" /><rect x="321.5" y="130.0" width="3.6" height="10.8" fill="var(--color-muted)" rx="0.5" /><rect x="349.7" y="130.0" width="3.6" height="1.2" fill="var(--color-accent)" rx="0.5" /><rect x="353.4" y="129.1" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="357.1" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="385.4" y="130.0" width="3.6" height="36.3" fill="var(--color-accent)" rx="0.5" /><rect x="389.1" y="130.0" width="3.6" height="5.3" fill="var(--color-tw-rise)" rx="0.5" /><rect x="392.8" y="130.0" width="3.6" height="6.1" fill="var(--color-muted)" rx="0.5" /><rect x="421.0" y="106.9" width="3.6" height="23.1" fill="var(--color-accent)" rx="0.5" /><rect x="424.7" y="127.3" width="3.6" height="2.7" fill="var(--color-tw-rise)" rx="0.5" /><rect x="428.4" y="125.8" width="3.6" height="4.2" fill="var(--color-muted)" rx="0.5" /><rect x="456.7" y="130.0" width="3.6" height="15.9" fill="var(--color-accent)" rx="0.5" /><rect x="460.4" y="129.5" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="464.1" y="130.0" width="3.6" height="3.6" fill="var(--color-muted)" rx="0.5" /><rect x="492.3" y="123.4" width="3.6" height="6.6" fill="var(--color-accent)" rx="0.5" /><rect x="496.0" y="129.4" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="499.7" y="129.8" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="528.0" y="102.2" width="3.6" height="27.8" fill="var(--color-accent)" rx="0.5" /><rect x="531.7" y="130.0" width="3.6" height="2.1" fill="var(--color-tw-rise)" rx="0.5" /><rect x="535.4" y="125.5" width="3.6" height="4.5" fill="var(--color-muted)" rx="0.5" /><rect x="563.6" y="120.1" width="3.6" height="9.9" fill="var(--color-accent)" rx="0.5" /><rect x="567.3" y="129.6" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="571.0" y="130.0" width="3.6" height="1.3" fill="var(--color-muted)" rx="0.5" /><rect x="599.3" y="120.3" width="3.6" height="9.7" fill="var(--color-accent)" rx="0.5" /><rect x="603.0" y="129.0" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="606.7" y="127.1" width="3.6" height="2.9" fill="var(--color-muted)" rx="0.5" /><rect x="634.9" y="86.7" width="3.6" height="43.3" fill="var(--color-accent)" rx="0.5" /><rect x="638.6" y="123.2" width="3.6" height="6.8" fill="var(--color-tw-rise)" rx="0.5" /><rect x="642.3" y="125.2" width="3.6" height="4.8" fill="var(--color-muted)" rx="0.5" /><rect x="670.6" y="112.7" width="3.6" height="17.3" fill="var(--color-accent)" rx="0.5" /><rect x="674.3" y="129.8" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="678.0" y="130.0" width="3.6" height="1.7" fill="var(--color-muted)" rx="0.5" /><rect x="706.2" y="130.0" width="3.6" height="2.7" fill="var(--color-accent)" rx="0.5" /><rect x="709.9" y="129.7" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="713.6" y="130.0" width="3.6" height="4.6" fill="var(--color-muted)" rx="0.5" /><rect x="741.9" y="130.0" width="3.6" height="8.5" fill="var(--color-accent)" rx="0.5" /><rect x="745.6" y="129.1" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="749.3" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="777.5" y="130.0" width="3.6" height="27.6" fill="var(--color-accent)" rx="0.5" /><rect x="781.2" y="129.3" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="784.9" y="130.0" width="3.6" height="5.8" fill="var(--color-muted)" rx="0.5" /><rect x="813.2" y="127.9" width="3.6" height="2.1" fill="var(--color-accent)" rx="0.5" /><rect x="816.9" y="129.2" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="820.6" y="130.0" width="3.6" height="1.0" fill="var(--color-muted)" rx="0.5" /><rect x="848.8" y="130.0" width="3.6" height="15.0" fill="var(--color-accent)" rx="0.5" /><rect x="852.5" y="129.3" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="856.2" y="130.0" width="3.6" height="3.1" fill="var(--color-muted)" rx="0.5" /><rect x="884.5" y="129.6" width="3.6" height="1.0" fill="var(--color-accent)" rx="0.5" /><rect x="888.2" y="129.7" width="3.6" height="1.0" fill="var(--color-tw-rise)" rx="0.5" /><rect x="891.9" y="130.0" width="3.6" height="4.3" fill="var(--color-muted)" rx="0.5" />
+      <polyline points="70.0,353.4 105.7,362.4 141.3,353.4 177.0,356.7 212.6,362.4 248.3,363.3 283.9,367.6 319.6,384.2 355.2,377.1 390.9,389.5 426.5,368.1 462.2,375.2 497.8,371.0 533.5,355.8 569.1,349.1 604.8,334.4 640.4,308.7 676.1,299.2 711.7,299.7 747.4,298.3 783.0,308.3 818.7,303.5 854.3,309.7 890.0,306.3" fill="none" stroke="var(--color-accent)" stroke-width="2.2" />
+      <polyline points="70.0,306.3 105.7,304.6 141.3,306.6 177.0,306.8 212.6,306.3 248.3,306.0 283.9,304.7 319.6,304.9 355.2,306.8 390.9,309.5 426.5,310.8 462.2,310.9 497.8,312.6 533.5,314.8 569.1,316.3 604.8,317.7 640.4,321.2 676.1,320.7 711.7,323.0 747.4,325.3 783.0,328.9 818.7,333.0 854.3,334.1 890.0,342.1" fill="none" stroke="var(--color-tw-rise)" stroke-width="2.0" />
+
+      <line id="crosshairInst" x1="0" y1="30" x2="0" y2="370" stroke="var(--color-ink)" stroke-width="1" stroke-dasharray="3,3" opacity="0" pointer-events="none" />
+      <rect class="hover-slice" x="52.2" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="0" /><rect class="hover-slice" x="87.8" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="1" /><rect class="hover-slice" x="123.5" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="2" /><rect class="hover-slice" x="159.1" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="3" /><rect class="hover-slice" x="194.8" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="4" /><rect class="hover-slice" x="230.4" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="5" /><rect class="hover-slice" x="266.1" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="6" /><rect class="hover-slice" x="301.7" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="7" /><rect class="hover-slice" x="337.4" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="8" /><rect class="hover-slice" x="373.0" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="9" /><rect class="hover-slice" x="408.7" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="10" /><rect class="hover-slice" x="444.3" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="11" /><rect class="hover-slice" x="480.0" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="12" /><rect class="hover-slice" x="515.7" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="13" /><rect class="hover-slice" x="551.3" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="14" /><rect class="hover-slice" x="587.0" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="15" /><rect class="hover-slice" x="622.6" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="16" /><rect class="hover-slice" x="658.3" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="17" /><rect class="hover-slice" x="693.9" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="18" /><rect class="hover-slice" x="729.6" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="19" /><rect class="hover-slice" x="765.2" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="20" /><rect class="hover-slice" x="800.9" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="21" /><rect class="hover-slice" x="836.5" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="22" /><rect class="hover-slice" x="872.2" y="30" width="35.7" height="340" fill="transparent" data-chart="inst" data-idx="23" />
+    </svg>
+          <div id="instReadout" class="chart-readout">圖表說明: 柱狀圖顯示外資/投信/自營商單日買賣超，曲線代表外資持股比率與融資餘額</div>
+        </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <caption>8299 群聯電子 三大法人買賣超與資券信用交易明細表 (單位: 張)</caption>
+        <thead>
+          <tr>
+            <th scope="col">交易日期</th>
+            <th scope="col">外資買賣超</th>
+            <th scope="col">投信買賣超</th>
+            <th scope="col">自營商買賣超</th>
+            <th scope="col">三大法人合計</th>
+            <th scope="col">外資持股率</th>
+            <th scope="col">融資餘額 (張)</th>
+            <th scope="col">融券餘額 (張)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>2026-10-22</td>
+          <td class="num tw-rise">+247.9</td>
+          <td class="num tw-rise">+10.0</td>
+          <td class="num tw-fall">-32.9</td>
+          <td class="num font-bold tw-rise">+225.0</td>
+          <td class="num">44.44%</td>
+          <td class="num">10,262</td>
+          <td class="num">14</td>
+        </tr><tr>
+          <td>2026-10-27</td>
+          <td class="num tw-rise">+243.4</td>
+          <td class="num tw-rise">+25.9</td>
+          <td class="num tw-rise">+71.3</td>
+          <td class="num font-bold tw-rise">+340.6</td>
+          <td class="num">44.75%</td>
+          <td class="num">10,203</td>
+          <td class="num">19</td>
+        </tr><tr>
+          <td>2026-10-28</td>
+          <td class="num tw-rise">+1,083.1</td>
+          <td class="num tw-rise">+170.5</td>
+          <td class="num tw-rise">+120.9</td>
+          <td class="num font-bold tw-rise">+1,374.6</td>
+          <td class="num">45.29%</td>
+          <td class="num">10,055</td>
+          <td class="num">17</td>
+        </tr><tr>
+          <td>2026-10-29</td>
+          <td class="num tw-rise">+431.3</td>
+          <td class="num tw-rise">+5.6</td>
+          <td class="num tw-fall">-42.9</td>
+          <td class="num font-bold tw-rise">+394.0</td>
+          <td class="num">45.49%</td>
+          <td class="num">10,075</td>
+          <td class="num">19</td>
+        </tr><tr>
+          <td>2026-10-30</td>
+          <td class="num tw-fall">-68.5</td>
+          <td class="num tw-rise">+8.4</td>
+          <td class="num tw-fall">-114.3</td>
+          <td class="num font-bold tw-fall">-174.4</td>
+          <td class="num">45.48%</td>
+          <td class="num">9,977</td>
+          <td class="num">13</td>
+        </tr><tr>
+          <td>2026-11-02</td>
+          <td class="num tw-fall">-213.2</td>
+          <td class="num tw-rise">+23.4</td>
+          <td class="num tw-fall">-4.0</td>
+          <td class="num font-bold tw-fall">-193.8</td>
+          <td class="num">45.51%</td>
+          <td class="num">9,883</td>
+          <td class="num">12</td>
+        </tr><tr>
+          <td>2026-11-03</td>
+          <td class="num tw-fall">-689.3</td>
+          <td class="num tw-rise">+17.4</td>
+          <td class="num tw-fall">-146.0</td>
+          <td class="num font-bold tw-fall">-817.9</td>
+          <td class="num">45.30%</td>
+          <td class="num">9,731</td>
+          <td class="num">11</td>
+        </tr><tr>
+          <td>2026-11-04</td>
+          <td class="num tw-rise">+51.7</td>
+          <td class="num tw-rise">+21.1</td>
+          <td class="num tw-fall">-6.8</td>
+          <td class="num font-bold tw-rise">+66.0</td>
+          <td class="num">45.40%</td>
+          <td class="num">9,556</td>
+          <td class="num">9</td>
+        </tr><tr>
+          <td>2026-11-05</td>
+          <td class="num tw-fall">-374.7</td>
+          <td class="num tw-rise">+17.4</td>
+          <td class="num tw-fall">-77.6</td>
+          <td class="num font-bold tw-fall">-434.9</td>
+          <td class="num">45.27%</td>
+          <td class="num">9,511</td>
+          <td class="num">10</td>
+        </tr><tr>
+          <td>2026-11-06</td>
+          <td class="num tw-rise">+11.0</td>
+          <td class="num tw-rise">+8.0</td>
+          <td class="num tw-fall">-107.5</td>
+          <td class="num font-bold tw-fall">-88.5</td>
+          <td class="num">45.34%</td>
+          <td class="num">9,173</td>
+          <td class="num">8</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </section>
+
+      <!-- Dimension 3: Operating Performance & Financial Trajectory -->
+      <section id="dim3" class="dimension-section">
+        <div class="section-header">
+          <h2 class="section-title">維度 3: 營運獲利動能與 NAND Flash 庫存循環週期深度解析 (Operating & Financial Trajectory)</h2>
+          <span class="section-tag">Dimension 3: Fundamentals & Inventory Cycle</span>
+        </div>
+        <p class="section-prose">
+          群聯 2026 年展現驚人的營運爆發力。2026 年前 10 個月累計營業收入達 2,264.62 億元 (226,461,925,000 元)，相較 2025 年同期的 569.31 億元，累計年增率 YoY 高達 297.78% (近三倍成長)。在獲利結構方面，近四季 (2025Q4 至 2026Q3) 每股盈餘 (EPS) 分別為 22.08 元、68.80 元、118.57 元與 138.00 元，近四季累計 EPS 達 347.45 元，綜合加權毛利率高達 60.05% (Q2 達 65.35%，Q3 59.85%)。群聯在 NAND Flash 記憶體週期展現逆週期備貨 (Counter-cyclical Stockpiling) 戰略，2026Q1 大舉將存貨拉升至 722.0 億元，庫存週轉天數 (DSI) 達到 415.4 天峰值，隨後在晶圓與模組報價調漲中加速出貨，Q3 庫存 DSI 順利正常化降至 291.1 天，毛利率持續維持在 60% 歷史高檔水準，展現極高之獲利品質。
+        </p>
+        <div class="chart-container">
+          <svg id="chartFinancials" class="chart-svg" viewBox="0 0 960 390" role="img" aria-label="8299 群聯電子 月營收成長與近四季獲利結構圖">
+      <line x1="65" y1="330" x2="520" y2="330" stroke="var(--color-rule-2)" stroke-width="1" />
+      <rect x="73.8" y="252.4" width="28" height="77.6" fill="var(--color-accent)" rx="1.5" /><rect x="119.2" y="239.4" width="28" height="90.6" fill="var(--color-accent)" rx="1.5" /><rect x="164.8" y="193.9" width="28" height="136.1" fill="var(--color-accent)" rx="1.5" /><rect x="210.2" y="179.9" width="28" height="150.1" fill="var(--color-accent)" rx="1.5" /><rect x="255.8" y="160.4" width="28" height="169.6" fill="var(--color-accent)" rx="1.5" /><rect x="301.2" y="145.4" width="28" height="184.6" fill="var(--color-accent)" rx="1.5" /><rect x="346.8" y="128.2" width="28" height="201.8" fill="var(--color-accent)" rx="1.5" /><rect x="392.2" y="120.0" width="28" height="210.0" fill="var(--color-accent)" rx="1.5" /><rect x="437.8" y="102.4" width="28" height="227.6" fill="var(--color-accent)" rx="1.5" /><rect x="483.2" y="95.8" width="28" height="234.2" fill="var(--color-accent)" rx="1.5" />
+      <polyline points="87.8,207.0 133.2,219.9 178.8,186.0 224.2,176.2 269.8,134.2 315.2,134.4 360.8,84.6 406.2,85.3 451.8,89.3 497.2,104.9" fill="none" stroke="var(--color-tw-rise)" stroke-width="2.2" />
+      <text x="87.8" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">1月</text><text x="133.2" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2月</text><text x="178.8" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">3月</text><text x="224.2" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">4月</text><text x="269.8" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">5月</text><text x="315.2" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">6月</text><text x="360.8" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">7月</text><text x="406.2" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">8月</text><text x="451.8" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">9月</text><text x="497.2" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">10月</text>
+
+      <!-- Center Divider -->
+      <line x1="555" y1="35" x2="555" y2="350" stroke="var(--color-rule)" stroke-width="1" stroke-dasharray="3,3" />
+
+      <line x1="590" y1="330" x2="910" y2="330" stroke="var(--color-rule-2)" stroke-width="1" />
+      <rect x="612.0" y="294.1" width="36" height="35.9" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><rect x="692.0" y="218.2" width="36" height="111.8" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><rect x="772.0" y="137.3" width="36" height="192.7" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" /><rect x="852.0" y="105.8" width="36" height="224.2" fill="var(--color-tw-rise)" opacity="0.9" rx="1.5" />
+      <polyline points="630.0,261.4 710.0,146.2 790.0,125.8 870.0,157.5" fill="none" stroke="var(--color-accent)" stroke-width="2.2" />
+      <circle cx="630.0" cy="261.4" r="3.5" fill="var(--color-accent)" /><circle cx="710.0" cy="146.2" r="3.5" fill="var(--color-accent)" /><circle cx="790.0" cy="125.8" r="3.5" fill="var(--color-accent)" /><circle cx="870.0" cy="157.5" r="3.5" fill="var(--color-accent)" />
+      <text x="630.0" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2025-Q4</text><text x="710.0" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2026-Q1</text><text x="790.0" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2026-Q2</text><text x="870.0" y="346" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)" text-anchor="middle">2026-Q3</text>
+    </svg>
+        </div>
+        <div class="grid-2-col">
+      <div class="table-responsive">
+        <table class="report-table">
+          <caption>2026 年各月營業收入與年增率 (YoY)</caption>
+          <thead>
+            <tr>
+              <th scope="col">營收月份</th>
+              <th scope="col">當月營收</th>
+              <th scope="col">去年同期</th>
+              <th scope="col">年增率 (YoY)</th>
+              <th scope="col">營運關鍵動能</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+          <td>2026年1月</td>
+          <td class="num">104.52 億</td>
+          <td class="num">36.13 億</td>
+          <td class="num tw-rise">+189.25%</td>
+          <td class="text-sm">PCIe Gen4 module replenishment and channel restocking</td>
+        </tr><tr>
+          <td>2026年2月</td>
+          <td class="num">121.98 億</td>
+          <td class="num">45.27 億</td>
+          <td class="num tw-rise">+169.43%</td>
+          <td class="text-sm">Enterprise SSD controller pull-in (+169.4% YoY)</td>
+        </tr><tr>
+          <td>2026年3月</td>
+          <td class="num">183.17 億</td>
+          <td class="num">56.98 億</td>
+          <td class="num tw-rise">+221.48%</td>
+          <td class="text-sm">Q1 seasonal surge and contract price jumps (+221.5% YoY)</td>
+        </tr><tr>
+          <td>2026年4月</td>
+          <td class="num">202.07 億</td>
+          <td class="num">60.03 億</td>
+          <td class="num tw-rise">+236.63%</td>
+          <td class="text-sm">aiDAPTIV+ solution commercial deployments (+236.6% YoY)</td>
+        </tr><tr>
+          <td>2026年5月</td>
+          <td class="num">228.28 億</td>
+          <td class="num">56.90 億</td>
+          <td class="num tw-rise">+301.23%</td>
+          <td class="text-sm">PCIe Gen5 server qualification ramp (+301.2% YoY)</td>
+        </tr><tr>
+          <td>2026年6月</td>
+          <td class="num">248.53 億</td>
+          <td class="num">61.98 億</td>
+          <td class="num tw-rise">+301.00%</td>
+          <td class="text-sm">Q2 end quarter recognition acceleration (+301.0% YoY)</td>
+        </tr><tr>
+          <td>2026年7月</td>
+          <td class="num">271.62 億</td>
+          <td class="num">56.88 億</td>
+          <td class="num tw-rise">+377.55%</td>
+          <td class="text-sm">High-density enterprise Pascari SSD shipments (+377.6% YoY)</td>
+        </tr><tr>
+          <td>2026年8月</td>
+          <td class="num">282.76 億</td>
+          <td class="num">59.34 億</td>
+          <td class="num tw-rise">+376.52%</td>
+          <td class="text-sm">Automotive storage and edge AI shipments (+376.5% YoY)</td>
+        </tr><tr>
+          <td>2026年9月</td>
+          <td class="num">306.39 億</td>
+          <td class="num">65.15 億</td>
+          <td class="num tw-rise">+370.26%</td>
+          <td class="text-sm">Record monthly revenue surpassing NT$ 30B mark (+370.3% YoY)</td>
+        </tr><tr>
+          <td>2026年10月</td>
+          <td class="num">315.30 億</td>
+          <td class="num">70.65 億</td>
+          <td class="num tw-rise">+346.27%</td>
+          <td class="text-sm">All-time historic monthly revenue record (+346.3% YoY)</td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <table class="report-table">
+          <caption>近四季獲利結構與單季每股盈餘 (EPS)</caption>
+          <thead>
+            <tr>
+              <th scope="col">財報季度</th>
+              <th scope="col">營業收入</th>
+              <th scope="col">營業毛利</th>
+              <th scope="col">毛利率</th>
+              <th scope="col">營業利益</th>
+              <th scope="col">營業利益率</th>
+              <th scope="col">每股盈餘 (EPS)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+          <td>2025-Q4</td>
+          <td class="num">227.99 億</td>
+          <td class="num">95.47 億</td>
+          <td class="num font-bold">41.88%</td>
+          <td class="num">33.34 億</td>
+          <td class="num">14.63%</td>
+          <td class="num font-bold tw-rise">22.08 元</td>
+        </tr><tr>
+          <td>2026-Q1</td>
+          <td class="num">409.67 億</td>
+          <td class="num">253.25 億</td>
+          <td class="num font-bold">61.82%</td>
+          <td class="num">148.41 億</td>
+          <td class="num">36.23%</td>
+          <td class="num font-bold tw-rise">68.80 元</td>
+        </tr><tr>
+          <td>2026-Q2</td>
+          <td class="num">678.88 億</td>
+          <td class="num">443.65 億</td>
+          <td class="num font-bold">65.35%</td>
+          <td class="num">263.70 億</td>
+          <td class="num">38.84%</td>
+          <td class="num font-bold tw-rise">118.57 元</td>
+        </tr><tr>
+          <td>2026-Q3</td>
+          <td class="num">860.76 億</td>
+          <td class="num">515.18 億</td>
+          <td class="num font-bold">59.85%</td>
+          <td class="num">328.98 億</td>
+          <td class="num">38.22%</td>
+          <td class="num font-bold tw-rise">138.00 元</td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </section>
+
+      <!-- Dimension 4: Valuation Assessment & Target Price Derivation -->
+      <section id="dim4" class="dimension-section">
+        <div class="section-header">
+          <h2 class="section-title">維度 4: 5年歷史估值河道模型、同業評比與目標價推導 (Valuation & Target Price Derivation)</h2>
+          <span class="section-tag">Dimension 4: Absolute & Relative Valuation</span>
+        </div>
+        <p class="section-prose">
+          群聯目前股價 1,500.00 元對應近四季 EPS 347.45 元，本益比僅 4.33x，處於 5 年歷史 PER 分布的最底層第 0.0 分位 (0.0th percentile / 歷史最低值)，相較 5 年中位數 15.23x 與平均值 22.60x 呈現極度不合理之估值折價。股價淨值比目前為 2.78x，位於歷史第 71.6 分位。橫向同業基準評比方面，美國那斯達克掛牌之競爭對手慧榮科技 (Silicon Motion, SIMO) PER 為 17.50x (PBR 4.88x)，台灣 IC 設計同業瑞昱 (Realtek, 2379) PER 為 25.67x (PBR 7.24x)，祥碩 (ASMedia, 5269) PER 為 12.37x (PBR 2.40x)。同業中位數 PER 為 17.50x，群聯相較同業中位數呈現高達 75.3% 估值折價 (75.3% discount)，具備強烈倍數修復潛力。
+        </p>
+        <div class="chart-container">
+          <div class="river-tabs">
+            <button id="tabPER" class="tab-btn tab-per active" aria-selected="true">PER 本益比河道模型 (4.33x / 0.0分位)</button>
+            <button id="tabPBR" class="tab-btn tab-pbr" aria-selected="false">PBR 股價淨值比河道模型 (2.78x / 71.6分位)</button>
+          </div>
+          <svg id="chartValuationRiver" class="chart-svg" viewBox="0 0 960 420" role="img" aria-label="8299 群聯電子 5年歷史估值河道模型">
+      <!-- PER River Group (Default Active) -->
+      <g id="groupPerRiver">
+        <!-- Multiplier Band Polygons -->
+        <polygon points="75.0,135.43478260869566 243.0,113.91304347826087 411.0,149.7826086956522 579.0,92.3913043478261 747.0,63.69565217391305 915.0,42.17391304347826 915.0,128.26086956521738 747.0,149.7826086956522 579.0,178.47826086956522 411.0,221.52173913043478 243.0,200.0 75.0,214.3478260869565" fill="color-mix(in oklab, var(--color-river-top) 18%, transparent)" />
+        <polygon points="75.0,214.3478260869565 243.0,200.0 411.0,221.52173913043478 579.0,178.47826086956522 747.0,149.7826086956522 915.0,128.26086956521738 915.0,192.82608695652175 747.0,214.3478260869565 579.0,235.8695652173913 411.0,264.5652173913044 243.0,250.21739130434784 75.0,257.3913043478261" fill="color-mix(in oklab, var(--color-river-high) 16%, transparent)" />
+        <polygon points="75.0,257.3913043478261 243.0,250.21739130434784 411.0,264.5652173913044 579.0,235.8695652173913 747.0,214.3478260869565 915.0,192.82608695652175 915.0,243.04347826086956 747.0,264.5652173913044 579.0,278.9130434782609 411.0,300.4347826086957 243.0,286.0869565217391 75.0,293.2608695652174" fill="color-mix(in oklab, var(--color-river-mid) 14%, transparent)" />
+        <polygon points="75.0,293.2608695652174 243.0,286.0869565217391 411.0,300.4347826086957 579.0,278.9130434782609 747.0,264.5652173913044 915.0,243.04347826086956 915.0,286.0869565217391 747.0,300.4347826086957 579.0,310.4782608695652 411.0,324.82608695652175 243.0,314.7826086956522 75.0,321.95652173913044" fill="color-mix(in oklab, var(--color-river-low) 14%, transparent)" />
+        <polygon points="75.0,321.95652173913044 243.0,314.7826086956522 411.0,324.82608695652175 579.0,310.4782608695652 747.0,300.4347826086957 915.0,286.0869565217391 915.0,329.1304347826087 747.0,336.30434782608694 579.0,343.47826086956525 411.0,350.6521739130435 243.0,344.9130434782609 75.0,347.7826086956522" fill="color-mix(in oklab, var(--color-river-bottom) 16%, transparent)" />
+
+        <!-- Historical Price Polyline -->
+        <polyline points="75.0,319.0869565217391 243.0,324.82608695652175 411.0,309.04347826086956 579.0,296.1304347826087 747.0,92.3913043478261 915.0,178.47826086956522" fill="none" stroke="var(--color-ink)" stroke-width="2.5" />
+
+        <!-- Multiplier Text Labels -->
+        <text x="923.0" y="46.2" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">34.2x</text>
+        <text x="923.0" y="132.3" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">22.6x</text>
+        <text x="923.0" y="196.8" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">15.2x</text>
+        <text x="923.0" y="247.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">9.9x</text>
+        <text x="923.0" y="290.1" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">5.5x</text>
+
+        <!-- Current PER Callout Pinpoint -->
+        <circle cx="915.0" cy="178.5" r="5.5" fill="var(--color-tw-rise)" stroke="var(--color-sheet)" stroke-width="2" />
+        <rect x="745.0" y="148.5" width="160" height="24" fill="var(--color-sheet)" stroke="var(--color-tw-rise)" stroke-width="1.2" rx="2" />
+        <text x="825.0" y="164.5" font-family="var(--font-mono)" font-size="10.5" font-weight="600" fill="var(--color-tw-rise)" text-anchor="middle">目前 4.33x (第 0.0 分位)</text>
+      </g>
+
+      <!-- PBR River Group (Initially Hidden) -->
+      <g id="groupPbrRiver" style="display: none;">
+        <polygon points="75.0,164.1304347826087 243.0,142.60869565217394 411.0,178.47826086956522 579.0,128.26086956521738 747.0,92.3913043478261 915.0,78.04347826086956 915.0,142.60869565217394 747.0,156.95652173913044 579.0,192.82608695652175 411.0,221.52173913043478 243.0,207.17391304347825 75.0,221.52173913043478" fill="color-mix(in oklab, var(--color-river-top) 18%, transparent)" />
+        <polygon points="75.0,221.52173913043478 243.0,207.17391304347825 411.0,221.52173913043478 579.0,192.82608695652175 747.0,156.95652173913044 915.0,142.60869565217394 915.0,185.65217391304347 747.0,200.0 579.0,228.69565217391306 411.0,257.3913043478261 243.0,243.04347826086956 75.0,257.3913043478261" fill="color-mix(in oklab, var(--color-river-high) 16%, transparent)" />
+        <polygon points="75.0,257.3913043478261 243.0,243.04347826086956 411.0,257.3913043478261 579.0,228.69565217391306 747.0,200.0 915.0,185.65217391304347 915.0,228.69565217391306 747.0,243.04347826086956 579.0,264.5652173913044 411.0,286.0869565217391 243.0,278.9130434782609 75.0,286.0869565217391" fill="color-mix(in oklab, var(--color-river-mid) 14%, transparent)" />
+        <polygon points="75.0,286.0869565217391 243.0,278.9130434782609 411.0,286.0869565217391 579.0,264.5652173913044 747.0,243.04347826086956 915.0,228.69565217391306 915.0,271.7391304347826 747.0,286.0869565217391 579.0,300.4347826086957 411.0,314.7826086956522 243.0,307.60869565217394 75.0,314.7826086956522" fill="color-mix(in oklab, var(--color-river-low) 14%, transparent)" />
+        <polygon points="75.0,314.7826086956522 243.0,307.60869565217394 411.0,314.7826086956522 579.0,300.4347826086957 747.0,286.0869565217391 915.0,271.7391304347826 915.0,314.7826086956522 747.0,324.82608695652175 579.0,333.4347826086956 411.0,342.04347826086956 243.0,337.7391304347826 75.0,343.47826086956525" fill="color-mix(in oklab, var(--color-river-bottom) 16%, transparent)" />
+
+        <polyline points="75.0,319.0869565217391 243.0,324.82608695652175 411.0,309.04347826086956 579.0,296.1304347826087 747.0,92.3913043478261 915.0,178.47826086956522" fill="none" stroke="var(--color-ink)" stroke-width="2.5" />
+
+        <text x="923.0" y="82.0" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">3.50x</text>
+        <text x="923.0" y="146.6" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">2.98x</text>
+        <text x="923.0" y="189.7" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">2.31x</text>
+        <text x="923.0" y="232.7" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">2.00x</text>
+        <text x="923.0" y="275.7" font-family="var(--font-mono)" font-size="10" fill="var(--color-muted)">1.50x</text>
+
+        <circle cx="915.0" cy="178.5" r="5.5" fill="var(--color-accent)" stroke="var(--color-sheet)" stroke-width="2" />
+        <rect x="745.0" y="148.5" width="160" height="24" fill="var(--color-sheet)" stroke="var(--color-accent)" stroke-width="1.2" rx="2" />
+        <text x="825.0" y="164.5" font-family="var(--font-mono)" font-size="10.5" font-weight="600" fill="var(--color-accent)" text-anchor="middle">目前 2.78x (第 71.6 分位)</text>
+      </g>
+    </svg>
+        </div>
+        <div class="table-responsive">
+      <table class="report-table">
+        <caption>同業競爭矩陣比較與估值折溢價分析 (Benchmark Matrix)</caption>
+        <thead>
+          <tr>
+            <th scope="col">公司名稱 (代號)</th>
+            <th scope="col">市場報價 (幣別)</th>
+            <th scope="col">近四季本益比 (ttm per)</th>
+            <th scope="col">預估 Forward PER</th>
+            <th scope="col">股價淨值比 PBR</th>
+            <th scope="col">現金殖利率</th>
+            <th scope="col">市值 (新台幣)</th>
+            <th scope="col">相對同業中位折價</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-highlight">
+          <td class="font-bold">Phison (群聯) (8299)</td>
+          <td class="num">TWD 1,500.00</td>
+          <td class="num font-bold">4.33x</td>
+          <td class="num">4.10x</td>
+          <td class="num">2.78x</td>
+          <td class="num">1.55%</td>
+          <td class="num">NT$ 331.6B</td>
+          <td class="num tw-rise">+75.26%</td>
+        </tr><tr class="">
+          <td class="font-bold">Silicon Motion (慧榮) (SIMO)</td>
+          <td class="num">USD 162.76</td>
+          <td class="num font-bold">17.50x</td>
+          <td class="num">7.55x</td>
+          <td class="num">4.88x</td>
+          <td class="num">1.41%</td>
+          <td class="num">NT$ 179.4B</td>
+          <td class="num tw-rise">+0.00%</td>
+        </tr><tr class="">
+          <td class="font-bold">Realtek (瑞昱) (2379)</td>
+          <td class="num">TWD 708.00</td>
+          <td class="num font-bold">25.67x</td>
+          <td class="num">19.80x</td>
+          <td class="num">7.24x</td>
+          <td class="num">3.53%</td>
+          <td class="num">NT$ 363.1B</td>
+          <td class="num tw-rise">-46.69%</td>
+        </tr><tr class="">
+          <td class="font-bold">ASMedia (祥碩) (5269)</td>
+          <td class="num">TWD 1,160.00</td>
+          <td class="num font-bold">12.37x</td>
+          <td class="num">10.50x</td>
+          <td class="num">2.40x</td>
+          <td class="num">3.91%</td>
+          <td class="num">NT$ 80.3B</td>
+          <td class="num tw-rise">+29.31%</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stats-callout-grid">
+      <div class="stat-card">
+        <span class="stat-label">5年歷史本益比區間 (PER Corridor)</span>
+        <div class="stat-val font-mono">最低 4.33x | P25: 9.88x | 中位 15.23x | 平均 22.60x | 最高 75.63x</div>
+        <div class="stat-sub tw-rise">目前 4.33x 位於歷史第 0.0 分位 (歷史極度超跌點)</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">5年歷史股價淨值比區間 (PBR Corridor)</span>
+        <div class="stat-val font-mono">最低 1.27x | P25: 2.00x | 中位 2.31x | 平均 2.98x | 最高 9.89x</div>
+        <div class="stat-sub">目前 2.78x 位於歷史第 71.6 分位 (每股淨值 NT$ 539.57)</div>
+      </div>
+    </div>
+
+        <!-- Target Price Derivation Model Box -->
+        <div class="content-card" style="margin-top: 24px;">
+          <div class="card-header-badge">
+            <span class="accent-square moat"></span>
+            <h3>目標價嚴謹評價模型推導 (Rigorous Valuation Synthesis)</h3>
+          </div>
+          <p style="margin-bottom: 8px;">
+            本機構法人研究團隊採用<strong>雙核心評價模型</strong>推導群聯電子之合理目標價:
+          </p>
+          <ul style="margin-left: 20px; font-size: 0.95rem; line-height: 1.8;">
+            <li><strong>模型 A: 本益比折價修復模型 (PER Discount Repair Model, 權重 60%)</strong>: 給予保守 7.0x 正常化本益比倍數 (大幅低於 5 年歷史 25 分位 9.88x 與同業中位 17.5x)，以 TTM EPS NT$ 347.45 元推導出基準目標價為 <strong>NT$ 2,432 元</strong>。</li>
+            <li><strong>模型 B: 股價淨值比中期重估模型 (PBR Mid-Cycle Re-rating Model, 權重 40%)</strong>: 考量群聯 ROE 維持在 45% 以上高檔，給予景氣中期 PBR 3.50x，乘以每股淨值 NT$ 539.57 元，推導出基準目標價為 <strong>NT$ 1,889 元</strong>。</li>
+            <li><strong>綜合加權目標價</strong>: (0.60 × NT$ 2,432) + (0.40 × NT$ 1,889) = <strong>NT$ 2,215 元</strong>。相較現價 NT$ 1,500 元具備 <strong>+47.67%</strong> 潛在漲幅空間。給予 <strong>BUY / OVERWEIGHT (強力買進)</strong> 投資評等。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Dimension 5: Catalysts vs Downside Risks -->
+      <section id="dim5" class="dimension-section">
+        <div class="section-header">
+          <h2 class="section-title">維度 5: 核心競爭護城河、利多催化劑與潛在下行風險 (Moats, Catalysts & Downside Risks)</h2>
+          <span class="section-tag">Dimension 5: Risk & Reward Balance</span>
+        </div>
+        <div class="grid-2-col">
+          <div class="card-stack">
+            <h3 style="font-size: 1.15rem; color: var(--color-accent); margin-bottom: 8px;">核心護城河與看多催化劑 (Moats & Bullish Catalysts)</h3>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square moat"></span>
+                <h4>PCIe Gen5 SSD 控制晶片全球領先地位</h4>
+              </div>
+              <p>群聯在獨立 PCIe Gen5 SSD 控制晶片 (PS5026-E26、PS5031-E31T) 市佔率超過 70%，並推出 Pascari 企業級 Gen5 控制器，於伺服器與高階 PC 領域築起極高之矽智財與韌體技術壁壘。</p>
+            </div>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square catalyst"></span>
+                <h4>專利 aiDAPTIV+ 邊緣 AI 運算架構商業化放量</h4>
+              </div>
+              <p>群聯創新專利 aiDAPTIV+ 硬體與軟體中介架構，將大型語言模型 (LLM) 權重卸載至高階 NVMe SSD，降低 70B+ 模型微調硬體成本達 85-90%，開啟高毛利率之企業軟體與 IP 授權營收。</p>
+            </div>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square catalyst"></span>
+                <h4>TSMC 台積電先進製程堅實結盟</h4>
+              </div>
+              <p>群聯取得台積電 6nm/7nm 先進製程晶圓產能保證，並與美光 (Micron)、鎧俠 (Kioxia)、威騰 (Western Digital) 建立戰略原廠供貨合約，具備同業難以企及之供應鏈韌性與調度彈性。</p>
+            </div>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square catalyst"></span>
+                <h4>極端估值不對稱性引發暴力均值回歸</h4>
+              </div>
+              <p>在 4.33x PER、毛利率 60.05% 的極度超跌水準下，下行空間已完全受限，技術面成交量終極殺清後，法人資金將加速回流，驅動強烈均值回歸行情。</p>
+            </div>
+          </div>
+
+          <div class="card-stack">
+            <h3 style="font-size: 1.15rem; color: var(--color-tw-fall); margin-bottom: 8px;">重大潛在下行風險因子 (Material Downside Risks)</h3>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square risk"></span>
+                <h4>快閃記憶體 NAND 現貨價格下行與記憶體週期反轉</h4>
+              </div>
+              <p>若消費性電子 (PC/智慧型手機) 終端需求復甦不如預期，NAND Flash 現貨報價可能承壓回跌，導致模組產品平均售價 (ASP) 走低，並可能面臨存貨跌價損失提列壓力。</p>
+            </div>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square risk"></span>
+                <h4>地緣政治與先進半導體出口禁令管制風險</h4>
+              </div>
+              <p>兩岸地緣政治緊張情勢或美國商務部對先進半導體、AI 儲存運算產品施加更嚴苛之出口管制措施，可能阻礙非盟友市場模組出貨進度。</p>
+            </div>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square risk"></span>
+                <h4>雲端 CSP 巨頭自研 ASIC 控制晶片挑戰</h4>
+              </div>
+              <p>美系大型超大規模資料中心 (Hyperscalers) 如 Amazon、Microsoft、Google 持續評估自研專屬儲存控制器之可能性，長期可能對第三方獨立控制晶片市場規模 (TAM) 帶來結構性競爭。</p>
+            </div>
+            <div class="content-card">
+              <div class="card-header-badge">
+                <span class="accent-square risk"></span>
+                <h4>先進晶圓代工成本上漲通膨壓力</h4>
+              </div>
+              <p>台積電先進製程晶圓代工報價持續上揚，若群聯無法將成本完全轉嫁予下游模組廠或企業客戶，將對長期營業利益率產生侵蝕風險。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Institutional Footer & Regulatory Colophon -->
+    <footer class="report-footer">
+      <div>
+        <strong>Phison Electronics Corp (8299.TWO) Institutional Equity Research</strong><br>
+        <span>Hallmark Visual Standards Compliance, Editorial Almanac Theme, Standalone Interactive Document</span>
+      </div>
+      <div>
+        <span>Analyst Coverage: Semiconductor and Storage Solutions, Rating: BUY, Target: NT$ 2,215</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Vanilla JS Micro-Engine -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Dual Mode Theme Switcher
+      var toggleBtn = document.getElementById('themeToggle');
+      var root = document.documentElement;
+      function applyTheme(m) {
+        root.setAttribute('data-theme', m);
+        root.setAttribute('data-mode', m);
+        try {
+          localStorage.setItem('task-html-theme', m);
+        } catch(e) {}
+      }
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          var cur = root.getAttribute('data-theme') || 'light';
+          var nxt = cur === 'dark' ? 'light' : 'dark';
+          applyTheme(nxt);
+        });
+      }
+
+      // 2. Valuation River Tab Switcher
+      var tabPer = document.getElementById('tabPER');
+      var tabPbr = document.getElementById('tabPBR');
+      var gPer = document.getElementById('groupPerRiver');
+      var gPbr = document.getElementById('groupPbrRiver');
+
+      if (tabPer && tabPbr && gPer && gPbr) {
+        tabPer.addEventListener('click', function() {
+          tabPer.classList.add('active');
+          tabPer.setAttribute('aria-selected', 'true');
+          tabPbr.classList.remove('active');
+          tabPbr.setAttribute('aria-selected', 'false');
+          gPer.style.display = 'inline';
+          gPbr.style.display = 'none';
+        });
+
+        tabPbr.addEventListener('click', function() {
+          tabPbr.classList.add('active');
+          tabPbr.setAttribute('aria-selected', 'true');
+          tabPer.classList.remove('active');
+          tabPer.setAttribute('aria-selected', 'false');
+          gPbr.style.display = 'inline';
+          gPer.style.display = 'none';
+        });
+      }
+
+      // 3. Hover Slice Crosshair & Readout Data Binding
+      var slices = document.querySelectorAll('.hover-slice');
+      slices.forEach(function(slice) {
+        slice.addEventListener('mouseenter', function() {
+          var chartType = slice.dataset.chart;
+          var xCenter = parseFloat(slice.getAttribute('x')) + parseFloat(slice.getAttribute('width')) / 2.0;
+
+          if (chartType === 'price') {
+            var ch = document.getElementById('crosshairPrice');
+            if (ch) {
+              ch.setAttribute('x1', xCenter);
+              ch.setAttribute('x2', xCenter);
+              ch.style.opacity = '1';
+            }
+          } else if (chartType === 'inst') {
+            var chInst = document.getElementById('crosshairInst');
+            if (chInst) {
+              chInst.setAttribute('x1', xCenter);
+              chInst.setAttribute('x2', xCenter);
+              chInst.style.opacity = '1';
+            }
+          }
+        });
+      });
+
+      // Mouseleave handler to reset crosshairs
+      var svgs = document.querySelectorAll('.chart-svg');
+      svgs.forEach(function(svg) {
+        svg.addEventListener('mouseleave', function() {
+          var chPrice = document.getElementById('crosshairPrice');
+          if (chPrice) chPrice.style.opacity = '0';
+          var chInst = document.getElementById('crosshairInst');
+          if (chInst) chInst.style.opacity = '0';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
