@@ -75,7 +75,16 @@ Content that FinMind cannot supply (moat, catalysts, overseas comparisons) must 
 
 ### Step 5: Generate the report (`generate_report.py`)
 
-Load `hallmark`, then write a script that reads `data_{code}.json` and `analysis_{code}.json`, computes the derived values that methodology.md assigns to the generator (target prices, upside, rating, trade setup, R:R), and writes the HTML. No number may be typed directly into the HTML template. Meet every requirement in report-contract.md.
+Load `hallmark` and give it these answers so it does not stop to ask:
+
+- Material: only the figures in `data_{code}.json` and `analysis_{code}.json`; no photos, logos, or quotes.
+- Audience: investors and analysts reading Taiwan equity research.
+- Use: understand the thesis and act on the trade setup.
+- Tone: Hallmark's choice; state it in one line.
+
+Prefer the Stat-Led or Long Document shape (hero figure: rating and Base target), and follow Hallmark's `references/data-viz.md` for every chart.
+
+Then write a script that reads `data_{code}.json` and `analysis_{code}.json`, computes the derived values that methodology.md assigns to the generator (target prices, upside, rating, trade setup, R:R), and writes the HTML. No number may be typed directly into the HTML template. Meet every requirement in report-contract.md.
 
 ### Step 6: Register the report
 
@@ -85,6 +94,8 @@ Load `hallmark`, then write a script that reads `data_{code}.json` and `analysis
 ### Step 7: Test (`test_equity_report.py`)
 
 Write and run a standard-library test script that covers the checklist in report-contract.md. Fix the cause of every failure and re-run until all tests pass. Do not proceed with any failure.
+
+Then, if `node` is available, run Hallmark's linter from the hallmark skill directory: `node <hallmark-skill-dir>/scripts/sloplint.mjs <report> --render`. Fix every `FAIL`, and fix or waive every `REFLEX`. If `node` is missing, skip the linter and say so in Step 9.
 
 ### Step 8: Commit and push
 
