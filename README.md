@@ -35,6 +35,7 @@ task-html/
 
 | Category | Deliverable | Live Link | Local Path |
 | :--- | :--- | :--- | :--- |
+| **Equity Research** | [2492 華新科 (Walsin Technology) 360度綜合深度投資分析報告](https://jjjoelyoung.github.io/task-html/reports/equity/2492-walsin-tech-20261110.html) | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2492-walsin-tech-20261110.html) | [`reports/equity/2492-walsin-tech-20261110.html`](./reports/equity/2492-walsin-tech-20261110.html) |
 | **Equity Research** | [2330 台積電 (TSMC) 360度綜合深度投資分析報告](https://jjjoelyoung.github.io/task-html/reports/equity/2330-tsmc-20261109.html) | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2330-tsmc-20261109.html) | [`reports/equity/2330-tsmc-20261109.html`](./reports/equity/2330-tsmc-20261109.html) |
 | **Equity Research** | 8299 Phison Electronics (群聯電子) 360° Comprehensive Analysis | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/8299-phison-20261109.html) | [`reports/equity/8299-phison-20261109.html`](./reports/equity/8299-phison-20261109.html) |
 | **Equity Research** | 2501 Cathay Real Estate (國泰建設) 360° Comprehensive Analysis | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2501-cathay-real-estate.html) | [`reports/equity/2501-cathay-real-estate.html`](./reports/equity/2501-cathay-real-estate.html) |
