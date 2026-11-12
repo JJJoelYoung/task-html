@@ -86,6 +86,14 @@ class Chips(unittest.TestCase):
         self.assertEqual(mt.institutional(rows, self.dates, self.by_date)[2]["group"], "trust")
         self.assertIsNone(mt.institutional(rows[:1], self.dates, self.by_date)[2])
 
+    def test_absent_day_is_null_not_zero(self):
+        rows = self.inst("Foreign_Investor", {d: 100 for d in self.dates if d != self.dates[5]})
+        self.assertEqual(mt.missing_dates(rows, self.dates), [self.dates[5]])
+        daily, cum, _ = mt.institutional(rows, self.dates, self.by_date)
+        self.assertIsNone(daily[5]["foreign"])
+        self.assertEqual(daily[5]["foreign_cum"], 500)
+        self.assertEqual(cum["foreign"], 1900)
+
     def test_short_margin_levels(self):
         def lvl(short):
             rows = [{"date": self.dates[0], "MarginPurchaseTodayBalance": 1000, "ShortSaleTodayBalance": short}]
@@ -99,11 +107,22 @@ class Operations(unittest.TestCase):
     def test_revenue_ytd_mom_yoy(self):
         rows = [{"revenue_year": y, "revenue_month": m, "revenue": (200 if y == 2026 else 100)}
                 for y in (2025, 2026) for m in range(1, 13) if not (y == 2026 and m > 3)]
-        r = mt.revenue(rows)
+        gaps = []
+        r = mt.revenue(rows, gaps)
+        self.assertEqual(gaps, [])
         self.assertEqual(r["latest_period"], "2026-03")
         self.assertEqual((r["ytd"], r["ytd_prev"], r["ytd_yoy_pct"]), (600, 300, 100.0))
         jan = next(x for x in r["last12"] if x["period"] == "2026-01")
         self.assertEqual((jan["mom_pct"], jan["yoy_pct"]), (100.0, 100.0))
+
+    def test_revenue_missing_prior_month_is_null(self):
+        rows = [{"revenue_year": y, "revenue_month": m, "revenue": 100}
+                for y in (2025, 2026) for m in range(1, 4) if (y, m) != (2025, 2)]
+        gaps = []
+        r = mt.revenue(rows, gaps)
+        self.assertIsNone(r["ytd_prev"])
+        self.assertIsNone(r["ytd_yoy_pct"])
+        self.assertIn("2025-02", gaps[0])
 
     def test_usable_deadlines(self):
         self.assertFalse(mt.usable("2026-09-30", "2026-11-13"))
@@ -134,6 +153,23 @@ class Operations(unittest.TestCase):
         self.assertEqual(f["cash_conversion"]["ratio"], round((150 + 150 + 120 + 180) / 400, 2))
         self.assertEqual(f["bvps_latest"], 50.0)
         self.assertEqual(gaps, [])
+
+    def test_non_consecutive_quarters_null_ttm(self):
+        inc = [{"date": q, "type": t, "value": v}
+               for q in ("2025-06-30", "2025-12-31", "2026-03-31", "2026-06-30")
+               for t, v in (("Revenue", 1000), ("EPS", 1.0), ("IncomeAfterTaxes", 100))]
+        cf = [{"date": q, "type": "CashFlowsFromOperatingActivities", "value": 100}
+              for q in ("2025-03-31", "2025-06-30", "2025-09-30", "2025-12-31", "2026-03-31", "2026-06-30")]
+        gaps = []
+        f = mt.financials(inc, [], cf, "2026-11-10", gaps)
+        self.assertIsNone(f["ttm_eps"])
+        self.assertIsNone(f["cash_conversion"])
+        self.assertEqual(len(gaps), 1)
+        self.assertIn("TTM EPS", gaps[0])
+
+    def test_next_quarter(self):
+        self.assertEqual(mt.next_quarter("2025-12-31"), "2026-03-31")
+        self.assertEqual(mt.next_quarter("2026-06-30"), "2026-09-30")
 
     def test_missing_quarter_gap(self):
         self.assertIn("2026-09-30", mt.missing_quarter_gap("2026-06-30", "2026-11-10"))

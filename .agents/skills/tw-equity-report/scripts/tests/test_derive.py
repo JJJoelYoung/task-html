@@ -75,20 +75,32 @@ class Uptrend(unittest.TestCase):
         self.assertEqual(x["rr_breakout"], round((180 - 160) / (160 - 152), 2))
 
 
-class Downtrend(unittest.TestCase):
-    """Characterizes current behavior when close sits below both MAs (the 2492 case):
-    the pullback zone is above the close and the Base target, so R:R comes out negative.
-    Methodology item 2 is expected to change this."""
+class InactiveSetups(unittest.TestCase):
+    """Close below the MA band (the 2492 case): both setups are inactive and R:R is None."""
 
-    def test_negative_rr(self):
+    def test_below_zone(self):
         d, a = inputs(close=100, ma10=115, ma20=125, high60=150, low60=90, maxvol_low=126,
                       eps=(6, 5, 4), mult=(24, 22, 14))
         x = dv.derive(d, a)
         self.assertEqual(x["zone_source"], "ma_band")
-        self.assertGreater(x["entry"], x["close"])
-        self.assertGreater(x["entry"], x["t2"])
-        self.assertLess(x["rr_pullback"], 0)
-        self.assertLess(x["rr_breakout"], 0)
+        self.assertEqual(x["pullback_status"], "below_zone")
+        self.assertEqual(x["breakout_status"], "target_below_trigger")
+        self.assertIsNone(x["rr_pullback"])
+        self.assertIsNone(x["rr_breakout"])
+        self.assertEqual(dv.fmt_rr(x["rr_pullback"]), "不適用")
+        self.assertEqual(x["entry"], 120)
+
+    def test_target_below_entry(self):
+        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135,
+                      eps=(8, 7, 6), mult=(20, 20, 12))
+        x = dv.derive(d, a)
+        self.assertEqual(x["pullback_status"], "target_below_entry")
+        self.assertIsNone(x["rr_pullback"])
+
+    def test_active_statuses_in_uptrend(self):
+        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135)
+        x = dv.derive(d, a)
+        self.assertEqual((x["pullback_status"], x["breakout_status"]), ("active", "active"))
 
 
 if __name__ == "__main__":

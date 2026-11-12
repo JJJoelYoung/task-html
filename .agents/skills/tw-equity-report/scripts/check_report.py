@@ -83,10 +83,13 @@ def check_data(c, d):
         c.ok((d["margin"] or {}).get(k) is not None, f"data: margin.{k} is null")
     r, f = d["revenue"], d["financials"]
     c.ok(len(r["last12"]) == 12, "data: revenue.last12 is not 12 months")
-    c.ok(r["ytd_yoy_pct"] is not None, "data: revenue YTD YoY is null")
+    c.ok(r["ytd_yoy_pct"] is not None or "ytd yoy" in gaps, "data: null revenue YTD YoY not listed in gaps")
     c.ok(len(f["last4"]) == 4, "data: financials.last4 is not 4 quarters")
-    c.ok(f["ttm_eps"] is not None and abs(f["ttm_eps"] - round(sum(q["eps"] for q in f["quarters"][-4:]), 2)) < 0.006,
-         "data: TTM EPS does not equal the sum of the last 4 quarters")
+    if f["ttm_eps"] is None:
+        c.ok("ttm eps" in gaps, "data: null TTM EPS not listed in gaps")
+    else:
+        c.ok(abs(f["ttm_eps"] - round(sum(q["eps"] for q in f["quarters"][-4:]), 2)) < 0.006,
+             "data: TTM EPS does not equal the sum of the last 4 quarters")
     if f["cash_conversion"] is None:
         c.ok("cash" in gaps, "data: null cash conversion not listed in gaps")
     c.ok(f["quarters"][-1]["dsi_days"] is not None, "data: latest DSI is null")
@@ -130,6 +133,9 @@ def check_calculations(c, page, x):
     c.ok(dv.fmt_price(x["weighted_target"]) in page, "html: probability-weighted target not shown")
     c.ok(text_of(page, "data-rr", "pullback") == dv.fmt_rr(x["rr_pullback"]), "html: data-rr=pullback does not match")
     c.ok(text_of(page, "data-rr", "breakout") == dv.fmt_rr(x["rr_breakout"]), "html: data-rr=breakout does not match")
+    for k in ("pullback_status", "breakout_status"):
+        if x[k] != "active":
+            c.ok(dv.SETUP_STATUS_ZH[x[k]] in page, f"html: inactive setup reason missing: {dv.SETUP_STATUS_ZH[x[k]]}")
     for k in ("entry", "hard_stop", "breakout_stop", "t1", "trigger"):
         c.ok(dv.fmt_price(x[k]) in page, f"html: {k} {dv.fmt_price(x[k])} not shown")
 
@@ -180,7 +186,7 @@ def check_portal(c, root, rel, x, d):
         card = cards[0]
         for needle in ('data-category="equity"', f'<span class="artifact-date">{d["asof"]}</span>',
                        f"NT$ {dv.fmt_price(x['base']['target'])}", dv.fmt_pct(x["base"]["upside_pct"]),
-                       x["rating_zh"], f"{dv.fmt_rr(x['rr_pullback'])} : 1", "aria-label="):
+                       x["rating_zh"], rr_card(x["rr_pullback"]), "aria-label="):
             c.ok(needle in card, f"portal: card lacks {needle!r}")
         for r in relative_refs(card):
             c.ok((root / r).exists(), f"links: card link {r} does not exist")
@@ -189,6 +195,11 @@ def check_portal(c, root, rel, x, d):
         c.ok("View Online" in rows[0], "portal: README row lacks View Online")
         for target in re.findall(r"\]\((\./[^)]+)\)", rows[0]):
             c.ok((root / target).exists(), f"links: README link {target} does not exist")
+
+
+def rr_card(v):
+    """Card telemetry text for the pullback R:R."""
+    return dv.fmt_rr(v) if v is None else f"{dv.fmt_rr(v)} : 1"
 
 
 def find_root(start):

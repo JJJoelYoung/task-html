@@ -56,7 +56,9 @@ python .agents/skills/tw-equity-report/scripts/fetch.py {code} --asof {asof} --o
 
 It writes `data_{code}.json` with `asof`, `tool_version`, `sources`, and `gaps`, reading the token from `FINMIND_TOKEN`. Inspect the JSON before going on.
 
-- Exit code 2 means the FinMind hourly quota is exhausted: stop and tell the user it resets within the hour, and a higher FinMind tier raises it. On any other error, stop and report it.
+- Exit code 2 means the FinMind hourly quota is exhausted: stop and tell the user it resets within the hour, and a higher FinMind tier raises it.
+- Exit code 3 means FinMind has not yet published a chip dataset for `asof`: stop and tell the user to rerun later that evening, or offer the previous trading day as `--asof`.
+- On any other error, stop and report it.
 - Every number comes from the script. Missing data appears only as a script-recorded `gap`, disclosed in the report; never fill it with estimates, and never type market data into code or JSON.
 - To change a metric, edit the shared script and its tests, then run `python -m unittest discover -s .agents/skills/tw-equity-report/scripts/tests`. A change applies to every later report, so confirm it with the user first.
 - The scripts use only Free-tier datasets, so the report builds on any FinMind account. Before adding a dataset above Free (for example `TaiwanStockHoldingSharesPer`, Backer), check the account tier with the `setup-finmind-mcp` skill's `smoke` command; its hourly limit maps to the tier (600 Free, 1,600 Backer, 6,000 Sponsor). If the API refuses a dataset for tier, record a gap instead of failing.

@@ -9,6 +9,7 @@ Fixed definitions for every metric in the report. `scripts/metrics.py` (run by `
 - **Daily average price**: `Trading_money / Trading_Volume`.
 - **Point-in-time**: a quarterly statement is usable only after its statutory deadline (Q1 May 15, Q2 Aug 14, Q3 Nov 14, Q4 Mar 31 of the next year) unless the dataset already contains it. `TaiwanStockMonthRevenue` rows dated `YYYY-MM-01` hold the previous month's revenue.
 - **Market**: take the latest-dated `TaiwanStockInfo` row as the current market. Apply the `finmind` skill's emerging-market rules when market is `emerging`.
+- **Missing rows are null, never zero**: a value whose input row is absent is null and listed in `gaps`. For the W20 chip datasets (institutional, foreign holding, margin), a missing `asof` row stops the run, since FinMind publishes it later that evening; a missing earlier day is null and excluded from cumulative sums.
 
 ## 1. Datasets
 
@@ -43,8 +44,8 @@ Statement `type` names differ between industries; inspect the returned `type` va
 
 ## 4. Operations and financials
 
-- **Revenue**: year-to-date sum through the latest reported month and its YoY against the same months of the prior year; the last 12 months' revenue with MoM and YoY each.
-- **Last 4 quarters**: EPS, gross margin (gross profit / revenue), operating margin (operating income / revenue), TTM EPS (sum of the 4).
+- **Revenue**: year-to-date sum through the latest reported month and its YoY against the same months of the prior year (null if any prior-year month is missing); the last 12 months' revenue with MoM and YoY each.
+- **Last 4 quarters**: EPS, gross margin (gross profit / revenue), operating margin (operating income / revenue), TTM EPS (sum of the 4). TTM EPS and cash conversion require 4 consecutive quarters; otherwise they are null.
 - **Days inventory (DSI)** = average of opening and closing inventory / quarterly cost of goods sold × 91.
 - **Cash conversion** = TTM operating cash flow / TTM net income.
 - **Earnings-quality focus by industry**: tech and electronics, inventory cycle and capex; construction, IFRS 15 recognition at delivery and contract liabilities; financials, book value and credit costs. Other industries: state the focus chosen and why.
@@ -66,11 +67,16 @@ Statement `type` names differ between industries; inspect the returned `type` va
 
 ## 7. Trade setup (generator)
 
+Each setup is **active** only when its preconditions hold. An inactive setup keeps its price levels (they show where it would become active), but its R:R is null, shown as `不適用` with the reason:
+
+- Pullback: inactive when close < the entry zone's lower bound (`below_zone`), or when T2 ≤ entry price (`target_below_entry`).
+- Breakout: inactive when T2 ≤ breakout trigger (`target_below_trigger`).
+
 - **Pullback entry zone**: the overlap of [min(MA10, MA20), max(MA10, MA20)] and the institutional cost zone. If they do not overlap or the cost zone is null, use the MA10–MA20 band. Entry price = zone midpoint.
 - **Breakout trigger**: the highest high of the last 60 trading days, valid only with volume > 1.5 × `vol_avg20`.
 - **T1 (technical)**: the 60-day highest high when it is at least 3% above the entry price; otherwise entry price + 0.618 × (60-day high − 60-day low).
 - **T2 (fundamental)**: the Base target.
 - **Hard stop**: from the two candidates, the low of the highest-volume day in W20 and MA20 × 0.97, take the one closest to the entry price that is still below the zone's lower bound. If neither is below it, use the lower bound × 0.95.
 - **Breakout stop**: breakout trigger × 0.95.
-- **R:R (pullback)** = (T2 − entry price) / (entry price − hard stop). **R:R (breakout)** = (T2 − trigger) / (trigger − breakout stop). Mark R:R < 1.5 as 不具交易吸引力.
+- **R:R (pullback)** = (T2 − entry price) / (entry price − hard stop). **R:R (breakout)** = (T2 − trigger) / (trigger − breakout stop). Both only for an active setup. Mark an active R:R < 1.5 as 不具交易吸引力.
 - **Thesis breakers**: 2–3 measurable conditions, each with a threshold and the dataset that would show it (e.g. monthly revenue YoY negative for 2 consecutive months).

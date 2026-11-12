@@ -47,6 +47,14 @@ def round_tick(p):
     return round(round(p / t) * t, 2)
 
 
+# Why a trade setup is inactive; the report shows this text in place of R:R.
+SETUP_STATUS_ZH = {
+    "below_zone": "收盤低於進場區，拉回策略條件未成立",
+    "target_below_entry": "Base 目標價不高於進場價，拉回策略條件未成立",
+    "target_below_trigger": "Base 目標價不高於突破點，突破策略條件未成立",
+}
+
+
 def rating_of(upside_pct):
     if upside_pct > 15:
         return "買進", "BUY"
@@ -83,8 +91,15 @@ def derive(d, a):
     hard_stop = round_tick(max(cands)) if cands else round_tick(z_lo * 0.95)
     stop_src = "candidate" if cands else "zone_low_x_0.95"
     bo_stop = round_tick(trigger * 0.95)
-    rr_pb = round((t2 - entry) / (entry - hard_stop), 2)
-    rr_bo = round((t2 - trigger) / (trigger - bo_stop), 2)
+    if close < z_lo:
+        pb_status = "below_zone"
+    elif t2 <= entry:
+        pb_status = "target_below_entry"
+    else:
+        pb_status = "active"
+    bo_status = "target_below_trigger" if t2 <= trigger else "active"
+    rr_pb = round((t2 - entry) / (entry - hard_stop), 2) if pb_status == "active" else None
+    rr_bo = round((t2 - trigger) / (trigger - bo_stop), 2) if bo_status == "active" else None
     return {
         "close": close,
         "scenarios": scen,
@@ -104,6 +119,8 @@ def derive(d, a):
         "hard_stop": hard_stop,
         "hard_stop_source": stop_src,
         "breakout_stop": bo_stop,
+        "pullback_status": pb_status,
+        "breakout_status": bo_status,
         "rr_pullback": rr_pb,
         "rr_breakout": rr_bo,
     }
@@ -126,4 +143,5 @@ def fmt_pct(v, dec=1, suffix="%"):
 
 
 def fmt_rr(v):
-    return f"{v:.2f}"
+    """R:R with 2 decimals; 不適用 for an inactive setup (None)."""
+    return "不適用" if v is None else f"{v:.2f}"

@@ -5,7 +5,8 @@ Usage:
   python fetch.py <code> --out <work-folder> [--peers 2327,3026,2478] [--asof YYYY-MM-DD]
 
 --asof pins the as-of date (default: the latest trading day in TaiwanStockPrice).
-Exit code 2 means the FinMind hourly quota is exhausted.
+Exit code 2: the FinMind hourly quota is exhausted.
+Exit code 3: a chip dataset has no row for asof yet (FinMind publishes it later).
 """
 
 import argparse
@@ -19,6 +20,24 @@ import metrics as mt
 from finmind_client import QuotaError, fetch
 
 HERE = Path(__file__).resolve().parent
+
+
+class NotPublishedError(RuntimeError):
+    """A W20 dataset has no row for asof yet."""
+
+
+def chip_rows(dataset, code, w20_dates, gaps):
+    """Fetch a W20 chip dataset; stop if asof is absent, record a gap for earlier absent days."""
+    rows = fetch(dataset, code, w20_dates[0], w20_dates[-1])
+    absent = mt.missing_dates(rows, w20_dates)
+    if w20_dates[-1] in absent:
+        raise NotPublishedError(
+            f"{dataset} has no row for {w20_dates[-1]} yet. FinMind usually adds it in the evening; "
+            "rerun later, or pin an earlier --asof."
+        )
+    if absent:
+        gaps.append(f"{dataset} has no rows for {', '.join(absent)}; those days are null and excluded.")
+    return rows
 
 
 def tool_version():
@@ -54,24 +73,24 @@ def build(code, peers, asof_pin=None):
     by_date = {d["date"]: d for d in series}
     w_start = w20_dates[0]
 
-    inst_rows = fetch("TaiwanStockInstitutionalInvestorsBuySell", code, w_start, asof)
+    inst_rows = chip_rows("TaiwanStockInstitutionalInvestorsBuySell", code, w20_dates, gaps)
     inst_daily, inst_cum, zone = mt.institutional(inst_rows, w20_dates, by_date)
     sources["institutional"] = {"dataset": "TaiwanStockInstitutionalInvestorsBuySell", "range": [w_start, asof]}
     if zone is None:
         gaps.append("Neither foreign nor investment trust had 3+ net-buy days in W20; institutional cost zone is null.")
 
-    sh = mt.shareholding(fetch("TaiwanStockShareholding", code, w_start, asof), w20_dates)
+    sh = mt.shareholding(chip_rows("TaiwanStockShareholding", code, w20_dates, gaps), w20_dates)
     sources["foreign_holding"] = {"dataset": "TaiwanStockShareholding", "range": [w_start, asof]}
     if sh is None:
         gaps.append("TaiwanStockShareholding returned no rows in W20.")
 
-    mg = mt.margin(fetch("TaiwanStockMarginPurchaseShortSale", code, w_start, asof), w20_dates)
+    mg = mt.margin(chip_rows("TaiwanStockMarginPurchaseShortSale", code, w20_dates, gaps), w20_dates)
     sources["margin"] = {"dataset": "TaiwanStockMarginPurchaseShortSale", "range": [w_start, asof]}
     if mg is None:
         gaps.append("TaiwanStockMarginPurchaseShortSale returned no rows in W20.")
     pm["float_settling"] = mt.float_settling(pm, mg)
 
-    rev = mt.revenue(fetch("TaiwanStockMonthRevenue", code, f"{asof_d.year - 2}-01-01", asof))
+    rev = mt.revenue(fetch("TaiwanStockMonthRevenue", code, f"{asof_d.year - 2}-01-01", asof), gaps)
     sources["revenue"] = {"dataset": "TaiwanStockMonthRevenue", "range": [rev["series24"][0]["period"], rev["latest_period"]]}
 
     fin_start = f"{asof_d.year - 2}-07-01"
@@ -137,6 +156,9 @@ def main(argv=None):
     except QuotaError as e:
         print(e, file=sys.stderr)
         return 2
+    except NotPublishedError as e:
+        print(e, file=sys.stderr)
+        return 3
     args.out.mkdir(parents=True, exist_ok=True)
     out = args.out / f"data_{args.code}.json"
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")

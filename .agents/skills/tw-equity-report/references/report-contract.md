@@ -31,7 +31,7 @@ Fetching, metrics, derived values, and checks live once in the skill's `scripts/
 
 ## 3. KPI cards (top of page)
 
-Close, rating, Base target, Base upside %, pullback R:R, and `asof`.
+Close, rating, Base target, Base upside %, pullback R:R (`不適用` when the setup is inactive), and `asof`.
 
 ## 4. Sections
 
@@ -44,13 +44,13 @@ Each section is a `<section>` with the given `id`.
 | `dim3` | 營運與財務 | Monthly revenue chart with YoY; YTD revenue and YoY; 4-quarter EPS, gross and operating margin; DSI; cash conversion; industry earnings-quality commentary |
 | `dim4` | 估值與目標價 | 5-year PER and PBR bands with current percentile; peer matrix with peer reasons; Bull/Base/Bear table (EPS or BVPS, multiple, target, upside, probability, assumptions); probability-weighted target; rating |
 | `dim5` | 催化劑與風險 | Moat; 3–5 catalysts and 3–5 risks, each with expected timing, direction of impact, and an observable indicator |
-| `dim6` | 交易部位與風控 | Pullback zone and breakout trigger with their conditions; T1, T2; hard stop and breakout stop; thesis breakers; both R:R values; the K-line chart with horizontal Entry, T1, T2, and SL lines |
+| `dim6` | 交易部位與風控 | Pullback zone and breakout trigger with their conditions; T1, T2; hard stop and breakout stop; thesis breakers; both R:R values, or for an inactive setup `不適用` with its reason from `derive.SETUP_STATUS_ZH`; the K-line chart with horizontal Entry, T1, T2, and SL lines |
 
 ## 5. Data labeling
 
 - Every chart and table states its date range and source dataset.
 - Judgment content is marked `分析師判斷`; external facts cite source and date.
-- `gaps` from the data file are listed in a visible note.
+- `gaps` from the data file are listed in a visible note. Null values (including null days in a chart series) are shown as missing, never as zero.
 - Footer: data source (FinMind), `asof`, generation date, and the disclaimer `本報告僅供研究參考，不構成任何投資建議。`
 
 ## 6. Portal entries
@@ -60,7 +60,7 @@ Each section is a `<section>` with the given `id`.
 - `<article class="artifact-card" data-category="equity" data-keywords="...">`. Keywords: code, Chinese name, English name and slug, industry, and the report's main themes.
 - `artifact-category` = `equity research`; `artifact-date` = `asof` (`YYYY-MM-DD`).
 - Title link to the report; a 2–3 sentence description using numbers from the data file.
-- `artifact-telemetry` items: 目標價, 潛在上漲 (or 潛在下跌), 投資評等, 風險報酬比.
+- `artifact-telemetry` items: 目標價, 潛在上漲 (or 潛在下跌), 投資評等, 風險報酬比 (`x.xx : 1`, or `不適用`).
 - Footer badge and a `閱讀報告 →` action link with an `aria-label`.
 
 **README.md row** in `Published Deliverables`: category, linked title, `View Online` link (GitHub Pages URL), local path. Follow the existing rows.
@@ -71,7 +71,7 @@ Each section is a `<section>` with the given `id`.
 
 1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`); the peer matrix holds the target and 3 peers.
 2. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`.
-3. **Calculations**: target prices, upside, weighted target, entry, stops, T1, trigger, and both R:R values recomputed by `derive.py` appear in the HTML.
+3. **Calculations**: target prices, upside, weighted target, entry, stops, T1, trigger, and both R:R values recomputed by `derive.py` appear in the HTML; each inactive setup shows its reason.
 4. **Structure**: sections `dim1`–`dim6`; KPI hooks equal the derived values; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
 5. **Portal**: exactly one `index.html` card and one README row point to the report; the card's telemetry matches the derived values.
 6. **Links**: every relative `href`/`src` in the report, the card, and the README row resolves to an existing file.

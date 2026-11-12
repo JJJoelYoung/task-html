@@ -121,6 +121,12 @@ def float_settling(price_m, margin_m):
 
 # ---------------------------------------------------------------- 3. chips
 
+def missing_dates(rows, dates):
+    """W20 dates for which a dataset returned no row at all."""
+    present = {r["date"] for r in rows}
+    return [d for d in dates if d not in present]
+
+
 def institutional(rows, w20_dates, price_by_date):
     """Return (daily, cumulative, cost_zone) for the 3 institutional groups."""
     groups = {
@@ -128,6 +134,7 @@ def institutional(rows, w20_dates, price_by_date):
         "trust": {"Investment_Trust"},
         "dealer": {"Dealer_self", "Dealer_Hedging"},
     }
+    absent = set(missing_dates(rows, w20_dates))
     daily = {d: {g: 0 for g in groups} for d in w20_dates}
     for r in rows:
         if r["date"] not in daily:
@@ -139,14 +146,14 @@ def institutional(rows, w20_dates, price_by_date):
     for d in w20_dates:
         row = {"date": d}
         for g in groups:
-            v = round(daily[d][g])
-            cum[g] += v
+            v = None if d in absent else round(daily[d][g])
+            cum[g] += v or 0
             row[g] = v
             row[g + "_cum"] = cum[g]
         out.append(row)
 
     def cost_zone(g):
-        buys = [(d, daily[d][g]) for d in w20_dates if daily[d][g] > 0]
+        buys = [(d, daily[d][g]) for d in w20_dates if d not in absent and daily[d][g] > 0]
         if len(buys) < 3:
             return None
         w = sum(v for _, v in buys)
@@ -200,7 +207,7 @@ def margin(rows, w20_dates):
 
 # ---------------------------------------------------------------- 4. operations
 
-def revenue(rows):
+def revenue(rows, gaps):
     by = {(r["revenue_year"], r["revenue_month"]): r["revenue"] for r in rows}
     keys = sorted(by)
     ly, lm = keys[-1]
@@ -217,13 +224,16 @@ def revenue(rows):
             }
         )
     ytd = sum(by[(ly, m)] for m in range(1, lm + 1))
-    ytd_prev = sum(by.get((ly - 1, m), 0) for m in range(1, lm + 1))
+    absent = [f"{ly - 1}-{m:02d}" for m in range(1, lm + 1) if (ly - 1, m) not in by]
+    ytd_prev = None if absent else sum(by[(ly - 1, m)] for m in range(1, lm + 1))
+    if absent:
+        gaps.append(f"Revenue for {', '.join(absent)} is missing; YTD YoY is null.")
     series24 = [{"period": f"{y}-{m:02d}", "revenue": by[(y, m)]} for y, m in keys[-24:]]
     return {
         "latest_period": f"{ly}-{lm:02d}",
         "ytd": ytd,
         "ytd_prev": ytd_prev,
-        "ytd_yoy_pct": r1(pct(ytd, ytd_prev)),
+        "ytd_yoy_pct": r1(pct(ytd, ytd_prev)) if ytd_prev is not None else None,
         "last12": last12,
         "series24": series24,
     }
@@ -241,6 +251,11 @@ def usable(qdate, asof):
     y, md = qdate[:4], qdate[5:]
     dl_year = int(y) + 1 if md == "12-31" else int(y)
     return asof >= f"{dl_year}-{Q_DEADLINE[md]}"
+
+
+def next_quarter(q):
+    md = {"03-31": "06-30", "06-30": "09-30", "09-30": "12-31"}.get(q[5:])
+    return f"{q[:4]}-{md}" if md else f"{int(q[:4]) + 1}-03-31"
 
 
 def financials(inc, bal, cf, asof, gaps):
@@ -278,7 +293,11 @@ def financials(inc, bal, cf, asof, gaps):
         else:
             qq["dsi_days"] = None
     last4 = quarters[-4:]
-    ttm_eps = r2(sum(q["eps"] for q in last4)) if len(last4) == 4 else None
+    consecutive = len(last4) == 4 and all(next_quarter(a["quarter"]) == b["quarter"] for a, b in zip(last4, last4[1:]))
+    ttm_eps = r2(sum(q["eps"] for q in last4)) if consecutive else None
+    if len(last4) == 4 and not consecutive:
+        gaps.append(f"The last 4 quarters ({', '.join(q['quarter'] for q in last4)}) are not consecutive; "
+                    "TTM EPS and cash conversion are null.")
 
     # The cash flow statement is cumulative within a fiscal year: de-cumulate.
     ocf_key = "CashFlowsFromOperatingActivities"
@@ -298,12 +317,13 @@ def financials(inc, bal, cf, asof, gaps):
         ocf_q[q] = v
     cash_conv = None
     l4q = [q["quarter"] for q in last4]
-    if all(q in ocf_q for q in l4q):
-        ttm_ocf = sum(ocf_q[q] for q in l4q)
-        ttm_ni = sum(q["net_income"] for q in last4)
-        cash_conv = {"ttm_ocf": ttm_ocf, "ttm_net_income": ttm_ni, "ratio": r2(ttm_ocf / ttm_ni)}
-    else:
-        gaps.append("Operating cash flow missing for one of the last 4 quarters; cash conversion is null.")
+    if consecutive:
+        if all(q in ocf_q for q in l4q):
+            ttm_ocf = sum(ocf_q[q] for q in l4q)
+            ttm_ni = sum(q["net_income"] for q in last4)
+            cash_conv = {"ttm_ocf": ttm_ocf, "ttm_net_income": ttm_ni, "ratio": r2(ttm_ocf / ttm_ni)}
+        else:
+            gaps.append("Operating cash flow missing for one of the last 4 quarters; cash conversion is null.")
 
     lb = bal.get(quarters[-1]["quarter"], {})
     equity_parent = lb.get("EquityAttributableToOwnersOfParent")
