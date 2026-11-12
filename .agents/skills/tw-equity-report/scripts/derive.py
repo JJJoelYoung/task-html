@@ -65,13 +65,42 @@ def rating_of(upside_pct):
 
 # ---------------------------------------------------------------- derivation
 
+def band_position(v, band):
+    """Where v sits in a percentile band: below_p25, p25_p75, p75_p90, or above_p90."""
+    if v < band["p25"]:
+        return "below_p25"
+    if v <= band["p75"]:
+        return "p25_p75"
+    return "p75_p90" if v <= band["p90"] else "above_p90"
+
+
+def implied_multiple(d, a, name, target):
+    """Cross-check a target against the other valuation band (methodology section 6).
+
+    With the PER method the target implies a PBR (target / BVPS); with the PBR method it
+    implies a PER (target / TTM EPS). needs_basis marks a Base above P90 or a Bull above
+    1.5 x P90, whose basis must then name the metric. None when the input is missing.
+    """
+    metric = "PER" if a.get("valuation_method") == "PBR" else "PBR"
+    f = d.get("financials") or {}
+    denom = f.get("ttm_eps") if metric == "PER" else f.get("bvps_latest")
+    band = (d.get("valuation") or {}).get(metric)
+    if not denom or denom <= 0 or not band:
+        return None
+    v = round(target / denom, 2)
+    limit = {"Base": band["p90"], "Bull": 1.5 * band["p90"]}.get(name)
+    return {"metric": metric, "value": v, "position": band_position(v, band),
+            "needs_basis": limit is not None and v > limit}
+
+
 def derive(d, a):
     m = d["price"]["metrics"]
     close = m["close"]
     scen = []
     for s in a["scenarios"]:
         target = round_tick(s["eps"] * s["multiple"])
-        scen.append({**s, "target": target, "upside_pct": round((target / close - 1) * 100, 1)})
+        scen.append({**s, "target": target, "upside_pct": round((target / close - 1) * 100, 1),
+                     "implied": implied_multiple(d, a, s["name"], target)})
     base = next(s for s in scen if s["name"] == "Base")
     weighted = round_tick(sum(s["probability"] * s["target"] for s in scen) / 100)
     rating_zh, rating_en = rating_of(base["upside_pct"])
@@ -140,6 +169,11 @@ def fmt_pct(v, dec=1, suffix="%"):
     if v is None:
         return "無資料"
     return f"{v:+,.{dec}f}{suffix}"
+
+
+def fmt_mult(v):
+    """Valuation multiple, e.g. 2.34x."""
+    return f"{v:.2f}x"
 
 
 def fmt_rr(v):

@@ -61,6 +61,7 @@ Statement `type` names differ between industries; inspect the returned `type` va
 - Horizon: 12 months.
 - Target = forward EPS × PER multiple. Use BVPS × PBR multiple instead when TTM EPS ≤ 0 or the industry is financial or asset-heavy; state which.
 - **Multiple anchoring**: Bear ≤ P25, Base between P25 and P75 (normally near P50), Bull ≤ P90. A multiple outside these bounds needs an explicit `basis`.
+- **Implied cross multiple**: check each target against the other band, since a cyclical's PER band is inflated by trough earnings. With the PER method, implied PBR = target / BVPS; with the PBR method, implied PER = target / TTM EPS (skipped when TTM EPS ≤ 0). Report each scenario's value and band position. A Base above that band's P90, or a Bull above 1.5 × P90, needs a `basis` that names the metric and justifies the level.
 - Probabilities are whole percentages summing to 100. Probability-weighted target = Σ(probability × target).
 - Upside = target / close − 1.
 - **Rating** from Base upside: > +15% 買進 (BUY); −5% to +15% 中立 (NEUTRAL); < −5% 賣出 (SELL).

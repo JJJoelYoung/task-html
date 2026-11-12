@@ -103,5 +103,35 @@ class InactiveSetups(unittest.TestCase):
         self.assertEqual((x["pullback_status"], x["breakout_status"]), ("active", "active"))
 
 
+class ImpliedMultiple(unittest.TestCase):
+    """PER method: each target implies a PBR, checked against the PBR band (the 2492 case)."""
+
+    def setUp(self):
+        d, a = inputs(close=288.5, ma10=330, ma20=361, high60=431.5, low60=250, maxvol_low=300,
+                      eps=(20, 16, 10.5), mult=(26, 20, 13))
+        d["financials"] = {"bvps_latest": 136.93, "ttm_eps": 8.9}
+        d["valuation"] = {"PBR": {"p25": 0.97, "p75": 1.3, "p90": 1.99}}
+        self.d, self.a = d, a
+
+    def test_pbr_cross_check(self):
+        im = {s["name"]: s["implied"] for s in dv.derive(self.d, self.a)["scenarios"]}
+        self.assertEqual((im["Base"]["metric"], im["Base"]["value"], im["Base"]["position"]), ("PBR", 2.34, "above_p90"))
+        self.assertTrue(im["Base"]["needs_basis"])
+        self.assertTrue(im["Bull"]["needs_basis"])
+        self.assertEqual((im["Bear"]["position"], im["Bear"]["needs_basis"]), ("p25_p75", False))
+        self.assertEqual(dv.fmt_mult(im["Base"]["value"]), "2.34x")
+
+    def test_pbr_method_checks_per(self):
+        self.a["valuation_method"] = "PBR"
+        self.d["valuation"]["PER"] = {"p25": 10, "p75": 20, "p90": 30}
+        base = next(s for s in dv.derive(self.d, self.a)["scenarios"] if s["name"] == "Base")
+        self.assertEqual(base["implied"]["metric"], "PER")
+        self.assertEqual(base["implied"]["value"], round(base["target"] / 8.9, 2))
+
+    def test_missing_inputs(self):
+        self.d["financials"]["bvps_latest"] = None
+        self.assertIsNone(dv.derive(self.d, self.a)["scenarios"][0]["implied"])
+
+
 if __name__ == "__main__":
     unittest.main()

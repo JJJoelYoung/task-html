@@ -101,7 +101,7 @@ Load `hallmark`. report-contract.md fixes the page structure, so run only these 
 
 The hero review, comps, photos, and the material ask do not apply; the finish review runs in Step 7.
 
-Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, rating, trade setup, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2.
+Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, implied cross multiples, rating, trade setup, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, `fmt_mult`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2.
 
 ### Step 6: Register the report
 

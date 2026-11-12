@@ -103,7 +103,7 @@ def check_data(c, d):
     c.ok((d["peers"]["median"] or {}).get("PER") is not None, "data: peer median PER is null")
 
 
-def check_analysis(c, d, a):
+def check_analysis(c, d, a, x):
     sc = {s["name"]: s for s in a["scenarios"]}
     c.ok(set(sc) == {"Bull", "Base", "Bear"}, "analysis: scenarios must be Bull, Base, Bear")
     c.ok(sum(s["probability"] for s in a["scenarios"]) == 100, "analysis: probabilities do not sum to 100")
@@ -125,6 +125,12 @@ def check_analysis(c, d, a):
         if not ok:
             c.ok(re.search(r"P(10|25|50|75|90)", sc[name]["basis"]),
                  f"analysis: {name} multiple is outside its anchor band and its basis cites no percentile")
+    for s in x["scenarios"]:
+        im = s["implied"]
+        if im and im["needs_basis"]:
+            c.ok(im["metric"] in sc[s["name"]]["basis"],
+                 f"analysis: {s['name']} target implies {im['metric']} {dv.fmt_mult(im['value'])} ({im['position']}) "
+                 f"and its basis does not address {im['metric']}")
 
 
 URL_RE = re.compile(r"https?://[A-Za-z0-9\-._~:/?#@!$&*+=%]+")
@@ -167,6 +173,10 @@ def check_calculations(c, page, x):
     for s in x["scenarios"]:
         c.ok(dv.fmt_price(s["target"]) in page, f"html: {s['name']} target {dv.fmt_price(s['target'])} not shown")
         c.ok(dv.fmt_pct(s["upside_pct"]) in page, f"html: {s['name']} upside {dv.fmt_pct(s['upside_pct'])} not shown")
+        if s["implied"]:
+            v = dv.fmt_mult(s["implied"]["value"])
+            c.ok(text_of(page, "data-implied", s["name"]) == v,
+                 f"html: data-implied={s['name']} does not show the implied {s['implied']['metric']} {v}")
     c.ok(dv.fmt_price(x["weighted_target"]) in page, "html: probability-weighted target not shown")
     c.ok(text_of(page, "data-rr", "pullback") == dv.fmt_rr(x["rr_pullback"]), "html: data-rr=pullback does not match")
     c.ok(text_of(page, "data-rr", "breakout") == dv.fmt_rr(x["rr_breakout"]), "html: data-rr=breakout does not match")
@@ -268,7 +278,7 @@ def main(argv=None):
     report = root / rel
     c = Check()
     check_data(c, d)
-    check_analysis(c, d, a)
+    check_analysis(c, d, a, x)
     page = report.read_text(encoding="utf-8") if report.exists() else None
     check_research(c, work, code, a, page)
     if c.ok(page is not None, f"html: report {rel} does not exist"):
