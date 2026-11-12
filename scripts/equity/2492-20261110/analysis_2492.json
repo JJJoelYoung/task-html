@@ -20,7 +20,7 @@
    "multiple": 26.0,
    "probability": 25,
    "assumptions": "缺貨延續至 2027 年且第二輪漲價落地；毛利率維持 28% 以上；AI 營收占比達 20%。前瞻 4 季 EPS 約為 3Q26 單季 4.73 的 4 倍再加計漲價。",
-   "basis": "3Q26 EPS 4.73（工商時報/UAnalyze 2026-11-05 報導，FinMind 尚未收錄）×4 ≈ 18.9；倍數 26x 介於 P50 24.38 與 P75 31.95 之間，低於 P90 44.11。"
+   "basis": "3Q26 EPS 4.73（UAnalyze 2026-11-05 報導，FinMind 尚未收錄，https://uanalyze.com.tw/articles/4453358479）×4 ≈ 18.9；倍數 26x 介於 P50 24.38 與 P75 31.95 之間，低於 P90 44.11。"
   },
   {
    "name": "Base",
@@ -29,7 +29,7 @@
    "multiple": 20.0,
    "probability": 50,
    "assumptions": "4Q26 季節性放緩（10 月營收月減 8.6%），2027 年單季 EPS 約 4.0；毛利率約 25% 至 27%；業外持股收益持平。",
-   "basis": "data.revenue.last12 顯示 2026-10 營收 44.7 億、月減 8.6%；2Q26 EPS 3.24 與報導 3Q26 EPS 4.73 的中間值約 4.0/季。倍數 20x 低於 P50 24.38 但高於 P25 13.24：5 年 PER 分布含景氣谷底低 EPS 期間的高本益比，景氣高峰盈餘應給予折價（分析師判斷）。"
+   "basis": "data.revenue.last12 顯示 2026-10 營收 44.7 億、月減 8.6%；2Q26 EPS 3.24 與報導 3Q26 EPS 4.73（https://uanalyze.com.tw/articles/4453358479）的中間值約 4.0/季。倍數 20x 低於 P50 24.38 但高於 P25 13.24：5 年 PER 分布含景氣谷底低 EPS 期間的高本益比，景氣高峰盈餘應給予折價（分析師判斷）。"
   },
   {
    "name": "Bear",
@@ -44,19 +44,19 @@
  "moat": [
   {"title": "被動元件雙主軸規模", "text": "同時具備 MLCC 與晶片電阻產能，可對通路與 EMS 提供一站式料號，在缺貨期享有議價與配貨優勢。", "basis": "分析師判斷"},
   {"title": "華新集團持股收益", "text": "業外權益法與投資收益占獲利比重高（2Q26 業外收入 11.1 億），提供盈餘緩衝但也加大波動。", "basis": "data.financials.quarters[2026-06-30].non_operating"},
-  {"title": "日韓大廠轉向高階的空間", "text": "Murata、SEMCO、Taiyo Yuden 將產能移往高階 MLCC，留給台系二線廠中低階與消費規格的定價空間。", "basis": "TrendForce 2026-04-28 新聞稿"}
+  {"title": "日韓大廠轉向高階的空間", "text": "Murata、SEMCO、Taiyo Yuden 將產能移往高階 MLCC，留給台系二線廠中低階與消費規格的定價空間。", "basis": "TrendForce 2026-04-28 新聞稿，https://www.trendforce.com/presscenter/news/20260428-13023.html"}
  ],
  "catalysts": [
-  {"title": "3Q26 財報正式公告", "timing": "2026-11-14 前", "direction": "正向", "indicator": "TaiwanStockFinancialStatements 2026-09-30 毛利率是否 ≥ 27%", "basis": "報導 3Q26 毛利率 27.84%、EPS 4.73（工商時報 2026-11-05）"},
-  {"title": "第二輪漲價", "timing": "4Q26 至 1Q27", "direction": "正向", "indicator": "月營收 YoY 維持 > 40% 且毛利率續升", "basis": "公司 2026-06-01 起調漲晶片電阻與部分 MLCC（工商時報 2026-06-02）"},
-  {"title": "AI 伺服器電源規格升級", "timing": "2027 年", "direction": "正向", "indicator": "法說會揭露 AI 營收占比達 15% 至 20%", "basis": "2026-06-12 股東會指引（StatementDog 2026-06）"},
-  {"title": "BB ratio 延續 > 1.3", "timing": "每季法說", "direction": "正向", "indicator": "管理層公布之 book-to-bill", "basis": "8 月管理層稱 BB ratio 曾逾 1.8（StatementDog 2026-08）"}
+  {"title": "3Q26 財報正式公告", "timing": "2026-11-14 前", "direction": "正向", "indicator": "TaiwanStockFinancialStatements 2026-09-30 毛利率是否 ≥ 27%", "basis": "報導 3Q26 毛利率 27.84%、EPS 4.73（UAnalyze 2026-11-05，https://uanalyze.com.tw/articles/4453358479）"},
+  {"title": "第二輪漲價", "timing": "4Q26 至 1Q27", "direction": "正向", "indicator": "月營收 YoY 維持 > 40% 且毛利率續升", "basis": "公司 2026-06-01 起調漲晶片電阻與部分 MLCC（工商時報 2026-06-02，https://www.ctee.com.tw/news/20260602700249-430502）"},
+  {"title": "AI 伺服器電源規格升級", "timing": "2027 年", "direction": "正向", "indicator": "法說會揭露 AI 營收占比達 15% 至 20%", "basis": "2026-06-12 股東會指引（StatementDog 2026-06-12，https://statementdog.com/news/16760）"},
+  {"title": "BB ratio 延續 > 1.3", "timing": "每季法說", "direction": "正向", "indicator": "管理層公布之 book-to-bill", "basis": "8 月管理層稱 BB ratio 曾逾 1.8（StatementDog 2026-10-12，https://statementdog.com/news/17867）"}
  ],
  "risks": [
-  {"title": "消費性庫存修正", "timing": "1H27", "direction": "負向", "indicator": "月營收連 2 月 MoM 負成長且 YoY 收斂至 < 20%", "basis": "TrendForce 2026-04-28 指出 PC/NB 拉貨後修正風險"},
+  {"title": "消費性庫存修正", "timing": "1H27", "direction": "負向", "indicator": "月營收連 2 月 MoM 負成長且 YoY 收斂至 < 20%", "basis": "TrendForce 2026-04-28 指出消費性需求疲弱、PC/NB 庫存修正風險，https://www.trendforce.com/presscenter/news/20260428-13023.html"},
   {"title": "外資持續調節", "timing": "近 1 至 3 個月", "direction": "負向", "indicator": "外資持股比率跌破 12%", "basis": "data.foreign_holding W20 由 14.91% 降至 12.54%"},
   {"title": "業外與匯率波動", "timing": "每季", "direction": "負向", "indicator": "單季業外收支轉負", "basis": "data.financials.quarters 2Q25 業外 −7.8 億、EPS −0.44"},
-  {"title": "銀價與電價成本", "timing": "持續", "direction": "負向", "indicator": "毛利率單季下滑 > 3 個百分點", "basis": "2025 年銀價倍增、燒結電費上升壓縮毛利（StatementDog 2025-12）"},
+  {"title": "銀價與電價成本", "timing": "持續", "direction": "負向", "indicator": "毛利率單季下滑 > 3 個百分點", "basis": "2025 年銀價倍增、燒結電費上升壓縮毛利（StatementDog 2025-12-08，https://statementdog.com/news/15236）"},
   {"title": "擴產後供需反轉", "timing": "2027 至 2028", "direction": "負向", "indicator": "BB ratio 跌回 < 1.0", "basis": "分析師判斷；資本支出金額來源互相矛盾，未經查證"}
  ],
  "thesis_breakers": [
@@ -69,9 +69,13 @@
   "text": "DSI 由 1Q26 的 105 天降至 2Q26 的 94 天，需求拉動下庫存去化；TTM 現金轉換率 1.12，營業現金流足以支應盈餘。須留意業外收益占比高（2Q26 業外 11.1 億 vs 營業利益 11.6 億），EPS 對華新集團轉投資與匯率敏感；3Q26 營業利益率報導升至 19.06%，本業貢獻比重提高，盈餘品質改善。",
   "basis": "data.financials.quarters dsi_days, non_operating, operating_income; data.financials.cash_conversion"
  },
- "external_notes": [
-  {"text": "3Q26 營收 138.2 億（QoQ +22%、YoY +47%）、毛利率 27.84%、營益率 19.06%、EPS 4.73；前三季 EPS 9.66。FinMind 尚未收錄，以 2026-11-14 法定公告為準。", "source": "工商時報 / UAnalyze", "date": "2026-11-05"},
-  {"text": "管理層表示 book-to-bill 由 1.2 至 1.3 升至 1.3 至 1.4（6 月股東會），8 月稱曾逾 1.8；高雄與東莞大朗廠接近滿載。", "source": "StatementDog", "date": "2026-06-12 / 2026-08"}
+ "external_facts": [
+  {"text": "3Q26 營收 138.2 億（QoQ +22%、YoY +47%）、毛利率 27.84%、營益率 19.06%、EPS 4.73；前三季 EPS 9.66。FinMind 尚未收錄，以 2026-11-14 法定公告為準。", "source": "UAnalyze（轉述工商時報）", "date": "2026-11-05", "url": "https://uanalyze.com.tw/articles/4453358479"},
+  {"text": "6 月股東會：book-to-bill 由 1.2 至 1.3 升至 1.3 至 1.4；高雄與東莞大朗廠接近滿載；2026 年 AI 營收占比指引 15% 至 20%。", "source": "StatementDog", "date": "2026-06-12", "url": "https://statementdog.com/news/16760"},
+  {"text": "管理層 8 月表示 book-to-bill 已連續 2 至 3 個月逾 1.8，訂單能見度至 2026 年底，缺貨可能延續至 2027 年。", "source": "StatementDog", "date": "2026-10-12", "url": "https://statementdog.com/news/17867"},
+  {"text": "2026-06-01 起調漲晶片電阻與部分 MLCC 報價，理由為金屬與原料成本上升；按季重議，未揭露單一漲幅。", "source": "工商時報", "date": "2026-06-02", "url": "https://www.ctee.com.tw/news/20260602700249-430502"},
+  {"text": "2025 年獲利受車用元件價格競爭、銀價倍增、燒結電費上升與 2Q25 匯損拖累。", "source": "StatementDog", "date": "2025-12-08", "url": "https://statementdog.com/news/15236"},
+  {"text": "2Q26 MLCC 市場 AI 需求強、消費性需求弱；日韓大廠產能轉向高階，留給台系廠中低階定價空間。", "source": "TrendForce", "date": "2026-04-28", "url": "https://www.trendforce.com/presscenter/news/20260428-13023.html"}
  ],
  "tone": "冷靜的機構研究語氣：先給結論，再給數據，判斷一律標示。"
 }

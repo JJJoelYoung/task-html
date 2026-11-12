@@ -2,12 +2,12 @@
 """Generate the 2492 Walsin Technology equity report HTML from data and analysis JSON.
 
 All figures come from data_2492.json / analysis_2492.json; the derived values in
-methodology.md sections 6 and 7 are computed here by `derive()`, which the test
-script imports so both use one implementation.
+methodology.md sections 6 and 7 come from the skill's shared derive.py.
 """
 
 import html
 import json
+import sys
 from datetime import date
 from pathlib import Path
 
@@ -16,6 +16,9 @@ ROOT = HERE.parents[2]
 CODE = "2492"
 DATA = HERE / f"data_{CODE}.json"
 ANALYSIS = HERE / f"analysis_{CODE}.json"
+sys.path.insert(0, str(ROOT / ".agents" / "skills" / "tw-equity-report" / "scripts"))
+import derive as dv  # noqa: E402
+from derive import derive  # noqa: E402
 
 
 def load():
@@ -28,98 +31,12 @@ def report_path(d, a):
     return ROOT / "reports" / "equity" / f"{CODE}-{a['slug']}-{d['asof'].replace('-', '')}.html"
 
 
-# ------------------------------------------------------------------ derivation
-
-def tick(p):
-    if p < 10:
-        return 0.01
-    if p < 50:
-        return 0.05
-    if p < 100:
-        return 0.1
-    if p < 500:
-        return 0.5
-    if p < 1000:
-        return 1.0
-    return 5.0
-
-
-def rt(p):
-    """Round a price to its tick size."""
-    t = tick(p)
-    return round(round(p / t) * t, 2)
-
-
-def rating_of(upside_pct):
-    if upside_pct > 15:
-        return "買進", "BUY"
-    if upside_pct >= -5:
-        return "中立", "NEUTRAL"
-    return "賣出", "SELL"
-
-
-def derive(d, a):
-    m = d["price"]["metrics"]
-    close = m["close"]
-    scen = []
-    for s in a["scenarios"]:
-        target = rt(s["eps"] * s["multiple"])
-        scen.append({**s, "target": target, "upside_pct": round((target / close - 1) * 100, 1)})
-    base = next(s for s in scen if s["name"] == "Base")
-    weighted = rt(sum(s["probability"] * s["target"] for s in scen) / 100)
-    rating_zh, rating_en = rating_of(base["upside_pct"])
-
-    lo_ma, hi_ma = min(m["ma10"], m["ma20"]), max(m["ma10"], m["ma20"])
-    zone = d["institutional"]["cost_zone"]
-    if zone and max(lo_ma, zone["low"]) <= min(hi_ma, zone["high"]):
-        z_lo, z_hi, z_src = max(lo_ma, zone["low"]), min(hi_ma, zone["high"]), "overlap"
-    else:
-        z_lo, z_hi, z_src = lo_ma, hi_ma, "ma_band"
-    z_lo, z_hi = rt(z_lo), rt(z_hi)
-    entry = rt((z_lo + z_hi) / 2)
-    trigger = m["high60"]
-    t1 = m["high60"] if m["high60"] >= entry * 1.03 else rt(entry + 0.618 * (m["high60"] - m["low60"]))
-    t2 = base["target"]
-    cands = [c for c in (m["w20_maxvol_low"], rt(m["ma20"] * 0.97)) if c < z_lo]
-    hard_stop = rt(max(cands)) if cands else rt(z_lo * 0.95)
-    stop_src = "candidate" if cands else "zone_low_x_0.95"
-    bo_stop = rt(trigger * 0.95)
-    rr_pb = round((t2 - entry) / (entry - hard_stop), 2)
-    rr_bo = round((t2 - trigger) / (trigger - bo_stop), 2)
-    return {
-        "close": close,
-        "scenarios": scen,
-        "base": base,
-        "weighted_target": weighted,
-        "weighted_upside_pct": round((weighted / close - 1) * 100, 1),
-        "rating_zh": rating_zh,
-        "rating_en": rating_en,
-        "zone_low": z_lo,
-        "zone_high": z_hi,
-        "zone_source": z_src,
-        "entry": entry,
-        "trigger": trigger,
-        "trigger_volume_lots": round(1.5 * m["vol_avg20_lots"]),
-        "t1": t1,
-        "t2": t2,
-        "hard_stop": hard_stop,
-        "hard_stop_source": stop_src,
-        "breakout_stop": bo_stop,
-        "rr_pullback": rr_pb,
-        "rr_breakout": rr_bo,
-    }
-
-
 # ------------------------------------------------------------------ formatting
 
 E = html.escape
 
 
-def fp(p):
-    """Format a price with its tick's decimals."""
-    t = tick(p)
-    dec = 0 if t >= 1 else (1 if t >= 0.1 else 2)
-    return f"{p:,.{dec}f}"
+fp = dv.fmt_price
 
 
 def fs(v, dec=1, suffix="%"):
@@ -137,8 +54,7 @@ def yi(v):
     return f"{v / 1e8:,.1f}"
 
 
-def rr_txt(v):
-    return f"{v:.2f}"
+rr_txt = dv.fmt_rr
 
 
 ALIGN_ZH = {"bullish": "多頭排列", "bearish": "空頭排列", "mixed": "均線糾結交錯"}
@@ -556,6 +472,9 @@ b, strong { font-weight: 500; color: var(--color-ink); }
 .src { font-size: var(--text-xs); color: var(--color-muted); }
 .note { padding: var(--space-md) var(--space-lg); background: var(--color-paper-2); border-left: var(--rule-bar) solid var(--color-accent); }
 .note p { font-size: var(--text-sm); }
+.note .ext { margin: var(--space-2xs) 0 0; padding-left: 1.2em; font-size: var(--text-sm); }
+.note .ext li + li { margin-top: var(--space-xs); }
+.note .ext .src { display: block; }
 .moat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0; padding: 0; list-style: none; }
 .moat li { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-md); }
 .moat h3 { margin-bottom: var(--space-xs); }
@@ -763,7 +682,10 @@ def dim3(d, a):
     mtbl = table([("月份", False), ("營收（億）", True), ("MoM", True), ("YoY", True)], mrows)
     cc = fin["cash_conversion"]
     eq = a["earnings_quality"]
-    ext = a["external_notes"][0]
+    ext_items = "".join(
+        f'<li>{E(f["text"])}<span class="src">來源：<a href="{E(f["url"])}" rel="noopener">{E(f["source"])}</a>，{E(f["date"])}。</span></li>'
+        for f in a["external_facts"]
+    )
     fact = facts([
         ("累計營收（YTD）", f"{yi(rev['ytd'])} 億<small>去年同期 {yi(rev['ytd_prev'])} 億，YoY {fs(rev['ytd_yoy_pct'])}</small>"),
         ("最新月營收", f"{yi(last['revenue'])} 億<small>{last['period']}，MoM {fs(last['mom_pct'])}，YoY {fs(last['yoy_pct'])}</small>"),
@@ -789,7 +711,7 @@ def dim3(d, a):
         + fact
         + f'<div><h3>近 4 季損益與庫存</h3>{qtbl}<p class="src">資料：FinMind {E(fsrc["dataset"])}，{fsrc["range"][0]} 至 {fsrc["range"][1]}；DSI =（期初＋期末存貨）÷ 2 ÷ 當季營業成本 × 91。</p></div>'
         + f'<div class="split"><div class="prose"><h3>盈餘品質：{E(eq["focus"])} {judge()}</h3><p>{E(eq["text"])}</p></div>'
-        + f'<div class="note"><p><b>外部資訊（尚未進入 FinMind）：</b>{E(ext["text"])}</p><p class="src">來源：{E(ext["source"])}，{E(ext["date"])}。</p></div></div>'
+        + f'<div class="note"><p><b>外部資訊（尚未進入 FinMind）：</b></p><ul class="ext">{ext_items}</ul></div></div>'
     )
     return section("dim3", "03", "營運與財務", verdict, body)
 
@@ -893,14 +815,21 @@ def dim6(d, a, x):
         else (f"法人成本區 {fp(zone['low'])} 至 {fp(zone['high'])} 與 MA10 至 MA20 區間未重疊，改用均線區間。" if zone else "法人成本區不存在，改用均線區間。")
     )
     below = x["close"] < x["zone_low"]
-    pb_verdict = "不具交易吸引力" if x["rr_pullback"] < 1.5 else "具交易吸引力"
-    bo_verdict = "不具交易吸引力" if x["rr_breakout"] < 1.5 else "具交易吸引力"
-    verdict = (
-        f"回檔 R:R {rr_txt(x['rr_pullback'])}、突破 R:R {rr_txt(x['rr_breakout'])}，兩者皆低於 1.5；"
-        f"基本目標價 {fp(x['t2'])} 低於進場價 {fp(x['entry'])}，現階段不建議建立部位。"
-        if x["rr_pullback"] < 1.5 and x["rr_breakout"] < 1.5 else
-        f"回檔 R:R {rr_txt(x['rr_pullback'])}、突破 R:R {rr_txt(x['rr_breakout'])}。"
-    )
+    setups = (("回檔", "rr_pullback", "pullback_status"), ("突破", "rr_breakout", "breakout_status"))
+    no_trade = all(x[k] is None or x[k] < 1.5 for _, k, _ in setups)
+    verdict = "、".join(
+        f"{label} R:R {rr_txt(x[k])}" + ("" if x[st] == "active" else f"（{dv.SETUP_STATUS_ZH[x[st]]}）")
+        for label, k, st in setups
+    ) + ("；現階段不建議建立部位。" if no_trade else "。")
+
+    def rr_cell(hook, k, st, formula):
+        v = x[k]
+        if v is None:
+            note = dv.SETUP_STATUS_ZH[x[st]]
+        else:
+            note = ("不具交易吸引力" if v < 1.5 else "具交易吸引力") + f"；{formula}"
+        cls = "unattractive" if v is None or v < 1.5 else ""
+        return f'<span data-rr="{hook}">{rr_txt(v)}</span><small class="{cls}">{note}</small>'
     plan = table(
         [("項目", False), ("價位", True), ("條件與計算", False)],
         [
@@ -916,8 +845,8 @@ def dim6(d, a, x):
         ],
     )
     rr = facts([
-        ("回檔 R:R", f'<span data-rr="pullback">{rr_txt(x["rr_pullback"])}</span><small class="{"unattractive" if x["rr_pullback"] < 1.5 else ""}">{pb_verdict}；(T2 − Entry) ÷ (Entry − SL)</small>'),
-        ("突破 R:R", f'<span data-rr="breakout">{rr_txt(x["rr_breakout"])}</span><small class="{"unattractive" if x["rr_breakout"] < 1.5 else ""}">{bo_verdict}；(T2 − 觸發價) ÷ (觸發價 − 突破停損)</small>'),
+        ("回檔 R:R", rr_cell("pullback", "rr_pullback", "pullback_status", "(T2 − Entry) ÷ (Entry − SL)")),
+        ("突破 R:R", rr_cell("breakout", "rr_breakout", "breakout_status", "(T2 − 觸發價) ÷ (觸發價 − 突破停損)")),
     ])
     breakers = table(
         [("論點失效條件", False), ("門檻", False), ("觀察資料集", False)],
