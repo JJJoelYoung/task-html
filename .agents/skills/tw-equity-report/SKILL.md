@@ -52,7 +52,9 @@ Write a Python script in the work folder that:
 
 - Uses only the standard library (`urllib.request`, `json`, `statistics`) against `https://api.finmindtrade.com/api/v4/data`.
 - Reads an optional token from the `FINMIND_TOKEN` environment variable and sends it as `Authorization: Bearer <token>`. Never write a token into any file.
-- Sleeps about 0.5 s between calls. On HTTP 402/429, stop and tell the user the quota is exhausted and that setting `FINMIND_TOKEN` raises it.
+- Never embeds market data in code: no hardcoded rows, fallback snapshots, or cached substitutes. When a fetch fails, stop with the error, or record a gap when the methodology allows the metric to be missing. A report built from substitute numbers looks identical to a real one.
+- Sleeps about 0.5 s between calls. On HTTP 402/429, stop and tell the user the hourly quota is exhausted; it resets within the hour, and a higher FinMind tier raises it.
+- Uses only Free-tier datasets, so the report builds on any FinMind account. Before adding a dataset above Free (for example `TaiwanStockHoldingSharesPer`, Backer), check the account tier with the `setup-finmind-mcp` skill's `smoke` command; its hourly limit maps to the tier (600 Free, 1,600 Backer, 6,000 Sponsor). If the API refuses a dataset for tier, record a gap instead of failing.
 - Fetches the datasets listed in methodology.md for the target, plus the latest `TaiwanStockPER` row for each code passed in `--peers` (comma-separated; empty on the first run).
 - Computes every metric in methodology.md and writes `data_{code}.json` with `asof`, a `sources` map (metric group to dataset and date range), and a `gaps` list for missing data.
 

@@ -33,7 +33,7 @@ def half_up_round(val: float, decimals: int = 2) -> float:
 
 
 def fetch_dataset(dataset: str, data_id: str = "8299", start_date: str = "2026-10-01", max_retries: int = 3) -> list:
-    """Fetch raw records from FinMind public REST API with automatic retries and fallback."""
+    """Fetch raw records from FinMind public REST API with automatic retries; raises when every attempt fails."""
     url = f"{BASE_URL}?dataset={dataset}&data_id={data_id}&start_date={start_date}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -55,18 +55,7 @@ def fetch_dataset(dataset: str, data_id: str = "8299", start_date: str = "2026-1
             if attempt < max_retries:
                 time.sleep(2 * attempt)
             else:
-                print(f"  [WARN] Using fallback records for {dataset}")
-                return get_fallback_dataset(dataset, start_date)
-
-
-def get_fallback_dataset(dataset: str, start_date: str) -> list:
-    """Deterministic fallback dataset preserving genuine market snapshot values."""
-    # This ensures zero-fail offline durability while guaranteeing identical verified data
-    if dataset == "TaiwanStockPrice":
-        # 24 display trading days with warmup
-        # We will load from cached fallback if needed
-        return []
-    return []
+                raise RuntimeError(f"FinMind fetch failed for {dataset} after {max_retries} attempts: {e}") from e
 
 
 def build_market_data(prices_raw: list) -> dict:

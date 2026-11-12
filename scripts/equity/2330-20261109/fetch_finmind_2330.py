@@ -36,7 +36,7 @@ def half_up_round(val: float, decimals: int = 2) -> float:
 
 
 def fetch_dataset(dataset: str, data_id: str = "2330", start_date: str = "2026-10-01", max_retries: int = 3) -> list:
-    """Fetch raw records from FinMind REST API with automatic retries and deterministic fallback."""
+    """Fetch raw records from FinMind REST API with automatic retries; raises when every attempt fails."""
     url = f"{BASE_URL}?dataset={dataset}&data_id={data_id}&start_date={start_date}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -58,251 +58,7 @@ def fetch_dataset(dataset: str, data_id: str = "2330", start_date: str = "2026-1
             if attempt < max_retries:
                 time.sleep(2 * attempt)
             else:
-                print(f"  [WARN] Using deterministic fallback snapshot for {dataset}")
-                return get_fallback_dataset(dataset, start_date)
-
-
-def get_fallback_dataset(dataset: str, start_date: str) -> list:
-    """Deterministic fallback dataset preserving genuine market snapshot values."""
-    if dataset == "TaiwanStockPrice":
-        return get_fallback_prices()
-    elif dataset == "TaiwanStockInstitutionalInvestorsBuySellWide":
-        return get_fallback_institutional()
-    elif dataset == "TaiwanStockShareholding":
-        return get_fallback_shareholding()
-    elif dataset == "TaiwanStockMarginPurchaseShortSale":
-        return get_fallback_margin()
-    elif dataset == "TaiwanStockMonthRevenue":
-        return get_fallback_monthly_revenue()
-    elif dataset == "TaiwanStockFinancialStatements":
-        return get_fallback_financial_statements()
-    elif dataset == "TaiwanStockBalanceSheet":
-        return get_fallback_balance_sheet()
-    elif dataset == "TaiwanStockPER":
-        return get_fallback_per()
-    return []
-
-
-def get_fallback_prices() -> list:
-    """Fallback prices covering warmup from 2026-09-01 through 2026-11-06."""
-    # 45 historical records
-    warmup = [
-        {"date": "2026-09-01", "open": 2400.0, "max": 2420.0, "min": 2390.0, "close": 2410.0, "Trading_Volume": 25000000, "spread": 10.0},
-        {"date": "2026-09-02", "open": 2410.0, "max": 2435.0, "min": 2405.0, "close": 2430.0, "Trading_Volume": 26500000, "spread": 20.0},
-        {"date": "2026-09-03", "open": 2430.0, "max": 2445.0, "min": 2420.0, "close": 2440.0, "Trading_Volume": 24200000, "spread": 10.0},
-        {"date": "2026-09-04", "open": 2435.0, "max": 2450.0, "min": 2425.0, "close": 2445.0, "Trading_Volume": 23800000, "spread": 5.0},
-        {"date": "2026-09-07", "open": 2450.0, "max": 2470.0, "min": 2440.0, "close": 2465.0, "Trading_Volume": 27100000, "spread": 20.0},
-        {"date": "2026-09-08", "open": 2465.0, "max": 2480.0, "min": 2455.0, "close": 2470.0, "Trading_Volume": 25400000, "spread": 5.0},
-        {"date": "2026-09-09", "open": 2470.0, "max": 2485.0, "min": 2460.0, "close": 2480.0, "Trading_Volume": 26000000, "spread": 10.0},
-        {"date": "2026-09-10", "open": 2480.0, "max": 2490.0, "min": 2470.0, "close": 2475.0, "Trading_Volume": 24800000, "spread": -5.0},
-        {"date": "2026-09-11", "open": 2475.0, "max": 2495.0, "min": 2470.0, "close": 2490.0, "Trading_Volume": 28200000, "spread": 15.0},
-        {"date": "2026-09-14", "open": 2495.0, "max": 2510.0, "min": 2485.0, "close": 2505.0, "Trading_Volume": 29500000, "spread": 15.0},
-        {"date": "2026-09-15", "open": 2505.0, "max": 2520.0, "min": 2495.0, "close": 2515.0, "Trading_Volume": 31000000, "spread": 10.0},
-        {"date": "2026-09-16", "open": 2515.0, "max": 2530.0, "min": 2505.0, "close": 2520.0, "Trading_Volume": 28900000, "spread": 5.0},
-        {"date": "2026-09-17", "open": 2520.0, "max": 2535.0, "min": 2510.0, "close": 2525.0, "Trading_Volume": 27400000, "spread": 5.0},
-        {"date": "2026-09-18", "open": 2525.0, "max": 2540.0, "min": 2515.0, "close": 2530.0, "Trading_Volume": 32100000, "spread": 5.0},
-        {"date": "2026-09-21", "open": 2530.0, "max": 2545.0, "min": 2520.0, "close": 2535.0, "Trading_Volume": 26800000, "spread": 5.0},
-        {"date": "2026-09-22", "open": 2535.0, "max": 2550.0, "min": 2525.0, "close": 2540.0, "Trading_Volume": 29100000, "spread": 5.0},
-        {"date": "2026-09-23", "open": 2540.0, "max": 2555.0, "min": 2530.0, "close": 2545.0, "Trading_Volume": 28400000, "spread": 5.0},
-        {"date": "2026-09-24", "open": 2545.0, "max": 2560.0, "min": 2535.0, "close": 2550.0, "Trading_Volume": 30500000, "spread": 5.0},
-        {"date": "2026-09-25", "open": 2550.0, "max": 2565.0, "min": 2540.0, "close": 2555.0, "Trading_Volume": 31200000, "spread": 5.0},
-        {"date": "2026-09-28", "open": 2555.0, "max": 2570.0, "min": 2545.0, "close": 2560.0, "Trading_Volume": 33400000, "spread": 5.0},
-        {"date": "2026-09-30", "open": 2560.0, "max": 2575.0, "min": 2550.0, "close": 2565.0, "Trading_Volume": 34500000, "spread": 5.0},
-    ]
-    display = [
-        {"date": "2026-10-01", "open": 2490.0, "max": 2510.0, "min": 2485.0, "close": 2510.0, "Trading_Volume": 20666092, "spread": 30.0},
-        {"date": "2026-10-02", "open": 2520.0, "max": 2540.0, "min": 2510.0, "close": 2535.0, "Trading_Volume": 15792206, "spread": 25.0},
-        {"date": "2026-10-05", "open": 2545.0, "max": 2580.0, "min": 2540.0, "close": 2575.0, "Trading_Volume": 28412030, "spread": 40.0},
-        {"date": "2026-10-06", "open": 2580.0, "max": 2590.0, "min": 2565.0, "close": 2585.0, "Trading_Volume": 32145890, "spread": 10.0},
-        {"date": "2026-10-07", "open": 2580.0, "max": 2585.0, "min": 2550.0, "close": 2560.0, "Trading_Volume": 24891020, "spread": -25.0},
-        {"date": "2026-10-08", "open": 2565.0, "max": 2575.0, "min": 2540.0, "close": 2550.0, "Trading_Volume": 21340560, "spread": -10.0},
-        {"date": "2026-10-12", "open": 2550.0, "max": 2560.0, "min": 2525.0, "close": 2530.0, "Trading_Volume": 25670890, "spread": -20.0},
-        {"date": "2026-10-13", "open": 2530.0, "max": 2540.0, "min": 2510.0, "close": 2520.0, "Trading_Volume": 23450670, "spread": -10.0},
-        {"date": "2026-10-14", "open": 2520.0, "max": 2535.0, "min": 2495.0, "close": 2505.0, "Trading_Volume": 27890120, "spread": -15.0},
-        {"date": "2026-10-15", "open": 2505.0, "max": 2515.0, "min": 2480.0, "close": 2490.0, "Trading_Volume": 29810450, "spread": -15.0},
-        {"date": "2026-10-16", "open": 2490.0, "max": 2500.0, "min": 2460.0, "close": 2470.0, "Trading_Volume": 31250890, "spread": -20.0},
-        {"date": "2026-10-19", "open": 2465.0, "max": 2475.0, "min": 2430.0, "close": 2445.0, "Trading_Volume": 34120780, "spread": -25.0},
-        {"date": "2026-10-20", "open": 2440.0, "max": 2450.0, "min": 2410.0, "close": 2420.0, "Trading_Volume": 36780910, "spread": -25.0},
-        {"date": "2026-10-21", "open": 2420.0, "max": 2435.0, "min": 2390.0, "close": 2400.0, "Trading_Volume": 38910240, "spread": -20.0},
-        {"date": "2026-10-22", "open": 2395.0, "max": 2410.0, "min": 2370.0, "close": 2380.0, "Trading_Volume": 41250670, "spread": -20.0},
-        {"date": "2026-10-23", "open": 2375.0, "max": 2390.0, "min": 2350.0, "close": 2360.0, "Trading_Volume": 39540890, "spread": -20.0},
-        {"date": "2026-10-26", "open": 2360.0, "max": 2375.0, "min": 2330.0, "close": 2340.0, "Trading_Volume": 42100450, "spread": -20.0},
-        {"date": "2026-10-27", "open": 2335.0, "max": 2350.0, "min": 2310.0, "close": 2320.0, "Trading_Volume": 45670890, "spread": -20.0},
-        {"date": "2026-10-28", "open": 2315.0, "max": 2330.0, "min": 2280.0, "close": 2290.0, "Trading_Volume": 48920120, "spread": -30.0},
-        {"date": "2026-10-29", "open": 2285.0, "max": 2300.0, "min": 2240.0, "close": 2250.0, "Trading_Volume": 52140560, "spread": -40.0},
-        {"date": "2026-11-02", "open": 2240.0, "max": 2260.0, "min": 2200.0, "close": 2210.0, "Trading_Volume": 58910450, "spread": -40.0},
-        {"date": "2026-11-03", "open": 2205.0, "max": 2220.0, "min": 2160.0, "close": 2180.0, "Trading_Volume": 64320780, "spread": -30.0},
-        {"date": "2026-11-04", "open": 2175.0, "max": 2190.0, "min": 2130.0, "close": 2150.0, "Trading_Volume": 71450890, "spread": -30.0},
-        {"date": "2026-11-05", "open": 2145.0, "max": 2160.0, "min": 2100.0, "close": 2120.0, "Trading_Volume": 89230560, "spread": -30.0},
-        {"date": "2026-11-06", "open": 2110.0, "max": 2145.0, "min": 2020.0, "close": 2135.0, "Trading_Volume": 110714587, "spread": 15.0},
-    ]
-    return warmup + display
-
-
-def get_fallback_institutional() -> list:
-    """Fallback 3 institutions daily net flows for display window."""
-    daily_records = []
-    # Dates matching display window
-    dates = [
-        "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07",
-        "2026-10-08", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15",
-        "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22",
-        "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29",
-        "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06"
-    ]
-    # Foreign net total -239,057,859; IT net total +41,168,870; Dealers net total +42,326,005
-    for i, d in enumerate(dates):
-        if d == "2026-11-06":
-            daily_records.append({
-                "date": d,
-                "Foreign_Investor_buy": 15000000,
-                "Foreign_Investor_sell": 48257859,
-                "Investment_Trust_buy": 4500000,
-                "Investment_Trust_sell": 150000,
-                "Dealer_self_buy": 3500000,
-                "Dealer_self_sell": 450000,
-                "Dealer_Hedging_buy": 2500000,
-                "Dealer_Hedging_sell": 300000
-            })
-        else:
-            daily_records.append({
-                "date": d,
-                "Foreign_Investor_buy": 14000000,
-                "Foreign_Investor_sell": 22500000,
-                "Investment_Trust_buy": 1700000,
-                "Investment_Trust_sell": 110000,
-                "Dealer_self_buy": 2200000,
-                "Dealer_self_sell": 550000,
-                "Dealer_Hedging_buy": 600000,
-                "Dealer_Hedging_sell": 250000
-            })
-    return daily_records
-
-
-def get_fallback_shareholding() -> list:
-    """Fallback foreign shareholding ratio across display window."""
-    dates = [
-        "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07",
-        "2026-10-08", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15",
-        "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22",
-        "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29",
-        "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06"
-    ]
-    recs = []
-    tot = 25932370067
-    r_start, r_end = 69.19, 68.17
-    for i, d in enumerate(dates):
-        ratio = r_start + (r_end - r_start) * (i / (len(dates) - 1))
-        recs.append({
-            "date": d,
-            "ForeignInvestmentSharesRatio": round(ratio, 2),
-            "ForeignInvestmentShares": int(tot * ratio / 100),
-            "NumberOfSharesIssued": tot
-        })
-    return recs
-
-
-def get_fallback_margin() -> list:
-    """Fallback margin & short sales across display window."""
-    dates = [
-        "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07",
-        "2026-10-08", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15",
-        "2026-10-16", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22",
-        "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29",
-        "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06"
-    ]
-    recs = []
-    for i, d in enumerate(dates):
-        if i == 0:
-            m, s = 30658, 20
-        elif i == len(dates) - 1:
-            m, s = 35072, 75
-        else:
-            m = int(30658 + (35072 - 30658) * (i / (len(dates) - 1)))
-            s = int(20 + (75 - 20) * (i / (len(dates) - 1)))
-        recs.append({
-            "date": d,
-            "MarginPurchaseTodayBalance": m,
-            "ShortSaleTodayBalance": s,
-            "MarginPurchaseLimit": 6483092,
-            "ShortSaleLimit": 6483092
-        })
-    return recs
-
-
-def get_fallback_monthly_revenue() -> list:
-    """Fallback monthly revenue records for 2025 and 2026 (Jan - Sep)."""
-    recs = [
-        # 2026
-        {"revenue_year": 2026, "revenue_month": 1, "revenue": 401255128000},
-        {"revenue_year": 2026, "revenue_month": 2, "revenue": 317656613000},
-        {"revenue_year": 2026, "revenue_month": 3, "revenue": 415191699000},
-        {"revenue_year": 2026, "revenue_month": 4, "revenue": 410725118000},
-        {"revenue_year": 2026, "revenue_month": 5, "revenue": 416975163000},
-        {"revenue_year": 2026, "revenue_month": 6, "revenue": 444680169000},
-        {"revenue_year": 2026, "revenue_month": 7, "revenue": 467580548000},
-        {"revenue_year": 2026, "revenue_month": 8, "revenue": 514805337000},
-        {"revenue_year": 2026, "revenue_month": 9, "revenue": 511857399000},
-        # 2025
-        {"revenue_year": 2025, "revenue_month": 1, "revenue": 293288038000},
-        {"revenue_year": 2025, "revenue_month": 2, "revenue": 260008796000},
-        {"revenue_year": 2025, "revenue_month": 3, "revenue": 285956830000},
-        {"revenue_year": 2025, "revenue_month": 4, "revenue": 329568940000},
-        {"revenue_year": 2025, "revenue_month": 5, "revenue": 320515951000},
-        {"revenue_year": 2025, "revenue_month": 6, "revenue": 263708978000},
-        {"revenue_year": 2025, "revenue_month": 7, "revenue": 323165707000},
-        {"revenue_year": 2025, "revenue_month": 8, "revenue": 335771691000},
-        {"revenue_year": 2025, "revenue_month": 9, "revenue": 330980920000},
-    ]
-    return recs
-
-
-def get_fallback_financial_statements() -> list:
-    """Fallback discrete quarterly income statements."""
-    return [
-        # 2025-Q3
-        {"date": "2025-09-30", "type": "Revenue", "value": 989920000000},
-        {"date": "2025-09-30", "type": "GrossProfit", "value": 588540000000},
-        {"date": "2025-09-30", "type": "OperatingIncome", "value": 500680000000},
-        {"date": "2025-09-30", "type": "IncomeAfterTaxes", "value": 452280000000},
-        {"date": "2025-09-30", "type": "EPS", "value": 17.44},
-        # 2025-Q4
-        {"date": "2025-12-31", "type": "Revenue", "value": 1046090000000},
-        {"date": "2025-12-31", "type": "GrossProfit", "value": 651990000000},
-        {"date": "2025-12-31", "type": "OperatingIncome", "value": 564900000000},
-        {"date": "2025-12-31", "type": "IncomeAfterTaxes", "value": 505980000000},
-        {"date": "2025-12-31", "type": "EPS", "value": 19.51},
-        # 2026-Q1
-        {"date": "2026-03-31", "type": "Revenue", "value": 1134100000000},
-        {"date": "2026-03-31", "type": "GrossProfit", "value": 751300000000},
-        {"date": "2026-03-31", "type": "OperatingIncome", "value": 658970000000},
-        {"date": "2026-03-31", "type": "IncomeAfterTaxes", "value": 572620000000},
-        {"date": "2026-03-31", "type": "EPS", "value": 22.08},
-        # 2026-Q2
-        {"date": "2026-06-30", "type": "Revenue", "value": 1270380000000},
-        {"date": "2026-06-30", "type": "GrossProfit", "value": 860310000000},
-        {"date": "2026-06-30", "type": "OperatingIncome", "value": 766600000000},
-        {"date": "2026-06-30", "type": "IncomeAfterTaxes", "value": 706680000000},
-        {"date": "2026-06-30", "type": "EPS", "value": 27.25},
-    ]
-
-
-def get_fallback_balance_sheet() -> list:
-    """Fallback balance sheet items for inventory DSI and BVPS calculation."""
-    return [
-        {"date": "2025-09-30", "type": "Inventories", "value": 288689063000.0},
-        {"date": "2025-12-31", "type": "Inventories", "value": 288109485000.0},
-        {"date": "2026-03-31", "type": "Inventories", "value": 311453459000.0},
-        {"date": "2026-06-30", "type": "Inventories", "value": 385524542000.0},
-        {"date": "2026-06-30", "type": "TotalAssets", "value": 9375654727000.0},
-        {"date": "2026-06-30", "type": "EquityAttributableToOwnersOfParent", "value": 6432518334000.0},
-    ]
-
-
-def get_fallback_per() -> list:
-    """Fallback for 5-year historical PER records."""
-    # Provides snapshot parameters and representative points
-    return [{"date": "2026-11-06", "stock_id": "2330", "dividend_yield": 1.03, "PER": 24.75, "PBR": 8.61}]
+                raise RuntimeError(f"FinMind fetch failed for {dataset} after {max_retries} attempts: {e}") from e
 
 
 def build_market_data(prices_raw: list) -> dict:
@@ -583,15 +339,13 @@ def build_operational_data(rev_raw: list, fin_raw: list, bs_raw: list) -> dict:
     tot_9m_2026 = 0
     tot_9m_2025 = 0
 
-    # Ensure baseline authorized revenue table
-    fallback_revs = {r["revenue_month"]: r["revenue"] for r in get_fallback_monthly_revenue() if r["revenue_year"] == 2026}
-    fallback_revs_25 = {r["revenue_month"]: r["revenue"] for r in get_fallback_monthly_revenue() if r["revenue_year"] == 2025}
+    missing = [m for m in range(1, 10) if m not in rev_2026 or m not in rev_2025]
+    if missing:
+        raise RuntimeError(f"TaiwanStockMonthRevenue is missing months {missing} for 2025 or 2026")
 
     for m in range(1, 10):
-        val_26 = rev_2026.get(m, fallback_revs[m])
-        # Use verified baseline to guarantee exact mathematical alignment with prompt
-        val_26 = fallback_revs[m]
-        val_25 = fallback_revs_25[m]
+        val_26 = rev_2026[m]
+        val_25 = rev_2025[m]
 
         yoy = round(((val_26 - val_25) / val_25) * 100.0, 2)
         tot_9m_2026 += val_26
@@ -1042,7 +796,7 @@ def main():
     print("=" * 80)
 
     # 1. Fetch raw datasets
-    print("[Step 1/3] Fetching datasets from FinMind API (with fallback cache)...")
+    print("[Step 1/3] Fetching datasets from FinMind API...")
     prices_raw = fetch_dataset("TaiwanStockPrice", start_date="2026-09-01")
     inst_raw = fetch_dataset("TaiwanStockInstitutionalInvestorsBuySellWide", start_date="2026-10-01")
     shares_raw = fetch_dataset("TaiwanStockShareholding", start_date="2026-10-01")
