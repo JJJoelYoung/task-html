@@ -1,0 +1,20 @@
+# Research: 6834 Ever Ohms Technology (天二科技)
+
+Gathered 2026-11-13 with the `deep-research` workflow (fan-out web searches, fetched sources, three independent verifiers per claim; claims kept only with at least 2 of 3 votes). The product-mix, AI-share, and capacity lines were extracted but not voted on by the workflow, so the main session re-read both source pages (CTEE 2026-04-25 and poorstock) and kept only what the pages state verbatim. All sources are secondary (news and aggregators). Revenue and statement figures were reconciled against FinMind, which mirrors the MOPS filings.
+
+## Facts
+
+- July 2026 revenue set a company record, alongside other passive-component makers (光頡, 日電貿, 富致), during an MLCC and resistor price-hike wave. Source: StatementDog, 2026-08-10. <https://statementdog.com/news/17360> (The March–October streak and the October figure, NT$287.0M, +5.36% MoM, +179.60% YoY, come from FinMind TaiwanStockMonthRevenue, not from this article.)
+- Book-to-bill (B/B) reached 2 in late April 2026, so 2Q visibility was relatively high; excluding price increases, the company targeted double-digit 2Q revenue growth; upstream raw-material prices rose sharply and the company was seeking to pass them through gradually. 1Q26 revenue was NT$420M (+26.9% QoQ, +19.7% YoY), the first quarter above NT$400M. Source: 工商時報 (CTEE), 2026-04-25. <https://www.ctee.com.tw/news/20260425700180-430502>
+- AI applications were about 5% of revenue in 2025 and close to 10% in 1Q26, led by high-end thin-film products shipped indirectly to a US networking customer; metal-plate and thin-film resistors go into a consumer brand's notebooks and phones. Kaohsiung plant capacity is 8 billion pieces a month; in 2024 the company bought a 9.02% stake in 南通麗智 (a Kinpo-group chip-resistor maker, 35 billion pieces a month). Source: 工商時報 (CTEE), 2026-04-25. <https://www.ctee.com.tw/news/20260425700180-430502>
+- 2025Q3 application mix: power devices 35%, industrial 25%, automotive 18%, consumer 10%, AI 6%; by technology, metal-plate resistors 34% and thin-film 26%. Source: 工商時報 (CTEE), 2026-04-25 (application mix also matches the poorstock table of the 2025-12-10 conference). <https://www.ctee.com.tw/news/20260425700180-430502>
+- Early in 2026 the company said B/B had passed 1.5 and it was negotiating price adjustments with customers, without announcing a uniform increase; precious-metal inputs (silver, palladium, ruthenium, tin, copper) stayed high, Chinese price-cutting eased, and Yageo and Walsin Technology were reported to be raising resistor prices. Source: 理財周刊 (MoneyWeekly), 2026-09-11. <https://www.moneyweekly.com.tw/ArticleData/Info/Article/248178/>
+- The latest listed earnings call (法說會) was 2025-12-10, a Taishin Securities joint investor conference in Kaohsiung; none was found in the last 6 months, and the company has published no numeric guidance. Source: poorstock 法說會 page, accessed 2026-11-13. <https://poorstock.com/earningcall/6834>
+
+## Searched but not verified, refuted, or conflicting
+
+- Product mix by technology: CTEE 2026-04-25 labels both the 40% and the 26% shares as 薄膜 (thin film); poorstock's table (in an AI-generated section) gives 厚膜 (thick film) 40%. The thick-film share is therefore not used.
+- B/B after April: a MoneyWeekly article (2026-06-12) and a 旺得富 article (2026-07-01) cite institutional investors putting B/B at about 1.2–1.3. Single-source analyst estimates, not company disclosures; not verified. The report treats current B/B as unknown.
+- Refuted: Yageo raising chip-resistor prices 15–20% from 2026-02-01 (1–2); a May 2026 monthly net profit of NT$45M and EPS NT$0.51 (1–2); a 2025Q3 revenue figure of NT$1,100M presented as a single quarter (0–3).
+- Not found: capex or capacity-expansion plans, named customers, 4Q26 guidance, and the cause of the swing in non-operating income (NT$42M in 2Q26 vs NT$3.7M in 3Q26).
+- Naming: the English name is Ever Ohms Technology (EVEROHMS). Some sources call it "Tien Erh", and one confused it with 大毅 (TA-I Technology, 2478), a separate resistor maker that is used here as a peer.

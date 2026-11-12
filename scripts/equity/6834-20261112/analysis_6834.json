@@ -1,0 +1,200 @@
+{
+ "code": "6834",
+ "name_zh": "天二科技",
+ "name_en": "Ever Ohms Technology",
+ "slug": "ever-ohms",
+ "market": "twse",
+ "industry": "電子零組件業",
+ "valuation_method": "PER",
+ "valuation_method_basis": "TTM EPS 3.02 元 > 0（data.financials.ttm_eps），且公司為電阻製造商，非金融或資產重型產業，故目標價 = 前瞻 EPS × PER；前瞻 EPS 一律為未來 4 季加總。5 年 PER 分位（P25 34.46x、P50 88.31x、P75 232.50x）被 2023 至 2025 年低獲利期墊高：4Q24 至 3Q25 季 EPS 為 0.06、0.34、−0.54、0.45（data.financials.quarters），data.valuation.PER.series 週取樣中位數 2023 年 25.0x、2024 年 1,152.5x、2025 年 90.6x；獲利正常的 2022 年中位數僅約 10.9x。故倍數另以同業中位數 25.34x 與 2022 年約 11x 交叉檢查。",
+ "peers": [
+  {
+   "code": "2478",
+   "name": "大毅 (TA-I Technology)",
+   "reason": "台灣晶片電阻與電流感測（合金）電阻廠，與天二占營收 34% 的金屬板電阻同屬電源用低阻值電阻，直接競價。",
+   "basis": "分析師判斷：大毅產品線依其公開資訊；天二金屬板占 34% 見工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502。天二厚膜占比來源互相矛盾，未用於比較。"
+  },
+  {
+   "code": "3624",
+   "name": "光頡 (Viking Tech)",
+   "reason": "台灣薄膜電阻專業廠，與天二供應 AI 網通的高階薄膜電阻直接競爭，也同屬 2026 年電阻漲價受惠族群。",
+   "basis": "分析師判斷；StatementDog 2026-08-10 同列光頡與天二為漲價潮下營收創高的電阻廠，https://statementdog.com/news/17360"
+  },
+  {
+   "code": "2327",
+   "name": "國巨 (Yageo)",
+   "reason": "全球最大晶片電阻廠，產品線涵蓋天二全部電阻類別，並主導電阻報價方向。",
+   "basis": "分析師判斷；理財周刊 2026-09-11 報導國巨、華新科傳出調漲電阻價格（具體漲幅未經證實），https://www.moneyweekly.com.tw/ArticleData/Info/Article/248178/"
+  }
+ ],
+ "scenarios": [
+  {
+   "name": "Bull",
+   "label": "樂觀",
+   "eps": 6.1,
+   "multiple": 27.0,
+   "probability": 25,
+   "assumptions": "漲價持續轉嫁、AI 高階薄膜占比續升，季營收在 2027 年中升至約 10 億元、營業利益率升至約 19%；未來 4 季 EPS 約 1.26、1.45、1.70、1.70，合計約 6.1 元。",
+   "basis": "3Q26 營收 7.71 億、營益率 16.42%、EPS 1.16（data.financials.quarters）；10 月營收 2.87 億、年增 +179.6%（data.revenue.last12）。AI 營收占比由 2025 年約 5% 升至 1Q26 近 10%（工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502）。倍數 27x 以同業最高的國巨 27.41x 為上限（data.peers），不以已判定失真的 PER 分位（P90 491.67x）為依據。隱含 PBR 8.82x 高於 1.5 × P90（7.05x）：此情境 ROE 約 33%（6.1 ÷ 18.65），PBR 分布形成於 2023 至 2025 年隱含 ROE 僅約 0.2% 至 6% 的年度（data.valuation 週取樣中位數 PBR ÷ PER），無法反映；機率僅 25%。"
+  },
+  {
+   "name": "Base",
+   "label": "基本",
+   "eps": 5.0,
+   "multiple": 22.0,
+   "probability": 50,
+   "assumptions": "營收停在 10 月水準，季營收約 8.6 億元；營業利益率維持 3Q26 的約 16%，業外近零，稅率約 21%，單季 EPS 約 1.25 元。",
+   "basis": "10 月營收 2.87 億 × 3 = 8.61 億，較 3Q26 的 7.71 億高 11.7%；3Q26 營益率 16.42%、業外僅 0.04 億、稅前 1.30 億、淨利 1.02 億（稅率約 21%），推得單季 EPS 約 1.25、年 5.0，為 3Q26 年化 4.64 的 1.08 倍（data.financials.quarters、data.revenue.last12）。倍數 22x 低於 P25 34.46x：5 年 PER 分位由 2023 至 2025 年低獲利期墊高（見 valuation_method_basis），改以同業中位數 25.34x 打折，因天二規模較小且獲利處於漲價週期高點（分析師判斷）。隱含 PBR 5.90x 高於 P90 4.70x：3Q26 年化 ROE 約 25%（4.64 ÷ 18.65），PBR 5.90x 對應約 23.6x 本益比，與 ROE 相稱；PBR 分布多數形成於 2023 至 2025 年，依 data.valuation 週取樣中位數 PBR ÷ PER 推得隱含 ROE 分別約 6.0%、0.2%、2.1%（2022 年約 12.8%）。"
+  },
+  {
+   "name": "Bear",
+   "label": "悲觀",
+   "eps": 2.4,
+   "multiple": 15.0,
+   "probability": 25,
+   "assumptions": "提前拉貨退潮、貴金屬成本反撲：4Q26 單季 EPS 約 1.0 後，2027 年前三季營收退回 2Q26 的約 5.8 億元，毛利率由 28.13% 降約 3 個百分點至 25%，營業費用維持約 0.91 億，營益率約 9.4%，業外歸零，單季 EPS 約 0.47；未來 4 季合計約 2.4 元。",
+   "basis": "2Q26 營收 5.84 億、毛利 1.64 億、營業利益 0.73 億，推得營業費用約 0.91 億（data.financials.quarters）；毛利率降至 25% 時營業利益約 0.55 億，稅率約 21% 推得單季淨利約 0.43 億、EPS 約 0.49，保守取 0.47。業外假設為零，不計 2Q25 的 −0.78 億這類虧損。倍數 15x 低於 P25 34.46x，介於獲利正常的 2022 年約 11x 與大毅 16.21x 之間（data.valuation.PER.series、data.peers）。B/B 由 4 月的 2 回落的跡象（6 月法人估 1.2 至 1.3）為單一來源、未經查證，列入研究檔的未查證項目。"
+  }
+ ],
+ "moat": [
+  {
+   "title": "應用分散、偏電源與工業",
+   "text": "2025Q3 電源裝置占 35%、工業 25%、車用 18%，消費性僅 10%，需求不隨單一終端市場起落。",
+   "basis": "工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502"
+  },
+  {
+   "title": "金屬板與高階薄膜",
+   "text": "金屬板電阻占 34%、薄膜 26%，高階薄膜品間接打入美系網通客戶，AI 占比由約 5% 升至近 10%。",
+   "basis": "工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502"
+  },
+  {
+   "title": "自有加策略產能",
+   "text": "高雄廠月產能 80 億顆，另持股南通麗智 9.02%（月產能 350 億顆），缺貨期較能確保供貨。是否構成長期優勢仍屬分析師判斷。",
+   "basis": "工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502；分析師判斷"
+  }
+ ],
+ "catalysts": [
+  {
+   "title": "11 月營收延續創高",
+   "timing": "2026-12-10 前",
+   "direction": "正向",
+   "indicator": "TaiwanStockMonthRevenue 2026-11 營收 ≥ 10 月的 2.87 億元",
+   "basis": "3 至 10 月連 8 個月月增（data.revenue.last12）；7 月營收創高時同業光頡等亦創高（StatementDog 2026-08-10，https://statementdog.com/news/17360）"
+  },
+  {
+   "title": "4Q26 毛利率守住漲價成果",
+   "timing": "2027-03-31 前（年報）",
+   "direction": "正向",
+   "indicator": "TaiwanStockFinancialStatements 2026-12-31 毛利率 ≥ 27%",
+   "basis": "毛利率由 4Q25 的 16.34% 升至 2Q26 的 28.13%、3Q26 的 27.08%（data.financials.quarters）；公司爭取逐步轉嫁原料漲價（工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502）"
+  },
+  {
+   "title": "AI 高階薄膜占比續升",
+   "timing": "2027-03-31 前（2026 年報）或下一場法說會",
+   "direction": "正向",
+   "indicator": "年報或法說會揭露 AI 營收占比 > 10%；若公司不揭露，此催化劑無法觀察",
+   "basis": "AI 營收占比 2025 年約 5%、1Q26 近 10%（工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502）"
+  },
+  {
+   "title": "重新召開法說會、揭露 B/B",
+   "timing": "1H27",
+   "direction": "正向",
+   "indicator": "公開資訊觀測站法說會公告，揭露 B/B ≥ 1.5（年初水準）",
+   "basis": "最近一次法說會為 2025-12-10，近 6 個月無法說會亦無財測（poorstock，https://poorstock.com/earningcall/6834）；B/B 年初突破 1.5（理財周刊 2026-09-11，https://www.moneyweekly.com.tw/ArticleData/Info/Article/248178/），高於 6 月法人估的 1.2 至 1.3 才算正向（分析師判斷）"
+  }
+ ],
+ "risks": [
+  {
+   "title": "提前拉貨退潮",
+   "timing": "1H27",
+   "direction": "負向",
+   "indicator": "TaiwanStockMonthRevenue 連 2 個月月減，且單月低於 2.5 億元",
+   "basis": "B/B 由 4 月的 2（工商時報 2026-04-25，https://www.ctee.com.tw/news/20260425700180-430502）可能已回落，後續讀數未經查證；Bear 情境即假設營收退回 2Q26 水準"
+  },
+  {
+   "title": "外資持續調節",
+   "timing": "近 1 至 3 個月",
+   "direction": "負向",
+   "indicator": "TaiwanStockShareholding 外資持股比率跌破 12%",
+   "basis": "data.foreign_holding 近 20 日由 18.82% 降至 14.54%，低點 12.27%；data.institutional.cum 外資累計 −5,389 張"
+  },
+  {
+   "title": "貴金屬成本反撲",
+   "timing": "每季",
+   "direction": "負向",
+   "indicator": "單季毛利率較前季下滑 > 3 個百分點",
+   "basis": "銀、鈀、釕、錫、銅價格居高不下，公司未宣布統一漲幅（理財周刊 2026-09-11，https://www.moneyweekly.com.tw/ArticleData/Info/Article/248178/）；Bear 情境已假設毛利率降約 3 個百分點至 25%"
+  },
+  {
+   "title": "業外與匯率波動",
+   "timing": "每季",
+   "direction": "負向",
+   "indicator": "TaiwanStockFinancialStatements 單季業外收支轉負",
+   "basis": "data.financials.quarters：2Q25 業外 −0.78 億、EPS −0.54；2Q26 業外 0.42 億、3Q26 僅 0.04 億。Bear 情境假設業外為零，若轉為虧損則落在 Bear 之外"
+  },
+  {
+   "title": "評價回落",
+   "timing": "近 1 至 6 個月",
+   "direction": "負向",
+   "indicator": "TaiwanStockPER 的 PBR 跌回 P75 2.13x 以下",
+   "basis": "data.valuation.PBR 目前 5.42x，位於 5 年第 92.4 百分位；股價 10 月 14 日高點 168 至 11 月 6 日低點 83.5 已腰斬（data.price.metrics）"
+  }
+ ],
+ "thesis_breakers": [
+  {
+   "condition": "月營收連續 2 個月月減且跌破 2.5 億元",
+   "threshold": "MoM < 0% × 2 個月，且單月 < 2.5 億元",
+   "dataset": "TaiwanStockMonthRevenue"
+  },
+  {
+   "condition": "單季毛利率跌回 1Q26 以前水準",
+   "threshold": "毛利率 < 23%",
+   "dataset": "TaiwanStockFinancialStatements"
+  },
+  {
+   "condition": "外資持股撤出",
+   "threshold": "外資持股比率 < 12%",
+   "dataset": "TaiwanStockShareholding"
+  }
+ ],
+ "earnings_quality": {
+  "focus": "電子零組件：庫存週期與資本支出",
+  "text": "DSI 由 4Q25 的 99.5 天降至 3Q26 的 67.1 天，出貨快於備料，庫存天數健康；但存貨金額由 4Q25 的 3.12 億增至 3Q26 的 4.49 億，營收若轉弱將先在庫存反映。現金轉換率僅 0.33x（TTM 營業現金流 0.87 億 ÷ 淨利 2.67 億），2Q26 營業現金流 −0.48 億，成長期應收與存貨吃掉現金，獲利尚未完全變現。3Q26 業外僅 0.04 億，EPS 1.16 幾乎全來自本業，品質優於 2Q26（業外 0.42 億）。資本支出不在本報告的資料檔（共用抓取腳本只取營業現金流），研究亦未找到擴產計畫；在營業現金流偏低下，自由現金流可能為負，需待年報確認。",
+  "basis": "data.financials.quarters dsi_days、inventory、non_operating；data.financials.cash_conversion；data.financials.ocf_quarterly"
+ },
+ "external_facts": [
+  {
+   "text": "4 月底訂單出貨比（B/B）達 2，第二季能見度較高；不計漲價，第二季營收以雙位數成長為目標；公司正爭取逐步轉嫁原料漲價。",
+   "source": "工商時報",
+   "date": "2026-04-25",
+   "url": "https://www.ctee.com.tw/news/20260425700180-430502"
+  },
+  {
+   "text": "AI 營收占比 2025 年約 5%、1Q26 近 10%，主力為間接供應美系網通客戶的高階薄膜產品；高雄廠月產能 80 億顆，2024 年入股南通麗智 9.02%（月產能 350 億顆）。2025Q3 應用別：電源 35%、工業 25%、車用 18%、消費 10%、AI 6%；金屬板電阻 34%、薄膜 26%。",
+   "source": "工商時報",
+   "date": "2026-04-25",
+   "url": "https://www.ctee.com.tw/news/20260425700180-430502"
+  },
+  {
+   "text": "年初 B/B 已突破 1.5，公司與客戶協商調價但未宣布統一漲幅；銀、鈀、釕、錫、銅價格居高不下，中國同業殺價趨緩，國巨、華新科相繼傳出調漲電阻價格。",
+   "source": "理財周刊",
+   "date": "2026-09-11",
+   "url": "https://www.moneyweekly.com.tw/ArticleData/Info/Article/248178/"
+  },
+  {
+   "text": "7 月營收創高的被動元件廠包括天二、光頡、日電貿與富致，正值 MLCC 加價搶貨與電阻漲價潮。",
+   "source": "財報狗",
+   "date": "2026-08-10",
+   "url": "https://statementdog.com/news/17360"
+  },
+  {
+   "text": "最近一次法說會為 2025-12-10 台新證券聯合法說會；近 6 個月未見法說會，公司未發布數字財測。",
+   "source": "poorstock 法說會頁",
+   "date": "2026-11-13",
+   "url": "https://poorstock.com/earningcall/6834"
+  }
+ ],
+ "dim5_verdict": "電阻漲價與 AI 高階薄膜是多方主軸；拉貨退潮、外資調節與貴金屬成本是最需要盯的三個指標。",
+ "dim6_verdict": "評等中立時不建立新部位；回檔策略要等收盤站回進場區，長線持有的下檔遠大於上檔。",
+ "tone": "比賽播報般的直白：先報動作與價位，再報數據；判斷一律標示。"
+}
