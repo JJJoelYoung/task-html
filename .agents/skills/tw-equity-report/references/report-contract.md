@@ -7,11 +7,11 @@ What every report must contain and how the run is checked. Visual design is free
 | Path | Content |
 |---|---|
 | `reports/equity/{code}-{slug}-{YYYYMMDD}.html` | The report, a single self-contained file |
-| `scripts/equity/{code}-{YYYYMMDD}/fetch_finmind_{code}.py` | Fetch and compute script |
-| `scripts/equity/{code}-{YYYYMMDD}/data_{code}.json` | Fetched data and computed metrics |
+| `scripts/equity/{code}-{YYYYMMDD}/data_{code}.json` | Fetched data and computed metrics, written by `scripts/fetch.py` |
 | `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields |
-| `scripts/equity/{code}-{YYYYMMDD}/generate_report.py` | HTML generator |
-| `scripts/equity/{code}-{YYYYMMDD}/test_equity_report.py` | Test script |
+| `scripts/equity/{code}-{YYYYMMDD}/generate_report.py` | HTML generator (layout and charts; numbers from `scripts/derive.py`) |
+
+Fetching, metrics, derived values, and checks live once in the skill's `scripts/`; a run never copies them into its work folder.
 
 ## 2. Page requirements
 
@@ -20,6 +20,14 @@ What every report must contain and how the run is checked. Visual design is free
 - Works at 375 px width with no horizontal page scroll; wide tables scroll inside their own container.
 - Chart hover shows exact values.
 - Header shows company, code, market, industry, and `asof`.
+
+**Markup hooks** that `check_report.py` reads. Prices, signed percentages, and R:R use `derive.fmt_price`, `fmt_pct`, and `fmt_rr`.
+
+- KPI values: an element whose own text is the value, marked `data-kpi="close|rating|target|upside|rr|asof"`.
+- R:R values: `data-rr="pullback"` and `data-rr="breakout"`, same form.
+- dim6 chart levels: `data-line="entry|t1|t2|sl" data-value="<number>"`.
+- Theme toggle: `id="mode-toggle"`. Chart hover values: `data-tip` attributes.
+- Every chart or table sits in a `<figure>` whose `<figcaption>` names FinMind and the date range.
 
 ## 3. KPI cards (top of page)
 
@@ -57,13 +65,13 @@ Each section is a `<section>` with the given `id`.
 
 **README.md row** in `Published Deliverables`: category, linked title, `View Online` link (GitHub Pages URL), local path. Follow the existing rows.
 
-## 7. Test checklist (`test_equity_report.py`)
+## 7. Check list (`scripts/check_report.py`)
 
-The test script uses only the standard library and must check:
+`check_report.py <work-folder>` exits 1 on any failure. It checks:
 
-1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`).
-2. **Analysis**: scenario probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; multiples outside the anchoring bounds have a justification.
-3. **Calculations**: recompute target prices, upside, rating, entry, stops, and both R:R values from the JSON files and compare with the values shown in the HTML.
-4. **Structure**: sections `dim1`–`dim6` exist; the KPI card values equal the JSON-derived values; Entry, T1, T2, and SL lines exist in the dim6 chart; the disclaimer and `asof` appear.
-5. **Portal**: exactly one `index.html` card and one README row point to the report path; the card's telemetry values match the report.
-6. **Links**: every relative `href`/`src` in the report, the new card, and the new README row resolves to an existing file.
+1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`); the peer matrix holds the target and 3 peers.
+2. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`.
+3. **Calculations**: target prices, upside, weighted target, entry, stops, T1, trigger, and both R:R values recomputed by `derive.py` appear in the HTML.
+4. **Structure**: sections `dim1`–`dim6`; KPI hooks equal the derived values; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
+5. **Portal**: exactly one `index.html` card and one README row point to the report; the card's telemetry matches the derived values.
+6. **Links**: every relative `href`/`src` in the report, the card, and the README row resolves to an existing file.

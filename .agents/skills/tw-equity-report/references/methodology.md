@@ -1,6 +1,6 @@
 # Methodology
 
-Fixed definitions for every metric in the report. The fetch script computes the metrics in sections 1 to 5; the generator computes sections 6 and 7 from the data and analysis files. Round prices to the stock's tick size, ratios to 2 decimals, and percentages to 1 decimal.
+Fixed definitions for every metric in the report. `scripts/metrics.py` (run by `scripts/fetch.py`) implements sections 1 to 5; `scripts/derive.py` implements sections 6 and 7 from the data and analysis files. Change a definition here and in the script together, with a unit test in `scripts/tests/`. Round prices to the stock's tick size, ratios to 2 decimals, and percentages to 1 decimal.
 
 ## 0. Common rules
 

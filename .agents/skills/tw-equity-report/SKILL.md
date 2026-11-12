@@ -46,23 +46,24 @@ The argument is a 4-digit code or a company name.
 - Work folder: `scripts/equity/{code}-{YYYYMMDD}/`.
 - If either already exists, overwrite it without asking.
 
-### Step 2: Fetch and compute (`fetch_finmind_{code}.py`)
+### Step 2: Fetch and compute (`data_{code}.json`)
 
-Write a Python script in the work folder that:
+The bundled [scripts/](scripts/) implement methodology.md: `fetch.py` fetches and computes sections 1 to 5, and `derive.py` computes sections 6 and 7. From the repo root, run:
 
-- Uses only the standard library (`urllib.request`, `json`, `statistics`) against `https://api.finmindtrade.com/api/v4/data`.
-- Reads an optional token from the `FINMIND_TOKEN` environment variable and sends it as `Authorization: Bearer <token>`. Never write a token into any file.
-- Never embeds market data in code: no hardcoded rows, fallback snapshots, or cached substitutes. When a fetch fails, stop with the error, or record a gap when the methodology allows the metric to be missing. A report built from substitute numbers looks identical to a real one.
-- Sleeps about 0.5 s between calls. On HTTP 402/429, stop and tell the user the hourly quota is exhausted; it resets within the hour, and a higher FinMind tier raises it.
-- Uses only Free-tier datasets, so the report builds on any FinMind account. Before adding a dataset above Free (for example `TaiwanStockHoldingSharesPer`, Backer), check the account tier with the `setup-finmind-mcp` skill's `smoke` command; its hourly limit maps to the tier (600 Free, 1,600 Backer, 6,000 Sponsor). If the API refuses a dataset for tier, record a gap instead of failing.
-- Fetches the datasets listed in methodology.md for the target, plus the latest `TaiwanStockPER` row for each code passed in `--peers` (comma-separated; empty on the first run).
-- Computes every metric in methodology.md and writes `data_{code}.json` with `asof`, a `sources` map (metric group to dataset and date range), and a `gaps` list for missing data.
+```
+python .agents/skills/tw-equity-report/scripts/fetch.py {code} --asof {asof} --out scripts/equity/{code}-{YYYYMMDD}/
+```
 
-Run it and inspect the JSON before going on. Missing data is recorded in `gaps` and disclosed in the report; never fill it with estimates.
+It writes `data_{code}.json` with `asof`, `tool_version`, `sources`, and `gaps`, reading the token from `FINMIND_TOKEN`. Inspect the JSON before going on.
+
+- Exit code 2 means the FinMind hourly quota is exhausted: stop and tell the user it resets within the hour, and a higher FinMind tier raises it. On any other error, stop and report it.
+- Every number comes from the script. Missing data appears only as a script-recorded `gap`, disclosed in the report; never fill it with estimates, and never type market data into code or JSON.
+- To change a metric, edit the shared script and its tests, then run `python -m unittest discover -s .agents/skills/tw-equity-report/scripts/tests`. A change applies to every later report, so confirm it with the user first.
+- The scripts use only Free-tier datasets, so the report builds on any FinMind account. Before adding a dataset above Free (for example `TaiwanStockHoldingSharesPer`, Backer), check the account tier with the `setup-finmind-mcp` skill's `smoke` command; its hourly limit maps to the tier (600 Free, 1,600 Backer, 6,000 Sponsor). If the API refuses a dataset for tier, record a gap instead of failing.
 
 ### Step 3: Choose peers
 
-Pick 3 Taiwan-listed companies that compete directly with the target's main business. Exclude customers, suppliers, and companies related only through the supply chain. Write a one-line reason for each into the analysis file (Step 4). Re-run the fetch script with `--peers <code>,<code>,<code>` so the peer matrix comes from data.
+Pick 3 Taiwan-listed companies that compete directly with the target's main business. Exclude customers, suppliers, and companies related only through the supply chain. Write a one-line reason for each into the analysis file (Step 4). Re-run `fetch.py` with the same `--asof` and `--peers <code>,<code>,<code>` so the peer matrix comes from data.
 
 ### Step 4: Write judgments (`analysis_{code}.json`)
 
@@ -86,16 +87,22 @@ Load `hallmark` and give it these answers so it does not stop to ask:
 
 Prefer the Stat-Led or Long Document shape (hero figure: rating and Base target), and follow Hallmark's `references/data-viz.md` for every chart.
 
-Then write a script that reads `data_{code}.json` and `analysis_{code}.json`, computes the derived values that methodology.md assigns to the generator (target prices, upside, rating, trade setup, R:R), and writes the HTML. No number may be typed directly into the HTML template. Meet every requirement in report-contract.md.
+Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, rating, trade setup, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2.
 
 ### Step 6: Register the report
 
 - `index.html`: add one card inside `<main class="artifacts-grid">`, using the existing `artifact-card` structure. If a card already links to the same report path, replace it instead of adding another.
 - `README.md`: add one row to the `Published Deliverables` table, or replace the row with the same local path. Keep the README's existing style.
 
-### Step 7: Test (`test_equity_report.py`)
+### Step 7: Check
 
-Write and run a standard-library test script that covers the checklist in report-contract.md. Fix the cause of every failure and re-run until all tests pass. Do not proceed with any failure.
+From the repo root, run:
+
+```
+python .agents/skills/tw-equity-report/scripts/check_report.py scripts/equity/{code}-{YYYYMMDD}
+```
+
+It checks the report against report-contract.md section 7. Fix the cause of every `FAIL` in the generator, the analysis file, or the portal entries, and re-run until it exits 0.
 
 Then, if `node` is available, run Hallmark's linter from the hallmark skill directory: `node <hallmark-skill-dir>/scripts/sloplint.mjs <report> --render`. Fix every `FAIL`, and fix or waive every `REFLEX`. If `node` is missing, skip the linter and say so in Step 9.
 
