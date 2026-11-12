@@ -180,10 +180,11 @@ def check_calculations(c, page, x):
     c.ok(dv.fmt_price(x["weighted_target"]) in page, "html: probability-weighted target not shown")
     c.ok(text_of(page, "data-rr", "pullback") == dv.fmt_rr(x["rr_pullback"]), "html: data-rr=pullback does not match")
     c.ok(text_of(page, "data-rr", "breakout") == dv.fmt_rr(x["rr_breakout"]), "html: data-rr=breakout does not match")
-    for k in ("pullback_status", "breakout_status"):
+    c.ok(text_of(page, "data-rr", "hold") == dv.fmt_rr(x["rr_hold"]), "html: data-rr=hold does not match")
+    for k in ("pullback_status", "breakout_status", "hold_status"):
         if x[k] != "active":
             c.ok(dv.SETUP_STATUS_ZH[x[k]] in page, f"html: inactive setup reason missing: {dv.SETUP_STATUS_ZH[x[k]]}")
-    for k in ("entry", "hard_stop", "breakout_stop", "t1", "trigger"):
+    for k in ("entry", "hard_stop", "breakout_stop", "t1", "t2", "trigger", "fair_buy"):
         c.ok(dv.fmt_price(x[k]) in page, f"html: {k} {dv.fmt_price(x[k])} not shown")
 
 
@@ -196,11 +197,13 @@ def check_structure(c, page, d, x):
         "target": dv.fmt_price(x["base"]["target"]),
         "upside": dv.fmt_pct(x["base"]["upside_pct"]),
         "rr": dv.fmt_rr(x["rr_pullback"]),
+        "action": x["action_zh"],
         "asof": d["asof"],
     }
     for k, v in exp.items():
         got = text_of(page, "data-kpi", k)
         c.ok(got == v, f"html: data-kpi={k} shows {got!r}, expected {v!r}")
+    c.ok(x["action_note"] in page, f"html: action condition missing: {x['action_note']}")
     if '<section id="dim6"' in page:
         dim6 = page[page.index('<section id="dim6"'):]
         dim6 = dim6[: dim6.index("</section>")]

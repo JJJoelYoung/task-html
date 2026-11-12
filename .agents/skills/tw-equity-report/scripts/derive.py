@@ -1,8 +1,8 @@
-"""Derived values from methodology.md sections 6 and 7, plus the number formats.
+"""Derived values from methodology.md sections 6 to 8, plus the number formats.
 
 The report generator and check_report.py both import this module, so the HTML
 and the checks use one implementation. Generators must format prices, signed
-percentages, and R:R with fmt_price, fmt_pct, and fmt_rr.
+percentages, multiples, and R:R with fmt_price, fmt_pct, fmt_mult, and fmt_rr.
 """
 
 import json
@@ -47,16 +47,30 @@ def round_tick(p):
     return round(round(p / t) * t, 2)
 
 
-# Why a trade setup is inactive; the report shows this text in place of R:R.
+# Why a setup is inactive; the report shows this text in place of R:R.
 SETUP_STATUS_ZH = {
     "below_zone": "收盤低於進場區，拉回策略條件未成立",
-    "target_below_entry": "Base 目標價不高於進場價，拉回策略條件未成立",
-    "target_below_trigger": "Base 目標價不高於突破點，突破策略條件未成立",
+    "target_below_entry": "波段目標不高於進場價，拉回策略條件未成立",
+    "target_below_trigger": "波段目標不高於突破點，突破策略條件未成立",
+    "base_below_close": "Base 目標價不高於收盤，長線持有沒有上檔空間",
+    "bear_above_close": "Bear 目標價不低於收盤，無法以悲觀情境衡量下檔",
 }
+
+# Current action (methodology section 8).
+ACTION_ZH = {
+    "avoid": "避開",
+    "watch": "觀望",
+    "accumulate": "可分批布局",
+    "wait_pullback": "等回檔或突破",
+    "wait_reclaim": "等站回進場區",
+}
+
+# Base upside above which the rating is BUY; the fair buy price is Base target / (1 + this).
+BUY_UPSIDE_PCT = 15
 
 
 def rating_of(upside_pct):
-    if upside_pct > 15:
+    if upside_pct > BUY_UPSIDE_PCT:
         return "買進", "BUY"
     if upside_pct >= -5:
         return "中立", "NEUTRAL"
@@ -115,7 +129,8 @@ def derive(d, a):
     entry = round_tick((z_lo + z_hi) / 2)
     trigger = m["high60"]
     t1 = m["high60"] if m["high60"] >= entry * 1.03 else round_tick(entry + 0.618 * (m["high60"] - m["low60"]))
-    t2 = base["target"]
+    bull = next(s for s in scen if s["name"] == "Bull")
+    t2 = min(round_tick(m["low60"] + 1.618 * (m["high60"] - m["low60"])), bull["target"])
     cands = [c for c in (m["w20_maxvol_low"], round_tick(m["ma20"] * 0.97)) if c < z_lo]
     hard_stop = round_tick(max(cands)) if cands else round_tick(z_lo * 0.95)
     stop_src = "candidate" if cands else "zone_low_x_0.95"
@@ -129,6 +144,29 @@ def derive(d, a):
     bo_status = "target_below_trigger" if t2 <= trigger else "active"
     rr_pb = round((t2 - entry) / (entry - hard_stop), 2) if pb_status == "active" else None
     rr_bo = round((t2 - trigger) / (trigger - bo_stop), 2) if bo_status == "active" else None
+
+    bear = next(s for s in scen if s["name"] == "Bear")
+    fair_buy = round_tick(base["target"] / (1 + BUY_UPSIDE_PCT / 100))
+    if base["target"] <= close:
+        hold_status = "base_below_close"
+    elif bear["target"] >= close:
+        hold_status = "bear_above_close"
+    else:
+        hold_status = "active"
+    rr_hold = (round((base["target"] - close) / (close - bear["target"]), 2)
+               if hold_status == "active" else None)
+
+    zone_txt = f"{fmt_price(z_lo)}–{fmt_price(z_hi)}"
+    if rating_en == "SELL":
+        action, note = "avoid", f"Base 上漲空間 {fmt_pct(base['upside_pct'])}，評等賣出"
+    elif rating_en == "NEUTRAL":
+        action, note = "watch", f"合理買進價 {fmt_price(fair_buy)} 以下再評估"
+    elif close < z_lo:
+        action, note = "wait_reclaim", f"收盤低於進場區 {zone_txt}，等重新站回"
+    elif close <= z_hi:
+        action, note = "accumulate", f"進場區 {zone_txt}，停損 {fmt_price(hard_stop)}"
+    else:
+        action, note = "wait_pullback", f"等回檔至 {zone_txt}，或帶量突破 {fmt_price(trigger)}"
     return {
         "close": close,
         "scenarios": scen,
@@ -152,6 +190,12 @@ def derive(d, a):
         "breakout_status": bo_status,
         "rr_pullback": rr_pb,
         "rr_breakout": rr_bo,
+        "fair_buy": fair_buy,
+        "hold_status": hold_status,
+        "rr_hold": rr_hold,
+        "action": action,
+        "action_zh": ACTION_ZH[action],
+        "action_note": note,
     }
 
 

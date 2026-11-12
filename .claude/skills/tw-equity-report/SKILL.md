@@ -1,6 +1,6 @@
 ---
 name: tw-equity-report
-description: Produce an institutional-grade 360-degree equity research HTML report for one Taiwan-listed stock, given its ticker or Chinese name, using FinMind data and Hallmark visual design, then register it in index.html and README.md, test, commit, and push. User-invoked only.
+description: Produce a personal investment-decision HTML report for one Taiwan-listed stock, given its ticker or Chinese name, combining fundamental research with a chip and technical trade plan from FinMind data and Hallmark visual design, then register it in index.html and README.md, test, commit, and push. User-invoked only.
 argument-hint: "<stock code or name>"
 disable-model-invocation: true
 ---

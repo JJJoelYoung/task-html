@@ -69,38 +69,84 @@ class Uptrend(unittest.TestCase):
         self.assertEqual((x["zone_low"], x["zone_high"], x["zone_source"]), (141, 145, "overlap"))
         self.assertEqual(x["entry"], 143)
         self.assertEqual(x["t1"], 160)
+        self.assertEqual(x["t2"], 184.5)  # swing target: low60 + 1.618 x (high60 - low60), below Bull 240
         self.assertEqual((x["hard_stop"], x["hard_stop_source"]), (136, "candidate"))
         self.assertEqual(x["breakout_stop"], 152)
-        self.assertEqual(x["rr_pullback"], round((180 - 143) / (143 - 136), 2))
-        self.assertEqual(x["rr_breakout"], round((180 - 160) / (160 - 152), 2))
+        self.assertEqual(x["rr_pullback"], round((184.5 - 143) / (143 - 136), 2))
+        self.assertEqual(x["rr_breakout"], round((184.5 - 160) / (160 - 152), 2))
+
+    def test_swing_target_capped_at_bull(self):
+        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135, mult=(15, 18, 12))
+        self.assertEqual(dv.derive(d, a)["t2"], 180)  # Bull 12 x 15
+
+    def test_hold_layer(self):
+        x = self.x
+        self.assertEqual(x["fair_buy"], 156.5)
+        self.assertEqual(x["hold_status"], "active")
+        self.assertEqual(x["rr_hold"], round((180 - 150) / (150 - 96), 2))
+
+    def test_action_above_zone(self):
+        self.assertEqual((self.x["action"], self.x["action_zh"]), ("wait_pullback", "等回檔或突破"))
+        self.assertEqual(self.x["action_note"], "等回檔至 141.0–145.0，或帶量突破 160.0")
 
 
 class InactiveSetups(unittest.TestCase):
-    """Close below the MA band (the 2492 case): both setups are inactive and R:R is None."""
-
     def test_below_zone(self):
         d, a = inputs(close=100, ma10=115, ma20=125, high60=150, low60=90, maxvol_low=126,
                       eps=(6, 5, 4), mult=(24, 22, 14))
         x = dv.derive(d, a)
         self.assertEqual(x["zone_source"], "ma_band")
-        self.assertEqual(x["pullback_status"], "below_zone")
-        self.assertEqual(x["breakout_status"], "target_below_trigger")
-        self.assertIsNone(x["rr_pullback"])
-        self.assertIsNone(x["rr_breakout"])
-        self.assertEqual(dv.fmt_rr(x["rr_pullback"]), "不適用")
         self.assertEqual(x["entry"], 120)
-
-    def test_target_below_entry(self):
-        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135,
-                      eps=(8, 7, 6), mult=(20, 20, 12))
-        x = dv.derive(d, a)
-        self.assertEqual(x["pullback_status"], "target_below_entry")
+        self.assertEqual(x["t2"], 144)  # Bull 6 x 24 caps the extension 187
+        self.assertEqual((x["pullback_status"], x["breakout_status"]), ("below_zone", "target_below_trigger"))
         self.assertIsNone(x["rr_pullback"])
+        self.assertEqual(dv.fmt_rr(x["rr_pullback"]), "不適用")
+
+    def test_flat_range(self):
+        d, a = inputs(close=140, ma10=140, ma20=140, high60=140, low60=140, maxvol_low=139)
+        x = dv.derive(d, a)
+        self.assertEqual((x["pullback_status"], x["breakout_status"]), ("target_below_entry", "target_below_trigger"))
+        self.assertIsNone(x["rr_breakout"])
 
     def test_active_statuses_in_uptrend(self):
         d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135)
         x = dv.derive(d, a)
         self.assertEqual((x["pullback_status"], x["breakout_status"]), ("active", "active"))
+
+    def test_hold_inactive(self):
+        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135,
+                      eps=(8, 7, 6), mult=(20, 20, 12))
+        self.assertEqual(dv.derive(d, a)["hold_status"], "base_below_close")
+        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135, mult=(20, 18, 20))
+        x = dv.derive(d, a)
+        self.assertEqual(x["hold_status"], "bear_above_close")
+        self.assertIsNone(x["rr_hold"])
+
+
+class Action(unittest.TestCase):
+    """Current action from the rating and where the close sits against the entry zone."""
+
+    def action(self, close, **kw):
+        d, a = inputs(close=close, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135,
+                      zone={"low": 141, "high": 147}, **kw)
+        return dv.derive(d, a)
+
+    def test_accumulate_in_zone(self):
+        x = self.action(143)
+        self.assertEqual(x["action"], "accumulate")
+        self.assertEqual(x["action_note"], "進場區 141.0–145.0，停損 136.0")
+
+    def test_wait_reclaim_below_zone(self):
+        self.assertEqual(self.action(138)["action"], "wait_reclaim")
+
+    def test_watch_when_neutral(self):
+        x = self.action(150, eps=(12, 8.5, 8))  # Base 153, upside +2.0%
+        self.assertEqual((x["rating_en"], x["action"]), ("NEUTRAL", "watch"))
+        self.assertEqual(x["action_note"], "合理買進價 133.0 以下再評估")
+
+    def test_avoid_when_sell(self):
+        x = self.action(150, eps=(8, 7, 6), mult=(20, 20, 12))  # Base 140, upside -6.7%
+        self.assertEqual((x["rating_en"], x["action_zh"]), ("SELL", "避開"))
 
 
 class ImpliedMultiple(unittest.TestCase):

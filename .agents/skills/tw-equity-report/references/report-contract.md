@@ -1,6 +1,6 @@
 # Report Contract
 
-What every report must contain and how the run is checked. Visual design is free (via the `hallmark` skill); the content and structure below are not.
+What every report must contain and how the run is checked. The reader is the owner deciding what to do with the stock, so the page leads with the current action. Visual design is free (via the `hallmark` skill); the content and structure below are not.
 
 ## 1. Files per run
 
@@ -24,8 +24,8 @@ Fetching, metrics, derived values, and checks live once in the skill's `scripts/
 
 **Markup hooks** that `check_report.py` reads. Prices, signed percentages, multiples, and R:R use `derive.fmt_price`, `fmt_pct`, `fmt_mult`, and `fmt_rr`.
 
-- KPI values: an element whose own text is the value, marked `data-kpi="close|rating|target|upside|rr|asof"`.
-- R:R values: `data-rr="pullback"` and `data-rr="breakout"`, same form.
+- KPI values: an element whose own text is the value, marked `data-kpi="action|close|rating|target|upside|rr|asof"`.
+- R:R values: `data-rr="pullback"`, `data-rr="breakout"`, and `data-rr="hold"`, same form.
 - Implied cross multiples: `data-implied="Bull|Base|Bear"`, same form, formatted with `derive.fmt_mult`.
 - dim6 chart levels: `data-line="entry|t1|t2|sl" data-value="<number>"`.
 - Theme toggle: `id="mode-toggle"`. Chart hover values: `data-tip` attributes.
@@ -33,7 +33,7 @@ Fetching, metrics, derived values, and checks live once in the skill's `scripts/
 
 ## 3. KPI cards (top of page)
 
-Close, rating, Base target, Base upside %, pullback R:R (`不適用` when the setup is inactive), and `asof`.
+Current action (`derive` `action_zh`) with its condition line (`action_note`) first and most prominent, then close, rating, Base target, Base upside %, pullback R:R (`不適用` when the setup is inactive), and `asof`.
 
 ## 4. Sections
 
@@ -46,7 +46,7 @@ Each section is a `<section>` with the given `id`.
 | `dim3` | 營運與財務 | Monthly revenue chart with YoY; YTD revenue and YoY; 4-quarter EPS, gross and operating margin; DSI; cash conversion; industry earnings-quality commentary |
 | `dim4` | 估值與目標價 | 5-year PER and PBR bands with current percentile; peer matrix with peer reasons; Bull/Base/Bear table (EPS or BVPS, multiple, target, upside, implied cross multiple with its band position, probability, assumptions); probability-weighted target; rating |
 | `dim5` | 催化劑與風險 | Moat; 3–5 catalysts and 3–5 risks, each with expected timing, direction of impact, and an observable indicator |
-| `dim6` | 交易部位與風控 | Pullback zone and breakout trigger with their conditions; T1, T2; hard stop and breakout stop; thesis breakers; both R:R values, or for an inactive setup `不適用` with its reason from `derive.SETUP_STATUS_ZH`; the K-line chart with horizontal Entry, T1, T2, and SL lines |
+| `dim6` | 交易部位與風控 | Swing layer: pullback zone and breakout trigger with their conditions, T1, swing T2, hard stop and breakout stop, both R:R values. Hold layer: fair buy price, Base and Bear targets, hold R:R. An inactive setup shows `不適用` with its reason from `derive.SETUP_STATUS_ZH`. Thesis breakers; the K-line chart with horizontal Entry, T1, T2, and SL lines |
 
 ## 5. Data labeling
 
@@ -74,7 +74,7 @@ Each section is a `<section>` with the given `id`.
 1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`); the peer matrix holds the target and 3 peers.
 2. **Research**: `research_{code}.md` exists; every `external_facts` item has source, date, and URL, and is linked in the report; every URL in the analysis file is listed in the research file.
 3. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`; a scenario whose implied cross multiple is flagged (`needs_basis`) names that metric in its `basis`.
-4. **Calculations**: target prices, upside, weighted target, entry, stops, T1, trigger, and both R:R values recomputed by `derive.py` appear in the HTML; each `data-implied` hook equals its derived value; each inactive setup shows its reason.
-5. **Structure**: sections `dim1`–`dim6`; KPI hooks equal the derived values; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
+4. **Calculations**: target prices, upside, weighted target, entry, stops, T1, T2, trigger, fair buy price, and the three R:R values recomputed by `derive.py` appear in the HTML; each `data-implied` hook equals its derived value; each inactive setup shows its reason.
+5. **Structure**: sections `dim1`–`dim6`; KPI hooks (including the action) equal the derived values and the action's condition line is shown; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
 6. **Portal**: exactly one `index.html` card and one README row point to the report; the card's telemetry matches the derived values.
 7. **Links**: every relative `href`/`src` in the report, the card, and the README row resolves to an existing file.
