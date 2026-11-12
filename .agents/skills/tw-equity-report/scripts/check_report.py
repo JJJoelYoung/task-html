@@ -4,7 +4,8 @@
 Usage:
   python check_report.py <work-folder> [--root <repo-root>]
 
-The work folder holds data_{code}.json and analysis_{code}.json. The repo root
+The work folder holds data_{code}.json, analysis_{code}.json, and
+research_{code}.md. The repo root
 (default: the nearest parent of the work folder that has index.html) holds the
 report, index.html, and README.md. Exit code 1 means at least one check failed.
 """
@@ -126,6 +127,42 @@ def check_analysis(c, d, a):
                  f"analysis: {name} multiple is outside its anchor band and its basis cites no percentile")
 
 
+URL_RE = re.compile(r"https?://[A-Za-z0-9\-._~:/?#@!$&*+=%]+")
+
+
+def urls_in(text):
+    """URLs in text; CJK punctuation ends a URL and trailing ASCII punctuation is dropped."""
+    return {u.rstrip(".:!?") for u in URL_RE.findall(text)}
+
+
+def strings_in(obj):
+    if isinstance(obj, str):
+        yield obj
+    elif isinstance(obj, dict):
+        for v in obj.values():
+            yield from strings_in(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            yield from strings_in(v)
+
+
+def check_research(c, work, code, a, page=None):
+    """External facts carry source, date, and url; every url in the analysis is in research_{code}.md."""
+    md = work / f"research_{code}.md"
+    if not c.ok(md.exists(), f"research: {md.name} missing"):
+        return
+    listed = urls_in(md.read_text(encoding="utf-8"))
+    for f in a.get("external_facts", []):
+        label = str(f.get("text", ""))[:40]
+        c.ok(str(f.get("source", "")).strip(), f"research: external fact without source: {label}")
+        c.ok(re.match(r"\d{4}-\d{2}", str(f.get("date", ""))), f"research: external fact without date: {label}")
+        url = str(f.get("url", ""))
+        if c.ok(URL_RE.fullmatch(url), f"research: external fact without url: {label}"):
+            c.ok(page is None or f'href="{html.escape(url)}"' in page, f"html: external fact not linked: {url}")
+    for url in sorted({u for s in strings_in(a) for u in urls_in(s)}):
+        c.ok(url in listed, f"research: {url} is cited in the analysis but not listed in {md.name}")
+
+
 def check_calculations(c, page, x):
     for s in x["scenarios"]:
         c.ok(dv.fmt_price(s["target"]) in page, f"html: {s['name']} target {dv.fmt_price(s['target'])} not shown")
@@ -232,8 +269,9 @@ def main(argv=None):
     c = Check()
     check_data(c, d)
     check_analysis(c, d, a)
-    if c.ok(report.exists(), f"html: report {rel} does not exist"):
-        page = report.read_text(encoding="utf-8")
+    page = report.read_text(encoding="utf-8") if report.exists() else None
+    check_research(c, work, code, a, page)
+    if c.ok(page is not None, f"html: report {rel} does not exist"):
         check_calculations(c, page, x)
         check_structure(c, page, d, x)
         for r in relative_refs(page):

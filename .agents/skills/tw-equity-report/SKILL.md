@@ -67,16 +67,24 @@ It writes `data_{code}.json` with `asof`, `tool_version`, `sources`, and `gaps`,
 
 Pick 3 Taiwan-listed companies that compete directly with the target's main business. Exclude customers, suppliers, and companies related only through the supply chain. Write a one-line reason for each into the analysis file (Step 4). Re-run `fetch.py` with the same `--asof` and `--peers <code>,<code>,<code>` so the peer matrix comes from data.
 
-### Step 4: Write judgments (`analysis_{code}.json`)
+### Step 4: Research and judgments
 
-Write the inputs that need analyst judgment, each with a `basis` field naming the data it rests on:
+**Research (`research_{code}.md`).** External facts (results FinMind has not yet published, guidance, pricing, capacity, industry cycle) come only from this file in the work folder.
+
+- If it already exists, or this session holds research on the stock (for example a `/deep-research` result the user ran first), use that, writing it into the file.
+- Otherwise run about 5 web searches covering the last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, and major customer or product news. Read the page behind every fact you keep; a search snippet alone is not a source.
+- Record each fact as one line: the claim, source name, publication date, and URL. Add a short list of what was searched but not found, or where sources conflict.
+
+**Judgments (`analysis_{code}.json`).** Write the inputs that need analyst judgment, each with a `basis` field naming the data it rests on:
 
 - Peer list with reasons.
 - Bull / Base / Bear scenarios: forward EPS (or BVPS), multiple, probability, and assumptions, under the anchoring rules in methodology.md.
 - Moat, catalysts, risks, and thesis breakers, in the formats from report-contract.md.
 - Earnings-quality commentary for the industry.
 
-Content that FinMind cannot supply (moat, catalysts, overseas comparisons) must say `分析師判斷` or cite an external source with its date.
+- `external_facts`: each external fact the report uses, as `{text, source, date, url}`, with the URL from `research_{code}.md`.
+
+Content that FinMind cannot supply (moat, catalysts, overseas comparisons) either says `分析師判斷` or rests on an external fact; a `basis` that rests on one includes its URL.
 
 ### Step 5: Generate the report (`generate_report.py`)
 

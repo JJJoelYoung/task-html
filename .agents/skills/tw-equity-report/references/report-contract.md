@@ -8,7 +8,8 @@ What every report must contain and how the run is checked. Visual design is free
 |---|---|
 | `reports/equity/{code}-{slug}-{YYYYMMDD}.html` | The report, a single self-contained file |
 | `scripts/equity/{code}-{YYYYMMDD}/data_{code}.json` | Fetched data and computed metrics, written by `scripts/fetch.py` |
-| `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields |
+| `scripts/equity/{code}-{YYYYMMDD}/research_{code}.md` | External facts, one per line: claim, source, date, URL |
+| `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields; `external_facts` as `{text, source, date, url}` |
 | `scripts/equity/{code}-{YYYYMMDD}/generate_report.py` | HTML generator (layout and charts; numbers from `scripts/derive.py`) |
 
 Fetching, metrics, derived values, and checks live once in the skill's `scripts/`; a run never copies them into its work folder.
@@ -49,7 +50,7 @@ Each section is a `<section>` with the given `id`.
 ## 5. Data labeling
 
 - Every chart and table states its date range and source dataset.
-- Judgment content is marked `分析師判斷`; external facts cite source and date.
+- Judgment content is marked `分析師判斷`; each external fact shows its source and date and links to its URL.
 - `gaps` from the data file are listed in a visible note. Null values (including null days in a chart series) are shown as missing, never as zero.
 - Footer: data source (FinMind), `asof`, generation date, and the disclaimer `本報告僅供研究參考，不構成任何投資建議。`
 
@@ -70,8 +71,9 @@ Each section is a `<section>` with the given `id`.
 `check_report.py <work-folder>` exits 1 on any failure. It checks:
 
 1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`); the peer matrix holds the target and 3 peers.
-2. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`.
-3. **Calculations**: target prices, upside, weighted target, entry, stops, T1, trigger, and both R:R values recomputed by `derive.py` appear in the HTML; each inactive setup shows its reason.
-4. **Structure**: sections `dim1`–`dim6`; KPI hooks equal the derived values; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
-5. **Portal**: exactly one `index.html` card and one README row point to the report; the card's telemetry matches the derived values.
-6. **Links**: every relative `href`/`src` in the report, the card, and the README row resolves to an existing file.
+2. **Research**: `research_{code}.md` exists; every `external_facts` item has source, date, and URL, and is linked in the report; every URL in the analysis file is listed in the research file.
+3. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`.
+4. **Calculations**: target prices, upside, weighted target, entry, stops, T1, trigger, and both R:R values recomputed by `derive.py` appear in the HTML; each inactive setup shows its reason.
+5. **Structure**: sections `dim1`–`dim6`; KPI hooks equal the derived values; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
+6. **Portal**: exactly one `index.html` card and one README row point to the report; the card's telemetry matches the derived values.
+7. **Links**: every relative `href`/`src` in the report, the card, and the README row resolves to an existing file.
