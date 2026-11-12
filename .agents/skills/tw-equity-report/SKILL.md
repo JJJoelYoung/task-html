@@ -45,6 +45,7 @@ The argument is a 4-digit code or a company name.
 - Report: `reports/equity/{code}-{slug}-{YYYYMMDD}.html`.
 - Work folder: `scripts/equity/{code}-{YYYYMMDD}/`.
 - If either already exists, overwrite it without asking.
+- Run `git status --porcelain -- index.html README.md`. If either file already has changes, stop and ask the user to commit or stash them first, since Step 8 stages both files whole.
 
 ### Step 2: Fetch and compute (`data_{code}.json`)
 
@@ -88,14 +89,17 @@ Content that FinMind cannot supply (moat, catalysts, overseas comparisons) eithe
 
 ### Step 5: Generate the report (`generate_report.py`)
 
-Load `hallmark` and give it these answers so it does not stop to ask:
+Load `hallmark`. report-contract.md fixes the page structure, so run only these Hallmark steps:
 
-- Material: only the figures in `data_{code}.json` and `analysis_{code}.json`; no photos, logos, or quotes.
-- Audience: investors and analysts reading Taiwan equity research.
-- Use: understand the thesis and act on the trade setup.
-- Tone: Hallmark's choice; state it in one line.
+- **Floor**: all of it.
+- **Ask**: answered here, so skip it. Material: only the figures in `data_{code}.json` and `analysis_{code}.json`; no photos, logos, or quotes. Audience: investors and analysts reading Taiwan equity research. Use: understand the thesis and act on the trade setup. Tone: Hallmark's choice; state it in one line.
+- **Shape**: Stat-Led or Long Document (hero figure: rating and Base target); skip the draw, since sections `dim1`–`dim6` are fixed.
+- **Deal**: from the repo root, `node <hallmark-skill-dir>/scripts/theme.mjs deal --genre <genre> --prompt "<code> <name> equity research" --log .hallmark/log.json`, so consecutive reports get different themes. Load only the picked theme's file, and follow `references/data-viz.md` for every chart.
+- **Picks block**: once, short: theme, tone, signature, sections.
+- **Build**: `theme.mjs scaffold <slug> --dealt "<n>/3, seed <seed>" --dir scripts/equity/{code}-{YYYYMMDD}/.hallmark`, then copy the contents of `tokens.css` and `base.css` into the generator's CSS (that folder is gitignored, so the generator must not read it); fill the stamp.
+- **Log**: after Step 7 passes, add the entry with `theme.mjs log --entry '<json>' --log .hallmark/log.json`.
 
-Prefer the Stat-Led or Long Document shape (hero figure: rating and Base target), and follow Hallmark's `references/data-viz.md` for every chart.
+The hero review, comps, photos, and the material ask do not apply; the finish review runs in Step 7.
 
 Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, rating, trade setup, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2.
 
@@ -116,6 +120,16 @@ It checks the report against report-contract.md section 7. Fix the cause of ever
 
 Then, if `node` is available, run Hallmark's linter from the hallmark skill directory: `node <hallmark-skill-dir>/scripts/sloplint.mjs <report> --render`. Fix every `FAIL`, and fix or waive every `REFLEX`. If `node` is missing, skip the linter and say so in Step 9.
 
+Then capture review screenshots (the first screen and `dim1`–`dim6`, at 1440 and 375 px, light and dark) into the work folder's `.hallmark/shots/`:
+
+```
+python .agents/skills/tw-equity-report/scripts/shots.py scripts/equity/{code}-{YYYYMMDD}
+```
+
+Exit code 4 means Playwright is missing: skip the review below, say so in Step 9, and give the install line the script prints.
+
+Run Hallmark's finish review in a fresh-context subagent, as its `gates.md` section 6 describes, passing the sloplint renders and these screenshots. Add to its brief: in both themes, every chart's lines, bars, and labels are visible and none overlap; at 375 px no section clips content. Act on its first word, fix, recapture, and re-run `check_report.py`.
+
 ### Step 8: Commit and push
 
 1. Stage only this run's files: the report, the work folder (without `__pycache__`), `index.html`, and `README.md`. Leave any other working-tree change unstaged.
@@ -124,4 +138,4 @@ Then, if `node` is available, run Hallmark's linter from the hallmark skill dire
 
 ### Step 9: Report back
 
-Give the user: the report path, rating, close, Base target and upside, R:R, as-of date, any `gaps`, the commit hash, and the push result.
+Give the user: the report path, rating, close, Base target and upside, R:R, as-of date, any `gaps`, the finish-review outcome (or why it was skipped), the commit hash, and the push result.
