@@ -110,7 +110,7 @@ Then write `generate_report.py` in the work folder. It reads `data_{code}.json` 
 
 ### Step 6: Register the report
 
-- `index.html`: add one card inside `<main class="artifacts-grid">`, using the existing `artifact-card` structure. If a card already links to the same report path, replace it instead of adding another.
+- `index.html`: add one card inside `<main class="artifacts-grid">`, using the existing `artifact-card` structure. If a card already links to the same report path, replace it instead of adding another. Include the `生成模型` telemetry row (`data-meta="model"` and `data-meta="effort"`) from `analysis['generation']`, as in report-contract.md section 6.
 - `README.md`: add one row to the `Published Deliverables` table, or replace the row with the same local path. Keep the README's existing style.
 
 ### Step 7: Check

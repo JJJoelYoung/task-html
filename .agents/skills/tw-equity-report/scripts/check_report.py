@@ -260,7 +260,7 @@ def check_generation_meta(c, page, a):
             c.ok(bool(got), f"html: footer data-meta={field} missing or empty")
 
 
-def check_portal(c, root, rel, x, d):
+def check_portal(c, root, rel, x, d, a):
     index = (root / "index.html").read_text(encoding="utf-8")
     readme = (root / "README.md").read_text(encoding="utf-8")
     cards = [k for k in re.findall(r'<article class="artifact-card".*?</article>', index, re.S) if rel in k]
@@ -270,6 +270,12 @@ def check_portal(c, root, rel, x, d):
                        f"NT$ {dv.fmt_price(x['base']['target'])}", dv.fmt_pct(x["base"]["upside_pct"]),
                        x["rating_zh"], rr_card(x["rr_pullback"]), "aria-label="):
             c.ok(needle in card, f"portal: card lacks {needle!r}")
+        gen = a.get("generation") if isinstance(a.get("generation"), dict) else {}
+        for field in ("model", "effort"):
+            got = text_of(card, "data-meta", field)
+            expected = str(gen.get(field) or "").strip()
+            c.ok(got is not None and (not expected or html.unescape(got) == expected),
+                 f"portal: card data-meta={field} shows {got!r}, expected {expected!r}")
         for r in relative_refs(card):
             c.ok((root / r).exists(), f"links: card link {r} does not exist")
     rows = [ln for ln in readme.splitlines() if ln.startswith("|") and rel in ln]
@@ -323,7 +329,7 @@ def main(argv=None):
         check_generation_meta(c, page, a)
         for r in relative_refs(page):
             c.ok((report.parent / r).exists(), f"links: report link {r} does not exist")
-    check_portal(c, root, rel, x, d)
+    check_portal(c, root, rel, x, d, a)
     for f in c.failures:
         print(f"FAIL {f}")
     print(f"{c.count - len(c.failures)}/{c.count} checks passed for {rel}")
