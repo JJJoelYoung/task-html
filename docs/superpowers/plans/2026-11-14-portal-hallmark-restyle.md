@@ -58,7 +58,7 @@
 
   - Remove `transform: translateY(-2px)` from `.artifact-card:hover` and transition only `border-color 0.15s ease` (Console § Motion, Gate 27).
   - Flatten `.artifact-telemetry`: remove `background`, `border`, `border-radius`, and horizontal padding; set `border-top: var(--rule-hair) solid var(--color-rule); border-bottom: var(--rule-hair) solid var(--color-rule); padding-block: var(--space-sm); margin-bottom: var(--space-md);` (eliminates nested box-in-box and `F7`).
-  - Switch `.artifact-category` and `.artifact-badge` from `--font-outlier` to `--font-body` (`font-weight: 500`) per Console Do-nots (Gate 64); change `.artifact-category` color to `var(--color-cool)` (Console instrument grammar) with subtle border/no fill box overload (`F7`).
+  - Switch `.artifact-category`, `.artifact-badge` (`font-weight: 500`), and `.results-count` (`font-variant-numeric: tabular-nums`) from `--font-outlier` to `--font-body` per Console Do-nots (Gate 64); change `.artifact-category` color to `var(--color-cool)` (Console instrument grammar) with subtle border/no fill box overload (`F7`).
   - Update `.telemetry-val`: add `font-variant-numeric: tabular-nums slashed-zero; white-space: nowrap;` (fixes `375px` wrapping).
   - Update `.artifact-action`: replace `transition: all 0.15s ease` with `transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;` (Gate 10a).
 

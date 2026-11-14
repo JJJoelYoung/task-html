@@ -65,7 +65,7 @@ Bring `index.html` into full alignment with Hallmark Floor gates and the `Consol
 - **Card Telemetry (`.artifact-telemetry`)**: Remove `--color-paper-3` fill, outer border, and pill radius; replace with `border-top` and `border-bottom` in `1px solid var(--color-rule)` so readings sit directly on `--color-paper-2`.
 - **Typography & Numbers**:
   - `h1, h2, h3`: add `overflow-wrap: break-word; min-width: 0;` (Gate 50).
-  - `.artifact-category`, `.artifact-badge`: use `var(--font-body)` at `500` weight instead of monospace (Gate 64 / Console Do-not).
+  - `.artifact-category`, `.artifact-badge`, `.results-count`: use `var(--font-body)` (`font-weight: 500` on badges/tags, `font-variant-numeric: tabular-nums` on `.results-count`) instead of monospace (Gate 64 / Console Do-not).
   - `.telemetry-val`: keep `--font-outlier`, add `font-variant-numeric: tabular-nums slashed-zero; white-space: nowrap;` to fix `375px` wrapping.
   - Rating text (`6834`, `2492`, `2330`): sentence case (`Neutral / 中立`, `Conviction Buy`) to satisfy Gate 67 (`<=15px` uppercase rule) while preserving `check_report.py`'s `中立` substring match.
 - **Colour & Controls**:

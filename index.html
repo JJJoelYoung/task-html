@@ -9,11 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-/* Hallmark · shape: Long Document · genre: modern-minimal · theme: Console · redesign: restyle
- * scope: app · hero: Stage · nav: edge-aligned · footer: mast · imagery: none · signature: hairline audit trail and tabular telemetry · console: graphite
+/* Hallmark · shape: app screen · genre: modern-minimal · theme: Console · redesign: restyle
+ * nav: edge-aligned · footer: mast · imagery: none · signature: hairline audit trail and tabular telemetry · console: graphite
  * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · v2.0.0 */
-/* Hallmark · waive 49b · guard: multi-word bilingual stock headings wrap onto two lines at narrow mobile widths · equity research card headings exceed single-line width at 320px to 414px */
-/* Hallmark · pre-emit critique: removed .hub-header outer card box onto --color-paper masthead, flattened .artifact-telemetry pill box into hairline rules, dropped card hover translateY, and constrained .telemetry-val to nowrap tabular figures */
+/* Hallmark · pre-emit critique: P5 H5 E5 S4 R5 V5 · weakest: S, preserved the 5-card grid while trimming .hub-header outer chrome, flattening .artifact-telemetry pill chrome into hairline rows, dropping card hover lift, and locking .telemetry-val to nowrap */
+/* Hallmark · waive 49b · guard: multi-word bilingual ticker and report titles wrapping 2 to 3 lines on narrow and card-grid viewports · equity research card headings preserve full bilingual company names without truncation */
 
 :root {
   color-scheme: dark;
@@ -123,18 +123,21 @@ h1, h2, h3 {
 }
 
 .filter-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
   background: var(--color-paper-3);
   color: var(--color-muted);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-pill);
-  padding: var(--space-xs) var(--space-md);
+  padding: 0 var(--space-md);
   font-size: var(--text-xs);
   font-family: var(--font-body);
   cursor: pointer;
   transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.filter-btn:hover {
+.filter-btn:enabled:hover {
   color: var(--color-ink);
   border-color: var(--color-rule-2);
 }
@@ -160,11 +163,12 @@ h1, h2, h3 {
 
 .search-input {
   width: 100%;
+  height: 36px;
   background: var(--color-paper-3);
   color: var(--color-ink);
   border: var(--rule-hair) solid var(--color-muted);
   border-radius: var(--radius-pill);
-  padding: var(--space-xs) 2.25rem var(--space-xs) var(--space-md);
+  padding: var(--space-2xs) var(--space-xl) var(--space-2xs) var(--space-md);
   font-size: var(--text-sm);
   font-family: var(--font-body);
 }
@@ -172,10 +176,6 @@ h1, h2, h3 {
 .search-input::placeholder {
   color: var(--color-muted);
   opacity: 1;
-}
-
-.search-input:focus {
-  border-color: var(--color-focus);
 }
 
 .search-kbd,
@@ -198,38 +198,43 @@ h1, h2, h3 {
 }
 
 .search-clear {
+  right: var(--space-2xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
   font-family: var(--font-body);
   background: transparent;
   border: none;
   color: var(--color-muted);
   cursor: pointer;
-  padding: var(--space-2xs) var(--space-xs);
+  padding: var(--space-2xs);
   border-radius: var(--space-2xs);
   font-size: var(--text-md);
+  transition: color 0.15s ease;
 }
 
-.search-clear:hover {
+.search-clear:enabled:hover,
+.search-clear:focus-visible {
   color: var(--color-ink);
 }
 
 .sort-select {
+  height: 36px;
   background: var(--color-paper-3);
   color: var(--color-ink);
   border: var(--rule-hair) solid var(--color-muted);
   border-radius: var(--radius-pill);
-  padding: var(--space-xs) var(--space-sm);
+  padding: 0 var(--space-sm);
   font-size: var(--text-xs);
   font-family: var(--font-body);
   cursor: pointer;
 }
 
-.sort-select:focus {
-  border-color: var(--color-focus);
-}
-
-.filter-btn:active,
-.search-clear:active,
-.sort-select:active,
+.filter-btn:enabled:active,
+.search-clear:enabled:active,
+.sort-select:enabled:active,
 .artifact-action:active {
   opacity: 0.85;
 }
@@ -238,7 +243,9 @@ h1, h2, h3 {
 .search-clear:disabled,
 .search-input:disabled,
 .sort-select:disabled {
-  opacity: 0.45;
+  background: var(--color-paper);
+  color: var(--color-muted);
+  border-color: var(--color-rule);
   cursor: not-allowed;
 }
 
@@ -274,7 +281,7 @@ h1, h2, h3 {
     min-width: 0;
   }
   .artifacts-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
