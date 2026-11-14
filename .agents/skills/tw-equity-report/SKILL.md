@@ -15,6 +15,7 @@ Load these skills before the steps that use them:
 
 - `finmind`: dataset names, column units, point-in-time rules, and quota limits. Load before Step 1.
 - `hallmark`: visual design of the report page. Load before Step 5. The design is free each run; do not copy an earlier report's layout.
+- `conventional-commit`: Primary Agent `model` and `effort` resolution/validation (`scripts/get_agent_metadata.py`, single source of truth) before Step 5, and Git commit/push in Step 8.
 
 Read both references before writing any script:
 
@@ -72,8 +73,8 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 
 **Research (`research_{code}.md`).** External facts (results FinMind has not yet published, guidance, pricing, capacity, industry cycle) come only from this file in the work folder.
 
-- If it already exists, or this session holds research on the stock (for example a `/deep-research` result the user ran first), use that, writing it into the file.
-- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`), which verifies each claim with independent agents. Pass as `args`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, and major customer or product news.` Keep only claims it reports as verified.
+- If it already exists, or this session holds research on the stock (for example a `/deep-research` or `/agy-deep-research` result the user ran first), use that, writing it into the file.
+- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`; in Antigravity, the `agy-deep-research` skill via `run_workflow` using `~/.agents/skills/my-skills/agy-deep-research/scripts/deep_research_wf.py` and setting `out_md` to `research_{code}.md`), which verifies each claim with independent agents. Pass as `args` / `query`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, and major customer or product news.` Keep only claims it reports as verified.
 - Without that workflow, run about 5 web searches over the same topics instead. Read the page behind every fact you keep; a search snippet alone is not a source.
 - Record each fact as one line: the claim, source name, publication date, and URL. Add a short list of what was searched but not found, refuted, or where sources conflict. State at the top of the file which method gathered it.
 
@@ -85,6 +86,7 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 - Earnings-quality commentary for the industry.
 
 - `external_facts`: each external fact the report uses, as `{text, source, date, url}`, with the URL from `research_{code}.md`.
+- `generation`: resolve and validate the Primary Agent's active `model` and `effort` strictly by referencing `conventional-commit` Step 3.1 (run `~/.agents/skills/my-skills/conventional-commit/scripts/get_agent_metadata.py` per its rules; do not duplicate its logic or guess values—if that global skill is missing on disk or returns non-empty `missing`, confirm with the user first). Store `{"model": "...", "effort": "..."}`.
 
 Content that FinMind cannot supply (moat, catalysts, overseas comparisons) either says `分析師判斷` or rests on an external fact; a `basis` that rests on one includes its URL.
 
@@ -104,7 +106,7 @@ Load `hallmark`. report-contract.md fixes the page structure, so run only these 
 
 The hero review, comps, photos, and the material ask do not apply; the finish review runs in Step 7.
 
-Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, implied cross multiples, rating, current action, both trade layers, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, `fmt_mult`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2.
+Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, implied cross multiples, rating, current action, both trade layers, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, `fmt_mult`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2 (`data-meta="model"` and `data-meta="effort"` rendered in `<footer>` alongside the tool version from `analysis['generation']`).
 
 ### Step 6: Register the report
 
@@ -141,4 +143,4 @@ Run Hallmark's finish review in a fresh-context subagent, as its `gates.md` sect
 
 ### Step 9: Report back
 
-Give the user: the report path, current action and its condition, rating, close, Base target and upside, the three R:R values, as-of date, any `gaps`, the research method, the judgment-review findings fixed and rejected, the finish-review outcome (or why it was skipped), the commit hash, and the push result.
+Give the user: the report path, current action and its condition, rating, close, Base target and upside, the three R:R values, as-of date, any `gaps`, the research method, the judgment-review findings fixed and rejected, the finish-review outcome (or why it was skipped), Primary Agent `model` and `effort`, the commit hash, and the push result.

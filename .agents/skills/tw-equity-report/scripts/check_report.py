@@ -131,6 +131,11 @@ def check_analysis(c, d, a, x):
             c.ok(im["metric"] in sc[s["name"]]["basis"],
                  f"analysis: {s['name']} target implies {im['metric']} {dv.fmt_mult(im['value'])} ({im['position']}) "
                  f"and its basis does not address {im['metric']}")
+    gen = a.get("generation")
+    if c.ok(isinstance(gen, dict), "analysis: generation {model, effort} missing"):
+        for field in ("model", "effort"):
+            val = gen.get(field)
+            c.ok(isinstance(val, str) and bool(val.strip()), f"analysis: generation.{field} is empty")
 
 
 URL_RE = re.compile(r"https?://[A-Za-z0-9\-._~:/?#@!$&*+=%]+")
@@ -235,6 +240,26 @@ def check_structure(c, page, d, x):
     c.ok("data-tip=" in page, "html: no chart hover values (data-tip)")
 
 
+def check_generation_meta(c, page, a):
+    """Verify report footer displays Primary Agent model and effort matching analysis['generation']."""
+    m = re.search(r"<footer\b[^>]*>.*?</footer>", page, re.S)
+    if not c.ok(m is not None, "html: <footer> element missing for generation metadata"):
+        return
+    footer = m.group(0)
+    gen = a.get("generation") if isinstance(a.get("generation"), dict) else {}
+    for field in ("model", "effort"):
+        got_raw = text_of(footer, "data-meta", field)
+        got = html.unescape(got_raw) if got_raw is not None else None
+        expected = str(gen.get(field) or "").strip()
+        if expected:
+            c.ok(
+                got == expected,
+                f"html: footer data-meta={field} shows {got!r}, expected {expected!r}",
+            )
+        else:
+            c.ok(bool(got), f"html: footer data-meta={field} missing or empty")
+
+
 def check_portal(c, root, rel, x, d):
     index = (root / "index.html").read_text(encoding="utf-8")
     readme = (root / "README.md").read_text(encoding="utf-8")
@@ -295,6 +320,7 @@ def main(argv=None):
     if c.ok(page is not None, f"html: report {rel} does not exist"):
         check_calculations(c, page, x)
         check_structure(c, page, d, x)
+        check_generation_meta(c, page, a)
         for r in relative_refs(page):
             c.ok((report.parent / r).exists(), f"links: report link {r} does not exist")
     check_portal(c, root, rel, x, d)

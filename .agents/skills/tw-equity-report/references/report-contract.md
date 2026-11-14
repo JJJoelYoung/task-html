@@ -9,7 +9,7 @@ What every report must contain and how the run is checked. The reader is the own
 | `reports/equity/{code}-{slug}-{YYYYMMDD}.html` | The report, a single self-contained file |
 | `scripts/equity/{code}-{YYYYMMDD}/data_{code}.json` | Fetched data and computed metrics, written by `scripts/fetch.py` |
 | `scripts/equity/{code}-{YYYYMMDD}/research_{code}.md` | External facts, one per line: claim, source, date, URL |
-| `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields; `external_facts` as `{text, source, date, url}` |
+| `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields; `external_facts` as `{text, source, date, url}`; `generation` as `{model, effort}` (Primary Agent via `conventional-commit`) |
 | `scripts/equity/{code}-{YYYYMMDD}/judgment_review_{code}.md` | Judgment-review findings and how each was resolved |
 | `scripts/equity/{code}-{YYYYMMDD}/generate_report.py` | HTML generator (layout and charts; numbers from `scripts/derive.py`) |
 
@@ -30,6 +30,7 @@ Fetching, metrics, derived values, and checks live once in the skill's `scripts/
 - Implied cross multiples: `data-implied="Bull|Base|Bear"`, same form, formatted with `derive.fmt_mult`.
 - dim6 chart levels: `data-line="entry|t1|t2|sl" data-value="<number>"`.
 - Theme toggle: `id="mode-toggle"`. Chart hover values: `data-tip` attributes.
+- Footer generation metadata: `data-meta="model"` and `data-meta="effort"` inside `<footer>` matching `analysis_{code}.json` -> `generation`.
 - Every chart or table sits in a `<figure>` whose `<figcaption>` names FinMind and the date range.
 
 ## 3. KPI cards (top of page)
@@ -54,7 +55,7 @@ Each section is a `<section>` with the given `id`.
 - Every chart and table states its date range and source dataset.
 - Judgment content is marked `分析師判斷`; each external fact shows its source and date and links to its URL.
 - `gaps` from the data file are listed in a visible note. Null values (including null days in a chart series) are shown as missing, never as zero.
-- Footer: data source (FinMind), `asof`, generation date, and the disclaimer `本報告僅供研究參考，不構成任何投資建議。`
+- Footer: data source (FinMind), `asof`, generation date, Primary Agent `model` and `effort` (`data-meta="model"` and `data-meta="effort"` alongside tool version), and the disclaimer `本報告僅供研究參考，不構成任何投資建議。`
 
 ## 6. Portal entries
 
@@ -74,8 +75,8 @@ Each section is a `<section>` with the given `id`.
 
 1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`); the peer matrix holds the target and 3 peers.
 2. **Research**: `research_{code}.md` exists; every `external_facts` item has source, date, and URL, and is linked in the report; every URL in the analysis file is listed in the research file; `judgment_review_{code}.md` exists and is not empty.
-3. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`; a scenario whose implied cross multiple is flagged (`needs_basis`) names that metric in its `basis`.
+3. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`; a scenario whose implied cross multiple is flagged (`needs_basis`) names that metric in its `basis`; non-empty `generation.model` and `generation.effort` (resolved via `conventional-commit`).
 4. **Calculations**: target prices, upside, weighted target, entry, stops, T1, T2, trigger, fair buy price, and the three R:R values recomputed by `derive.py` appear in the HTML; each `data-implied` hook equals its derived value; each inactive setup shows its reason.
-5. **Structure**: sections `dim1`–`dim6`; KPI hooks (including the action) equal the derived values and the action's condition line is shown; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
+5. **Structure**: sections `dim1`–`dim6`; KPI hooks (including the action) equal the derived values and the action's condition line is shown; Entry, T1, T2, and SL lines in the dim6 chart; `<footer>` renders `data-meta="model"` and `data-meta="effort"` matching `analysis_{code}.json`; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.
 6. **Portal**: exactly one `index.html` card and one README row point to the report; the card's telemetry matches the derived values.
 7. **Links**: every relative `href`/`src` in the report, the card, and the README row resolves to an existing file.

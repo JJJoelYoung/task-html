@@ -67,5 +67,67 @@ class Review(unittest.TestCase):
         self.assertEqual(self.failures("  \n"), ["review: judgment_review_1234.md is empty"])
 
 
+class GenerationMeta(unittest.TestCase):
+    @staticmethod
+    def minimal_inputs(**gen_overrides):
+        band = {"p10": 10.0, "p25": 12.0, "p50": 15.0, "p75": 18.0, "p90": 22.0}
+        d = {"valuation": {"PER": band, "PBR": band}}
+        a = {
+            "valuation_method": "PER",
+            "peers": [{"code": f"{i}", "basis": "b"} for i in range(3)],
+            "catalysts": [{"title": f"c{i}", "basis": "b"} for i in range(3)],
+            "risks": [{"title": f"r{i}", "basis": "b"} for i in range(3)],
+            "thesis_breakers": [{"title": "tb1"}, {"title": "tb2"}],
+            "scenarios": [
+                {"name": "Bull", "multiple": 20.0, "probability": 25, "basis": "b"},
+                {"name": "Base", "multiple": 15.0, "probability": 50, "basis": "b"},
+                {"name": "Bear", "multiple": 11.0, "probability": 25, "basis": "b"},
+            ],
+            "generation": {"model": "Gemini 3.8 Pro", "effort": "high", **gen_overrides},
+        }
+        x = {"scenarios": []}
+        return d, a, x
+
+    def test_analysis_requires_generation_model_and_effort(self):
+        d, a, x = self.minimal_inputs()
+        c = cr.Check()
+        cr.check_analysis(c, d, a, x)
+        self.assertEqual(c.failures, [])
+
+        a_missing = dict(a)
+        a_missing.pop("generation")
+        c_missing = cr.Check()
+        cr.check_analysis(c_missing, d, a_missing, x)
+        self.assertIn("analysis: generation {model, effort} missing", c_missing.failures)
+
+        _, a_blank, _ = self.minimal_inputs(model=" ", effort="")
+        c_blank = cr.Check()
+        cr.check_analysis(c_blank, d, a_blank, x)
+        self.assertIn("analysis: generation.model is empty", c_blank.failures)
+        self.assertIn("analysis: generation.effort is empty", c_blank.failures)
+
+    def test_footer_generation_hooks(self):
+        a = {"generation": {"model": "Gemini 3.8 Pro", "effort": "high"}}
+        good_html = (
+            '<html><body><footer class="footer">'
+            '模型 <span class="mono" data-meta="model">Gemini 3.8 Pro</span>'
+            '（<span class="mono" data-meta="effort">high</span>）'
+            "</footer></body></html>"
+        )
+        c_ok = cr.Check()
+        cr.check_generation_meta(c_ok, good_html, a)
+        self.assertEqual(c_ok.failures, [])
+
+        outside_footer = '<div data-meta="model">Gemini 3.8 Pro</div><div data-meta="effort">high</div>'
+        c_no_footer = cr.Check()
+        cr.check_generation_meta(c_no_footer, outside_footer, a)
+        self.assertEqual(c_no_footer.failures, ["html: <footer> element missing for generation metadata"])
+
+        mismatched = '<footer class="footer"><span data-meta="model">Other</span></footer>'
+        c_mismatch = cr.Check()
+        cr.check_generation_meta(c_mismatch, mismatched, a)
+        self.assertEqual(len(c_mismatch.failures), 2)
+
+
 if __name__ == "__main__":
     unittest.main()
