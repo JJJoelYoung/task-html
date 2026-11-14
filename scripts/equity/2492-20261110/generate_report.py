@@ -902,9 +902,10 @@ def build(d, a):
         + "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t in nav_items)
         + '</ul><button class="mode-toggle" id="mode-toggle" type="button">深色模式</button></div></nav>'
     )
+    meta = a.get("generation") or {}
     footer = f"""
 <footer class="footer"><div class="container footer-grid">
-  <div><p><b>{E(a['name_zh'])}（{CODE}）360 度研究報告</b></p><p>資料日 <span class="mono">{d['asof']}</span>，產生日 <span class="mono">{gen}</span>。</p></div>
+  <div><p><b>{E(a['name_zh'])}（{CODE}）360 度研究報告</b></p><p>資料日 <span class="mono">{d['asof']}</span>，產生日 <span class="mono">{gen}</span>，模型 <span class="mono" data-meta="model">{E(meta.get('model', ''))}</span>（<span class="mono" data-meta="effort">{E(meta.get('effort', ''))}</span>）。</p></div>
   <div><p>資料來源：FinMind（TaiwanStockPrice、TaiwanStockInstitutionalInvestorsBuySell、TaiwanStockShareholding、TaiwanStockMarginPurchaseShortSale、TaiwanStockMonthRevenue、TaiwanStockFinancialStatements、TaiwanStockBalanceSheet、TaiwanStockCashFlowsStatement、TaiwanStockPER）。標示「分析師判斷」者為主觀判斷；外部資訊註明來源與日期。語氣：{E(a['tone'])}</p>
   <p class="disclaimer">本報告僅供研究參考，不構成任何投資建議。</p></div>
 </div></footer>"""

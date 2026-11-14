@@ -77,5 +77,9 @@
   {"text": "2025 年獲利受車用元件價格競爭、銀價倍增、燒結電費上升與 2Q25 匯損拖累。", "source": "StatementDog", "date": "2025-12-08", "url": "https://statementdog.com/news/15236"},
   {"text": "2Q26 MLCC 市場 AI 需求強、消費性需求弱；日韓大廠產能轉向高階，留給台系廠中低階定價空間。", "source": "TrendForce", "date": "2026-04-28", "url": "https://www.trendforce.com/presscenter/news/20260428-13023.html"}
  ],
+ "generation": {
+  "model": "Opus 5.5",
+  "effort": "xhigh"
+ },
  "tone": "冷靜的機構研究語氣：先給結論，再給數據，判斷一律標示。"
 }

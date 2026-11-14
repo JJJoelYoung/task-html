@@ -955,9 +955,10 @@ def build(d, a):
     <div><dt>資料日</dt><dd class="small-fig" data-kpi="asof">{d['asof']}</dd><small>產生 {gen}</small></div>
   </dl>
 </div></header>"""
+    meta = a.get("generation") or {}
     footer = f"""
 <footer class="footer"><div class="container footer-grid">
-  <div><p><b>{E(name)}（{CODE}）投資決策報告</b></p><p>資料日 <span class="mono">{d['asof']}</span>，產生日 <span class="mono">{gen}</span>，工具版本 <span class="mono">{E(d['tool_version'])}</span>。</p></div>
+  <div><p><b>{E(name)}（{CODE}）投資決策報告</b></p><p>資料日 <span class="mono">{d['asof']}</span>，產生日 <span class="mono">{gen}</span>，工具版本 <span class="mono">{E(d['tool_version'])}</span>，模型 <span class="mono" data-meta="model">{E(meta.get('model', ''))}</span>（<span class="mono" data-meta="effort">{E(meta.get('effort', ''))}</span>）。</p></div>
   <div><p>資料來源：FinMind（TaiwanStockPrice、TaiwanStockInstitutionalInvestorsBuySell、TaiwanStockShareholding、TaiwanStockMarginPurchaseShortSale、TaiwanStockMonthRevenue、TaiwanStockFinancialStatements、TaiwanStockBalanceSheet、TaiwanStockCashFlowsStatement、TaiwanStockPER）。標示「分析師判斷」者為主觀判斷；外部資訊註明來源與日期。</p>
   <p class="disclaimer">本報告僅供研究參考，不構成任何投資建議。</p></div>
 </div></footer>"""
