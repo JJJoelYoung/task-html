@@ -63,8 +63,8 @@ Each section is a `<section>` with the given `id`.
 - `<article class="artifact-card" data-category="equity" data-keywords="...">`. Keywords: code, Chinese name, English name and slug, industry, and the report's main themes.
 - `artifact-category` = `equity research`; `artifact-date` = `asof` (`YYYY-MM-DD`).
 - Title link (`artifact-title-link`) to the report; a 2–3 sentence description using numbers from the data file.
-- `artifact-telemetry` items (2-column grid with `telemetry-item--wide` on the rating row): `收盤價` (`NT$ ...`), `目標價` (`NT$ ...`), `潛在上漲` (or `潛在下跌`), `風險報酬比` (`x.xx : 1`, or `不適用`), and full-width `投資評等`. Use `.tone-ok` for BUY / positive actionable values, `.tone-accent` for Base target / moderate upside, `.tone-muted` for NEUTRAL / `不適用`, and `.tone-bad` for SELL / negative upside.
-- Footer action badge showing current action (`動作：{action_zh}`, with `.artifact-badge--active` for `accumulate` and `.artifact-badge--neutral` otherwise) and a `閱讀報告 →` action link with an `aria-label`.
+- `artifact-telemetry` items (2-column grid with `telemetry-item--wide` on the rating row): `收盤價` (`NT$ ...`), `目標價` (`NT$ ...`), `潛在上漲` (or `潛在下跌`), `風險報酬比` (`x.xx : 1`, or `不適用`), and full-width `投資評等` in sentence case (e.g., `Buy / 買進`, `Neutral / 中立`, `Sell / 賣出`, `Conviction Buy`). Use `.tone-ok` for Buy / positive actionable values, `.tone-accent` for Base target / moderate upside, `.tone-muted` for Neutral / `不適用`, and `.tone-bad` for Sell / negative upside.
+- Footer action badge showing current action (`動作：{action_zh}`, with `.artifact-badge--active` for `accumulate` and `.artifact-badge--neutral` otherwise) and a verb-only `閱讀報告` action link (no trailing `→` arrow) with an `aria-label`.
 
 **README.md row** in `Published Deliverables`: category, linked title, `View Online` link (GitHub Pages URL), local path. Follow the existing rows.
 

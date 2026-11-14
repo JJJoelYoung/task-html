@@ -9,13 +9,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-/* Hallmark · shape: Long Document · genre: modern-minimal · theme: Console · redesign: none
- * hero: Stage · nav: edge-aligned · footer: mast · imagery: none · signature: hairline audit trail and tabular telemetry · console: graphite
- * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: H, refined search and filter interactions */
+/* Hallmark · shape: Long Document · genre: modern-minimal · theme: Console · redesign: restyle
+ * scope: app · hero: Stage · nav: edge-aligned · footer: mast · imagery: none · signature: hairline audit trail and tabular telemetry · console: graphite
+ * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · v2.0.0 */
+/* Hallmark · waive 49b · guard: multi-word bilingual stock headings wrap onto two lines at narrow mobile widths · equity research card headings exceed single-line width at 320px to 414px */
+/* Hallmark · pre-emit critique: removed .hub-header outer card box onto --color-paper masthead, flattened .artifact-telemetry pill box into hairline rules, dropped card hover translateY, and constrained .telemetry-val to nowrap tabular figures */
 
 :root {
   color-scheme: dark;
+  scrollbar-color: var(--color-rule-2) var(--color-paper);
   --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px;
   --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem;
   --text-display: clamp(2.25rem, 4vw + 0.5rem, 3.5rem);
@@ -48,9 +50,19 @@ body {
 }
 
 [hidden] { display: none !important; }
+::selection { background: color-mix(in oklch, var(--color-accent) 25%, transparent); }
+input, select { caret-color: var(--color-accent); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 a { color: inherit; text-decoration: none; }
-h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); text-wrap: balance; }
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -71,11 +83,9 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
 /* Header & Intro */
 .hub-header {
-  background: var(--color-paper-2);
   color: var(--color-ink);
-  border: var(--rule-hair) solid var(--color-rule);
-  border-radius: var(--radius-card);
-  padding: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
   margin-bottom: var(--space-lg);
 }
 
@@ -121,7 +131,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   font-size: var(--text-xs);
   font-family: var(--font-body);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .filter-btn:hover {
@@ -152,15 +162,19 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   width: 100%;
   background: var(--color-paper-3);
   color: var(--color-ink);
-  border: var(--rule-hair) solid var(--color-rule);
+  border: var(--rule-hair) solid var(--color-muted);
   border-radius: var(--radius-pill);
   padding: var(--space-xs) 2.25rem var(--space-xs) var(--space-md);
   font-size: var(--text-sm);
   font-family: var(--font-body);
 }
 
+.search-input::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
 .search-input:focus {
-  outline: none;
   border-color: var(--color-focus);
 }
 
@@ -170,25 +184,26 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   right: var(--space-xs);
   top: 50%;
   transform: translateY(-50%);
-  font-family: var(--font-outlier);
   font-size: var(--text-xs);
   line-height: 1;
 }
 
 .search-kbd {
+  font-family: var(--font-outlier);
   color: var(--color-muted);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--space-2xs);
-  padding: var(--space-3xs) 6px;
+  padding: var(--space-3xs) var(--space-xs);
   pointer-events: none;
 }
 
 .search-clear {
+  font-family: var(--font-body);
   background: transparent;
   border: none;
   color: var(--color-muted);
   cursor: pointer;
-  padding: var(--space-2xs) 6px;
+  padding: var(--space-2xs) var(--space-xs);
   border-radius: var(--space-2xs);
   font-size: var(--text-md);
 }
@@ -200,7 +215,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 .sort-select {
   background: var(--color-paper-3);
   color: var(--color-ink);
-  border: var(--rule-hair) solid var(--color-rule);
+  border: var(--rule-hair) solid var(--color-muted);
   border-radius: var(--radius-pill);
   padding: var(--space-xs) var(--space-sm);
   font-size: var(--text-xs);
@@ -209,8 +224,22 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 }
 
 .sort-select:focus {
-  outline: none;
   border-color: var(--color-focus);
+}
+
+.filter-btn:active,
+.search-clear:active,
+.sort-select:active,
+.artifact-action:active {
+  opacity: 0.85;
+}
+
+.filter-btn:disabled,
+.search-clear:disabled,
+.search-input:disabled,
+.sort-select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .results-bar {
@@ -220,7 +249,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 }
 
 .results-count {
-  font-family: var(--font-outlier);
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
   font-size: var(--text-xs);
   color: var(--color-muted);
 }
@@ -236,9 +266,6 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 @media (max-width: 480px) {
   :root {
     --gutter: 16px;
-  }
-  .hub-header {
-    padding: var(--space-lg);
   }
   .toolbar-controls,
   .search-box,
@@ -260,12 +287,11 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease;
 }
 
 .artifact-card:hover {
   border-color: var(--color-cool);
-  transform: translateY(-2px);
 }
 
 .artifact-meta-top {
@@ -276,17 +302,18 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 }
 
 .artifact-category {
-  font-family: var(--font-outlier);
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: var(--text-xs);
-  color: var(--color-accent);
-  background: var(--color-paper-3);
-  border: var(--rule-hair) solid var(--color-rule);
+  color: var(--color-cool);
+  border: var(--rule-hair) solid color-mix(in oklch, var(--color-cool) 35%, var(--color-rule));
   padding: var(--space-3xs) var(--space-xs);
   border-radius: var(--radius-pill);
 }
 
 .artifact-date {
   font-family: var(--font-outlier);
+  font-variant-numeric: tabular-nums slashed-zero;
   font-size: var(--text-xs);
   color: var(--color-muted);
 }
@@ -315,10 +342,9 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-xs);
-  background: var(--color-paper-3);
-  border: var(--rule-hair) solid var(--color-rule);
-  border-radius: var(--radius-pill);
-  padding: var(--space-xs) var(--space-sm);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  padding-block: var(--space-sm);
   margin-bottom: var(--space-md);
 }
 
@@ -333,6 +359,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
 .telemetry-val {
   font-family: var(--font-outlier);
+  font-variant-numeric: tabular-nums slashed-zero;
+  white-space: nowrap;
   font-weight: 500;
   color: var(--color-ink);
 }
@@ -353,20 +381,22 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   padding: var(--space-xs) var(--space-md);
   font-size: var(--text-sm);
   font-weight: 500;
-  transition: all 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.artifact-card:hover .artifact-action {
+.artifact-card:hover .artifact-action,
+.artifact-action:hover {
   background: var(--color-accent);
   color: var(--color-accent-ink);
   border-color: var(--color-accent);
 }
 
 .artifact-badge {
-  font-family: var(--font-outlier);
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: var(--text-xs);
   color: var(--color-muted);
-  background: var(--color-paper-3);
+  background: transparent;
   border: var(--rule-hair) solid var(--color-rule);
   padding: var(--space-3xs) var(--space-xs);
   border-radius: var(--radius-pill);
@@ -424,6 +454,13 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 .hub-footer a {
   color: var(--color-accent);
   text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
   </style>
 </head>
@@ -492,13 +529,13 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
           <div class="telemetry-item">目標價：<span class="telemetry-val tone-accent">NT$ 110.0</span></div>
           <div class="telemetry-item">潛在上漲：<span class="telemetry-val tone-accent">+8.9%</span></div>
           <div class="telemetry-item">風險報酬比：<span class="telemetry-val tone-muted">不適用</span></div>
-          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-muted">NEUTRAL / 中立</span></div>
+          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-muted">Neutral / 中立</span></div>
         </div>
       </div>
 
       <div class="artifact-footer">
         <span class="artifact-badge artifact-badge--neutral">動作：觀望</span>
-        <a href="reports/equity/6834-ever-ohms-20261112.html" class="artifact-action" aria-label="閱讀天二科技研究報告">閱讀報告 →</a>
+        <a href="reports/equity/6834-ever-ohms-20261112.html" class="artifact-action" aria-label="閱讀天二科技研究報告">閱讀報告</a>
       </div>
     </article>
 
@@ -521,13 +558,13 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
           <div class="telemetry-item">目標價：<span class="telemetry-val tone-accent">NT$ 320.0</span></div>
           <div class="telemetry-item">潛在上漲：<span class="telemetry-val tone-accent">+10.9%</span></div>
           <div class="telemetry-item">風險報酬比：<span class="telemetry-val tone-muted">不適用</span></div>
-          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-muted">NEUTRAL / 中立</span></div>
+          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-muted">Neutral / 中立</span></div>
         </div>
       </div>
 
       <div class="artifact-footer">
         <span class="artifact-badge artifact-badge--neutral">動作：觀望</span>
-        <a href="reports/equity/2492-walsin-tech-20261110.html" class="artifact-action" aria-label="閱讀華新科研究報告">閱讀報告 →</a>
+        <a href="reports/equity/2492-walsin-tech-20261110.html" class="artifact-action" aria-label="閱讀華新科研究報告">閱讀報告</a>
       </div>
     </article>
 
@@ -550,13 +587,13 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
           <div class="telemetry-item">目標價：<span class="telemetry-val tone-accent">NT$ 2,650</span></div>
           <div class="telemetry-item">潛在上漲：<span class="telemetry-val tone-ok">+24.1%</span></div>
           <div class="telemetry-item">風險報酬比：<span class="telemetry-val tone-ok">3.32 : 1</span></div>
-          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-ok">CONVICTION BUY</span></div>
+          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-ok">Conviction Buy</span></div>
         </div>
       </div>
 
       <div class="artifact-footer">
         <span class="artifact-badge artifact-badge--active">動作：分批承接</span>
-        <a href="reports/equity/2330-tsmc-20261109.html" class="artifact-action" aria-label="閱讀台積電研究報告">閱讀報告 →</a>
+        <a href="reports/equity/2330-tsmc-20261109.html" class="artifact-action" aria-label="閱讀台積電研究報告">閱讀報告</a>
       </div>
     </article>
 
@@ -584,7 +621,6 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
       <a href="./reports/equity/8299-phison-20261109.html" class="artifact-action" aria-label="閱讀 8299 群聯電子報告">
         <span>閱讀完整報告</span>
-        <span>→</span>
       </a>
     </article>
 
@@ -612,7 +648,6 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
       <a href="./reports/equity/2501-cathay-real-estate.html" class="artifact-action" aria-label="閱讀 2501 國泰建設報告">
         <span>閱讀完整報告</span>
-        <span>→</span>
       </a>
     </article>
 
