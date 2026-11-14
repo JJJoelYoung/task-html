@@ -1,0 +1,231 @@
+{
+  "code": "2308",
+  "name_zh": "台達電",
+  "name_en": "Delta Electronics",
+  "slug": "delta",
+  "market": "twse",
+  "industry": "電子零組件業",
+  "valuation_method": "PER",
+  "valuation_method_basis": "TTM EPS 33.30 元 > 0（data.financials.ttm_eps），且台達電為電源與散熱系統製造商，非金融或重資產產業，故採前瞻 EPS × PER 倍數法估值。",
+  "peers": [
+    {
+      "code": "2301",
+      "name": "光寶科 (Lite-On Technology)",
+      "reason": "台灣第二大電源供應器廠，於 AI 伺服器電源（PSU、Power Shelf、BBU）與雲端資料中心電力方案與台達電直接競爭。",
+      "basis": "分析師判斷；同業比較與競爭關係載於口袋學堂 2026-08-10（https://www.pocket.tw/school/articles/7760/）。"
+    },
+    {
+      "code": "6412",
+      "name": "群電 (Chicony Power)",
+      "reason": "台灣主要交換式電源供應器製造商，於伺服器電源、高瓦數筆電電源與智慧建築解決方案與台達電直接競逐。",
+      "basis": "分析師判斷；依公司公開產品線（伺服器電源、高瓦數電源供應器與智慧樓宇系統）與台達電電源及樓宇自動化主業直接重疊。"
+    },
+    {
+      "code": "3017",
+      "name": "奇鋐 (Asia Vital Components)",
+      "reason": "AI 伺服器水冷板、冷卻液分配裝置（CDU）、分歧管與散熱風扇大廠，於資料中心液冷與氣冷散熱系統與台達電直接競爭。",
+      "basis": "分析師判斷；台達電 2026 年液冷散熱占營收指引逾 12% 且涵蓋水冷板與 CDU（口袋學堂 2026-08-10，https://www.pocket.tw/school/articles/7760/），與奇鋐核心業務直接重疊。"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "Bull",
+      "label": "樂觀",
+      "eps": 64.0,
+      "multiple": 38.0,
+      "probability": 25,
+      "assumptions": "GB300 與 VR200 高瓦數電源櫃（±400V/800V HVDC）及液冷系統放量優於預期，3Q26 存貨跌價準備 39 億元全數回沖且 2% 原料成本順利轉嫁，毛利率回升至 1Q26 的 37.0% 水準，前瞻 4 季 EPS 達 64.0 元。",
+      "basis": "前瞻 EPS 64.0 元較 TTM EPS 33.30 元成長 92.2%，貼近本土投顧（凱基、富邦、國泰）預估 2027E EPS 區間 62.28 至 66.29 元之中點 64.29 元（口袋學堂 2026-08-10，https://www.pocket.tw/school/articles/7760/），且 2026 年 1–10 月累計營收年增 36.3%（data.revenue.ytd_yoy_pct）、1Q26 毛利率曾達 37.0%（data.financials.quarters）。給予 38.0x PER（介於 5 年 PER P75 37.18x 與 P90 60.47x 之間，不高於 P90）；隱含 PBR 19.84x 高於 5 年 PBR P90 14.78x 但低於 1.5 × P90（22.17x），主因 AI 電源與液冷帶動 ROE 與營益率結構性躍升（分析師判斷）。"
+    },
+    {
+      "name": "Base",
+      "label": "基本",
+      "eps": 52.0,
+      "multiple": 32.0,
+      "probability": 55,
+      "assumptions": "4Q26 營收如管理層指引季增、存貨跌價準備隨出貨逐步回沖，4Q26 至 1Q27 陸續反映約 2% 原料成本轉嫁，毛利率維持 35% 至 36%，前瞻 4 季單季平均 EPS 約 13.0 元（全年 52.0 元）。",
+      "basis": "2Q26 與 3Q26 單季 EPS 分別為 9.68 元與 9.04 元（年化 38.72 元與 36.16 元，data.financials.quarters），加計 2026-10 單月營收創 746.66 億元新高（月增 14.2%、年增 30.1%，data.revenue.last12）與 3Q26 約 39 億元存貨跌價準備自 4Q26 起回沖及 2% 成本轉嫁（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29），前瞻 EPS 52.0 元（較 TTM EPS 33.30 元成長 56.2%）介於近兩季年化值與投顧 2027E 共識區間（62.28–66.29 元，口袋學堂 2026-08-10，https://www.pocket.tw/school/articles/7760/）之間。倍數 32.0x 介於 5 年 PER P50 26.69x 與 P75 37.18x 之間（低於現值 37.24x）；隱含 PBR 13.59x 介於 5 年 PBR P75 7.88x 與 P90 14.78x 之間（分析師判斷）。"
+    },
+    {
+      "name": "Bear",
+      "label": "悲觀",
+      "eps": 38.0,
+      "multiple": 24.0,
+      "probability": 20,
+      "assumptions": "電源 IC 缺料與北美資料中心電力建置及技工短缺延宕出貨，原料漲價未能完全轉嫁使毛利率停留在 3Q26 的 34.08% 水準，電動車虧損延續且年底無形資產與商譽減損評估壓抑獲利，前瞻 4 季 EPS 僅 38.0 元。",
+      "basis": "以 2Q26 EPS 9.68 元與 3Q26 EPS 9.04 元之平均單季水準（9.36 元，年化 37.44 元，data.financials.quarters）估算前瞻 EPS 38.0 元（較 TTM EPS 33.30 元成長 14.1%），反映 Power IC 缺料與客戶建置遞延（工商時報 2026-09-19，https://www.ctee.com.tw/news/20260919700132-439901）、電動車市場未來 1–2 年未見快速復甦（台視財經 2026-07-31，https://www.ttv.com.tw/finance/view/default.asp?i=072026311137A0CE2F5D62D34473A008FEDE5DB6580550C9）及年底無形資產檢視風險（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29）。倍數 24.0x 低於 5 年 PER P25 24.46x（接近 P10 23.37x）；隱含 PBR 7.44x 介於 P50 4.62x 與 P75 7.88x 之間（分析師判斷）。"
+    }
+  ],
+  "moat": [
+    {
+      "title": "AI 伺服器電源與高壓直流（HVDC）領先市占",
+      "text": "台達電於 GPU 與 ASIC AI 伺服器電源市占率達 50% 至 60% 以上，並率先量產 ±400V DC 與出貨 800V DC 高壓直流架構，隨單櫃功率由 GB300 約 140kW 躍升至 VR200 近 250kW，每瓦價值較傳統電源提升 4 至 5 倍。",
+      "basis": "台視財經 / MoneyDJ 2026-05-25（https://www.ttv.com.tw/finance/view/052026251109B390348FEF3F44B7AF5AABEAB46DC99A41F5/587）、工商時報 2026-09-19（https://www.ctee.com.tw/news/20260919700132-439901）與工商時報 2026-10-07（https://www.ctee.com.tw/news/20261007701051-430201）。"
+    },
+    {
+      "title": "電網到晶片（Grid-to-Chip）與液冷散熱整合能力",
+      "text": "少數能同時提供伺服器電源（PSU/BBU）、高壓直流電源櫃、水冷板、冷卻液分配裝置（CDU）至微電網與預製型模組化資料中心的整合供應商，2026 年液冷散熱占營收指引逾 12%（高於 2025 年約 10%），基礎設施訂單能見度延伸至 2027 年。",
+      "basis": "口袋學堂 2026-08-10（https://www.pocket.tw/school/articles/7760/）。"
+    },
+    {
+      "title": "全球多基地製造與約 700 億元資本支出規模壁壘",
+      "text": "2026 全年資本支出預估約 700 億元（年增約 50%），橫跨台灣、泰國（重建一廠並新建三廠）、印度、美國及新核准之馬來西亞檳城基地，具備應對關稅與客戶全球交貨的產能彈性。",
+      "basis": "口袋學堂 2026-08-10（https://www.pocket.tw/school/articles/7760/）、BigGo 財經 2026-10-29（https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29）與 Delta Electronics India 2026-09-21（https://deltaelectronicsindia.com/en-IN/news/prime-minister-narendra-modi-met-delta-electronics-leadershipto-chart-indias-next-decade-of-energy-transition%2C-ai-infrastructure%2C-and-smart-manufacturing-growth）。"
+    }
+  ],
+  "catalysts": [
+    {
+      "title": "3Q26 存貨跌價準備回沖與 2% 原料成本轉嫁",
+      "timing": "4Q26 至 1Q27",
+      "direction": "正向",
+      "indicator": "TaiwanStockFinancialStatements 4Q26 與 1Q27 毛利率是否自 3Q26 的 34.08% 回升至 35% 以上",
+      "basis": "3Q26 因提列約 39 億元（約占營收 1.7%）存貨跌價準備使毛利率降至 34.1%，管理層預期 4Q26 起隨存貨出貨逐步回沖，且正與客戶協商轉嫁約 2% 原料成本漲幅（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29）。"
+    },
+    {
+      "title": "±400V / 800V HVDC 電源櫃與 Vera Rubin 110kW 放量",
+      "timing": "4Q26 至 2027 全年",
+      "direction": "正向",
+      "indicator": "TaiwanStockMonthRevenue 單月營收維持 > 700 億元且法說會揭露 HVDC 營收貢獻擴大",
+      "basis": "±400V DC 已於 3Q26 量產出貨、800V DC 亦開始小量出貨並預計 2027 年顯著放大，且三家雲端大廠正評估 400VDC 架構、Vera Rubin 110kW 電源櫃進入量產（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29；工商時報 2026-09-19，https://www.ctee.com.tw/news/20260919700132-439901）。"
+    },
+    {
+      "title": "液冷散熱（CDU / 水冷板）營收持續擴張",
+      "timing": "4Q26 至 2027 年",
+      "direction": "正向",
+      "indicator": "基礎設施事業範疇單季營收與營業利益年增率維持 > 25%",
+      "basis": "3Q26 基礎設施營收達 658.8 億元（年增 25%）、營業利益 120.68 億元（年增 40%）（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29），且管理層指引 2026 年液冷散熱占整體營收逾 12%、基礎設施訂單能見度達 2027 年（口袋學堂 2026-08-10，https://www.pocket.tw/school/articles/7760/）。"
+    },
+    {
+      "title": "固態氧化物燃料電池（SOFC）100MW 產線投產",
+      "timing": "2027 年",
+      "direction": "正向",
+      "indicator": "公司法說會公告 SOFC 100MW 產線正式量產與海外資料中心客戶訂單交付",
+      "basis": "台達電與台電及 2–3 家海外大廠完成場域測試後，預計 2027 年啟動初期約 100MW SOFC 量產線（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29）。"
+    }
+  ],
+  "risks": [
+    {
+      "title": "電源 IC 缺料與資料中心缺電、缺工導致專案遞延",
+      "timing": "4Q26 至 1H27",
+      "direction": "負向",
+      "indicator": "TaiwanStockMonthRevenue 單月營收 MoM 連續轉負，或 TaiwanStockBalanceSheet 存貨周轉天數（DSI）突破 115 天",
+      "basis": "2026-08 營收月減 3.7%（data.revenue.last12）主因 Power IC 供應吃緊與客戶專案交期調整，且管理層指出電力、零組件與合格技工短缺使部分資料中心建置遞延（工商時報 2026-09-19，https://www.ctee.com.tw/news/20260919700132-439901；BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29）。"
+    },
+    {
+      "title": "電動車（EV）需求低迷拖累交通事業虧損",
+      "timing": "2026 至 2027 年",
+      "direction": "負向",
+      "indicator": "法說會揭露之 Mobility（交通）部門單季營業虧損擴大至 > 5 億元",
+      "basis": "Mobility 部門 3Q26 營業虧損 1.37 億元、前三季累計營業虧損 12.67 億元（Delta 3Q26 法說簡報，https://filecenter.deltaww.com/ir/download/calendar/3Q26_Analyst%20Meeting.pdf），董事長鄭平表示未來 1–2 年 EV 市場尚無快速復甦跡象（台視財經 2026-07-31，https://www.ttv.com.tw/finance/view/default.asp?i=072026311137A0CE2F5D62D34473A008FEDE5DB6580550C9）。"
+    },
+    {
+      "title": "外資連續調節之籌碼壓力",
+      "timing": "近 1 至 3 個月",
+      "direction": "負向",
+      "indicator": "TaiwanStockShareholding 外資持股比率跌破 58.0% 且 TaiwanStockInstitutionalInvestorsBuySell 外資續呈單周賣超逾 10,000 張",
+      "basis": "W20（2026-10-15 至 2026-11-13）外資累計賣超 60,550 張，外資持股比率由 60.85% 降至 58.90%（減少 1.95 個百分點，data.institutional.cum、data.foreign_holding）。"
+    },
+    {
+      "title": "原料成本上漲與年底無形資產減損評估",
+      "timing": "4Q26 財報季",
+      "direction": "負向",
+      "indicator": "TaiwanStockFinancialStatements 4Q26 毛利率低於 34.0% 或營業利益率低於 15.5%",
+      "basis": "今年以來原料成本上漲約 2%，若客戶調價協商遞延或年底無形資產檢視產生減損（如泰達電 3Q26 沖銷斯洛伐克商譽），將壓抑短期利潤率（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29；泰達電 SET 公告 2026-10-27，https://www.deltathailand.com/imgadmins/investor/setnews_pdf/setnews_en20261027183410.pdf）。"
+    }
+  ],
+  "thesis_breakers": [
+    {
+      "condition": "單月合併營收年增率（YoY）連續 2 個月跌破 10%，顯示 AI 伺服器電源與液冷拉貨動能實質停滯",
+      "threshold": "月營收 YoY < 10% × 連續 2 個月",
+      "dataset": "TaiwanStockMonthRevenue"
+    },
+    {
+      "condition": "存貨跌價準備未能如期回沖且原料漲價無法轉嫁，致單季毛利率跌破 32.0% 且 DSI 惡化",
+      "threshold": "單季毛利率 < 32.0% 且 DSI > 120 天",
+      "dataset": "TaiwanStockFinancialStatements / TaiwanStockBalanceSheet"
+    },
+    {
+      "condition": "外資法人持續大幅撤出，持股水位跌破 55% 整數關卡",
+      "threshold": "外資持股比率 < 55.0%",
+      "dataset": "TaiwanStockShareholding"
+    }
+  ],
+  "earnings_quality": {
+    "focus": "電子零組件與科技硬體：庫存週期（DSI）、存貨跌價準備與資本支出強度",
+    "text": "台達電近四季存貨周轉天數（DSI）由 4Q25 的 81.0 天上升至 1Q26 的 100.0 天、2Q26 的 99.7 天與 3Q26 的 107.7 天（期末存貨由 1,014.8 億元增至 1,682.0 億元），主因為因應 4Q26 至 2027 年 AI 電源與液冷系統訂單備料，但也使 3Q26 依會計準則提列約 39 億元（約占營收 1.7%）存貨跌價準備，壓抑單季毛利率至 34.08%（季減 1.56 個百分點）。然而費用控管得宜使 3Q26 營業利益率維持 16.55% 高檔，且近四季（TTM）營業現金流達 1,283.14 億元、稅後淨利 967.00 億元，現金轉換率高達 1.33，顯示本業獲利含金量極高，足以支應 2026 全年預估約 700 億元之歷史高檔資本支出。",
+    "basis": "data.financials.quarters（dsi_days、inventory、gross_margin_pct、operating_margin_pct）、data.financials.cash_conversion（ttm_ocf 1283.14 億、ttm_net_income 967.00 億、ratio 1.33），以及 3Q26 法說會存貨跌價準備約 39 億元（BigGo 財經 2026-10-29，https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29）與 2026 年資本支出約 700 億元（口袋學堂 2026-08-10，https://www.pocket.tw/school/articles/7760/）。"
+  },
+  "external_facts": [
+    {
+      "text": "台達電 2026 年 10 月合併營收創單月歷史新高 746.66 億元（月增 14.17%、年增 30.12%），1–10 月累計營收 6,143.34 億元（年增 36.32%）；10 月四大事業比重為電源及零組件 51%、基礎設施 36%、自動化 8%、交通 5%，受惠 PSU、HVDC 電源櫃與液冷產品出貨增加。",
+      "source": "鉅亨網",
+      "date": "2026-11-09",
+      "url": "https://news.cnyes.com/news/id/6653659"
+    },
+    {
+      "text": "3Q26 法說會揭露單季毛利率降至 34.1% 主因提列約 39 億元（約占營收 1.7%）會計存貨跌價準備，管理層預期自 4Q26 起隨存貨出貨逐步回沖；3Q26 電源及零組件營收 1,059.3 億元（年增 40%、季增 10%）、營業利益 199.2 億元，基礎設施營收 658.8 億元（年增 25%、季增 5%）、營業利益 120.68 億元（年增 40%）；同時指引 4Q26 營收將優於 3Q26、毛利率不遜於 3Q26（惟年底須例行檢視無形資產），並正就今年約 2% 原料成本漲幅與客戶協商調價（4Q26 至 1Q27 陸續反映）。",
+      "source": "BigGo 財經 / 台達電 2026Q3 法人說明會",
+      "date": "2026-10-29",
+      "url": "https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29"
+    },
+    {
+      "text": "3Q26 自動化與交通部門表現：自動化部門單季營收 159.0 億元（年增 19%、季增 2%）並轉虧為盈獲利 7.69 億元（前三季營收 457.91 億元、營業利益 4.35 億元）；交通（Mobility）部門單季營收 90.71 億元（年增 7%、季增 10%）、營業虧損季減 65% 至 1.37 億元（前三季營收 250.80 億元、累計營業虧損 12.67 億元）。",
+      "source": "Delta Electronics 3Q26 Analyst Meeting Presentation",
+      "date": "2026-10-29",
+      "url": "https://filecenter.deltaww.com/ir/download/calendar/3Q26_Analyst%20Meeting.pdf"
+    },
+    {
+      "text": "高壓直流（HVDC）進展：±400V DC 產品已於 3Q26 量產出貨，NVIDIA 主導之 800V DC 系統亦開始初期出貨，惟因標準化與合格技工短缺爬坡較緩，預計 2027 年顯著放量；管理層並預估四大雲端業者（CSP）資本支出將由 2026 年逾 7,000 億美元增至 2027 年逾 1 兆美元，董事會亦通過於馬來西亞檳城建置大型製造基地，且 100MW SOFC 產線預計 2027 年量產。",
+      "source": "BigGo 財經 / 台達電 2026Q3 法人說明會",
+      "date": "2026-10-29",
+      "url": "https://finance.biggo.com.tw/quote/2308.TW/earnings-call/TW_2308.TW_2026-10-29"
+    },
+    {
+      "text": "供應鏈指出三家 CSP 正評估 400VDC 架構，隨 AI 伺服器單櫃功率由 GB300 約 140kW 升至 VR200 近 250kW（Vera Rubin 110kW 電源櫃進入量產），帶動側邊電源櫃（Sidecar）與固態變壓器（SST）需求；惟 8 月營收曾因 Power IC 等原料短缺與客戶交期調整而月減。",
+      "source": "工商時報",
+      "date": "2026-09-19",
+      "url": "https://www.ctee.com.tw/news/20260919700132-439901"
+    },
+    {
+      "text": "美系外資重申台達電「加碼」評等與目標價 2,500 元，預估 2025–2028 年獲利 CAGR 達 63%、營業利益率由 2025 年 15.1% 升至 2028 年 22.1%，並估計 800V/±400V DC 每瓦價值較傳統電源高出 4 至 5 倍。",
+      "source": "工商時報",
+      "date": "2026-10-07",
+      "url": "https://www.ctee.com.tw/news/20261007701051-430201"
+    },
+    {
+      "text": "1H26 資本支出達 275 億元（約 60–70% 用於設備），2H26 預估逾 400 億元，2026 全年資本支出預計約 700 億元（較 2025 年 466 億元成長約 50%），擴產涵蓋泰國、台灣、中國與美國；管理層確認基礎設施訂單能見度延伸至 2027 年，產品級 AI 營收占比指引 >25%（2025 年為 18%）、液冷散熱占比 >12%（2025 年約 10%）；本土投顧（凱基、富邦、國泰）預估 2027E EPS 介於 62.28 至 66.29 元。",
+      "source": "口袋學堂",
+      "date": "2026-08-10",
+      "url": "https://www.pocket.tw/school/articles/7760/"
+    },
+    {
+      "text": "1Q26 AI 相關營收占比達約 40%（電源約 30%、散熱約 9%、零組件 >1%），推升 1Q26 毛利率創 37.0% 歷史新高；法人估計台達電於 GPU 與 ASIC AI 伺服器電源市占率達 50% 至 60% 以上。",
+      "source": "台視財經 / MoneyDJ新聞",
+      "date": "2026-05-25",
+      "url": "https://www.ttv.com.tw/finance/view/052026251109B390348FEF3F44B7AF5AABEAB46DC99A41F5/587"
+    },
+    {
+      "text": "董事長鄭平指出電動車（EV）市場 2026 年不會好轉且未來 1–2 年無快速復甦跡象，現階段以控制虧損為主；自動化部門則透過重新設計替代記憶體規格克服缺料，於 2H26 重返獲利。",
+      "source": "TTV Finance / MoneyDJ新聞",
+      "date": "2026-07-31",
+      "url": "https://www.ttv.com.tw/finance/view/default.asp?i=072026311137A0CE2F5D62D34473A008FEDE5DB6580550C9"
+    },
+    {
+      "text": "董事長鄭平於新德里會晤印度總理莫迪，確認持續擴大印度 Rudrapur、Gurgaon、Krishnagiri 製造基地與 Bengaluru 研發中心產能，並推進氫能與 SOFC/SOEC 解決方案。",
+      "source": "Delta Electronics India",
+      "date": "2026-09-21",
+      "url": "https://deltaelectronicsindia.com/en-IN/news/prime-minister-narendra-modi-met-delta-electronics-leadershipto-chart-indias-next-decade-of-energy-transition%2C-ai-infrastructure%2C-and-smart-manufacturing-growth"
+    },
+    {
+      "text": "泰達電（DET）公告截至 2026Q3 不動產、廠房及設備較 2025 年底成長 30.4% 至 595.86 億泰銖，主因持續投資南印度及泰國 Bangpoo、Wellgrow 新廠與研發中心，並於 3Q26 認列關稅補償相關銷售費用與沖銷斯洛伐克商譽。",
+      "source": "Delta Electronics (Thailand) PCL (SET Filing)",
+      "date": "2026-10-27",
+      "url": "https://www.deltathailand.com/imgadmins/investor/setnews_pdf/setnews_en20261027183410.pdf"
+    }
+  ],
+  "generation": {
+    "model": "Gemini 4 Argon",
+    "effort": "high"
+  },
+  "tone": "冷靜、精確的機構電力工程與財務研究語氣：先給當前動作與條件，再以數據與驗證事實展開推論，所有判斷明確標註。"
+}
