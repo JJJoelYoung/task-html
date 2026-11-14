@@ -17,15 +17,15 @@
 :root {
   color-scheme: dark;
   --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px;
-  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem;
   --text-display: clamp(2.25rem, 4vw + 0.5rem, 3.5rem);
   --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.5rem);
   --container: 1280px; --gutter: 32px;
   --color-paper: oklch(17% 0.008 250); --color-paper-2: oklch(21% 0.009 250); --color-paper-3: oklch(13.5% 0.007 250);
-  --color-ink: oklch(95% 0.005 250); --color-ink-2: oklch(83% 0.008 250); --color-muted: oklch(71% 0.01 250);
+  --color-ink: oklch(95% 0.005 250); --color-muted: oklch(71% 0.01 250);
   --color-rule: oklch(31% 0.01 250); --color-rule-2: oklch(42% 0.012 250);
-  --color-accent: oklch(82% 0.15 80); --color-accent-ink: oklch(18% 0.04 75); --color-accent-soft: oklch(29% 0.05 80); --color-focus: oklch(82% 0.15 80);
-  --color-cool: oklch(77% 0.12 245); --color-cool-soft: oklch(29% 0.05 245);
+  --color-accent: oklch(82% 0.15 80); --color-accent-ink: oklch(18% 0.04 75); --color-focus: oklch(82% 0.15 80);
+  --color-cool: oklch(77% 0.12 245);
   --color-ok: oklch(76% 0.15 150); --color-ok-soft: oklch(24.5% 0.03 150); --color-bad: oklch(70% 0.17 25);
   --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-cjk: "Noto Sans TC", -apple-system, sans-serif;
@@ -47,9 +47,21 @@ body {
   padding-block: var(--space-xl);
 }
 
+[hidden] { display: none !important; }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); text-wrap: balance; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 .hub-container {
   max-width: var(--container);
@@ -64,23 +76,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-card);
   padding: var(--space-xl);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
-
-.hub-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  background: var(--color-paper-3);
-  color: var(--color-accent);
-  border: var(--rule-hair) solid var(--color-rule);
-  border-radius: var(--radius-pill);
-  padding: var(--space-2xs) var(--space-sm);
-  font-size: var(--text-xs);
-  margin-bottom: var(--space-sm);
-}
-
-.hub-badge-sep { color: var(--color-rule-2); }
 
 .hub-title {
   font-size: var(--text-display);
@@ -94,6 +91,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   color: var(--color-muted);
   font-size: var(--text-md);
   max-width: 65ch;
+  margin-top: 0;
   margin-bottom: var(--space-lg);
 }
 
@@ -138,8 +136,16 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   font-weight: 600;
 }
 
+.toolbar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
 .search-box {
-  min-width: 260px;
+  position: relative;
+  min-width: 240px;
 }
 
 .search-input {
@@ -148,7 +154,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   color: var(--color-ink);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-pill);
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) 2.25rem var(--space-xs) var(--space-md);
   font-size: var(--text-sm);
   font-family: var(--font-body);
 }
@@ -156,6 +162,67 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 .search-input:focus {
   outline: none;
   border-color: var(--color-focus);
+}
+
+.search-kbd,
+.search-clear {
+  position: absolute;
+  right: var(--space-xs);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  line-height: 1;
+}
+
+.search-kbd {
+  color: var(--color-muted);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--space-2xs);
+  padding: var(--space-3xs) 6px;
+  pointer-events: none;
+}
+
+.search-clear {
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: var(--space-2xs) 6px;
+  border-radius: var(--space-2xs);
+  font-size: var(--text-md);
+}
+
+.search-clear:hover {
+  color: var(--color-ink);
+}
+
+.sort-select {
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--color-focus);
+}
+
+.results-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-md);
+}
+
+.results-count {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
 }
 
 /* Artifacts Grid */
@@ -167,6 +234,18 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 }
 
 @media (max-width: 480px) {
+  :root {
+    --gutter: 16px;
+  }
+  .hub-header {
+    padding: var(--space-lg);
+  }
+  .toolbar-controls,
+  .search-box,
+  .sort-select {
+    width: 100%;
+    min-width: 0;
+  }
   .artifacts-grid {
     grid-template-columns: 1fr;
   }
@@ -220,6 +299,10 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   margin-bottom: var(--space-xs);
 }
 
+.artifact-heading a:hover {
+  color: var(--color-accent);
+}
+
 .artifact-desc {
   font-size: var(--text-sm);
   color: var(--color-muted);
@@ -244,11 +327,20 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   color: var(--color-muted);
 }
 
+.telemetry-item--wide {
+  grid-column: 1 / -1;
+}
+
 .telemetry-val {
   font-family: var(--font-outlier);
   font-weight: 500;
   color: var(--color-ink);
 }
+
+.tone-accent { color: var(--color-accent); }
+.tone-ok { color: var(--color-ok); }
+.tone-muted { color: var(--color-muted); }
+.tone-bad { color: var(--color-bad); }
 
 .artifact-action {
   display: inline-flex;
@@ -270,10 +362,6 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   border-color: var(--color-accent);
 }
 
-.artifact-title-link:hover {
-  color: var(--color-accent);
-}
-
 .artifact-badge {
   font-family: var(--font-outlier);
   font-size: var(--text-xs);
@@ -284,6 +372,16 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   border-radius: var(--radius-pill);
 }
 
+.artifact-badge--active {
+  color: var(--color-ok);
+  background: var(--color-ok-soft);
+  border-color: color-mix(in oklch, var(--color-ok) 45%, var(--color-rule));
+}
+
+.artifact-badge--neutral {
+  color: var(--color-muted);
+}
+
 .artifact-footer {
   display: flex;
   align-items: center;
@@ -292,25 +390,26 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
   margin-top: var(--space-sm);
 }
 
-.telemetry-value {
-  font-family: var(--font-outlier);
-  font-weight: 500;
-  color: var(--color-ink);
-}
-
-.text-accent {
-  color: var(--color-accent) !important;
-}
-
 /* Empty State */
 .empty-box {
-  grid-column: 1 / -1;
   background: var(--color-paper-2);
   border: var(--rule-hair) dashed var(--color-rule);
   border-radius: var(--radius-card);
   padding: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
   text-align: center;
   color: var(--color-muted);
+}
+
+.empty-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+}
+
+.empty-hint {
+  margin: var(--space-xs) 0 0 0;
+  font-size: var(--text-sm);
 }
 
 /* Footer */
@@ -334,19 +433,12 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
   <!-- Header Section -->
   <header class="hub-header">
-    <div class="hub-badge">
-      <span>task-html</span>
-      <span class="hub-badge-sep">/</span>
-      <span>github pages portal</span>
-      <span class="hub-badge-sep">/</span>
-      <span>knowledge hub</span>
-    </div>
     <h1 class="hub-title">Task HTML Deliverables Hub</h1>
     <p class="hub-subtitle">
       專業級研究報告、互動數據視覺化與網頁成果展示中心。採用零依賴獨立架構，隨點即讀。
     </p>
 
-    <!-- Toolbar: Filter and Search -->
+    <!-- Toolbar: Filter, Search, and Sort -->
     <div class="toolbar">
       <nav class="filter-nav" aria-label="分類篩選">
         <button class="filter-btn active" data-category="all">全部成果 (All)</button>
@@ -357,11 +449,26 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
         <button class="filter-btn" data-category="prototypes">介面原型 (UI)</button>
       </nav>
 
-      <div class="search-box">
-        <input type="text" id="searchInput" class="search-input" placeholder="搜尋報告標題或股票代號..." aria-label="搜尋報告">
+      <div class="toolbar-controls">
+        <div class="search-box">
+          <input type="text" id="searchInput" class="search-input" placeholder="搜尋報告標題或股票代號..." aria-label="搜尋報告">
+          <kbd id="searchKbd" class="search-kbd" aria-hidden="true">/</kbd>
+          <button type="button" id="searchClear" class="search-clear" aria-label="清除搜尋" hidden>×</button>
+        </div>
+
+        <label for="sortSelect" class="sr-only">排序方式</label>
+        <select id="sortSelect" class="sort-select" aria-label="排序方式">
+          <option value="date-desc">最新日期</option>
+          <option value="upside-desc">潛在漲幅（高 → 低）</option>
+          <option value="code-asc">股票代號（小 → 大）</option>
+        </select>
       </div>
     </div>
   </header>
+
+  <div class="results-bar">
+    <span id="resultsCount" class="results-count" aria-live="polite">顯示 5 / 5 筆</span>
+  </div>
 
   <!-- Artifacts Grid -->
   <main class="artifacts-grid" id="artifactsContainer">
@@ -381,15 +488,16 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
         </p>
 
         <div class="artifact-telemetry">
-          <div class="telemetry-item">目標價：<span class="telemetry-val telemetry-value text-accent">NT$ 110.0</span></div>
-          <div class="telemetry-item">潛在上漲：<span class="telemetry-val telemetry-value text-accent">+8.9%</span></div>
-          <div class="telemetry-item">投資評等：<span class="telemetry-val">NEUTRAL / 中立</span></div>
-          <div class="telemetry-item">風險報酬比：<span class="telemetry-val">不適用</span></div>
+          <div class="telemetry-item">收盤價：<span class="telemetry-val">NT$ 101.0</span></div>
+          <div class="telemetry-item">目標價：<span class="telemetry-val tone-accent">NT$ 110.0</span></div>
+          <div class="telemetry-item">潛在上漲：<span class="telemetry-val tone-accent">+8.9%</span></div>
+          <div class="telemetry-item">風險報酬比：<span class="telemetry-val tone-muted">不適用</span></div>
+          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-muted">NEUTRAL / 中立</span></div>
         </div>
       </div>
 
       <div class="artifact-footer">
-        <span class="artifact-badge">Autonomous HTML</span>
+        <span class="artifact-badge artifact-badge--neutral">動作：觀望</span>
         <a href="reports/equity/6834-ever-ohms-20261112.html" class="artifact-action" aria-label="閱讀天二科技研究報告">閱讀報告 →</a>
       </div>
     </article>
@@ -409,15 +517,16 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
         </p>
 
         <div class="artifact-telemetry">
-          <div class="telemetry-item">目標價：<span class="telemetry-val telemetry-value text-accent">NT$ 320.0</span></div>
-          <div class="telemetry-item">潛在上漲：<span class="telemetry-val telemetry-value text-accent">+10.9%</span></div>
-          <div class="telemetry-item">投資評等：<span class="telemetry-val">NEUTRAL / 中立</span></div>
-          <div class="telemetry-item">風險報酬比：<span class="telemetry-val">不適用</span></div>
+          <div class="telemetry-item">收盤價：<span class="telemetry-val">NT$ 288.5</span></div>
+          <div class="telemetry-item">目標價：<span class="telemetry-val tone-accent">NT$ 320.0</span></div>
+          <div class="telemetry-item">潛在上漲：<span class="telemetry-val tone-accent">+10.9%</span></div>
+          <div class="telemetry-item">風險報酬比：<span class="telemetry-val tone-muted">不適用</span></div>
+          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-muted">NEUTRAL / 中立</span></div>
         </div>
       </div>
 
       <div class="artifact-footer">
-        <span class="artifact-badge">Autonomous HTML</span>
+        <span class="artifact-badge artifact-badge--neutral">動作：觀望</span>
         <a href="reports/equity/2492-walsin-tech-20261110.html" class="artifact-action" aria-label="閱讀華新科研究報告">閱讀報告 →</a>
       </div>
     </article>
@@ -437,15 +546,16 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
         </p>
 
         <div class="artifact-telemetry">
-          <div class="telemetry-item">目標價：<span class="telemetry-val telemetry-value text-accent">NT$ 2,650</span></div>
-          <div class="telemetry-item">潛在上漲：<span class="telemetry-val telemetry-value text-accent">+24.1%</span></div>
-          <div class="telemetry-item">投資評等：<span class="telemetry-val">CONVICTION BUY</span></div>
-          <div class="telemetry-item">風險報酬比：<span class="telemetry-val">3.32 : 1</span></div>
+          <div class="telemetry-item">收盤價：<span class="telemetry-val">NT$ 2,135</span></div>
+          <div class="telemetry-item">目標價：<span class="telemetry-val tone-accent">NT$ 2,650</span></div>
+          <div class="telemetry-item">潛在上漲：<span class="telemetry-val tone-ok">+24.1%</span></div>
+          <div class="telemetry-item">風險報酬比：<span class="telemetry-val tone-ok">3.32 : 1</span></div>
+          <div class="telemetry-item telemetry-item--wide">投資評等：<span class="telemetry-val tone-ok">CONVICTION BUY</span></div>
         </div>
       </div>
 
       <div class="artifact-footer">
-        <span class="artifact-badge">Autonomous HTML</span>
+        <span class="artifact-badge artifact-badge--active">動作：分批承接</span>
         <a href="reports/equity/2330-tsmc-20261109.html" class="artifact-action" aria-label="閱讀台積電研究報告">閱讀報告 →</a>
       </div>
     </article>
@@ -508,55 +618,108 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
   </main>
 
+  <div id="emptyNotice" class="empty-box" hidden>
+    <p class="empty-title">尚無符合條件的研究成果</p>
+    <p class="empty-hint">可切換分類標籤或清除搜尋關鍵字以檢視其他報告。</p>
+  </div>
+
   <!-- Footer -->
   <footer class="hub-footer">
     <p>託管於 GitHub Pages · 原始碼倉庫：<a href="https://github.com/JJJoelYoung/task-html" target="_blank" rel="noopener noreferrer">JJJoelYoung/task-html</a></p>
-    <p style="margin-top: var(--space-2xs); color: var(--color-rule-2);">© 2026 Task HTML Knowledge Hub. All rights reserved.</p>
   </footer>
 
 </div>
 
 <script>
-  // Simple, robust client-side filter and search
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.artifact-card');
-  const searchInput = document.getElementById('searchInput');
+  // Client-side category count, filter, sort, and cached search
+  const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
   const container = document.getElementById('artifactsContainer');
+  const cards = Array.from(container.querySelectorAll('.artifact-card'));
+  const searchInput = document.getElementById('searchInput');
+  const searchKbd = document.getElementById('searchKbd');
+  const searchClear = document.getElementById('searchClear');
+  const sortSelect = document.getElementById('sortSelect');
+  const resultsCount = document.getElementById('resultsCount');
+  const emptyNotice = document.getElementById('emptyNotice');
 
   let currentCategory = 'all';
   let searchQuery = '';
+  let currentSort = sortSelect.value;
 
-  function updateCards() {
-    let visibleCount = 0;
+  function parseCardMeta(card, index) {
+    const dateText = (card.querySelector('.artifact-date')?.textContent || '').trim();
+    const titleText = (card.querySelector('.artifact-heading')?.textContent || '').trim();
+    const telemetryText = card.querySelector('.artifact-telemetry')?.textContent || '';
+    const upsideMatch = telemetryText.match(/潛在(?:上漲|下跌)[^%\d+-]*([+-]?\d+(?:\.\d+)?)%/);
+    const codeMatch = titleText.match(/^\d+/);
+    const keywords = card.getAttribute('data-keywords') || '';
 
-    cards.forEach(card => {
-      const cardCategory = card.getAttribute('data-category');
-      const cardText = (card.innerText + ' ' + (card.getAttribute('data-keywords') || '')).toLowerCase();
-      
-      const matchesCategory = (currentCategory === 'all' || cardCategory === currentCategory);
-      const matchesSearch = !searchQuery || cardText.includes(searchQuery);
+    return {
+      el: card,
+      index,
+      category: card.getAttribute('data-category') || '',
+      date: dateText,
+      upside: upsideMatch ? parseFloat(upsideMatch[1]) : Number.NEGATIVE_INFINITY,
+      code: codeMatch ? parseInt(codeMatch[0], 10) : Number.MAX_SAFE_INTEGER,
+      searchText: (card.textContent + ' ' + keywords).replace(/\s+/g, ' ').trim().toLowerCase(),
+    };
+  }
 
-      if (matchesCategory && matchesSearch) {
-        card.style.display = 'flex';
-        visibleCount++;
-      } else {
-        card.style.display = 'none';
-      }
+  const cardMeta = cards.map(parseCardMeta);
+
+  function initCategoryCounts() {
+    const counts = { all: cardMeta.length };
+    cardMeta.forEach(({ category }) => {
+      counts[category] = (counts[category] || 0) + 1;
     });
 
-    // Handle empty state
-    let emptyEl = document.getElementById('emptyNotice');
-    if (visibleCount === 0) {
-      if (!emptyEl) {
-        emptyEl = document.createElement('div');
-        emptyEl.id = 'emptyNotice';
-        emptyEl.className = 'empty-box';
-        emptyEl.innerHTML = '<p style="margin: 0; font-size: 1.1rem; color: var(--color-ink);">尚無符合條件的研究成果</p><p style="margin: 8px 0 0 0; font-size: 0.9rem;">可切換分類標籤或清除搜尋關鍵字以檢視其他報告。</p>';
-        container.appendChild(emptyEl);
+    filterBtns.forEach(btn => {
+      const cat = btn.getAttribute('data-category');
+      const count = counts[cat] || 0;
+      const baseLabel = btn.textContent.trim();
+      btn.textContent = `${baseLabel} (${count})`;
+      if (cat !== 'all' && count === 0) {
+        btn.hidden = true;
       }
-    } else if (emptyEl) {
-      emptyEl.remove();
-    }
+    });
+  }
+
+  function sortCards(items, mode) {
+    return [...items].sort((a, b) => {
+      if (mode === 'upside-desc') {
+        if (b.upside !== a.upside) return b.upside - a.upside;
+      } else if (mode === 'code-asc') {
+        if (a.code !== b.code) return a.code - b.code;
+      } else {
+        if (b.date !== a.date) return b.date.localeCompare(a.date);
+      }
+      return a.index - b.index;
+    });
+  }
+
+  function updateSearchUi() {
+    const hasQuery = searchInput.value.length > 0;
+    searchClear.hidden = !hasQuery;
+    searchKbd.hidden = hasQuery;
+  }
+
+  function updateCards() {
+    const ordered = sortCards(cardMeta, currentSort);
+    let visibleCount = 0;
+
+    ordered.forEach(item => {
+      const matchesCategory = (currentCategory === 'all' || item.category === currentCategory);
+      const matchesSearch = !searchQuery || item.searchText.includes(searchQuery);
+      const visible = matchesCategory && matchesSearch;
+
+      item.el.hidden = !visible;
+      container.appendChild(item.el);
+      if (visible) visibleCount++;
+    });
+
+    resultsCount.textContent = `顯示 ${visibleCount} / ${cardMeta.length} 筆`;
+    container.hidden = visibleCount === 0;
+    emptyNotice.hidden = visibleCount > 0;
   }
 
   filterBtns.forEach(btn => {
@@ -570,8 +733,41 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 500; lett
 
   searchInput.addEventListener('input', (e) => {
     searchQuery = e.target.value.trim().toLowerCase();
+    updateSearchUi();
     updateCards();
   });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchQuery = '';
+    updateSearchUi();
+    updateCards();
+    searchInput.focus();
+  });
+
+  sortSelect.addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    updateCards();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const tag = document.activeElement?.tagName;
+    const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || document.activeElement?.isContentEditable;
+    if (e.key === '/' && !isTyping && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    } else if (e.key === 'Escape' && document.activeElement === searchInput && searchInput.value) {
+      searchInput.value = '';
+      searchQuery = '';
+      updateSearchUi();
+      updateCards();
+    }
+  });
+
+  initCategoryCounts();
+  updateSearchUi();
+  updateCards();
 </script>
 
 </body>

@@ -58,13 +58,13 @@ Each section is a `<section>` with the given `id`.
 
 ## 6. Portal entries
 
-**index.html card** (inside `<main class="artifacts-grid">`), copying the structure of the existing cards:
+**index.html card** (inside `<main class="artifacts-grid">`), copying the structure of the newer cards:
 
 - `<article class="artifact-card" data-category="equity" data-keywords="...">`. Keywords: code, Chinese name, English name and slug, industry, and the report's main themes.
 - `artifact-category` = `equity research`; `artifact-date` = `asof` (`YYYY-MM-DD`).
-- Title link to the report; a 2–3 sentence description using numbers from the data file.
-- `artifact-telemetry` items: 目標價, 潛在上漲 (or 潛在下跌), 投資評等, 風險報酬比 (`x.xx : 1`, or `不適用`).
-- Footer badge and a `閱讀報告 →` action link with an `aria-label`.
+- Title link (`artifact-title-link`) to the report; a 2–3 sentence description using numbers from the data file.
+- `artifact-telemetry` items (2-column grid with `telemetry-item--wide` on the rating row): `收盤價` (`NT$ ...`), `目標價` (`NT$ ...`), `潛在上漲` (or `潛在下跌`), `風險報酬比` (`x.xx : 1`, or `不適用`), and full-width `投資評等`. Use `.tone-ok` for BUY / positive actionable values, `.tone-accent` for Base target / moderate upside, `.tone-muted` for NEUTRAL / `不適用`, and `.tone-bad` for SELL / negative upside.
+- Footer action badge showing current action (`動作：{action_zh}`, with `.artifact-badge--active` for `accumulate` and `.artifact-badge--neutral` otherwise) and a `閱讀報告 →` action link with an `aria-label`.
 
 **README.md row** in `Published Deliverables`: category, linked title, `View Online` link (GitHub Pages URL), local path. Follow the existing rows.
 
