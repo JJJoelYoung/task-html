@@ -4,8 +4,8 @@
 Usage:
   python check_report.py <work-folder> [--root <repo-root>]
 
-The work folder holds data_{code}.json, analysis_{code}.json, and
-research_{code}.md. The repo root
+The work folder holds data_{code}.json, analysis_{code}.json,
+research_{code}.md, and judgment_review_{code}.md. The repo root
 (default: the nearest parent of the work folder that has index.html) holds the
 report, index.html, and README.md. Exit code 1 means at least one check failed.
 """
@@ -169,6 +169,13 @@ def check_research(c, work, code, a, page=None):
         c.ok(url in listed, f"research: {url} is cited in the analysis but not listed in {md.name}")
 
 
+def check_review(c, work, code):
+    """The judgment review from SKILL.md Step 4 left its findings in the work folder."""
+    md = work / f"judgment_review_{code}.md"
+    if c.ok(md.exists(), f"review: {md.name} missing"):
+        c.ok(md.read_text(encoding="utf-8").strip(), f"review: {md.name} is empty")
+
+
 def check_calculations(c, page, x):
     for s in x["scenarios"]:
         c.ok(dv.fmt_price(s["target"]) in page, f"html: {s['name']} target {dv.fmt_price(s['target'])} not shown")
@@ -284,6 +291,7 @@ def main(argv=None):
     check_analysis(c, d, a, x)
     page = report.read_text(encoding="utf-8") if report.exists() else None
     check_research(c, work, code, a, page)
+    check_review(c, work, code)
     if c.ok(page is not None, f"html: report {rel} does not exist"):
         check_calculations(c, page, x)
         check_structure(c, page, d, x)

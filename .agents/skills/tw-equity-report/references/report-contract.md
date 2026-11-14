@@ -10,6 +10,7 @@ What every report must contain and how the run is checked. The reader is the own
 | `scripts/equity/{code}-{YYYYMMDD}/data_{code}.json` | Fetched data and computed metrics, written by `scripts/fetch.py` |
 | `scripts/equity/{code}-{YYYYMMDD}/research_{code}.md` | External facts, one per line: claim, source, date, URL |
 | `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields; `external_facts` as `{text, source, date, url}` |
+| `scripts/equity/{code}-{YYYYMMDD}/judgment_review_{code}.md` | Judgment-review findings and how each was resolved |
 | `scripts/equity/{code}-{YYYYMMDD}/generate_report.py` | HTML generator (layout and charts; numbers from `scripts/derive.py`) |
 
 Fetching, metrics, derived values, and checks live once in the skill's `scripts/`; a run never copies them into its work folder.
@@ -72,7 +73,7 @@ Each section is a `<section>` with the given `id`.
 `check_report.py <work-folder>` exits 1 on any failure. It checks:
 
 1. **Data**: `data_{code}.json` has `asof`, `sources`, and every metric group in methodology.md sections 2–5 (null allowed only when listed in `gaps`); the peer matrix holds the target and 3 peers.
-2. **Research**: `research_{code}.md` exists; every `external_facts` item has source, date, and URL, and is linked in the report; every URL in the analysis file is listed in the research file.
+2. **Research**: `research_{code}.md` exists; every `external_facts` item has source, date, and URL, and is linked in the report; every URL in the analysis file is listed in the research file; `judgment_review_{code}.md` exists and is not empty.
 3. **Analysis**: Bull/Base/Bear probabilities sum to 100; each scenario, peer, catalyst, and risk has a non-empty `basis`; 3 peers, 3–5 catalysts, 3–5 risks, 2–3 thesis breakers; a multiple outside its anchoring band cites a percentile in its `basis`; a scenario whose implied cross multiple is flagged (`needs_basis`) names that metric in its `basis`.
 4. **Calculations**: target prices, upside, weighted target, entry, stops, T1, T2, trigger, fair buy price, and the three R:R values recomputed by `derive.py` appear in the HTML; each `data-implied` hook equals its derived value; each inactive setup shows its reason.
 5. **Structure**: sections `dim1`–`dim6`; KPI hooks (including the action) equal the derived values and the action's condition line is shown; Entry, T1, T2, and SL lines in the dim6 chart; disclaimer, `asof`, `分析師判斷`, every gap, captions, themes, viewport, `overflow-x: clip`, and hover values.

@@ -48,5 +48,24 @@ class Research(unittest.TestCase):
         self.assertTrue(any("not linked" in f for f in fails))
 
 
+
+class Review(unittest.TestCase):
+    def failures(self, text):
+        with tempfile.TemporaryDirectory() as t:
+            work = Path(t)
+            if text is not None:
+                (work / "judgment_review_1234.md").write_text(text, encoding="utf-8")
+            c = cr.Check()
+            cr.check_review(c, work, "1234")
+            return c.failures
+
+    def test_present(self):
+        self.assertEqual(self.failures("- check 2: Base EPS growth unsupported; fixed.\nfindings: 1"), [])
+
+    def test_missing_or_empty(self):
+        self.assertEqual(self.failures(None), ["review: judgment_review_1234.md missing"])
+        self.assertEqual(self.failures("  \n"), ["review: judgment_review_1234.md is empty"])
+
+
 if __name__ == "__main__":
     unittest.main()

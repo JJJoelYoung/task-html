@@ -73,8 +73,9 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 **Research (`research_{code}.md`).** External facts (results FinMind has not yet published, guidance, pricing, capacity, industry cycle) come only from this file in the work folder.
 
 - If it already exists, or this session holds research on the stock (for example a `/deep-research` result the user ran first), use that, writing it into the file.
-- Otherwise run about 5 web searches covering the last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, and major customer or product news. Read the page behind every fact you keep; a search snippet alone is not a source.
-- Record each fact as one line: the claim, source name, publication date, and URL. Add a short list of what was searched but not found, or where sources conflict.
+- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`), which verifies each claim with independent agents. Pass as `args`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, and major customer or product news.` Keep only claims it reports as verified.
+- Without that workflow, run about 5 web searches over the same topics instead. Read the page behind every fact you keep; a search snippet alone is not a source.
+- Record each fact as one line: the claim, source name, publication date, and URL. Add a short list of what was searched but not found, refuted, or where sources conflict. State at the top of the file which method gathered it.
 
 **Judgments (`analysis_{code}.json`).** Write the inputs that need analyst judgment, each with a `basis` field naming the data it rests on:
 
@@ -86,6 +87,8 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 - `external_facts`: each external fact the report uses, as `{text, source, date, url}`, with the URL from `research_{code}.md`.
 
 Content that FinMind cannot supply (moat, catalysts, overseas comparisons) either says `分析師判斷` or rests on an external fact; a `basis` that rests on one includes its URL.
+
+**Judgment review (`judgment_review_{code}.md`).** Before Step 5, have a fresh-context subagent review the judgments, so they are checked by a reader who did not write them. Give it only the paths of `data_{code}.json`, `research_{code}.md`, `analysis_{code}.json`, and [references/judgment-review.md](references/judgment-review.md), and tell it to follow that file. For each finding, fix the analysis or record why it does not hold. Write the findings and their disposition to `judgment_review_{code}.md` in the work folder. If subagents are unavailable, do the review yourself from that file after rereading the three inputs, and say so in Step 9.
 
 ### Step 5: Generate the report (`generate_report.py`)
 
@@ -138,4 +141,4 @@ Run Hallmark's finish review in a fresh-context subagent, as its `gates.md` sect
 
 ### Step 9: Report back
 
-Give the user: the report path, current action and its condition, rating, close, Base target and upside, the three R:R values, as-of date, any `gaps`, the finish-review outcome (or why it was skipped), the commit hash, and the push result.
+Give the user: the report path, current action and its condition, rating, close, Base target and upside, the three R:R values, as-of date, any `gaps`, the research method, the judgment-review findings fixed and rejected, the finish-review outcome (or why it was skipped), the commit hash, and the push result.
