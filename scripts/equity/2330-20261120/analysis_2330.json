@@ -1,0 +1,249 @@
+{
+  "code": "2330",
+  "name_zh": "台積電",
+  "name_en": "TSMC",
+  "slug": "tsmc",
+  "market": "twse",
+  "industry": "半導體業",
+  "valuation_method": "PER",
+  "valuation_method_basis": "TTM EPS 98.27 元 > 0（data.financials.ttm_eps），台積電為晶圓代工製造業，非金融業，獲利穩定為正，故採前瞻 4 季 EPS × PER 倍數法；PBR 僅作隱含交叉檢查。",
+  "peers": [
+    {
+      "code": "2303",
+      "name": "聯電 (UMC)",
+      "reason": "台灣第二大專業晶圓代工廠，以 28 奈米以上成熟與特殊製程與台積電成熟製程產能直接競爭同一批 IC 設計客戶。",
+      "basis": "分析師判斷；兩者皆為純晶圓代工（Foundry）商業模式，聯電缺乏 7 奈米以下先進製程，故其 PER 11.86x（data.peers.rows）反映的是成熟製程競爭的估值，不宜直接套用於台積電。"
+    },
+    {
+      "code": "5347",
+      "name": "世界先進 (Vanguard International Semiconductor)",
+      "reason": "專業晶圓代工廠，於 8 吋與 12 吋電源管理、驅動 IC 等特殊製程與台積電成熟製程業務直接競爭。",
+      "basis": "分析師判斷；世界先進為台積電轉投資公司，但其營運為獨立接單的晶圓代工，與台積電成熟製程客群重疊，非客戶或供應商關係；PER 19.87x（data.peers.rows）。"
+    },
+    {
+      "code": "6770",
+      "name": "力積電 (PSMC)",
+      "reason": "邏輯與記憶體晶圓代工廠，於成熟製程邏輯代工與台積電成熟製程產能直接競爭。",
+      "basis": "分析師判斷；力積電同屬晶圓代工接單模式，但製程集中於成熟節點且含記憶體代工，PER 8.91x（data.peers.rows）。台灣上市櫃無先進製程代工同業，三家皆僅在成熟製程與台積電競爭，同業中位數 PER 11.86x 僅作下限參考。"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "Bull",
+      "label": "樂觀",
+      "eps": 150.0,
+      "multiple": 26.0,
+      "probability": 20,
+      "assumptions": "4Q26 營收達財測上緣 1.727 兆元、營益率 58.5%，2027 年 1 月起晶圓報價調漲 3% 至 6%（漲幅報導不一，另有報導最高 10%） 與 CoWoS 漲價落地，AI 需求持續大於供給，2027 前三季單季 EPS 平均約 38.8 元，前瞻 4 季 EPS 150 元。",
+      "basis": "前瞻 EPS 150 元較 TTM EPS 98.27 元成長 52.6%，與核心基準 NTM EPS 148.33 元（data.financials.core_baseline.ntm_eps）相差 +1.1%；4Q26 財測營收 523 億至 543 億美元、營益率 56.5% 至 58.5%（TSMC 6-K 2026-10-15，https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm），2027 晶圓漲價 3% 至 6% 與 CoWoS 漲價最多 20% 為未經公司證實之報導，漲幅報導不一，另有報導最高 10%（TrendForce 2026-10-27，https://trendforce.com/news/2026/10/27/news-tsmc-reportedly-eyes-20-cowos-price-hike-skips-equipment-price-renegotiations-amid-ai-demand-surge）。倍數 26.0x 介於 5 年 PER P50 23.34x 與 P75 27.53x 之間，低於 P90 29.69x。隱含 PBR 14.45x 高於 5 年 PBR P90 9.70x，但低於 1.5 × P90（14.55x）；以 Bull EPS 150 元減假設股利 36 元推估 12 個月後 BVPS 約 384 元，前瞻 PBR 約 10.2x，仍高於 PBR P90，為樂觀情境才成立的估值，分析師判斷。"
+    },
+    {
+      "name": "Base",
+      "label": "基本",
+      "eps": 132.0,
+      "multiple": 22.0,
+      "probability": 55,
+      "assumptions": "4Q26 營收落在財測中點約 1.695 兆元、營益率 57.5%，單季 EPS 約 32.5 元；2027 前三季營收約 5.2 兆元（較 2026 前三季 3.899 兆元成長約 33%），N2 與海外廠稀釋使淨利率由 3Q26 的 51.1% 降至約 49.5%，前三季 EPS 約 99.5 元，合計前瞻 4 季 EPS 132 元。",
+      "basis": "4Q26 財測營收 523 億至 543 億美元（以 31.8 匯率約新台幣 1.663 兆至 1.727 兆元）、毛利率 65% 至 67%、營益率 56.5% 至 58.5%（TSMC 6-K 2026-10-15，https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm）；10 月營收 5,868.9 億元年增 59.7%（data.revenue.last12），2026 前三季營收 11,341 億、12,704 億、14,942 億元（data.financials.quarters）。管理層對 2027 規劃審慎（The Next Web 2026-10-15，https://thenextweb.com/news/tsmc-q3-2026-record-profit-prudent-2027），故 Base EPS 132 元低於核心基準 NTM EPS 148.33 元 11.0%（該基準以 6 個月 YoY 中位數 54.0% 外推且標記高波動）。前瞻 EPS 較 TTM 98.27 元成長 34.3%，略高於 3Q26 年化 117.72 元。倍數 22.0x 介於 5 年 PER P25 16.71x 與 P50 23.34x 之間，略低於 P50 以反映 2027 審慎指引與台股去槓桿賣壓。隱含 PBR 10.77x 高於 5 年 PBR P90 9.70x，因 BVPS 269.85 元為 3Q26 帳面值而目標價看 12 個月：以 Base EPS 132 元減假設每季現金股利 9.0 元 × 4 季（3Q26 股利見台積公司董事會決議 2026-11-10，https://pr.tsmc.com/chinese/news/3352），12 個月後 BVPS 約 366 元，對應前瞻 PBR 約 7.9x，位於 PBR P75 7.54x 與 P90 9.70x 之間；TTM EPS ÷ BVPS（98.27 ÷ 269.85）約 36.4%，分析師判斷。"
+    },
+    {
+      "name": "Bear",
+      "label": "悲觀",
+      "eps": 112.0,
+      "multiple": 15.0,
+      "probability": 25,
+      "assumptions": "4Q26 營收僅達財測下緣 1.663 兆元、營益率 56.5%；2027 年 AI 資本支出消化與消費性需求疲弱使單季營收回落至約 1.45 兆元，海外廠稀釋約 2 個百分點、N2 初期量產再稀釋約 1 個百分點，使淨利率由 51.1% 降至約 48%，前瞻 4 季 EPS 112 元；台股去槓桿延續使估值壓縮。",
+      "basis": "前瞻 EPS 112 元低於 3Q26 單季 EPS 29.43 元年化值 117.72 元（data.financials.quarters），反映管理層 2027 審慎指引（The Next Web 2026-10-15，https://thenextweb.com/news/tsmc-q3-2026-record-profit-prudent-2027）、海外廠約 2% 毛利率稀釋（investinglive 2026-10-16，https://investinglive.com/stocks/icymi-tsmc-profit-jumps-nearly-70-on-ai-demand-but-margin-outlook-weighs-on-shares/，屬媒體解讀且驗證票數 2 比 1）與 N2 初期量產稀釋（Futurum 2026-10-16，https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/）。倍數 15.0x 介於 5 年 PER P10 14.10x 與 P25 16.71x 之間，對應台股單週重挫 17.5% 的去槓桿環境（理財周刊 2026-11-21，https://n.yam.com/Article/20261121352749）；隱含 PBR 6.23x 位於 P25 至 P75 之間，分析師判斷。"
+    }
+  ],
+  "moat": [
+    {
+      "title": "先進製程領先與 AI 運算集中",
+      "text": "3Q26 七奈米以下占晶圓營收 79%、3 奈米 33%、2 奈米占晶圓營收由 2Q26 的 3% 升至 8%，HPC 占營收 68%；毛利率 66.4% 與營益率 58.7% 顯示先進製程具定價能力。",
+      "basis": "TSMC 6-K 3Q26 簡報 2026-10-15（https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26presentatione.htm）與 Futurum 2026-10-16（https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/）；毛利率與營益率見 data.financials.quarters。"
+    },
+    {
+      "title": "資本支出規模壁壘",
+      "text": "2026 年資本支出預算維持 600 億至 640 億美元，11 月董事會再核准約 409.3 億美元資本預算，競爭者難以在同一時間投入相同規模的先進製程與封裝產能。",
+      "basis": "Futurum 2026-10-16（https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/）與台積公司董事會決議 2026-11-10（https://pr.tsmc.com/chinese/news/3352）。"
+    },
+    {
+      "title": "先進封裝（CoWoS）產能與議價力",
+      "text": "法人估 2026 年 CoWoS 月產能逾 13 萬片、2027 年目標 20 萬片，供不應求下傳出 CoWoS 漲價最多 20%，形成晶圓加封裝的一站式綁定。",
+      "basis": "TrendForce 2026-10-27（https://trendforce.com/news/2026/10/27/news-tsmc-reportedly-eyes-20-cowos-price-hike-skips-equipment-price-renegotiations-amid-ai-demand-surge），屬未經公司證實之報導，分析師判斷。"
+    }
+  ],
+  "catalysts": [
+    {
+      "title": "11、12 月營收驗證 4Q26 財測",
+      "timing": "2026-12-10 與 2027-01-10 月營收公布",
+      "direction": "正向",
+      "indicator": "TaiwanStockMonthRevenue 11 月加 12 月合計 ≥ 1.08 兆元（財測下緣 1.663 兆減 10 月 5,868.9 億）",
+      "basis": "4Q26 財測營收約新台幣 1.663 兆至 1.727 兆元（TSMC 6-K 2026-10-15，https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm），10 月已達 5,868.9 億元（data.revenue.last12；台積電新聞稿 2026-11-10，https://pr.tsmc.com/english/news/3349）。"
+    },
+    {
+      "title": "2027 年 1 月法說會給出全年展望",
+      "timing": "2027 年 1 月中旬",
+      "direction": "正向",
+      "indicator": "法說會 2027 美元營收成長指引 ≥ 25%（Base 隱含 2027 全年約 25% 至 27%，低於 25% 視為負向） 且 1Q27 毛利率指引 ≥ 65%",
+      "basis": "2026 全年美元營收成長指引已上修至約 44%（TSMC 6-K 3Q26 簡報 2026-10-15，https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26presentatione.htm），市場目前反映管理層 2027 審慎語氣（The Next Web 2026-10-15，https://thenextweb.com/news/tsmc-q3-2026-record-profit-prudent-2027）；門檻為分析師判斷。"
+    },
+    {
+      "title": "2027 年晶圓與 CoWoS 漲價",
+      "timing": "2027 年 1 月起",
+      "direction": "正向",
+      "indicator": "TaiwanStockFinancialStatements 1Q27 毛利率維持 ≥ 65%",
+      "basis": "報導指 2027 年 1 月起晶圓報價調漲 3% 至 6%、CoWoS 考慮漲價最多 20%（TrendForce 2026-10-27，https://trendforce.com/news/2026/10/27/news-tsmc-reportedly-eyes-20-cowos-price-hike-skips-equipment-price-renegotiations-amid-ai-demand-surge），公司未證實；漲幅報導不一，另有報導最高 10%。"
+    },
+    {
+      "title": "外資賣壓收斂、籌碼回補",
+      "timing": "未來 1 至 2 個月",
+      "direction": "正向",
+      "indicator": "TaiwanStockInstitutionalInvestorsBuySell 外資連續 5 日淨買超，且 TaiwanStockShareholding 外資持股回升至 68.58% 以上",
+      "basis": "W20 外資累計賣超 184,038 張、持股由 68.58% 降至 67.83%，同期投信買超 40,063 張、自營商買超 51,498 張（data.institutional.cum、data.foreign_holding）；10 月以來外資已賣超約 27.96 萬張（理財周刊 2026-11-18，https://www.moneyweekly.com.tw/ArticleData/Info/Article/262916）。"
+    }
+  ],
+  "risks": [
+    {
+      "title": "台股系統性去槓桿與外資撤出",
+      "timing": "近 1 個月",
+      "direction": "負向",
+      "indicator": "TaiwanStockShareholding 外資持股跌破 67.0%，或 TaiwanStockPrice 收盤跌破 Bear 目標價 1,680",
+      "basis": "台股 11-16 至 11-20 單週重挫 7,641.83 點（17.5%），報導指融資去槓桿與自營商避險壓力（理財周刊 2026-11-21，https://n.yam.com/Article/20261121352749）；外資 11-13 起連 5 日賣超台積電 49,777 張（ETtoday 2026-11-19，https://finance.ettoday.net/news/3275110）；W20 融資餘額減少 16.1%（data.margin）。"
+    },
+    {
+      "title": "2027 年消費性需求轉弱",
+      "timing": "1H27",
+      "direction": "負向",
+      "indicator": "TaiwanStockMonthRevenue 單月營收 YoY 連續 2 個月低於 25%",
+      "basis": "管理層表示零組件漲價與總經不確定性衝擊消費性與價格敏感應用，2027 規劃審慎（The Next Web 2026-10-15，https://thenextweb.com/news/tsmc-q3-2026-record-profit-prudent-2027）。"
+    },
+    {
+      "title": "N2 量產與海外廠稀釋毛利率",
+      "timing": "4Q26 至 2027 年",
+      "direction": "負向",
+      "indicator": "TaiwanStockFinancialStatements 單季毛利率跌破 64%",
+      "basis": "3Q26 毛利率 66.41% 較 2Q26 的 67.72% 下滑（data.financials.quarters），主因 N2 初期量產稀釋（Futurum 2026-10-16，https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/），海外廠稀釋接近 2%（investinglive 2026-10-16，https://investinglive.com/stocks/icymi-tsmc-profit-jumps-nearly-70-on-ai-demand-but-margin-outlook-weighs-on-shares/）。"
+    },
+    {
+      "title": "創紀錄資本支出壓縮自由現金流",
+      "timing": "2026 至 2028 年",
+      "direction": "負向",
+      "indicator": "TaiwanStockCashFlowsStatement TTM 營業現金流 ÷ 淨利跌破 1.0",
+      "basis": "2026 年資本支出 600 億至 640 億美元（Futurum 2026-10-16，https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/），11-10 董事會再核准約 409.3 億美元資本預算（https://pr.tsmc.com/chinese/news/3352）；目前現金轉換率 1.23（data.financials.cash_conversion）。"
+    }
+  ],
+  "thesis_breakers": [
+    {
+      "condition": "2026 年 11 月營收（2026-12-10 前公布）低於 5,000 億元，4Q26 財測下緣 1.663 兆元難以達成",
+      "threshold": "2026-11 月營收 < 5,000 億元",
+      "dataset": "TaiwanStockMonthRevenue"
+    },
+    {
+      "condition": "4Q26 或 1Q27 單季毛利率跌破 63%，低於 4Q26 財測下緣 65% 達 2 個百分點，顯示 N2 與海外廠稀釋超出預期",
+      "threshold": "單季毛利率 < 63%",
+      "dataset": "TaiwanStockFinancialStatements"
+    },
+    {
+      "condition": "收盤跌破 Bear 目標價且外資持股持續下滑，代表市場已定價悲觀情境",
+      "threshold": "收盤 < 1,680 且外資持股 < 66.5%",
+      "dataset": "TaiwanStockPrice / TaiwanStockShareholding"
+    }
+  ],
+  "dilution": {
+    "has_cb": false,
+    "has_spo": false,
+    "summary": "未發現未轉換可轉換公司債或已公告之現金增資。2026-11-10 董事會決議為核准 3Q26 財報、每股現金股利 9.0 元、約 409.3 億美元資本預算及對 Anthropic、OpenAI 與策略投資公司各最多 5 億美元投資，未涉及可轉債或現增；搜尋僅見 2026 年無擔保普通公司債，屬債務融資，不稀釋股權。",
+    "basis": "台積公司董事會決議新聞稿 2026-11-10（https://pr.tsmc.com/chinese/news/3352）；搜尋「台積電 可轉換公司債 現金增資 2026」僅見無擔保普通公司債，未見可轉債或現增（research_2330.md）。未逐筆查詢公開資訊觀測站。"
+  },
+  "earnings_quality": {
+    "focus": "半導體製造：存貨循環與資本支出強度",
+    "text": "存貨由 4Q25 的 2,881 億元增至 3Q26 的 4,278 億元，DSI 由 66.6 天升至 77.3 天（2Q26）後回落至 73.7 天，增幅與 2026 前三季營收高成長同步，尚未出現庫存堆積訊號。TTM 營業現金流 31,276 億元、淨利 25,483 億元，現金轉換率 1.23，獲利含金量高；但 2026 年資本支出 600 億至 640 億美元（約新台幣 1.9 兆至 2.0 兆元，以 31.8 匯率換算）約占 TTM 營業現金流六成以上，自由現金流將隨擴產下降。",
+    "basis": "data.financials.quarters（inventory、dsi_days）、data.financials.cash_conversion（ttm_ocf、ttm_net_income、ratio 1.23）；資本支出 Futurum 2026-10-16（https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/）；換算為分析師判斷。"
+  },
+  "external_facts": [
+    {
+      "text": "3Q26 營收新台幣 14,942.4 億元（年增 50.9%、季增 17.6%），高於財測 446 億至 458 億美元；歸屬母公司淨利 7,630.6 億元，EPS 29.43 元（年增 68.7%）。",
+      "source": "TSMC 6-K 管理報告",
+      "date": "2026-10-15",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm"
+    },
+    {
+      "text": "4Q26 財測營收 523 億至 543 億美元（匯率假設 31.8），毛利率 65% 至 67%，營益率 56.5% 至 58.5%。",
+      "source": "TSMC 6-K 管理報告",
+      "date": "2026-10-15",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm"
+    },
+    {
+      "text": "3Q26 毛利率 66.4%、營益率 58.7%；N2 占晶圓營收 8%、3 奈米 33%、7 奈米以下 79%；2026 全年美元營收成長指引上修至約 44%。",
+      "source": "TSMC 6-K 法說簡報",
+      "date": "2026-10-15",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26presentatione.htm"
+    },
+    {
+      "text": "2026 年資本支出預算維持 600 億至 640 億美元；HPC 占 3Q26 營收 68%；毛利率季減主因 N2 初期量產稀釋。",
+      "source": "Futurum Group",
+      "date": "2026-10-16",
+      "url": "https://futurumgroup.com/insights/tsmc-q3-fy-2026-earnings-beat-and-raise-on-ai-and-hpc-demand/"
+    },
+    {
+      "text": "魏哲家表示零組件漲價與總經不確定性衝擊消費性與價格敏感應用，2027 年營運規劃將審慎。",
+      "source": "The Next Web",
+      "date": "2026-10-15",
+      "url": "https://thenextweb.com/news/tsmc-q3-2026-record-profit-prudent-2027"
+    },
+    {
+      "text": "N2 量產與海外廠（稀釋接近 2%）壓抑毛利率、擴產使短期自由現金流下降，為法說後股價承壓原因；法說後首個交易日股價僅下跌約 0.8%（此為媒體解讀，非管理層說法）。",
+      "source": "investinglive",
+      "date": "2026-10-16",
+      "url": "https://investinglive.com/stocks/icymi-tsmc-profit-jumps-nearly-70-on-ai-demand-but-margin-outlook-weighs-on-shares/"
+    },
+    {
+      "text": "2026 年 10 月營收創新高 5,868.9 億元（月增 14.7%、年增 59.7%），1 至 10 月累計 44,856.2 億元（年增 43.3%）。",
+      "source": "台積公司新聞稿",
+      "date": "2026-11-10",
+      "url": "https://pr.tsmc.com/english/news/3349"
+    },
+    {
+      "text": "董事會核准 3Q26 每股現金股利 9.0 元（除息日 2027-03-11）、約 409.3 億美元資本預算，並各以最多 5 億美元投資策略投資公司、Anthropic 普通股與 OpenAI 特別股；未提及可轉債或現金增資。",
+      "source": "台積公司董事會決議",
+      "date": "2026-11-10",
+      "url": "https://pr.tsmc.com/chinese/news/3352"
+    },
+    {
+      "text": "台股 11-16 至 11-20 單週重挫 7,641.83 點（17.5%），11-20 單日跌 2,393.60 點至 36,033.29；報導指融資去槓桿與自營商避險壓力，外資當日賣超台積電約 11,862 張。",
+      "source": "理財周刊（蕃新聞轉載）",
+      "date": "2026-11-21",
+      "url": "https://n.yam.com/Article/20261121352749"
+    },
+    {
+      "text": "外資 11-13 起連 5 日賣超台積電合計 49,777 張，外資持股由 11-12 的 68.10% 降至 11-18 的 67.93%；11-19 加權指數跌 1,768.02 點（4.40%），為史上第 7 大收盤跌點。",
+      "source": "ETtoday 財經雲",
+      "date": "2026-11-19",
+      "url": "https://finance.ettoday.net/news/3275110"
+    },
+    {
+      "text": "截至 11-17，外資自 10 月以來累計賣超台積電約 27.96 萬張，台指期外資淨空單 97,896 口；文章未指出台積電個別利空。",
+      "source": "理財周刊",
+      "date": "2026-11-18",
+      "url": "https://www.moneyweekly.com.tw/ArticleData/Info/Article/262916"
+    },
+    {
+      "text": "報導指台積電考慮 CoWoS 漲價最多 20%，並定案 2027 年 1 月起晶圓報價調漲 3% 至 6%（2 奈米與 3 奈米漲幅最大）；法人估 2026 年 CoWoS 月產能逾 13 萬片、2027 年目標 20 萬片。公司未證實。",
+      "source": "TrendForce",
+      "date": "2026-10-27",
+      "url": "https://trendforce.com/news/2026/10/27/news-tsmc-reportedly-eyes-20-cowos-price-hike-skips-equipment-price-renegotiations-amid-ai-demand-surge"
+    },
+    {
+      "text": "11-18 外資及陸資賣超台股 765.63 億元，連 3 日賣超累計逾 1,848 億元，單日賣超台積電逾 1.5 萬張。",
+      "source": "中央社",
+      "date": "2026-11-18",
+      "url": "https://www.cna.com.tw/news/afe/202611180304.aspx"
+    }
+  ],
+  "generation": {
+    "model": "claude-opus-5-5",
+    "effort": "high"
+  },
+  "tone": "粗獷直白：先講當前動作與它等待的兩條均線，再攤開數據；判斷明確標示。"
+}

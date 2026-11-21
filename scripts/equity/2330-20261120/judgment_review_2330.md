@@ -1,0 +1,14 @@
+# Judgment Review: 2330 TSMC (as of 2026-11-20)
+
+Reviewer: a fresh-context subagent given only `data_2330.json`, `research_2330.md`, `analysis_2330.json`, and `references/judgment-review.md`. It ran all 10 checks on every item and returned 6 findings.
+
+| # | Check | Item | Finding | Disposition |
+|---|---|---|---|---|
+| 1 | 3, 1 | `scenarios.Base.basis` | Implied PBR stated as 10.77x but should be 10.76x; the above-P90 justification ("ROE was lower when the PBR band formed") has no source in either file. | Split. Value rejected: `derive.py` rounds the Base target to the tick (132 × 22 = 2,904 → 2,905), and 2,905 / 269.85 = 10.77x, which `check_report.py` also verifies. Justification accepted: replaced with a 12-month BVPS roll-forward (269.85 + Base EPS 132 − assumed 4 × NT$9.0 dividends ≈ 366, forward PBR ≈ 7.9x, between P75 and P90), citing the 2026-11-10 dividend resolution. The Bull basis got the same treatment (BVPS ≈ 384, forward PBR ≈ 10.2x, still above P90 and labelled as Bull-only). |
+| 2 | 6, 2 | `catalysts[1].indicator` | A 2027 growth guide of ≥ 20% counted as positive, yet Base implies about 25% to 27% FY27 growth, so 20% to 25% would undercut Base. | Accepted. Threshold raised to ≥ 25%, and a guide below 25% is now stated as negative. |
+| 3 | 8 | `moat[0].text` | "N2 reached 8% in its first quarter" contradicts research fact 2 (N2 was already 3% in 2Q26). | Accepted. Now "N2 rose from 3% of wafer revenue in 2Q26 to 8%". |
+| 4 | 1, 8 | `scenarios.Bear` | The ~2% dilution belongs to overseas fabs only; assumptions modelled a 3.1 pp net-margin drop while citing 2 pp; the 2-1 vote and media-interpretation caveat were missing. | Accepted. Assumptions now split overseas (~2 pp) and N2 (~1 pp) dilution to reach ~48%; the basis attributes each to its source and carries the caveat. |
+| 5 | 10, 8 | `dilution.summary` | "Capex is funded by operating cash flow" is unsupported; the research records straight unsecured bonds. | Accepted. Replaced with "only 2026 straight unsecured bonds were found; debt financing, no equity dilution". `has_cb` and `has_spo` stay false; no dilution above 5%. |
+| 6 | 8 | `scenarios.Bull`, `catalysts[2]` | The 3% to 6% 2027 wafer price rise is listed as conflicting in the research file (other coverage says up to 10%), but the analysis never says so. | Accepted. Each use now notes that reports differ and some say up to 10%. |
+
+Checks the reviewer passed with no finding: forward EPS consistency with TTM, the NTM baseline, and quarterly bridges (2); multiple anchoring and implied PBR bounds (3); probabilities 20/55/25 (4); peers as mature-node foundry competitors with the limitation disclosed (5); timing, direction, and indicators on every catalyst and risk (6); a numeric November `TaiwanStockMonthRevenue` breaker (7); DSI and cash conversion (9); and the W20 chip figures and the 49,777-lot ETtoday count (1).
