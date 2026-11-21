@@ -74,7 +74,7 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 **Research (`research_{code}.md`).** External facts (results FinMind has not yet published, guidance, pricing, capacity, industry cycle) come only from this file in the work folder.
 
 - If it already exists, or this session holds research on the stock (for example a `/deep-research` or `/agy-deep-research` result the user ran first), use that, writing it into the file.
-- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`; in Antigravity, the `/agy-deep-research` skill at `~/.agents/skills/my-skills/agy-deep-research/SKILL.md` using its Native Swarm workflow, setting `out_md` to `research_{code}.md` and completing its pre-flight Swarm model/quota confirmation gate via `ask_question` first unless already confirmed in the current conversation), which verifies each claim with independent agents. Pass as `args` / `query`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, and major customer or product news.` Keep only claims it reports as verified.
+- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`; in Antigravity, the `/agy-deep-research` skill at `~/.agents/skills/my-skills/agy-deep-research/SKILL.md` using its Native Swarm workflow, setting `out_md` to `research_{code}.md` and completing its pre-flight Swarm model/quota confirmation gate via `ask_question` first unless already confirmed in the current conversation), which verifies each claim with independent agents. Pass as `args` / `query`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, major customer or product news, and any unconverted convertible bonds (CB) or announced cash capital increases (現增).` Keep only claims it reports as verified.
 - Without that workflow, run about 5 web searches over the same topics instead. Read the page behind every fact you keep; a search snippet alone is not a source.
 - Record each fact as one line: the claim, source name, publication date, and URL. Add a short list of what was searched but not found, refuted, or where sources conflict. State at the top of the file which method gathered it.
 
@@ -82,7 +82,8 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 
 - Peer list with reasons.
 - Bull / Base / Bear scenarios: forward EPS (or BVPS), multiple, probability, and assumptions, under the anchoring rules in methodology.md.
-- Moat, catalysts, risks, and thesis breakers, in the formats from report-contract.md.
+- Moat, catalysts, risks, and thesis breakers (with at least one `TaiwanStockMonthRevenue` item specifying a concrete numeric threshold for the next month's 10th-of-month release), in the formats from report-contract.md.
+- `dilution`: `{has_cb, has_spo, summary, basis}` documenting unconverted convertible bonds (CB) or announced cash capital increases (現增) verified via MOPS/external search (even when none exist; mirror any potential dilution `> 5%` into `risks`).
 - Earnings-quality commentary for the industry.
 
 - `external_facts`: each external fact the report uses, as `{text, source, date, url}`, with the URL from `research_{code}.md`.
@@ -106,7 +107,7 @@ Load `hallmark`. report-contract.md fixes the page structure, so run only these 
 
 The hero review, comps, photos, and the material ask do not apply; the finish review runs in Step 7.
 
-Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, implied cross multiples, rating, current action, both trade layers, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, `fmt_mult`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2 (`data-meta="model"` and `data-meta="effort"` rendered in `<footer>` alongside the tool version from `analysis['generation']`).
+Then write `generate_report.py` in the work folder. It reads `data_{code}.json` and `analysis_{code}.json` with `derive.load_work()`, takes target prices, upside, implied cross multiples, rating, current action, both trade layers, and R:R from `derive.derive()`, and formats them with `fmt_price`, `fmt_pct`, `fmt_mult`, `fmt_eps`, and `fmt_rr`. Import `derive` by adding `.agents/skills/tw-equity-report/scripts` (resolved from the repo root) to `sys.path`. The generator owns layout and charts only; every number comes from the two JSON files or `derive`. Meet every requirement in report-contract.md, including the markup hooks in its section 2 (`data-dilution` inside `dim3`, `data-baseline="cy|ntm"` inside `dim4`, and `data-meta="model"` / `data-meta="effort"` rendered in `<footer>` alongside the tool version from `analysis['generation']`).
 
 ### Step 6: Register the report
 

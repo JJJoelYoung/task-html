@@ -28,7 +28,9 @@ Statement `type` names differ between industries; inspect the returned `type` va
 ## 2. Price and moving averages (W20)
 
 - Close series, W20 high (max of `max`) and low (min of `min`) with dates.
-- MA5, MA10, MA20: simple averages of `close`. Bias = `(close − MA20) / MA20`.
+- MA5, MA10, MA20, MA60: simple averages of `close`. Bias = `(close − MA20) / MA20`.
+- **5-day MA slopes (`ma20_slope_5d`, `ma60_slope_5d`)**: 5-trading-day change (`last[ma] − series[-6][ma]`, rounded to 2 decimals; null if fewer than 6 non-null bars exist, so `ma60_slope_5d` is null when fewer than 65 bars are available).
+- **Trend filter**: fails when `alignment == "bearish"`, or when neither `(close >= MA20 and ma20_slope_5d >= 0)` nor `(close >= MA60 and ma60_slope_5d >= 0)` holds.
 - **Squeeze (糾結)**: `(max(MA5, MA10, MA20) − min(...)) / close < 2%`.
 - **Alignment**: bullish when MA5 > MA10 > MA20, bearish when MA5 < MA10 < MA20, otherwise mixed.
 - **Volume**: `vol_avg20` = mean W20 volume in lots. Spike day: volume > 1.5 × `vol_avg20`. Dry-up day: volume < 0.6 × `vol_avg20`.
@@ -45,7 +47,9 @@ Statement `type` names differ between industries; inspect the returned `type` va
 ## 4. Operations and financials
 
 - **Revenue**: year-to-date sum through the latest reported month and its YoY against the same months of the prior year (null if any prior-year month is missing); the last 12 months' revenue with MoM and YoY each.
-- **Last 4 quarters**: EPS, gross margin (gross profit / revenue), operating margin (operating income / revenue), TTM EPS (sum of the 4). TTM EPS and cash conversion require 4 consecutive quarters; otherwise they are null.
+- **Last 4 quarters**: EPS, gross margin (gross profit / revenue), operating margin (operating income / revenue), `TAX`, `PreTaxIncome`, TTM EPS (sum of the 4). TTM EPS and cash conversion require 4 consecutive quarters; otherwise they are null.
+- **Implied weighted shares (`implied_shares`)**: avoids hardcoding a NT$10 par value for flexible-par Taiwan stocks. Take `net_income_parent / eps` from the latest consecutive quarter with `|EPS| >= 0.2` and same sign (`implied_latest_q`); fall back to TTM `sum(net_income_parent) / ttm_eps` (`implied_ttm`), and finally `OrdinaryShare / 10` (`ordinary_share_par10`).
+- **Core run-rate baseline EPS (`core_baseline`)**: objective non-operating-stripped benchmark for sanity-checking `dim4`. Compute `TTM_OPM = sum(OperatingIncome) / sum(Revenue)`, `effective_tax_rate = sum(TAX) / sum(PreTaxIncome)` (using actual TTM when `PreTaxIncome > 0` and rate in `[0%, 40%]`, else default `20%`), `parent_ratio = sum(EquityAttributableToOwnersOfParent) / sum(IncomeAfterTaxes)` (using actual TTM when `IncomeAfterTaxes > 0` and ratio in `(0%, 100%]`, else default `100%`), and `core_margin = TTM_OPM × (1 − effective_tax_rate) × parent_ratio`. Project over both **CY** (`YTD + prior-year remaining months × (1 + 6M YoY median)`) and rolling **NTM** (`TTM revenue × (1 + 6M YoY median)`), dividing by `implied_shares`. Requires 4 consecutive quarters and `TTM OperatingIncome > 0` (`applicable = false` otherwise). Flag `high_volatility` when 4Q OPM spread `> 5 pp`, any quarter `OPM <= 0`, or `|6M YoY median| > 50%`.
 - **Days inventory (DSI)** = average of opening and closing inventory / quarterly cost of goods sold × 91.
 - **Cash conversion** = TTM operating cash flow / TTM net income.
 - **Earnings-quality focus by industry**: tech and electronics, inventory cycle and capex; construction, IFRS 15 recognition at delivery and contract liabilities; financials, book value and credit costs. Other industries: state the focus chosen and why.
@@ -70,7 +74,7 @@ Statement `type` names differ between industries; inspect the returned `type` va
 
 Two layers on different horizons: a **swing** layer (weeks; pullback and breakout setups on technical targets) and a **hold** layer (12 months; the scenario targets). Each setup is **active** only when its preconditions hold. An inactive setup keeps its price levels (they show where it would become active), but its R:R is null, shown as `不適用` with the reason:
 
-- Pullback: inactive when close < the entry zone's lower bound (`below_zone`), or when T2 ≤ entry price (`target_below_entry`).
+- Pullback: inactive when the trend filter fails (`downtrend`), when close < the entry zone's lower bound (`below_zone`), or when T2 ≤ entry price (`target_below_entry`).
 - Breakout: inactive when T2 ≤ breakout trigger (`target_below_trigger`).
 - Hold: inactive when the Base target ≤ close (`base_below_close`), or when the Bear target ≥ close (`bear_above_close`).
 
@@ -90,16 +94,17 @@ Two layers on different horizons: a **swing** layer (weeks; pullback and breakou
 - **R:R (hold)** = (Base target − close) / (close − Bear target).
 
 Every R:R is computed only for an active setup. Mark an active R:R < 1.5 as 不具交易吸引力.
-- **Thesis breakers**: 2–3 measurable conditions, each with a threshold and the dataset that would show it (e.g. monthly revenue YoY negative for 2 consecutive months).
+- **Thesis breakers**: 2–3 measurable conditions, each with a threshold and the dataset that would show it. At least one breaker must monitor `TaiwanStockMonthRevenue` with a concrete numeric threshold for the next month's 10th-of-month revenue release.
 
 ## 8. Current action (generator)
 
-One action from the rating and where the close sits against the pullback entry zone, with a condition line built by `derive.py`:
+One action from the rating, the MA trend filter, and where the close sits against the pullback entry zone, with a condition line built by `derive.py`:
 
-| Rating | Close | Action | Condition |
+| Rating | Close / Trend | Action | Condition |
 |---|---|---|---|
 | 賣出 | any | 避開 | Base upside |
 | 中立 | any | 觀望 | below the fair buy price |
+| 買進 | any (trend filter failed) | 左側觀察 | wait to reclaim a flat/rising MA20 or MA60 |
 | 買進 | below the zone | 等站回進場區 | the zone |
 | 買進 | inside the zone | 可分批布局 | the zone and the hard stop |
 | 買進 | above the zone | 等回檔或突破 | the zone, or the breakout trigger on volume |

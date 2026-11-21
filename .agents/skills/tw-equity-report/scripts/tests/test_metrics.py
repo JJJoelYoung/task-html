@@ -35,10 +35,21 @@ class Price(unittest.TestCase):
         series, m = mt.price_metrics(price_rows(closes))
         self.assertEqual(m["close"], 159)
         self.assertEqual(m["ma20"], round(sum(closes[-20:]) / 20, 2))
+        self.assertEqual(m["ma60"], round(sum(closes) / 60, 2))
+        self.assertGreater(m["ma20_slope_5d"], 0)
+        self.assertIsNone(m["ma60_slope_5d"])
         self.assertEqual(m["alignment"], "bullish")
         self.assertEqual(m["high60"], 160)
         self.assertEqual(m["low60"], 99)
         self.assertEqual(len(series), 60)
+
+    def test_slopes_over_70_bars(self):
+        _, up = mt.price_metrics(price_rows(list(range(100, 170))))
+        self.assertGreater(up["ma20_slope_5d"], 0)
+        self.assertGreater(up["ma60_slope_5d"], 0)
+        _, dn = mt.price_metrics(price_rows(list(range(170, 100, -1))))
+        self.assertLess(dn["ma20_slope_5d"], 0)
+        self.assertLess(dn["ma60_slope_5d"], 0)
 
     def test_bearish_and_zero_volume_dropped(self):
         rows = price_rows(list(range(160, 100, -1)))
@@ -192,6 +203,98 @@ class Valuation(unittest.TestCase):
             [{"code": c, "PER": p, "PBR": 1, "dividend_yield": 2} for c, p in (("A", 10), ("B", 20), ("C", -3))]
         self.assertEqual(mt.peer_matrix(rows)["median"]["PER"], 15.0)
         self.assertIsNone(mt.peer_matrix(rows[:1])["median"])
+
+
+class CoreBaseline(unittest.TestCase):
+    @staticmethod
+    def _rev(yoy=20.0, rev=100.0):
+        # 24 months ending 2026-10: YTD(2026) = 10*rev*1.2, Rem(2025-11..12) = 2*rev, TTM(2025-11..2026-10) = 2*rev + 10*rev*1.2
+        rows = []
+        for y in (2024, 2025, 2026):
+            for m in range(1, 13):
+                if y == 2026 and m > 10:
+                    continue
+                val = rev * (1 + yoy / 100.0) if y == 2026 else rev
+                rows.append({"revenue_year": y, "revenue_month": m, "revenue": val})
+        return mt.revenue(rows, [])
+
+    @staticmethod
+    def _fin(tax=25.0, pt=100.0, nip=63.75, ni=75.0, eps=0.6375, share_cap=5000.0,
+             ois=(200.0, 200.0, 200.0, 200.0), qs=("2025-12-31", "2026-03-31", "2026-06-30", "2026-09-30")):
+        inc = []
+        for q, oi in zip(qs, ois):
+            for t, v in (("Revenue", 1000.0), ("OperatingIncome", oi), ("EPS", eps),
+                         ("EquityAttributableToOwnersOfParent", nip), ("IncomeAfterTaxes", ni),
+                         ("TAX", tax), ("PreTaxIncome", pt)):
+                if v is not None:
+                    inc.append({"date": q, "type": t, "value": v})
+        bal = [{"date": qs[-1], "type": "OrdinaryShare", "value": share_cap}]
+        return mt.financials(inc, bal, [], "2026-11-15", [])
+
+    def test_minority_custom_tax_and_par5_shares(self):
+        rev = self._rev(yoy=20.0, rev=100.0)
+        # Par 5 stock: OrdinaryShare=5000 -> par10=500, actual shares=1000 (nip=63.75 / eps=0.06375? Wait use nip=250, eps=0.25 -> 1000)
+        fin = self._fin(tax=25.0, pt=100.0, nip=250.0, ni=294.117647, eps=0.25, share_cap=5000.0)
+        # Note parent_ratio = 250 / 294.117647 = 0.85, tax = 0.25, TTM OPM = 800 / 4000 = 0.20
+        # core_margin = 0.20 * 0.75 * 0.85 = 0.1275
+        # cy_rev = 10*120 + 2*100*1.2 = 1440 -> cy_eps = 1440 * 0.1275 / 1000 = 0.1836 -> 0.18
+        # Scale rev=10000 for crisp decimals:
+        rev = self._rev(yoy=20.0, rev=10000.0)
+        cb = mt.core_baseline(rev, fin)
+        self.assertTrue(cb["applicable"])
+        self.assertEqual(cb["shares_used"], 1000)
+        self.assertEqual(cb["shares_source"], "implied_latest_q")
+        self.assertEqual(cb["tax_source"], "ttm_actual")
+        self.assertEqual(cb["parent_source"], "ttm_actual")
+        self.assertEqual(cb["effective_tax_rate_pct"], 25.0)
+        self.assertEqual(cb["parent_ratio_pct"], 85.0)
+        self.assertEqual(cb["core_net_margin_pct"], 12.75)
+        self.assertTrue(cb["cy_late_year"])
+        self.assertEqual(cb["cy_eps"], round(144000 * 0.1275 / 1000, 2))
+        # ntm_rev = (2*10000 + 10*12000) * 1.2 = 140000 * 1.2 = 168000 -> ntm_eps = 168000 * 0.1275 / 1000 = 21.42
+        self.assertEqual(cb["ntm_eps"], 21.42)
+        self.assertFalse(cb["high_volatility"])
+
+    def test_fallback_guards_and_share_tiers(self):
+        rev = self._rev(yoy=20.0, rev=10000.0)
+        # Anomalous tax > 40% + parent > 100% + small quarterly EPS -> implied_ttm + default tax & parent
+        fin = self._fin(tax=50.0, pt=100.0, nip=120.0, ni=100.0, eps=0.12, share_cap=5000.0)
+        cb = mt.core_baseline(rev, fin)
+        self.assertTrue(cb["applicable"])
+        self.assertEqual(cb["tax_source"], "default_20pct")
+        self.assertEqual(cb["effective_tax_rate_pct"], 20.0)
+        self.assertEqual(cb["parent_source"], "default_100pct")
+        self.assertEqual(cb["parent_ratio_pct"], 100.0)
+        self.assertEqual(cb["shares_source"], "implied_ttm")
+        self.assertEqual(cb["shares_used"], 1000)
+
+        # Missing parent NI -> ordinary_share_par10 fallback + PreTaxIncome <= 0 -> default_20pct
+        fin2 = self._fin(tax=10.0, pt=-5.0, nip=None, ni=100.0, eps=1.0, share_cap=5000.0)
+        cb2 = mt.core_baseline(rev, fin2)
+        self.assertEqual(cb2["shares_source"], "ordinary_share_par10")
+        self.assertEqual(cb2["shares_used"], 500)
+        self.assertEqual(cb2["tax_source"], "default_20pct")
+
+    def test_inapplicable_cases(self):
+        rev = self._rev(yoy=20.0, rev=10000.0)
+        fin_loss = self._fin(ois=(-50.0, -20.0, 10.0, 20.0))
+        cb_loss = mt.core_baseline(rev, fin_loss)
+        self.assertFalse(cb_loss["applicable"])
+        self.assertEqual(cb_loss["reason"], "nonpositive_operating_income")
+
+        fin_gap = self._fin(qs=("2025-09-30", "2026-03-31", "2026-06-30", "2026-09-30"))
+        cb_gap = mt.core_baseline(rev, fin_gap)
+        self.assertFalse(cb_gap["applicable"])
+        self.assertEqual(cb_gap["reason"], "non_consecutive_quarters")
+
+    def test_high_volatility_triggers(self):
+        rev_high = self._rev(yoy=60.0, rev=10000.0)
+        fin_vol = self._fin(ois=(-10.0, 100.0, 150.0, 200.0))
+        cb = mt.core_baseline(rev_high, fin_vol)
+        self.assertTrue(cb["applicable"])
+        self.assertTrue(cb["high_volatility"])
+        self.assertEqual(set(cb["volatility_reasons"]),
+                         {"opm_spread_gt_5pp", "negative_quarter_opm", "yoy_gt_50pct"})
 
 
 if __name__ == "__main__":

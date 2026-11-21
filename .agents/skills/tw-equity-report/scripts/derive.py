@@ -2,7 +2,8 @@
 
 The report generator and check_report.py both import this module, so the HTML
 and the checks use one implementation. Generators must format prices, signed
-percentages, multiples, and R:R with fmt_price, fmt_pct, fmt_mult, and fmt_rr.
+percentages, multiples, EPS baselines, and R:R with fmt_price, fmt_pct,
+fmt_mult, fmt_eps, and fmt_rr.
 """
 
 import json
@@ -49,6 +50,7 @@ def round_tick(p):
 
 # Why a setup is inactive; the report shows this text in place of R:R.
 SETUP_STATUS_ZH = {
+    "downtrend": "均線呈空頭下彎，趨勢尚未止跌，拉回策略暫不成立",
     "below_zone": "收盤低於進場區，拉回策略條件未成立",
     "target_below_entry": "波段目標不高於進場價，拉回策略條件未成立",
     "target_below_trigger": "波段目標不高於突破點，突破策略條件未成立",
@@ -60,6 +62,7 @@ SETUP_STATUS_ZH = {
 ACTION_ZH = {
     "avoid": "避開",
     "watch": "觀望",
+    "left_watch": "左側觀察",
     "accumulate": "可分批布局",
     "wait_pullback": "等回檔或突破",
     "wait_reclaim": "等站回進場區",
@@ -75,6 +78,32 @@ def rating_of(upside_pct):
     if upside_pct >= -5:
         return "中立", "NEUTRAL"
     return "賣出", "SELL"
+
+
+def trend_check(m):
+    """Trend filter (methodology sections 2 & 8): block falling-MA knife-catching.
+
+    Gracefully degrades to checked=False, ok=True on legacy data lacking slope fields.
+    """
+    if m.get("ma20_slope_5d") is None and m.get("ma60_slope_5d") is None:
+        return {"checked": False, "ok": True, "reason": None}
+    if m.get("alignment") == "bearish":
+        return {"checked": True, "ok": False, "reason": "bearish_alignment"}
+    close = m["close"]
+    ma20_ok = (
+        m.get("ma20") is not None
+        and m.get("ma20_slope_5d") is not None
+        and close >= m["ma20"]
+        and m["ma20_slope_5d"] >= 0
+    )
+    ma60_ok = (
+        m.get("ma60") is not None
+        and m.get("ma60_slope_5d") is not None
+        and close >= m["ma60"]
+        and m["ma60_slope_5d"] >= 0
+    )
+    ok = ma20_ok or ma60_ok
+    return {"checked": True, "ok": ok, "reason": None if ok else "below_falling_ma"}
 
 
 # ---------------------------------------------------------------- derivation
@@ -135,7 +164,10 @@ def derive(d, a):
     hard_stop = round_tick(max(cands)) if cands else round_tick(z_lo * 0.95)
     stop_src = "candidate" if cands else "zone_low_x_0.95"
     bo_stop = round_tick(trigger * 0.95)
-    if close < z_lo:
+    tr = trend_check(m)
+    if not tr["ok"]:
+        pb_status = "downtrend"
+    elif close < z_lo:
         pb_status = "below_zone"
     elif t2 <= entry:
         pb_status = "target_below_entry"
@@ -161,12 +193,26 @@ def derive(d, a):
         action, note = "avoid", f"Base 上漲空間 {fmt_pct(base['upside_pct'])}，評等賣出"
     elif rating_en == "NEUTRAL":
         action, note = "watch", f"合理買進價 {fmt_price(fair_buy)} 以下再評估"
+    elif not tr["ok"]:
+        ma_ref = (
+            f"20MA（{fmt_price(m['ma20'])}）或 60MA（{fmt_price(m['ma60'])}）"
+            if m.get("ma60") is not None
+            else f"20MA（{fmt_price(m['ma20'])}）"
+        )
+        action, note = "left_watch", f"估值達買進但均線趨勢未止跌，等站上走平翻揚的 {ma_ref}"
     elif close < z_lo:
         action, note = "wait_reclaim", f"收盤低於進場區 {zone_txt}，等重新站回"
     elif close <= z_hi:
         action, note = "accumulate", f"進場區 {zone_txt}，停損 {fmt_price(hard_stop)}"
     else:
         action, note = "wait_pullback", f"等回檔至 {zone_txt}，或帶量突破 {fmt_price(trigger)}"
+
+    cb = (d.get("financials") or {}).get("core_baseline") or {}
+    if a.get("valuation_method") != "PBR" and cb.get("applicable") and cb.get("ntm_eps") and cb["ntm_eps"] > 0:
+        baseline_dev = round((base["eps"] / cb["ntm_eps"] - 1) * 100, 1)
+    else:
+        baseline_dev = None
+
     return {
         "close": close,
         "scenarios": scen,
@@ -193,6 +239,9 @@ def derive(d, a):
         "fair_buy": fair_buy,
         "hold_status": hold_status,
         "rr_hold": rr_hold,
+        "trend_ok": tr["ok"],
+        "trend_reason": tr["reason"],
+        "baseline_deviation_pct": baseline_dev,
         "action": action,
         "action_zh": ACTION_ZH[action],
         "action_note": note,
@@ -218,6 +267,11 @@ def fmt_pct(v, dec=1, suffix="%"):
 def fmt_mult(v):
     """Valuation multiple, e.g. 2.34x."""
     return f"{v:.2f}x"
+
+
+def fmt_eps(v):
+    """EPS with 2 decimals; 不適用 when unavailable (None)."""
+    return "不適用" if v is None else f"{v:.2f}"
 
 
 def fmt_rr(v):

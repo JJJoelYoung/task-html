@@ -8,6 +8,7 @@ Q_DEADLINE = {"03-31": "05-15", "06-30": "08-14", "09-30": "11-14", "12-31": "03
 STATEMENT_TYPES = [
     "Revenue", "GrossProfit", "OperatingIncome", "CostOfGoodsSold", "EPS",
     "IncomeAfterTaxes", "EquityAttributableToOwnersOfParent", "TotalNonoperatingIncomeAndExpense",
+    "TAX", "PreTaxIncome",
     "Inventories", "OrdinaryShare",
 ]
 
@@ -64,11 +65,18 @@ def price_metrics(rows):
                 "ma5": r2(ma(5, i)),
                 "ma10": r2(ma(10, i)),
                 "ma20": r2(ma(20, i)),
+                "ma60": r2(ma(60, i)),
             }
         )
     w20 = series[-20:]
     last = series[-1]
     ma5, ma10, ma20 = last["ma5"], last["ma10"], last["ma20"]
+
+    def slope5(key):
+        if len(series) >= 6 and last[key] is not None and series[-6][key] is not None:
+            return r2(last[key] - series[-6][key])
+        return None
+
     vol_avg20 = mean([d["volume_lots"] for d in w20])
     hi = max(w20, key=lambda d: d["high"])
     lo = min(w20, key=lambda d: d["low"])
@@ -88,6 +96,9 @@ def price_metrics(rows):
         "ma5": ma5,
         "ma10": ma10,
         "ma20": ma20,
+        "ma60": last["ma60"],
+        "ma20_slope_5d": slope5("ma20"),
+        "ma60_slope_5d": slope5("ma60"),
         "bias_ma20_pct": r1((last["close"] - ma20) / ma20 * 100),
         "w20_start": w20[0]["date"],
         "w20_high": hi["high"],
@@ -258,6 +269,21 @@ def next_quarter(q):
     return f"{q[:4]}-{md}" if md else f"{int(q[:4]) + 1}-03-31"
 
 
+def _implied_shares(last4, consecutive, ttm_eps, share_cap):
+    """Weighted average share count from latest normal quarter, falling back to TTM or OrdinaryShare / 10."""
+    for q in reversed(last4):
+        eps, nip = q.get("eps"), q.get("net_income_parent")
+        if eps is not None and nip is not None and abs(eps) >= 0.2 and eps * nip > 0:
+            return nip / eps, "implied_latest_q"
+    if consecutive and ttm_eps is not None and abs(ttm_eps) >= 0.2:
+        nips = [q.get("net_income_parent") for q in last4]
+        if all(v is not None for v in nips) and sum(nips) * ttm_eps > 0:
+            return sum(nips) / ttm_eps, "implied_ttm"
+    if share_cap:
+        return share_cap / 10, "ordinary_share_par10"
+    return None, None
+
+
 def financials(inc, bal, cf, asof, gaps):
     inc, bal, cf = pivot(inc), pivot(bal), pivot(cf)
     # Rows present in the dataset are usable even before the deadline (methodology 0).
@@ -279,6 +305,8 @@ def financials(inc, bal, cf, asof, gaps):
                 "eps": d.get("EPS"),
                 "net_income_parent": d.get("EquityAttributableToOwnersOfParent"),
                 "net_income": d.get("IncomeAfterTaxes"),
+                "pretax_income": d.get("PreTaxIncome"),
+                "tax": d.get("TAX"),
                 "non_operating": d.get("TotalNonoperatingIncomeAndExpense"),
                 "gross_margin_pct": r2(gp / rev * 100) if gp is not None and rev else None,
                 "operating_margin_pct": r2(oi / rev * 100) if oi is not None and rev else None,
@@ -329,6 +357,7 @@ def financials(inc, bal, cf, asof, gaps):
     equity_parent = lb.get("EquityAttributableToOwnersOfParent")
     share_cap = lb.get("OrdinaryShare")
     bvps = r2(equity_parent / (share_cap / 10)) if equity_parent and share_cap else None
+    imp_shares, shares_src = _implied_shares(last4, consecutive, ttm_eps, share_cap)
     return {
         "quarters": quarters,
         "last4": [q["quarter"] for q in last4],
@@ -337,8 +366,137 @@ def financials(inc, bal, cf, asof, gaps):
         "ocf_quarterly": ocf_q,
         "bvps_latest": bvps,
         "shares_outstanding": share_cap / 10 if share_cap else None,
+        "implied_shares": round(imp_shares) if imp_shares else None,
+        "shares_source": shares_src,
         "latest_quarter": quarters[-1]["quarter"],
         "ocf_type": ocf_key,
+    }
+
+
+def core_baseline(rev, fin):
+    """Dual CY and rolling NTM core operating run-rate baseline EPS (methodology section 4)."""
+
+    def _na(reason):
+        return {
+            "applicable": False,
+            "reason": reason,
+            "yoy6_median_pct": None,
+            "ttm_opm_pct": None,
+            "effective_tax_rate_pct": None,
+            "tax_source": None,
+            "parent_ratio_pct": None,
+            "parent_source": None,
+            "core_net_margin_pct": None,
+            "shares_used": None,
+            "shares_source": None,
+            "cy_revenue": None,
+            "cy_eps": None,
+            "cy_late_year": None,
+            "ntm_revenue": None,
+            "ntm_eps": None,
+            "opm_spread_pp": None,
+            "high_volatility": False,
+            "volatility_reasons": [],
+        }
+
+    last4 = (fin or {}).get("quarters", [])[-4:]
+    if len(last4) < 4 or not all(next_quarter(a["quarter"]) == b["quarter"] for a, b in zip(last4, last4[1:])):
+        return _na("non_consecutive_quarters")
+    if any(q.get("revenue") is None or q.get("operating_income") is None for q in last4):
+        return _na("nonpositive_operating_income")
+    ttm_rev = sum(q["revenue"] for q in last4)
+    ttm_oi = sum(q["operating_income"] for q in last4)
+    if ttm_rev <= 0 or ttm_oi <= 0:
+        return _na("nonpositive_operating_income")
+
+    shares = fin.get("implied_shares") or fin.get("shares_outstanding")
+    shares_src = fin.get("shares_source") or ("ordinary_share_par10" if fin.get("shares_outstanding") else None)
+    if not shares or shares <= 0:
+        return _na("missing_shares")
+
+    last12 = (rev or {}).get("last12") or []
+    yoys6 = sorted(r["yoy_pct"] for r in last12[-6:] if r.get("yoy_pct") is not None)
+    if not yoys6:
+        return _na("missing_yoy")
+
+    med_yoy = percentile(yoys6, 50)
+    ttm_opm = ttm_oi / ttm_rev
+
+    if all(q.get("tax") is not None and q.get("pretax_income") is not None for q in last4):
+        sum_pt = sum(q["pretax_income"] for q in last4)
+        sum_tax = sum(q["tax"] for q in last4)
+        ratio_tax = sum_tax / sum_pt if sum_pt > 0 else None
+        if ratio_tax is not None and 0.0 <= ratio_tax <= 0.40:
+            eff_tax, tax_src = ratio_tax, "ttm_actual"
+        else:
+            eff_tax, tax_src = 0.20, "default_20pct"
+    else:
+        eff_tax, tax_src = 0.20, "default_20pct"
+
+    if all(q.get("net_income_parent") is not None and q.get("net_income") is not None for q in last4):
+        sum_ni = sum(q["net_income"] for q in last4)
+        sum_nip = sum(q["net_income_parent"] for q in last4)
+        ratio_par = sum_nip / sum_ni if sum_ni > 0 else None
+        if ratio_par is not None and 0.0 < ratio_par <= 1.0:
+            parent_ratio, parent_src = ratio_par, "ttm_actual"
+        else:
+            parent_ratio, parent_src = 1.0, "default_100pct"
+    else:
+        parent_ratio, parent_src = 1.0, "default_100pct"
+
+    core_margin = ttm_opm * (1.0 - eff_tax) * parent_ratio
+
+    cy_rev, cy_late_year = None, None
+    latest_period = (rev or {}).get("latest_period")
+    ytd = (rev or {}).get("ytd")
+    if latest_period and ytd is not None:
+        ly, lm = map(int, latest_period.split("-"))
+        cy_late_year = lm >= 10
+        by_p = {r["period"]: r["revenue"] for r in (rev or {}).get("series24", [])}
+        if lm == 12:
+            cy_rev = ytd
+        else:
+            rem_keys = [f"{ly - 1}-{m:02d}" for m in range(lm + 1, 13)]
+            if all(by_p.get(k) is not None for k in rem_keys):
+                rem_rev = sum(by_p[k] for k in rem_keys)
+                cy_rev = ytd + rem_rev * (1.0 + med_yoy / 100.0)
+
+    ntm_rev = (
+        sum(r["revenue"] for r in last12) * (1.0 + med_yoy / 100.0)
+        if len(last12) == 12 and all(r.get("revenue") is not None for r in last12)
+        else None
+    )
+
+    opms = [q["operating_income"] / q["revenue"] * 100.0 for q in last4 if q["revenue"] > 0]
+    opm_spread = (max(opms) - min(opms)) if len(opms) == 4 else None
+    vol_reasons = []
+    if opm_spread is not None and opm_spread > 5.0:
+        vol_reasons.append("opm_spread_gt_5pp")
+    if any(o <= 0 for o in opms):
+        vol_reasons.append("negative_quarter_opm")
+    if abs(med_yoy) > 50.0:
+        vol_reasons.append("yoy_gt_50pct")
+
+    return {
+        "applicable": True,
+        "reason": None,
+        "yoy6_median_pct": r1(med_yoy),
+        "ttm_opm_pct": r2(ttm_opm * 100),
+        "effective_tax_rate_pct": r2(eff_tax * 100),
+        "tax_source": tax_src,
+        "parent_ratio_pct": r2(parent_ratio * 100),
+        "parent_source": parent_src,
+        "core_net_margin_pct": r2(core_margin * 100),
+        "shares_used": round(shares),
+        "shares_source": shares_src,
+        "cy_revenue": round(cy_rev) if cy_rev is not None else None,
+        "cy_eps": r2(cy_rev * core_margin / shares) if cy_rev is not None else None,
+        "cy_late_year": cy_late_year,
+        "ntm_revenue": round(ntm_rev) if ntm_rev is not None else None,
+        "ntm_eps": r2(ntm_rev * core_margin / shares) if ntm_rev is not None else None,
+        "opm_spread_pp": r2(opm_spread),
+        "high_volatility": bool(vol_reasons),
+        "volatility_reasons": vol_reasons,
     }
 
 

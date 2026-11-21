@@ -99,6 +99,7 @@ def build(code, peers, asof_pin=None):
     cf = fetch("TaiwanStockCashFlowsStatement", code, f"{asof_d.year - 3}-01-01", asof)
     fin = mt.financials(inc, bal, cf, asof, gaps)
     fin["quarters"] = fin["quarters"][-8:]
+    fin["core_baseline"] = mt.core_baseline(rev, fin)
     sources["financials"] = {
         "dataset": "TaiwanStockFinancialStatements / TaiwanStockBalanceSheet / TaiwanStockCashFlowsStatement",
         "range": [fin["quarters"][0]["quarter"], fin["latest_quarter"]],

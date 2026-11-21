@@ -179,5 +179,80 @@ class ImpliedMultiple(unittest.TestCase):
         self.assertIsNone(dv.derive(self.d, self.a)["scenarios"][0]["implied"])
 
 
+class TrendFilterAndBaseline(unittest.TestCase):
+    """Anti-knife-catching trend gate (left_watch) and core baseline deviation."""
+
+    @staticmethod
+    def _with_trend(close, ma10, ma20, ma60, s20, s60, align="mixed", **kw):
+        d, a = inputs(close=close, ma10=ma10, ma20=ma20, high60=1700, low60=1150, maxvol_low=1180,
+                      eps=(60, 52, 35), mult=(30, 30, 25), **kw)
+        d["price"]["metrics"].update({
+            "ma60": ma60, "ma20_slope_5d": s20, "ma60_slope_5d": s60, "alignment": align,
+        })
+        return d, a
+
+    def test_2308_like_downtrend_inside_zone_flips_left_watch(self):
+        d, a = self._with_trend(close=1240, ma10=1224, ma20=1390.5, ma60=1672.08,
+                                s20=-160.25, s60=-49.50, align="mixed")
+        x = dv.derive(d, a)
+        self.assertEqual(x["rating_en"], "BUY")
+        self.assertEqual((x["action"], x["action_zh"]), ("left_watch", "左側觀察"))
+        self.assertEqual(x["pullback_status"], "downtrend")
+        self.assertIsNone(x["rr_pullback"])
+        self.assertFalse(x["trend_ok"])
+        self.assertEqual(x["trend_reason"], "below_falling_ma")
+
+    def test_dead_cat_bounce_above_zone_blocked_when_mas_fall(self):
+        d, a = self._with_trend(close=1420, ma10=1224, ma20=1390.5, ma60=1672.08,
+                                s20=-25.0, s60=-49.50, align="mixed")
+        a["scenarios"][1]["eps"] = 60  # Base target 1,800 (+26.8% -> BUY) even above zone
+        x = dv.derive(d, a)
+        self.assertEqual(x["rating_en"], "BUY")
+        self.assertEqual(x["action"], "left_watch")
+        self.assertEqual(x["pullback_status"], "downtrend")
+        self.assertIsNone(x["rr_pullback"])
+
+    def test_ma60_support_passes_pullback_into_zone(self):
+        d, a = inputs(close=125, ma10=124, ma20=128, high60=140, low60=110, maxvol_low=118,
+                      eps=(12, 10, 8), mult=(20, 18, 12))
+        d["price"]["metrics"].update({
+            "ma60": 122.0, "ma20_slope_5d": -0.5, "ma60_slope_5d": 0.4, "alignment": "mixed",
+        })
+        x = dv.derive(d, a)
+        self.assertTrue(x["trend_ok"])
+        self.assertEqual(x["action"], "accumulate")
+        self.assertEqual(x["pullback_status"], "active")
+        self.assertIsNotNone(x["rr_pullback"])
+
+    def test_bearish_alignment_blocked_even_above_ma60(self):
+        d, a = inputs(close=126, ma10=128, ma20=130, high60=145, low60=110, maxvol_low=120,
+                      eps=(12, 10, 8), mult=(20, 18, 12))
+        d["price"]["metrics"].update({
+            "ma60": 122.0, "ma20_slope_5d": -2.0, "ma60_slope_5d": 0.5, "alignment": "bearish",
+        })
+        x = dv.derive(d, a)
+        self.assertFalse(x["trend_ok"])
+        self.assertEqual(x["trend_reason"], "bearish_alignment")
+        self.assertEqual(x["action"], "left_watch")
+
+    def test_legacy_fixture_degrades_gracefully(self):
+        d, a = inputs(close=143, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135,
+                      zone={"low": 141, "high": 147})
+        d["price"]["metrics"]["alignment"] = "bearish"
+        x = dv.derive(d, a)
+        self.assertTrue(x["trend_ok"])
+        self.assertEqual(x["action"], "accumulate")
+
+    def test_baseline_deviation_and_fmt_eps(self):
+        self.assertEqual(dv.fmt_eps(44.71), "44.71")
+        self.assertEqual(dv.fmt_eps(None), "不適用")
+        d, a = inputs(close=150, ma10=145, ma20=140, high60=160, low60=120, maxvol_low=135,
+                      eps=(12, 10, 8), mult=(20, 18, 12))
+        d["financials"] = {"core_baseline": {"applicable": True, "cy_eps": 7.5, "ntm_eps": 8.0}}
+        self.assertEqual(dv.derive(d, a)["baseline_deviation_pct"], 25.0)
+        a["valuation_method"] = "PBR"
+        self.assertIsNone(dv.derive(d, a)["baseline_deviation_pct"])
+
+
 if __name__ == "__main__":
     unittest.main()

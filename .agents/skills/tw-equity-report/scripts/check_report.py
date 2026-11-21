@@ -40,6 +40,11 @@ def text_of(page, attr, value):
     return m.group(1).strip() if m else None
 
 
+def _section(page, sec_id):
+    m = re.search(rf'<section id="{re.escape(sec_id)}"(?:\s[^>]*)?>(.*?)</section>', page, re.S)
+    return m.group(1) if m else None
+
+
 class _Refs(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -69,10 +74,13 @@ def check_data(c, d):
     for k in ("price", "institutional", "foreign_holding", "margin", "revenue", "financials", "valuation"):
         c.ok(k in d["sources"], f"data: sources lacks {k}")
     m = d["price"]["metrics"]
-    for k in ("close", "ma5", "ma10", "ma20", "bias_ma20_pct", "w20_high", "w20_low", "squeeze", "alignment",
+    for k in ("close", "ma5", "ma10", "ma20", "ma60", "ma20_slope_5d",
+              "bias_ma20_pct", "w20_high", "w20_low", "squeeze", "alignment",
               "vol_avg20_lots", "spike_days", "dryup_days", "float_settling", "high60", "low60"):
         c.ok(m.get(k) is not None, f"data: price.metrics.{k} is null")
     c.ok(len(d["price"]["series"]) >= 60, "data: price series shorter than 60 days")
+    if len(d["price"]["series"]) >= 65:
+        c.ok(m.get("ma60_slope_5d") is not None, "data: price.metrics.ma60_slope_5d is null")
     closes = [s["close"] for s in d["price"]["series"][-20:]]
     c.ok(abs(m["ma20"] - round(sum(closes) / 20, 2)) < 0.006, "data: MA20 does not match the last 20 closes")
     c.ok(len(d["institutional"]["daily"]) == 20, "data: institutional daily is not 20 rows")
@@ -94,6 +102,9 @@ def check_data(c, d):
     if f["cash_conversion"] is None:
         c.ok("cash" in gaps, "data: null cash conversion not listed in gaps")
     c.ok(f["quarters"][-1]["dsi_days"] is not None, "data: latest DSI is null")
+    cb = f.get("core_baseline")
+    c.ok(isinstance(cb, dict) and isinstance(cb.get("applicable"), bool),
+         "data: financials.core_baseline missing or malformed")
     for k in ("PER", "PBR"):
         b = d["valuation"][k]
         vals = [b[p] for p in ("p10", "p25", "p50", "p75", "p90")]
@@ -113,7 +124,24 @@ def check_analysis(c, d, a, x):
     c.ok(len(a.get("peers", [])) == 3, "analysis: need exactly 3 peers")
     c.ok(3 <= len(a.get("catalysts", [])) <= 5, "analysis: need 3-5 catalysts")
     c.ok(3 <= len(a.get("risks", [])) <= 5, "analysis: need 3-5 risks")
-    c.ok(2 <= len(a.get("thesis_breakers", [])) <= 3, "analysis: need 2-3 thesis breakers")
+    breakers = a.get("thesis_breakers", [])
+    c.ok(2 <= len(breakers) <= 3, "analysis: need 2-3 thesis breakers")
+    has_rev_breaker = any(
+        isinstance(tb, dict)
+        and "TaiwanStockMonthRevenue" in str(tb.get("dataset", ""))
+        and bool(re.search(r"\d", str(tb.get("threshold", ""))))
+        for tb in breakers
+    )
+    c.ok(has_rev_breaker,
+         "analysis: thesis_breakers must include >= 1 TaiwanStockMonthRevenue item with a numeric threshold")
+    dil = a.get("dilution")
+    if c.ok(isinstance(dil, dict), "analysis: dilution {has_cb, has_spo, summary, basis} missing"):
+        c.ok(isinstance(dil.get("has_cb"), bool), "analysis: dilution.has_cb must be bool")
+        c.ok(isinstance(dil.get("has_spo"), bool), "analysis: dilution.has_spo must be bool")
+        c.ok(isinstance(dil.get("summary"), str) and bool(dil["summary"].strip()),
+             "analysis: dilution.summary is empty")
+        c.ok(isinstance(dil.get("basis"), str) and bool(dil["basis"].strip()),
+             "analysis: dilution.basis is empty")
     method = "PBR" if a.get("valuation_method") == "PBR" else "PER"
     b = d["valuation"][method]
     inside = {
@@ -200,7 +228,7 @@ def check_calculations(c, page, x):
         c.ok(dv.fmt_price(x[k]) in page, f"html: {k} {dv.fmt_price(x[k])} not shown")
 
 
-def check_structure(c, page, d, x):
+def check_structure(c, page, d, x, a=None):
     for i in range(1, 7):
         c.ok(re.search(rf'<section id="dim{i}"', page), f"html: section dim{i} missing")
     exp = {
@@ -216,6 +244,22 @@ def check_structure(c, page, d, x):
         got = text_of(page, "data-kpi", k)
         c.ok(got == v, f"html: data-kpi={k} shows {got!r}, expected {v!r}")
     c.ok(x["action_note"] in page, f"html: action condition missing: {x['action_note']}")
+    dim3 = _section(page, "dim3")
+    if dim3 is not None:
+        dm = re.search(r'<([a-zA-Z0-9]+)\b[^>]*\bdata-dilution(?:="[^"]*")?[^>]*>(.*?)</\1>', dim3, re.S)
+        dil_txt = re.sub(r"<[^>]+>", "", dm.group(2)).strip() if dm else ""
+        c.ok(bool(dil_txt), "html: dim3 missing non-empty data-dilution block")
+    dim4 = _section(page, "dim4")
+    if dim4 is not None:
+        cb = (d.get("financials") or {}).get("core_baseline") or {}
+        is_pbr = bool(a and a.get("valuation_method") == "PBR")
+        if is_pbr or not cb.get("applicable"):
+            exp_bl = {"cy": "不適用", "ntm": "不適用"}
+        else:
+            exp_bl = {"cy": dv.fmt_eps(cb.get("cy_eps")), "ntm": dv.fmt_eps(cb.get("ntm_eps"))}
+        for bk, bv in exp_bl.items():
+            got = text_of(dim4, "data-baseline", bk)
+            c.ok(got == bv, f"html: dim4 data-baseline={bk} shows {got!r}, expected {bv!r}")
     if '<section id="dim6"' in page:
         dim6 = page[page.index('<section id="dim6"'):]
         dim6 = dim6[: dim6.index("</section>")]
@@ -325,7 +369,7 @@ def main(argv=None):
     check_review(c, work, code)
     if c.ok(page is not None, f"html: report {rel} does not exist"):
         check_calculations(c, page, x)
-        check_structure(c, page, d, x)
+        check_structure(c, page, d, x, a)
         check_generation_meta(c, page, a)
         for r in relative_refs(page):
             c.ok((report.parent / r).exists(), f"links: report link {r} does not exist")
