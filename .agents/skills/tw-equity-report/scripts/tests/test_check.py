@@ -132,6 +132,74 @@ class GenerationMeta(unittest.TestCase):
         cr.check_generation_meta(c_mismatch, mismatched, a)
         self.assertEqual(len(c_mismatch.failures), 2)
 
+    def test_claude_and_orchestrator_generation_pass_analysis_footer_and_portal(self):
+        cases = [
+            (
+                "claude-single",
+                {"model": "claude-opus-5-5", "effort": "high"},
+            ),
+            (
+                "antigravity-orchestrator",
+                {
+                    "model": "Orchestrator (Gemini 4 Neon / Gemini 4 Hydrogen)",
+                    "effort": "xhigh / high",
+                    "orchestrator": {
+                        "planner": {"model": "Gemini 4 Neon", "effort": "xhigh"},
+                        "executor": {"model": "Gemini 4 Hydrogen", "effort": "high"},
+                    },
+                },
+            ),
+        ]
+        for label, gen_cfg in cases:
+            with self.subTest(case=label), tempfile.TemporaryDirectory() as tmpdir:
+                root = Path(tmpdir)
+                rel = "reports/equity/2330-tsmc-20261120.html"
+                report_path = root / rel
+                report_path.parent.mkdir(parents=True, exist_ok=True)
+                report_path.write_text(
+                    '<html><body><footer class="footer">'
+                    f'<span data-meta="model">{gen_cfg["model"]}</span>'
+                    f'<span data-meta="effort">{gen_cfg["effort"]}</span>'
+                    "</footer></body></html>",
+                    encoding="utf-8",
+                )
+                (root / "index.html").write_text(
+                    f"""<article class="artifact-card" data-category="equity">
+                      <a href="{rel}">TSMC</a>
+                      <span class="artifact-date">2026-11-20</span>
+                      <span>NT$ 1,200</span><span>+20.0%</span><span>買進</span><span>2.50 : 1</span>
+                      <a href="{rel}" aria-label="Read">閱讀報告</a>
+                      <span data-meta="model">{gen_cfg["model"]}</span>
+                      <span data-meta="effort">{gen_cfg["effort"]}</span>
+                    </article>""",
+                    encoding="utf-8",
+                )
+                (root / "README.md").write_text(
+                    f"| Equity | [TSMC](./{rel}) | [View Online](https://example.invalid/{rel}) | `./{rel}` |\n",
+                    encoding="utf-8",
+                )
+
+                d, a, x = self.minimal_inputs()
+                a["generation"] = gen_cfg
+                c_ana = cr.Check()
+                cr.check_analysis(c_ana, d, a, x)
+                self.assertEqual(c_ana.failures, [])
+
+                c_footer = cr.Check()
+                cr.check_generation_meta(c_footer, report_path.read_text(encoding="utf-8"), a)
+                self.assertEqual(c_footer.failures, [])
+
+                c_portal = cr.Check()
+                cr.check_portal(
+                    c_portal,
+                    root,
+                    rel,
+                    {"base": {"target": 1200.0, "upside_pct": 20.0}, "rating_zh": "買進", "rr_pullback": 2.5},
+                    {"asof": "2026-11-20"},
+                    a,
+                )
+                self.assertEqual(c_portal.failures, [])
+
 
 class UpgradeChecks(unittest.TestCase):
     @staticmethod

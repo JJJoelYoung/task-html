@@ -15,6 +15,7 @@ Load these skills before the steps that use them:
 
 - `finmind`: dataset names, column units, point-in-time rules, and quota limits. Load before Step 1.
 - `hallmark`: visual design of the report page. Load before Step 5. The design is free each run; do not copy an earlier report's layout.
+- `research_context.py`: compact FinMind ground-truth context builder (`<= 2,200` chars) for Antigravity Step 4 Swarm verification; never modifies `scripts/equity/`.
 - `conventional-commit`: Primary Agent `model` and `effort` resolution/validation (`scripts/get_agent_metadata.py`, single source of truth) before Step 5, and Git commit/push in Step 8.
 
 Read both references before writing any script:
@@ -74,7 +75,14 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 **Research (`research_{code}.md`).** External facts (results FinMind has not yet published, guidance, pricing, capacity, industry cycle) come only from this file in the work folder.
 
 - If it already exists, or this session holds research on the stock (for example a `/deep-research` or `/agy-deep-research` result the user ran first), use that, writing it into the file.
-- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`; in Antigravity, the `/agy-deep-research` skill at `~/.agents/skills/my-skills/agy-deep-research/SKILL.md` using its Native Swarm workflow, setting `out_md` to `research_{code}.md` and completing its pre-flight Swarm model/quota confirmation gate via `ask_question` first unless already confirmed in the current conversation), which verifies each claim with independent agents. Pass as `args` / `query`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, major customer or product news, and any unconverted convertible bonds (CB) or announced cash capital increases (現增).` Keep only claims it reports as verified.
+- Otherwise run the `deep-research` workflow (in Claude Code, the `Workflow` tool with `name: "deep-research"`; in Antigravity, see **Antigravity Orchestrator & Swarm Step 4** below, defaulting to `/agy-deep-research` rather than falling back to 5 manual searches unless the user explicitly asks for a fast draft or Swarm quota is exhausted), which verifies each claim with independent agents. Pass as `args` / `query`: `{name} ({code}), last 6 months: latest results and guidance (法說會), monthly revenue commentary, pricing and capacity, the industry cycle, major customer or product news, and any unconverted convertible bonds (CB) or announced cash capital increases (現增).` Keep only claims it reports as verified.
+- **Antigravity Orchestrator & Swarm Step 4** *(Antigravity only; Claude Code uses `Workflow(name="deep-research")` above unchanged)*:
+  1. **Role Split**: Under `Orchestrator` mode, the **Planner** owns Step 3 direct-competitor peer selection, orthogonal Step 4 `angles` design, `analysis_{code}.json` valuation/scenario judgments, and Re-plan Gate escalations; the **Executor** runs `fetch.py`, `research_context.py`, `agy-deep-research` (`research_swarm.py` + Swarm workers + `Cluster`/`Synthesize`), Hallmark HTML build (`generate_report.py`), `check_report.py` / `sloplint.mjs` / `shots.py`, and Step 8 commit/push.
+  2. **FinMind Context Pre-Step**: Export a compact FinMind baseline (`<= 2,200` chars) into an external scratch run directory (never inside `scripts/equity/`):
+     ```powershell
+     python -X utf8 .agents/skills/tw-equity-report/scripts/research_context.py scripts/equity/{code}-{YYYYMMDD} --out <scratch_run_dir>/finmind_context.md
+     ```
+  3. **Pass Context, Pre-Planned Angles & Taiwan Disclosure Topics**: Invoke `/agy-deep-research` (`research_swarm.py prepare`) passing `--angles-json`, `--context-file <scratch_run_dir>/finmind_context.md`, `--out-md scripts/equity/{code}-{YYYYMMDD}/research_{code}.md`, and Taiwan equity disclosure `--required-topics "法說會|earnings call|guidance,月營收|monthly revenue,CB|可轉債,現增|現金增資"`. Complete its `ask_question` Swarm model/quota confirmation first (pinning `worker_model` to a single fast non-Orchestrator model; never omit `model` on `swarm(action="add")`), pass `--executor-model` / `--executor-effort` under Orchestrator, and respect deterministic Re-plan Gates on `fetch-sources`, `prepare-cluster`, and `adjudicate`.
 - Without that workflow, run about 5 web searches over the same topics instead. Read the page behind every fact you keep; a search snippet alone is not a source.
 - Record each fact as one line: the claim, source name, publication date, and URL. Add a short list of what was searched but not found, refuted, or where sources conflict. State at the top of the file which method gathered it.
 
@@ -87,7 +95,7 @@ Pick 3 Taiwan-listed companies that compete directly with the target's main busi
 - Earnings-quality commentary for the industry.
 
 - `external_facts`: each external fact the report uses, as `{text, source, date, url}`, with the URL from `research_{code}.md`.
-- `generation`: resolve and validate the Primary Agent's active `model` and `effort` strictly by referencing `conventional-commit` Step 3.1 (run `~/.agents/skills/my-skills/conventional-commit/scripts/get_agent_metadata.py` per its rules; do not duplicate its logic or guess values—if that global skill is missing on disk or returns non-empty `missing`, confirm with the user first). Store `{"model": "...", "effort": "..."}`.
+- `generation`: resolve and validate the Primary Agent's active `model` and `effort` strictly by referencing `conventional-commit` Step 3.1 (run `~/.agents/skills/my-skills/conventional-commit/scripts/get_agent_metadata.py` per its rules; do not duplicate its logic or guess values—if that global skill is missing on disk or returns non-empty `missing`, confirm with the user first). Store `{"model": "...", "effort": "..."}` (for **Antigravity Orchestrator** dual-model sessions, pass `--executor-model` and `--executor-effort` and optionally retain the returned `"orchestrator"` breakdown alongside `"model"` and `"effort"`; for Claude Code, omit `--effort` per `CLAUDE_EFFORT`).
 
 Content that FinMind cannot supply (moat, catalysts, overseas comparisons) either says `分析師判斷` or rests on an external fact; a `basis` that rests on one includes its URL.
 

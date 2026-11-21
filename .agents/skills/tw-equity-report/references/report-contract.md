@@ -9,7 +9,7 @@ What every report must contain and how the run is checked. The reader is the own
 | `reports/equity/{code}-{slug}-{YYYYMMDD}.html` | The report, a single self-contained file |
 | `scripts/equity/{code}-{YYYYMMDD}/data_{code}.json` | Fetched data and computed metrics, written by `scripts/fetch.py` |
 | `scripts/equity/{code}-{YYYYMMDD}/research_{code}.md` | External facts, one per line: claim, source, date, URL |
-| `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields; `dilution` (`{has_cb, has_spo, summary, basis}`); `external_facts` as `{text, source, date, url}`; `generation` as `{model, effort}` (Primary Agent via `conventional-commit`) |
+| `scripts/equity/{code}-{YYYYMMDD}/analysis_{code}.json` | Analyst judgments with `basis` fields; `dilution` (`{has_cb, has_spo, summary, basis}`); `external_facts` as `{text, source, date, url}`; `generation` as `{model, effort}` (and optional `orchestrator` breakdown for Antigravity Orchestrator runs via `conventional-commit`) |
 | `scripts/equity/{code}-{YYYYMMDD}/judgment_review_{code}.md` | Judgment-review findings and how each was resolved |
 | `scripts/equity/{code}-{YYYYMMDD}/generate_report.py` | HTML generator (layout and charts; numbers from `scripts/derive.py`) |
 
