@@ -284,6 +284,80 @@ def check_structure(c, page, d, x, a=None):
     c.ok("data-tip=" in page, "html: no chart hover values (data-tip)")
 
 
+TW_HUES = {"up": ((0, 40), (340, 360)), "down": ((120, 165),)}
+TAG_RE = re.compile(r"<([a-zA-Z][\w-]*)\s([^>]*)>([^<]*)")
+ATTR_RE = re.compile(r'([\w-]+)="([^"]*)"')
+
+
+def tagged(fragment, attr):
+    """Yield (attrs, text) for every start tag in fragment that carries attr."""
+    for m in TAG_RE.finditer(fragment or ""):
+        attrs = dict(ATTR_RE.findall(m.group(2)))
+        if attr in attrs:
+            yield attrs, m.group(3).strip()
+
+
+def css_block(page, at):
+    """Return the brace-balanced block that follows the first occurrence of at, or ''."""
+    i = page.find(at)
+    if i < 0:
+        return ""
+    i = page.find("{", i)
+    depth = 0
+    for j in range(i, len(page)):
+        depth += {"{": 1, "}": -1}.get(page[j], 0)
+        if depth == 0:
+            return page[i:j + 1]
+    return ""
+
+
+def text_dir(text):
+    t = text.lstrip()
+    if not re.search(r"[1-9]", t):
+        return None
+    if t.startswith("+"):
+        return "up"
+    if t.startswith(("-", "−")):
+        return "down"
+    return None
+
+
+def check_market_colours(c, page, d, x):
+    """Taiwan colours: --tw-up red, --tw-down green, and every data-dir hook matches the data."""
+    for key, ranges in TW_HUES.items():
+        decls = re.findall(rf"--tw-{key}(?:-[\w-]+)?\s*:\s*([^;}}]+)", page)
+        c.ok(decls, f"html: --tw-{key} token not declared")
+        for v in (v for v in decls if not v.strip().startswith("var(")):
+            m = re.match(r"oklch\(\s*[\d.]+%?\s+([\d.]+)\s+([\d.]+)", v.strip())
+            good = m and float(m.group(1)) >= 0.10 and any(lo <= float(m.group(2)) <= hi for lo, hi in ranges)
+            c.ok(good, f"html: --tw-{key}: {v.strip()} is not an oklch {'red' if key == 'up' else 'green'} (chroma >= 0.10)")
+        c.ok(f"var(--tw-{key})" in page, f"html: no rule uses var(--tw-{key})")
+        c.ok(f"--tw-{key}" in css_block(page, "prefers-color-scheme: dark"),
+             f"html: --tw-{key} not redefined in the prefers-color-scheme: dark block")
+    c.ok("--tw-flat" in page, "html: --tw-flat token not declared")
+
+    series = d["price"]["series"]
+    want = {s.get("date"): dv.bar_dir(series, i) for i, s in enumerate(series)}
+    for sec in ("dim1", "dim6"):
+        bars = [(a_["data-date"], a_["data-dir"]) for a_, _ in tagged(_section(page, sec), "data-dir") if "data-date" in a_]
+        c.ok(bars, f"html: {sec} candles carry no data-date + data-dir hooks")
+        bad = [f"{dt} {dr}" for dt, dr in bars if want.get(dt) != dr]
+        c.ok(not bad, f"html: {sec} candle direction differs from derive.bar_dir: {', '.join(bad[:5])}")
+
+    daily = {r.get("date"): r for r in d["institutional"]["daily"]}
+    flows = list(tagged(_section(page, "dim2"), "data-flow"))
+    c.ok(flows, "html: dim2 net buy/sell bars carry no data-flow hooks")
+    bad = [f"{a_.get('data-flow')} {a_.get('data-date')}" for a_, _ in flows
+           if a_.get("data-dir") != dv.sign_dir((daily.get(a_.get("data-date")) or {}).get(a_.get("data-flow")))]
+    c.ok(not bad, f"html: dim2 flow bar direction differs from the data: {', '.join(bad[:5])}")
+
+    kpi = [a_ for a_, _ in tagged(page, "data-kpi") if a_["data-kpi"] == "upside"]
+    exp = dv.sign_dir(x["base"]["upside_pct"])
+    c.ok(kpi and kpi[0].get("data-dir") == exp, f"html: data-kpi=upside needs data-dir=\"{exp}\"")
+    bad = [t for a_, t in tagged(page, "data-dir") if text_dir(t) and text_dir(t) != a_["data-dir"]]
+    c.ok(not bad, f"html: signed figures with the wrong data-dir: {', '.join(bad[:5])}")
+
+
 def check_generation_meta(c, page, a):
     """Verify report footer displays Primary Agent model and effort matching analysis['generation']."""
     m = re.search(r"<footer\b[^>]*>.*?</footer>", page, re.S)
@@ -371,6 +445,7 @@ def main(argv=None):
         check_calculations(c, page, x)
         check_structure(c, page, d, x, a)
         check_generation_meta(c, page, a)
+        check_market_colours(c, page, d, x)
         for r in relative_refs(page):
             c.ok((report.parent / r).exists(), f"links: report link {r} does not exist")
     check_portal(c, root, rel, x, d, a)

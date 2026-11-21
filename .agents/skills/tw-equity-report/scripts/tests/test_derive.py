@@ -256,3 +256,14 @@ class TrendFilterAndBaseline(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MarketColours(unittest.TestCase):
+    def test_sign_dir(self):
+        self.assertEqual([dv.sign_dir(v) for v in (1.5, -0.2, 0, None)], ["up", "down", "flat", "flat"])
+
+    def test_bar_dir(self):
+        s = [{"open": 10, "close": 10}, {"open": 10, "close": 11}, {"open": 12, "close": 11},
+             {"open": 12, "close": 12}, {"open": 10, "close": 10}, {"open": 9, "close": 10}, {"open": 10, "close": 10}]
+        self.assertEqual([dv.bar_dir(s, i) for i in range(len(s))],
+                         ["flat", "up", "down", "up", "down", "up", "flat"])

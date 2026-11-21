@@ -59,6 +59,11 @@ def lots_signed(v):
     return "無資料" if v is None else f"{v:+,.0f} 張"
 
 
+def dspan(text, v):
+    """Signed figure in Taiwan colours: red up, green down."""
+    return f'<span data-dir="{dv.sign_dir(v)}">{text}</span>'
+
+
 def yi(v):
     """NT$ amount in 億元."""
     return "無資料" if v is None else f"{v / 1e8:,.1f} 億"
@@ -107,8 +112,8 @@ def spread(ys, gap, lo, hi):
     return out
 
 
-def kline_svg(series, title, lines=None, zone=None, vh=420):
-    """Candles + MA5/10/20/60 + volume, inline SVG. lines: [(key, label, value)]."""
+def kline_svg(series, title, lines=None, zone=None, vh=420, prev=None):
+    """Candles + MA5/10/20/60 + volume, inline SVG. lines: [(key, label, value)]; prev: bar before series[0]."""
     W, H = 1000, vh
     pad_l, pad_r, top = 8, 72, 14
     price_h = H * 0.64
@@ -148,12 +153,13 @@ def kline_svg(series, title, lines=None, zone=None, vh=420):
             parts.append(f'<polyline class="ln {k}" points="{" ".join(pts)}"/>')
     for i, s in enumerate(series):
         cx = sx(i, n, pad_l, pw)
-        cls = "up" if s["close"] >= s["open"] else "dn"
+        full = ([prev] if prev else []) + series
+        hook = f'data-date="{s["date"]}" data-dir="{dv.bar_dir(full, i + (1 if prev else 0))}"'
         yo, yc = y(s["open"]), y(s["close"])
-        parts.append(f'<line class="wick" x1="{cx:.1f}" x2="{cx:.1f}" y1="{y(s["high"]):.1f}" y2="{y(s["low"]):.1f}"/>')
-        parts.append(f'<rect class="{cls}" x="{cx - cw / 2:.1f}" y="{min(yo, yc):.1f}" width="{cw:.1f}" height="{max(1, abs(yc - yo)):.1f}"/>')
+        parts.append(f'<g class="k" {hook}><line class="wick" x1="{cx:.1f}" x2="{cx:.1f}" y1="{y(s["high"]):.1f}" y2="{y(s["low"]):.1f}"/>'
+                     f'<rect class="body" x="{cx - cw / 2:.1f}" y="{min(yo, yc):.1f}" width="{cw:.1f}" height="{max(1, abs(yc - yo)):.1f}"/></g>')
         vh_ = s["volume_lots"] / vmax * vol_h
-        parts.append(f'<rect class="vol {cls}" x="{cx - cw / 2:.1f}" y="{vol_bot - vh_:.1f}" width="{cw:.1f}" height="{vh_:.1f}"/>')
+        parts.append(f'<rect class="vol" {hook} x="{cx - cw / 2:.1f}" y="{vol_bot - vh_:.1f}" width="{cw:.1f}" height="{vh_:.1f}"/>')
     if lines:
         ly = spread([y(v) - 6 for _, _, v in lines], 26, top + 16, price_h - 4)
         for (key, label, v), lyy in zip(lines, ly):
@@ -177,10 +183,11 @@ def kline_svg(series, title, lines=None, zone=None, vh=420):
 def ma_legend():
     items = [("ma5", "MA5"), ("ma10", "MA10"), ("ma20", "MA20"), ("ma60", "MA60")]
     sw = "".join(f'<li><span class="sw sw-{k}"></span>{lab}</li>' for k, lab in items)
-    return f'<ul class="legend">{sw}<li><span class="sw sw-up"></span>收紅（收 ≥ 開）</li><li><span class="sw sw-dn"></span>收黑（收 &lt; 開）</li></ul>'
+    return (f'<ul class="legend">{sw}<li><span class="sw sw-k" data-dir="up"></span>收紅（收 &gt; 開）</li>'
+            f'<li><span class="sw sw-k" data-dir="down"></span>收綠（收 &lt; 開）</li><li>十字線依昨收定紅綠</li></ul>')
 
 
-def bars_svg(labels, values, title, tips, unit="", vh=200, W=1000):
+def bars_svg(labels, values, title, tips, unit="", vh=200, W=1000, hooks=None):
     """Signed vertical bars around a zero baseline."""
     H = vh
     pad_l, pad_r, top, bot = 8, 96, 12, 30
@@ -210,7 +217,8 @@ def bars_svg(labels, values, title, tips, unit="", vh=200, W=1000):
             continue
         yy = y(v)
         cls = "bar pos" if v >= 0 else "bar neg"
-        out.append(f'<rect class="{cls}" x="{cx - bw / 2:.1f}" y="{min(yy, y0):.1f}" width="{bw:.1f}" height="{max(1, abs(y0 - yy)):.1f}"/>')
+        hk = f" {hooks[i]}" if hooks else ""
+        out.append(f'<rect class="{cls}"{hk} x="{cx - bw / 2:.1f}" y="{min(yy, y0):.1f}" width="{bw:.1f}" height="{max(1, abs(y0 - yy)):.1f}"/>')
     step = pw / n
     for i, t in enumerate(tips):
         out.append(f'<rect class="hit" x="{pad_l + i * step:.1f}" y="0" width="{step:.1f}" height="{H}" data-tip="{esc(t)}"/>')
@@ -317,24 +325,25 @@ def rng(key):
 judg = '<span class="tag">分析師判斷</span>'
 
 # --- hero
-def kpi(label, key, value, cls=""):
-    return f'<div class="cell {cls}"><p class="lab">{label}</p><p class="val num" data-kpi="{key}">{esc(value)}</p></div>'
+def kpi(label, key, value, cls="", sign=None):
+    d_ = f' data-dir="{dv.sign_dir(sign)}"' if sign is not None else ""
+    return f'<div class="cell {cls}"><p class="lab">{label}</p><p class="val num" data-kpi="{key}"{d_}>{esc(value)}</p></div>'
 
 
 hero_cells = "".join([
     kpi("收盤價（NT$）", "close", fp(x["close"])),
     kpi("投資評等", "rating", x["rating_zh"]),
     kpi("Base 目標價", "target", fp(base["target"])),
-    kpi("Base 潛在漲跌", "upside", fpct(base["upside_pct"])),
+    kpi("Base 潛在漲跌", "upside", fpct(base["upside_pct"]), sign=base["upside_pct"]),
     kpi("拉回 R:R", "rr", frr(x["rr_pullback"])),
     kpi("資料日期", "asof", asof),
 ])
 
 ma_cells = (
     f'<div class="cell cell--ink"><p class="lab">20 日均線，5 日斜率 {m["ma20_slope_5d"]:+,.2f}</p>'
-    f'<p class="big num">{fp(m["ma20"])}</p><p class="sub">收盤距 20MA {fpct(m["bias_ma20_pct"])}</p></div>'
+    f'<p class="big num">{fp(m["ma20"])}</p><p class="sub">收盤距 20MA {dspan(fpct(m["bias_ma20_pct"]), m["bias_ma20_pct"])}</p></div>'
     f'<div class="cell cell--ink"><p class="lab">60 日均線，5 日斜率 {m["ma60_slope_5d"]:+,.2f}</p>'
-    f'<p class="big num">{fp(m["ma60"])}</p><p class="sub">收盤距 60MA {fpct((x["close"] / m["ma60"] - 1) * 100)}</p></div>'
+    f'<p class="big num">{fp(m["ma60"])}</p><p class="sub">收盤距 60MA {dspan(fpct((x["close"] / m["ma60"] - 1) * 100), x["close"] - m["ma60"])}</p></div>'
 )
 
 hero = f"""
@@ -390,8 +399,9 @@ dl = [r["date"][5:] for r in days]
 def flow_fig(key):
     vals = [r[key] for r in days]
     tips = [f"{r['date']}　{GROUP_ZH[key]}買賣超 {lots_signed(r[key])}　累計 {lots_signed(r[key + '_cum'])}" for r in days]
-    svg = bars_svg(dl, vals, f"{GROUP_ZH[key]}每日買賣超", tips, vh=220, W=480)
-    return (f'<div class="cell flow"><p class="lab">{GROUP_ZH[key]}，近 20 日累計</p><p class="mid num">{lots_signed(inst["cum"][key])}</p>'
+    hooks = [f'data-flow="{key}" data-date="{r["date"]}" data-dir="{dv.sign_dir(r[key])}"' for r in days]
+    svg = bars_svg(dl, vals, f"{GROUP_ZH[key]}每日買賣超", tips, vh=220, W=480, hooks=hooks)
+    return (f'<div class="cell flow"><p class="lab">{GROUP_ZH[key]}，近 20 日累計</p><p class="mid num">{dspan(lots_signed(inst["cum"][key]), inst["cum"][key])}</p>'
             f'{figure(svg, f"每日買賣超（張）。來源：FinMind TaiwanStockInstitutionalInvestorsBuySell，{rng("institutional")}。")}</div>')
 
 
@@ -500,7 +510,7 @@ for s in x["scenarios"]:
         N(f"{s['eps']:.2f}"),
         N(fmult(s["multiple"])),
         N(fp(s["target"])),
-        N(fpct(s["upside_pct"])),
+        N(dspan(fpct(s["upside_pct"]), s["upside_pct"])),
         N(f'<span data-implied="{s["name"]}">{fmult(im["value"])}</span>' if im else "無資料"),
         POS_ZH[im["position"]] if im else "",
     ])
@@ -530,8 +540,8 @@ dim4 = f"""
   {sc_tbl}
   {baseline}
   <div class="band"><div class="cells grid-3">
-    <div class="cell cell--ink"><p class="lab">機率加權目標價</p><p class="big num">{fp(x['weighted_target'])}</p><p class="sub">對收盤 {fpct(x['weighted_upside_pct'])}</p></div>
-    <div class="cell"><p class="lab">評等（依 Base 潛在漲跌）</p><p class="big">{x['rating_zh']}</p><p class="sub">Base {fp(base['target'])}，{fpct(base['upside_pct'])}；&gt; +15% 買進，−5% 至 +15% 中立，&lt; −5% 賣出</p></div>
+    <div class="cell cell--ink"><p class="lab">機率加權目標價</p><p class="big num">{fp(x['weighted_target'])}</p><p class="sub">對收盤 {dspan(fpct(x['weighted_upside_pct']), x['weighted_upside_pct'])}</p></div>
+    <div class="cell"><p class="lab">評等（依 Base 潛在漲跌）</p><p class="big">{x['rating_zh']}</p><p class="sub">Base {fp(base['target'])}，{dspan(fpct(base['upside_pct']), base['upside_pct'])}；&gt; +15% 買進，−5% 至 +15% 中立，&lt; −5% 賣出</p></div>
     <div class="cell"><p class="lab">合理買進價（Base ÷ 1.15）</p><p class="big num">{fp(x['fair_buy'])}</p><p class="sub">收盤低於此價時評等為買進</p></div>
   </div></div>
 </section>
@@ -572,7 +582,8 @@ zone_src = "均線帶與法人成本區重疊" if x["zone_source"] == "overlap" 
 stop_src = "量最大日低點與 MA20 × 0.97 中較近者" if x["hard_stop_source"] == "candidate" else "進場區下緣 × 0.95"
 last60 = series[-60:]
 lines6 = [("entry", "進場 Entry", x["entry"]), ("t1", "T1", x["t1"]), ("t2", "T2", x["t2"]), ("sl", "停損 SL", x["hard_stop"])]
-dim6_svg = kline_svg(last60, f"{name_zh} 近 60 日 K 線與交易價位", lines=lines6, zone=(x["zone_low"], x["zone_high"]), vh=460)
+dim6_svg = kline_svg(last60, f"{name_zh} 近 60 日 K 線與交易價位", lines=lines6, zone=(x["zone_low"], x["zone_high"]), vh=460,
+                     prev=series[-61] if len(series) > 60 else None)
 breakers_tbl = table_fig(["條件", "門檻", "資料集"], [[esc(t["condition"]), N(esc(t["threshold"])), esc(t["dataset"])] for t in a["thesis_breakers"]],
                          f"論點破功條件，{judg}；以 FinMind 資料集追蹤，基準日 {asof}。")
 dim6 = f"""
@@ -602,8 +613,8 @@ dim6 = f"""
   <h3 class="sub-h">持有層（12 個月）</h3>
   <div class="cells grid-4">
     <div class="cell"><p class="lab">合理買進價</p><p class="mid num">{fp(x['fair_buy'])}</p><p class="sub">Base 目標 ÷ 1.15</p></div>
-    <div class="cell"><p class="lab">Base 目標價</p><p class="mid num">{fp(base['target'])}</p><p class="sub">{fpct(base['upside_pct'])}</p></div>
-    <div class="cell"><p class="lab">Bear 目標價</p><p class="mid num">{fp(bear['target'])}</p><p class="sub">{fpct(bear['upside_pct'])}</p></div>
+    <div class="cell"><p class="lab">Base 目標價</p><p class="mid num">{fp(base['target'])}</p><p class="sub">{dspan(fpct(base['upside_pct']), base['upside_pct'])}</p></div>
+    <div class="cell"><p class="lab">Bear 目標價</p><p class="mid num">{fp(bear['target'])}</p><p class="sub">{dspan(fpct(bear['upside_pct']), bear['upside_pct'])}</p></div>
     <div class="cell cell--ink"><p class="lab">持有 R:R：{esc(status_txt('hold_status'))}</p>{rr_cell('hold', x['rr_hold'])}</div>
   </div>
   <h3 class="sub-h">論點破功條件</h3>
@@ -652,6 +663,8 @@ BASE_CSS
   --font-body: var(--font-display);
   --chart-1: oklch(60% 0.006 95); --chart-2: oklch(44% 0.006 95); --chart-3: oklch(28% 0.006 95); --chart-4: oklch(10% 0.006 95);
   --chart-zone: color-mix(in oklab, var(--color-accent) 55%, transparent);
+  --tw-up: oklch(52% 0.2 27); --tw-down: oklch(50% 0.14 150); --tw-flat: var(--color-muted);
+  --tw-up-inv: oklch(70% 0.19 25); --tw-down-inv: oklch(75% 0.16 150);
   --container: 1280px;
 }
 [data-mode="dark"] {
@@ -661,6 +674,7 @@ BASE_CSS
   --color-accent: oklch(86% 0.16 105); --color-accent-ink: oklch(14% 0.006 95); --color-focus: oklch(80% 0.12 110);
   --chart-1: oklch(58% 0.006 95); --chart-2: oklch(70% 0.006 95); --chart-3: oklch(83% 0.006 95); --chart-4: oklch(95% 0.006 95);
   --chart-zone: color-mix(in oklab, var(--color-accent) 35%, transparent);
+  --tw-up: oklch(70% 0.19 25); --tw-down: oklch(75% 0.16 150); --tw-up-inv: oklch(52% 0.2 27); --tw-down-inv: oklch(50% 0.14 150);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-mode="light"]) {
@@ -670,6 +684,7 @@ BASE_CSS
     --color-accent: oklch(86% 0.16 105); --color-accent-ink: oklch(14% 0.006 95); --color-focus: oklch(80% 0.12 110);
     --chart-1: oklch(58% 0.006 95); --chart-2: oklch(70% 0.006 95); --chart-3: oklch(83% 0.006 95); --chart-4: oklch(95% 0.006 95);
     --chart-zone: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    --tw-up: oklch(70% 0.19 25); --tw-down: oklch(75% 0.16 150); --tw-up-inv: oklch(52% 0.2 27); --tw-down-inv: oklch(50% 0.14 150);
   }
 }
 html, body { overflow-x: clip; }
@@ -734,16 +749,18 @@ a:hover { background: var(--color-accent); color: var(--color-accent-ink); }
 .chart .grid { stroke: var(--color-paper-3); stroke-width: 1; }
 .chart .ref { stroke: var(--color-paper-3); stroke-width: 1; }
 .chart .ref-mid { stroke: var(--color-muted); }
-.chart .wick { stroke: var(--color-ink); stroke-width: 1; }
-.chart .up { fill: var(--color-paper); stroke: var(--color-ink); stroke-width: 1; }
-.chart .dn { fill: var(--color-ink); }
-.chart .vol.up { fill: var(--chart-1); stroke: none; }
-.chart .vol.dn { fill: var(--chart-3); }
+[data-dir="up"] { color: var(--tw-up); } [data-dir="down"] { color: var(--tw-down); } [data-dir="flat"] { color: var(--tw-flat); }
+.cell--ink { --tw-up: var(--tw-up-inv); --tw-down: var(--tw-down-inv); }
+.chart .wick { stroke: currentColor; stroke-width: 1; }
+.chart .body { fill: currentColor; }
+.chart .k[data-dir="flat"] .body { stroke: currentColor; stroke-width: 1.5; }
+.chart .vol { fill: currentColor; fill-opacity: 0.6; }
 .chart .ln { fill: none; stroke-width: 2; stroke-linejoin: round; }
 .chart .ma5 { stroke: var(--chart-1); } .chart .ma10 { stroke: var(--chart-2); } .chart .ma20 { stroke: var(--chart-3); } .chart .ma60 { stroke: var(--chart-4); stroke-width: 3; }
 .chart .main { stroke: var(--color-ink); }
 .chart .dot { fill: var(--color-accent); stroke: var(--color-ink); stroke-width: 2; }
 .chart .bar.pos { fill: var(--color-ink); } .chart .bar.neg { fill: var(--chart-1); }
+.chart .bar[data-dir] { fill: currentColor; }
 .chart .zone { fill: var(--chart-zone); }
 .chart .lvl line { stroke: var(--color-ink); stroke-width: 1.5; }
 .chart .lvl-sl line { stroke-width: 3; }
@@ -754,7 +771,7 @@ a:hover { background: var(--color-accent); color: var(--color-accent-ink); }
 .legend li { display: inline-flex; align-items: center; gap: var(--space-2xs); }
 .sw { display: inline-block; width: 18px; height: 3px; background: var(--chart-4); }
 .sw-ma5 { background: var(--chart-1); } .sw-ma10 { background: var(--chart-2); } .sw-ma20 { background: var(--chart-3); } .sw-ma60 { height: 4px; }
-.sw-up { width: 10px; height: 14px; background: var(--color-paper); border: 1px solid var(--color-ink); } .sw-dn { width: 10px; height: 14px; background: var(--color-ink); }
+.sw-k { width: 10px; height: 14px; background: currentColor; }
 .scroll { overflow-x: auto; border: var(--rule-bar) solid var(--color-rule); }
 tr.full td { border-bottom: var(--rule-bar) solid var(--color-rule); position: static; background: var(--color-paper-2); }
 tr.full td p { max-width: 72ch; }

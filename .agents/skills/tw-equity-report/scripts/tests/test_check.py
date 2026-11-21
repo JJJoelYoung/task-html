@@ -252,5 +252,53 @@ class UpgradeChecks(unittest.TestCase):
         self.assertTrue(any("data-baseline=ntm" in f for f in c_bad.failures))
 
 
+class MarketColours(unittest.TestCase):
+    CSS = (":root{--tw-up: oklch(55% 0.2 27); --tw-down: oklch(55% 0.15 150); --tw-flat: oklch(50% 0 0)}"
+           "@media (prefers-color-scheme: dark){:root{--tw-up: oklch(68% 0.19 25); --tw-down: oklch(72% 0.16 150)}}"
+           "[data-dir=up]{fill: var(--tw-up)}[data-dir=down]{fill: var(--tw-down)}")
+    DATA = {
+        "price": {"series": [{"date": "d1", "open": 10, "close": 11}, {"date": "d2", "open": 12, "close": 11},
+                             {"date": "d3", "open": 12, "close": 12}]},
+        "institutional": {"daily": [{"date": "d3", "foreign": -50, "trust": 20}]},
+    }
+    X = {"base": {"upside_pct": 12.5}}
+
+    def page(self, css=CSS, d3="up", flow="down", kpi="up", extra=""):
+        candles = f'<rect data-date="d1" data-dir="up"/><rect data-date="d2" data-dir="down"/><rect data-date="d3" data-dir="{d3}"/>'
+        return (f"<style>{css}</style><span data-kpi=\"upside\" data-dir=\"{kpi}\">+12.5%</span>"
+                f'<section id="dim1">{candles}</section>'
+                f'<section id="dim2"><rect data-flow="foreign" data-date="d3" data-dir="{flow}"/>'
+                f'<rect data-flow="trust" data-date="d3" data-dir="up"/></section>'
+                f'<section id="dim6">{candles}{extra}</section>')
+
+    def failures(self, page):
+        c = cr.Check()
+        cr.check_market_colours(c, page, self.DATA, self.X)
+        return c.failures
+
+    def test_pass(self):
+        self.assertEqual(self.failures(self.page()), [])
+
+    def test_wrong_hue(self):
+        f = self.failures(self.page(css=self.CSS.replace("oklch(55% 0.2 27)", "oklch(55% 0.15 150)")))
+        self.assertTrue(any("--tw-up" in m for m in f))
+
+    def test_missing_dark_redefinition(self):
+        css = self.CSS.replace("--tw-up: oklch(68% 0.19 25); ", "")
+        self.assertTrue(any("dark" in m for m in self.failures(self.page(css=css))))
+
+    def test_doji_follows_previous_close(self):
+        self.assertTrue(any("candle direction" in m for m in self.failures(self.page(d3="flat"))))
+
+    def test_flipped_flow_and_kpi(self):
+        f = self.failures(self.page(flow="up", kpi="down"))
+        self.assertTrue(any("dim2 flow" in m for m in f))
+        self.assertTrue(any("data-kpi=upside" in m for m in f))
+
+    def test_signed_text(self):
+        f = self.failures(self.page(extra='<span data-dir="up">−3.2%</span><span data-dir="flat">+0.0%</span>'))
+        self.assertEqual(len([m for m in f if "signed figures" in m]), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

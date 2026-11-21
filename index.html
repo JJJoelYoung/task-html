@@ -28,7 +28,7 @@
   --color-rule: oklch(31% 0.01 250); --color-rule-2: oklch(42% 0.012 250);
   --color-accent: oklch(82% 0.15 80); --color-accent-ink: oklch(18% 0.04 75); --color-focus: oklch(82% 0.15 80);
   --color-cool: oklch(77% 0.12 245);
-  --color-ok: oklch(76% 0.15 150); --color-ok-soft: oklch(24.5% 0.03 150); --color-bad: oklch(70% 0.17 25);
+  --color-up: oklch(68% 0.19 25); --color-up-soft: oklch(24.5% 0.045 25); --color-down: oklch(74% 0.16 150);
   --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-cjk: "Noto Sans TC", -apple-system, sans-serif;
   --font-body: var(--font-display), var(--font-cjk);
@@ -373,9 +373,9 @@ h1, h2, h3 {
 }
 
 .tone-accent { color: var(--color-accent); }
-.tone-ok { color: var(--color-ok); }
+.tone-ok { color: var(--color-up); }
 .tone-muted { color: var(--color-muted); }
-.tone-bad { color: var(--color-bad); }
+.tone-bad { color: var(--color-down); }
 
 .artifact-action {
   display: inline-flex;
@@ -410,9 +410,9 @@ h1, h2, h3 {
 }
 
 .artifact-badge--active {
-  color: var(--color-ok);
-  background: var(--color-ok-soft);
-  border-color: color-mix(in oklch, var(--color-ok) 45%, var(--color-rule));
+  color: var(--color-up);
+  background: var(--color-up-soft);
+  border-color: color-mix(in oklch, var(--color-up) 45%, var(--color-rule));
 }
 
 .artifact-badge--neutral {

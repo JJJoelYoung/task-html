@@ -248,6 +248,23 @@ def derive(d, a):
     }
 
 
+# ---------------------------------------------------------------- market colours
+
+def sign_dir(v):
+    """Taiwan colour direction of a signed value: up (red), down (green), or flat."""
+    if v is None or v == 0:
+        return "flat"
+    return "up" if v > 0 else "down"
+
+
+def bar_dir(series, i):
+    """Direction of candle i: close vs open; a doji (close == open) compares with the previous close."""
+    s = series[i]
+    if s["close"] != s["open"]:
+        return sign_dir(s["close"] - s["open"])
+    return sign_dir(s["close"] - series[i - 1]["close"]) if i > 0 else "flat"
+
+
 # ---------------------------------------------------------------- formats
 
 def fmt_price(p):
