@@ -20,6 +20,7 @@ sys.path.insert(0, str(HERE.parent))
 from cache import Fetcher  # noqa: E402
 from exchange import (TAIEX_NAME, TPEX_INSTI, TPEX_QUOTES, TWSE_QFIIS, TWSE_QUOTES, TWSE_T86,  # noqa: E402
                       tpex_ok, twse_ok, url_for)
+from mops import INCOME_URL, has_code_header, income_form, revenue_url  # noqa: E402
 
 FIXTURES = HERE / "fixtures"
 FIXTURE_CODES = ["1101", "1303", "1409", "2330", "2801", "3481", "3673", "0050", "00400A", "00625K", "00411A",
@@ -93,11 +94,46 @@ def exchange_fixtures(fetcher):
         print(f"{name}: {rows} rows kept")
 
 
+REVENUE_INDUSTRIES = ("水泥工業", "塑膠工業")
+INCOME_CODES = ("1101", "2801", "1409")
+TAGS = re.compile(r"<[^>]+>")
+
+
+def trim_revenue(html):
+    """Keep the page shell, the grand-total table, and the REVENUE_INDUSTRIES blocks."""
+    starts = [m.start() for m in re.finditer(r"<table border=0 width=100%><tr><th class=tt align=left >產業別：", html)]
+    total = html.rfind("<table", 0, html.rfind("合計"))
+    blocks = [html[s:e] for s, e in zip(starts, starts[1:] + [total])]
+    keep = [b for b in blocks if any(f"產業別：{name}</th>" in b[:300] for name in REVENUE_INDUSTRIES)]
+    return html[:starts[0]] + "".join(keep) + html[total:]
+
+
+def trim_income(html):
+    """Keep every table and header row; keep only the data rows of INCOME_CODES."""
+    def keep(m):
+        first = re.search(r"(?is)<td[^>]*>(.*?)</td>", m.group(0))
+        return m.group(0) if first and TAGS.sub("", first.group(1)).strip() in INCOME_CODES else ""
+
+    return re.sub(r"(?is)<tr class='(?:even|odd)'>.*?</tr>", keep, html)
+
+
+def mops_fixtures(fetcher):
+    rev = fetcher.get("rev_sii_0", "2026-10", revenue_url("sii", 0, 2026, 10), encoding="cp950",
+                      validate=has_code_header)
+    (FIXTURES / "mops_sii_115_10_0.html").write_bytes(trim_revenue(rev).encode("cp950"))
+    inc = fetcher.get("inc_sii", "2026-Q3", INCOME_URL, encoding="utf-8", validate=has_code_header,
+                      form=income_form("sii", 2026, 3))
+    (FIXTURES / "mops_t163sb04_sii_115_03.html").write_text(trim_income(inc), encoding="utf-8")
+    for name in ("mops_sii_115_10_0.html", "mops_t163sb04_sii_115_03.html"):
+        print(f"{name}: {(FIXTURES / name).stat().st_size:,} bytes")
+
+
 def main():
     FIXTURES.mkdir(exist_ok=True)
     fetcher = Fetcher()
     isin_fixtures(fetcher, date.today().isoformat())
     exchange_fixtures(fetcher)
+    mops_fixtures(fetcher)
     print(f"network calls: {fetcher.network_calls}")
 
 
