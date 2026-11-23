@@ -1,6 +1,28 @@
 """Test helpers shared by the tw-equity-screener suite (no network)."""
 
+import json
 from datetime import date, timedelta
+from pathlib import Path
+
+FIXTURE_DIR = Path(__file__).resolve().parent / "fixtures"
+
+
+def fixture(name, encoding):
+    """A fixture file's text, decoded with the source's own encoding."""
+    return (FIXTURE_DIR / name).read_text(encoding=encoding)
+
+
+def fx(name):
+    """A JSON fixture, parsed."""
+    return json.loads(fixture(name, "utf-8"))
+
+
+def sec(code, listing_date, market, name="n", industry="i", board="main"):
+    """A Security with placeholder ISIN and CFI values."""
+    from universe import Security
+
+    return Security(code=code, name=name, isin=f"TW000{code}", listing_date=listing_date, market=market,
+                    board=board, industry=industry, cfi="ESVUFR")
 
 
 def price_rows(closes, volumes=None, start=date(2026, 1, 5)):
