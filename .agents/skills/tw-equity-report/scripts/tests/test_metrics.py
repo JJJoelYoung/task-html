@@ -205,6 +205,15 @@ class Valuation(unittest.TestCase):
         self.assertIsNone(mt.peer_matrix(rows[:1])["median"])
 
 
+class Yoy6Median(unittest.TestCase):
+    def test_yoy6_median_last_six(self):
+        rev = {"last12": [{"yoy_pct": v} for v in [5, 1, 2, 3, 4, 9, 10, 20, None, 40, 50, 60]]}
+        self.assertEqual(mt.yoy6_median(rev), 40.0)  # last six: 10, 20, None, 40, 50, 60
+
+    def test_yoy6_median_none(self):
+        self.assertIsNone(mt.yoy6_median({"last12": [{"yoy_pct": None}] * 6}))
+
+
 class CoreBaseline(unittest.TestCase):
     @staticmethod
     def _rev(yoy=20.0, rev=100.0):

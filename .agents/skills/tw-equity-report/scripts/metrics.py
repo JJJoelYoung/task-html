@@ -373,6 +373,12 @@ def financials(inc, bal, cf, asof, gaps):
     }
 
 
+def yoy6_median(rev):
+    """Median of the non-null revenue YoY over the last six months, or None (methodology section 4)."""
+    last12 = (rev or {}).get("last12") or []
+    return percentile(sorted(r["yoy_pct"] for r in last12[-6:] if r.get("yoy_pct") is not None), 50)
+
+
 def core_baseline(rev, fin):
     """Dual CY and rolling NTM core operating run-rate baseline EPS (methodology section 4)."""
 
@@ -415,11 +421,10 @@ def core_baseline(rev, fin):
         return _na("missing_shares")
 
     last12 = (rev or {}).get("last12") or []
-    yoys6 = sorted(r["yoy_pct"] for r in last12[-6:] if r.get("yoy_pct") is not None)
-    if not yoys6:
+    med_yoy = yoy6_median(rev)
+    if med_yoy is None:
         return _na("missing_yoy")
 
-    med_yoy = percentile(yoys6, 50)
     ttm_opm = ttm_oi / ttm_rev
 
     if all(q.get("tax") is not None and q.get("pretax_income") is not None for q in last4):
