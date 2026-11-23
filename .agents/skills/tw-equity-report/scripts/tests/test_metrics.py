@@ -135,6 +135,16 @@ class Operations(unittest.TestCase):
         self.assertIsNone(r["ytd_yoy_pct"])
         self.assertIn("2025-02", gaps[0])
 
+    def test_revenue_missing_current_year_month_is_null(self):    # a filer that starts mid-year
+        rows = [{"revenue_year": y, "revenue_month": m, "revenue": 100}
+                for y in (2025, 2026) for m in range(1, 4) if (y, m) != (2026, 1)]
+        gaps = []
+        r = mt.revenue(rows, gaps)
+        self.assertEqual((r["latest_period"], r["ytd"], r["ytd_yoy_pct"]), ("2026-03", None, None))
+        self.assertEqual(next(x for x in r["last12"] if x["period"] == "2026-03")["yoy_pct"], 0.0)
+        self.assertIn("2026-01", gaps[0])
+        self.assertIn("ytd yoy", gaps[0].lower())      # check_report looks for this phrase
+
     def test_usable_deadlines(self):
         self.assertFalse(mt.usable("2026-09-30", "2026-11-13"))
         self.assertTrue(mt.usable("2026-09-30", "2026-11-14"))

@@ -234,17 +234,18 @@ def revenue(rows, gaps):
                 "yoy_pct": r1(pct(v, by.get((y - 1, m)))) if by.get((y - 1, m)) else None,
             }
         )
-    ytd = sum(by[(ly, m)] for m in range(1, lm + 1))
+    missing = [f"{ly}-{m:02d}" for m in range(1, lm + 1) if (ly, m) not in by]
+    ytd = None if missing else sum(by[(ly, m)] for m in range(1, lm + 1))
     absent = [f"{ly - 1}-{m:02d}" for m in range(1, lm + 1) if (ly - 1, m) not in by]
     ytd_prev = None if absent else sum(by[(ly - 1, m)] for m in range(1, lm + 1))
-    if absent:
-        gaps.append(f"Revenue for {', '.join(absent)} is missing; YTD YoY is null.")
+    if absent or missing:
+        gaps.append(f"Revenue for {', '.join(sorted(absent + missing))} is missing; YTD YoY is null.")
     series24 = [{"period": f"{y}-{m:02d}", "revenue": by[(y, m)]} for y, m in keys[-24:]]
     return {
         "latest_period": f"{ly}-{lm:02d}",
         "ytd": ytd,
         "ytd_prev": ytd_prev,
-        "ytd_yoy_pct": r1(pct(ytd, ytd_prev)) if ytd_prev is not None else None,
+        "ytd_yoy_pct": r1(pct(ytd, ytd_prev)) if ytd is not None and ytd_prev is not None else None,
         "last12": last12,
         "series24": series24,
     }
