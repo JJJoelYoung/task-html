@@ -23,6 +23,8 @@ TEXT_COLUMNS = {"asof", "week", "methodology_version", "key", "code", "name", "m
 LIST_COLUMNS = {"flags", "tags"}
 STATUS_TAGS = EXCLUDE_TAGS | FLAG_TAGS          # board and lane flags (tib, exception_lane) are not status tags
 LISTS = ("actionable", "left_watch")
+WEEK_FILES = ("universe.csv", "scores.csv", "events.json", "funnel.json", "shortlist.json", "watch.json",
+              "diff.json")
 FORWARD_FIELDS = ("week", "asof", "list", "code", "close")
 FORWARD_LISTS = ("tier_a", "actionable")
 HORIZONS = (4, 13, 26, 52)
@@ -108,7 +110,12 @@ def read_csv(path):
 
 def read_week(root, week):
     """A written week folder as {stem: parsed content}, or None when the folder does not exist."""
-    folder = screens_dir(root) / week
+    return read_folder(screens_dir(root) / week)
+
+
+def read_folder(folder):
+    """Every .json and .csv file in a week folder, parsed, keyed by file stem; None when the folder is absent."""
+    folder = Path(folder)
     if not folder.is_dir():
         return None
     out = {}
