@@ -132,7 +132,9 @@ def _gate(s, track_, tags, f, non_general, params):
         return "excluded_financial", None
     if s.code in non_general:
         return "insufficient_data", "non_general_template"
-    if f.get("ttm_op_income") is not None and f["ttm_op_income"] <= 0:
+    if f.get("op_income_recent") is None:              # profitability unknown: never passed through the loss test
+        return "insufficient_data", "no_income"
+    if f["op_income_recent"] <= 0:
         return "excluded_loss", None
     return None, None
 

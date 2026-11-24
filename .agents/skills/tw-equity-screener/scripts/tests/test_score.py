@@ -12,7 +12,7 @@ from score import (PARAMS, STATUSES, composite, run_funnel, sector_scores, track
                    zscores)
 
 P0 = dict(PARAMS, winsor=(0, 100))      # no clamping, so synthetic z-scores stay exact
-BASE = {"close": 50.0, "adv20": 1e8, "ttm_op_income": 100, "rev_yoy_med6": 5.0, "rev_accel": 0.0, "rev_surge": 0.0,
+BASE = {"close": 50.0, "adv20": 1e8, "op_income_recent": 100,"rev_yoy_med6": 5.0, "rev_accel": 0.0, "rev_surge": 0.0,
         "opm_delta_4q": 0.0, "earnings_yield": 5.0, "book_yield": 50.0, "opm_ttm": 10.0, "opm_spread_4q": 2.0,
         "roe_ttm": 10.0, "flow20_pct": 0.1, "trust_days20": 5, "persist13": 4, "rev3": 110, "rev3_ly": 100,
         "rev_yoy3": 10.0, "ret13w": 5.0, "one_off": False}
@@ -164,7 +164,7 @@ class Funnel(unittest.TestCase):
             S("E1", market="emerging", track="watch"), S("Y1", track="watch"),
             S("X1", tags={"altered_trading"}), S("X2", tags={"suspended", "attention"}),
             S("N1", f={"close": None}), S("L1", f={"adv20": 29_999_999.0}), S("P1", f={"close": 9.99}),
-            S("F1", "金融保險業"), S("G1", "紡織纖維"), S("O1", f={"ttm_op_income": 0}),
+            S("F1", "金融保險業"), S("G1", "紡織纖維"), S("O1", f={"op_income_recent": 0}),
             S("U1", "B", f={k: None for k in ("opm_ttm", "opm_spread_4q", "roe_ttm", "flow20_pct", "trust_days20",
                                               "persist13")}),
             S("A0", "A", f={"opm_ttm": 0.0, "opm_spread_4q": 20.0, "roe_ttm": 0.0}),
@@ -203,6 +203,12 @@ class Funnel(unittest.TestCase):
     def test_non_general_template_not_financial_is_insufficient(self):   # Review Focus 5
         rows, _ = universe(S("1409", "紡織纖維"), *[S(f"A{i}") for i in range(5)], non_general={"1409"})
         self.assertEqual((rows["1409"]["status"], rows["1409"]["reason"]), ("insufficient_data", "non_general_template"))
+
+    def test_unknown_operating_income_is_insufficient(self):     # final review I2: never passed through L2
+        rows, _ = universe(S("Q1", f={"op_income_recent": None}), S("Q2", f={"op_income_recent": -1}),
+                           *[S(f"A{i}") for i in range(5)])
+        self.assertEqual((rows["Q1"]["status"], rows["Q1"]["reason"]), ("insufficient_data", "no_income"))
+        self.assertEqual(rows["Q2"]["status"], "excluded_loss")
 
 
 if __name__ == "__main__":

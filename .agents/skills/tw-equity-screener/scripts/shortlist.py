@@ -39,12 +39,24 @@ def _dig(d, path):
 
 
 def deep_metrics(code, asof, cache_dir, build=shared.fetch_build):
-    """DEEP_FIELDS from fetch.build(code, [], asof), cached whole at {cache_dir}/finmind/{asof}/{code}.json."""
+    """DEEP_FIELDS from fetch.build(code, [], asof), cached whole at {cache_dir}/finmind/{asof}/{code}.json.
+
+    QuotaError, NotPublishedError, and network errors propagate, so a rerun resumes from the cache. Any other
+    build failure (FinMind lacks a section for this name) gives every field None and a gap, and is not cached."""
     path = cache_dir / "finmind" / asof / f"{code}.json"
     if path.exists():
         data = json.loads(path.read_text(encoding="utf-8"))
     else:
-        data = build(code, [], asof)            # QuotaError / NotPublishedError propagate; nothing is written
+        try:
+            data = build(code, [], asof)
+        except (shared.QuotaError, shared.NotPublishedError, OSError):
+            raise
+        except Exception as e:
+            print(f"deep metrics unavailable for {code}: {type(e).__name__}: {e}", flush=True)
+            return dict(dict.fromkeys(DEEP_FIELDS), gaps=[f"deep metrics unavailable: {type(e).__name__}: {e}"])
+        if data.get("asof", asof) < asof:       # every shortlisted code traded on asof (L1), so FinMind is behind
+            raise shared.NotPublishedError(f"FinMind prices for {code} end at {data['asof']}, before {asof}; "
+                                           "FinMind usually adds a day in the evening, so rerun later")
         path.parent.mkdir(parents=True, exist_ok=True)
         tmp = path.with_suffix(".tmp")
         tmp.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")

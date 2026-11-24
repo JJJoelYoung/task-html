@@ -45,7 +45,7 @@ The footer carries the data sources, `asof`, `methodology_version`, the model an
 
 | File | Fields |
 | --- | --- |
-| `funnel.json` | `counts` {L0, L0_full, L0_watch, L1–L6}; `statuses` {status: n}; `sectors` {industry: n, rev_breadth, rev_yoy3, rel_ret13, trend_breadth, score, unfavoured}; `regime`; `params`; `forward` {`stats`: `forward_stats` rows, `buy_conversion`} |
+| `funnel.json` | `counts` {L0, L0_full, L0_watch, L1–L6}; `statuses` {status: n}; `sectors` {industry: n, rev_breadth, rev_yoy3, rel_ret13, trend_breadth, score, unfavoured}; `regime`; `closed_dates` (skipped calendar closures); `params`; `forward` {`stats`: `forward_stats` rows, `buy_conversion`} |
 | `funnel.json` `params` | `score.PARAMS` plus `shortlist` {enter, stay, cap, left_n, tier_a_proxy}. The method text, the layer notes, and the leads print their numbers from here. |
 | `shortlist.json` | `actionable`, `left_watch`: rows {code, name, industry, rank, rank_trend, composite, groups {growth, valuation, quality, flow, persistence}, flags, deep, buy_proxy, tier, command}; `tier_a`: codes |
 | `diff.json` | `entered`, `exited`, `rank_delta`, `streak`, `composite_delta`, `reports` |

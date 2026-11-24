@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from cache import Fetcher, NoDataError  # noqa: E402
 from exchange import (fetch_day, fetch_valuation, num, parse_qfiis, parse_t86, parse_taiex,  # noqa: E402
-                      parse_tpex_insti, parse_tpex_quotes, parse_twse_quotes, parse_valuation, resolve_asof)
+                      parse_tpex_insti, parse_tpex_quotes, parse_twse_quotes, parse_valuation, resolve_asof, traded)
 from helpers import fixture, fx  # noqa: E402
 
 FIXTURE_BY_SOURCE = {
@@ -227,6 +227,39 @@ class ResolveAsof(unittest.TestCase):
         with self.assertRaises(NoDataError):
             resolve_asof(f, "2026-11-23", self.DATES)
         self.assertEqual([key for _, key in f.calls], ["2026-11-23", "2026-11-20", "2026-11-19", "2026-11-18"])
+
+
+class ScriptedFetcher:
+    """Answers each source with a fixed JSON payload through the caller's validator."""
+
+    def __init__(self, **payloads):
+        self.payloads = payloads
+
+    def get(self, source, key, url, *, encoding, validate, **kw):
+        text = json.dumps(self.payloads[source])
+        if not validate(text):
+            raise NoDataError(source)
+        return text
+
+
+class Traded(unittest.TestCase):
+    """A calendar date traded when either board has quotes dated that day (final review I1)."""
+
+    NO_DATA = {"stat": "很抱歉，沒有符合條件的資料!"}
+
+    @staticmethod
+    def quotes(stat, date):
+        return {"stat": stat, "date": date, "tables": [{"title": "行情", "data": [["2330"]]}]}
+
+    def test_traded(self):
+        empty = {"stat": "ok", "date": "20261002", "tables": [{"title": "上櫃股票行情", "data": []}]}
+        cases = [((self.NO_DATA, empty), False),                              # neither board: a closure
+                 ((self.NO_DATA, self.quotes("ok", "20261001")), False),      # TPEx answers another day's table
+                 ((self.NO_DATA, self.quotes("ok", "20261002")), True),
+                 ((self.quotes("OK", "20261002"), empty), True)]
+        for (twse, tpex), want in cases:
+            with self.subTest(twse=twse.get("date"), tpex=tpex.get("date"), rows=bool(tpex["tables"][0]["data"])):
+                self.assertIs(traded(ScriptedFetcher(twse_quotes=twse, tpex_quotes=tpex), "2026-10-02"), want)
 
 
 if __name__ == "__main__":

@@ -184,6 +184,19 @@ def fetch_valuation(fetcher, date):
     return parse_valuation(twse, tpex)
 
 
+def traded(fetcher, date):
+    """Whether either board has quotes dated `date`. A calendar date that neither board traded is a closure the
+    trading calendar still lists, such as a typhoon day."""
+    ymd = date.replace("-", "")
+    for source, template, ok in (("twse_quotes", TWSE_QUOTES, twse_ok), ("tpex_quotes", TPEX_QUOTES, tpex_ok)):
+        try:
+            _fetch(fetcher, source, template, date, _dated(ok, ymd))
+            return True
+        except NoDataError:
+            pass
+    return False
+
+
 def resolve_asof(fetcher, today, trading_dates):
     """The latest trading date on or before `today` whose TWSE quotes validate, stepping back at most 3 dates."""
     candidates = sorted((d for d in trading_dates if d <= today), reverse=True)[:ASOF_STEP_BACKS + 1]

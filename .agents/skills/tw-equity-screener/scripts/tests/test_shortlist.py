@@ -1,14 +1,17 @@
 """Unit tests for shortlist.py: hysteresis selection, deep metrics cache, BUY proxy, and tiers (no network)."""
 
+import io
 import json
 import sys
 import tempfile
 import unittest
+import urllib.error
+from contextlib import redirect_stdout
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from shared import QuotaError  # noqa: E402
-from shortlist import buy_proxy, deep_metrics, select, tier  # noqa: E402
+from shared import NotPublishedError, QuotaError  # noqa: E402
+from shortlist import DEEP_FIELDS, buy_proxy, deep_metrics, select, tier  # noqa: E402
 
 BUILD = {"gaps": ["g1"], "price": {"metrics": {"close": 120.0}},
          "valuation": {"PER": {"p50": 15.0, "current_percentile": 40.0}, "PBR": {"current_percentile": 55.0}},
@@ -112,6 +115,36 @@ class Deep(unittest.TestCase):
             with self.assertRaises(QuotaError):
                 deep_metrics("2330", "2026-11-20", Path(tmp), build=build)
             self.assertFalse((Path(tmp) / "finmind" / "2026-11-20" / "2330.json").exists())
+
+    def test_build_behind_asof_is_not_published(self):     # final review I3: FinMind has not added asof yet
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(NotPublishedError) as caught:
+                deep_metrics("2330", "2026-11-20", Path(tmp), build=lambda c, p, a: dict(BUILD, asof="2026-11-19"))
+            self.assertFalse((Path(tmp) / "finmind").exists())
+            dm = deep_metrics("2330", "2026-11-20", Path(tmp), build=lambda c, p, a: dict(BUILD, asof="2026-11-20"))
+        self.assertIn("2026-11-19", str(caught.exception))
+        self.assertEqual(dm["close"], 120.0)
+
+    def test_failed_build_gives_empty_metrics_uncached(self):     # final review I5: one name never stops the week
+        def build(code, peers, asof):
+            raise IndexError("list index out of range")
+
+        with tempfile.TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()) as out:
+            dm = deep_metrics("2330", "2026-11-20", Path(tmp), build=build)
+            self.assertFalse((Path(tmp) / "finmind").exists())
+        self.assertEqual(dm, dict(dict.fromkeys(DEEP_FIELDS),
+                                  gaps=["deep metrics unavailable: IndexError: list index out of range"]))
+        self.assertIsNone(buy_proxy(dm))
+        self.assertIn("deep metrics unavailable for 2330", out.getvalue())
+
+    def test_network_and_unpublished_errors_propagate(self):     # a rerun resumes from the cache
+        for error in (urllib.error.URLError("down"), ConnectionResetError("reset"), NotPublishedError("W20")):
+            def build(code, peers, asof, error=error):
+                raise error
+
+            with tempfile.TemporaryDirectory() as tmp, self.subTest(error=type(error).__name__):
+                with self.assertRaises(type(error)):
+                    deep_metrics("2330", "2026-11-20", Path(tmp), build=build)
 
 
 if __name__ == "__main__":

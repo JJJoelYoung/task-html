@@ -87,8 +87,9 @@ def html_table(head, rows):
 class World:
     """Every source a run reads, generated from STOCKS. The switches break one source each."""
 
-    def __init__(self, duplicate_isin=False, tpex_per_lag=False):
+    def __init__(self, duplicate_isin=False, tpex_per_lag=False, closed=(), twse_missing=()):
         self.duplicate_isin, self.tpex_per_lag = duplicate_isin, tpex_per_lag
+        self.closed, self.twse_missing = set(closed), set(twse_missing)     # no quotes on both boards / on TWSE
         self.stocks = [dict(zip(FIELDS, s)) for s in STOCKS]
 
     def respond(self, source, key):
@@ -123,6 +124,8 @@ class World:
                 and (s["code"], d) not in GAPS]
 
     def twse_quotes(self, d):
+        if d in self.closed | self.twse_missing:
+            return {"stat": "很抱歉，沒有符合條件的資料!"}
         rows = [[s["code"], s["name"], f"{s['volume']:,.0f}", "1", f"{self.close(s, d) * s['volume']:,.0f}",
                  *[f"{self.close(s, d):.2f}"] * 4] for s in self.on(d, "sii")]
         return {"stat": "OK", "date": d.replace("-", ""), "tables": [
@@ -136,7 +139,7 @@ class World:
             c = f"{self.close(s, d):.2f}"
             return [s["code"], s["name"], c, c, c, c, f"{s['volume']:,.0f}", f"{self.close(s, d) * s['volume']:,.0f}",
                     "1,000,000,000"]
-        otc = self.on(d, "otc")
+        otc = [] if d in self.closed else self.on(d, "otc")
         return {"stat": "ok", "date": d.replace("-", ""), "tables": [
             {"title": "上櫃股票行情", "fields": TPEX_FIELDS, "data": [row(s) for s in otc if s["code"] not in MANAGED]},
             {"title": "管理股票", "fields": TPEX_FIELDS, "data": [row(s) for s in otc if s["code"] in MANAGED]}]}
@@ -321,6 +324,25 @@ class Guards(unittest.TestCase):
                              MemoryFetcher(World(tpex_per_lag=True), self.cache), "2026-11-21")
         self.assertEqual(code, 3, out)
         self.assertIn("tpex_per/2026-11-20", out)
+
+    def test_calendar_closure_is_skipped(self):      # final review I1: a typhoon day the calendar still lists
+        f = MemoryFetcher(World(closed={"2026-11-10"}), self.cache)
+        code, out = run_main(["--backfill", "--root", str(self.root)], f, "2026-11-21")
+        self.assertEqual(code, 0, out)
+        self.assertIn("skipped 1 calendar date that neither board traded: 2026-11-10", out)
+        funnel = json.loads((screens_dir(self.root) / "2026-w47" / "funnel.json").read_text(encoding="utf-8"))
+        self.assertEqual(funnel["closed_dates"], ["2026-11-10"])
+        self.assertEqual((funnel["regime"]["transition"], funnel["regime"]["reasons"]), (False, []))   # 270 closes
+        self.assertFalse([key for key in f.cache if key[1] == "2026-11-10"])                         # never cached
+        self.assertEqual(len([key for key in f.cache if key[0] == "twse_t86"]), 30)                  # 30 traded dates
+        self.assertEqual(len({key[1] for key in f.cache if key[0] == "twse_quotes"}), 270)
+
+    def test_past_date_missing_on_twse_only_exits_3(self):     # the other board traded, so it is not a closure
+        code, out = run_main(["--backfill", "--root", str(self.root)],
+                             MemoryFetcher(World(twse_missing={"2026-11-10"}), self.cache), "2026-11-21")
+        self.assertEqual(code, 3, out)
+        self.assertIn("twse_quotes/2026-11-10", out)
+        self.assertFalse(screens_dir(self.root).exists())
 
 
 class Pipeline(unittest.TestCase):

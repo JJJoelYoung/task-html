@@ -13,7 +13,7 @@ The rules and parameters of the weekly screen. The scripts implement them, and e
   - A quarterly season is used only on or after its deadline: Q1 May 15, Q2 Aug 14, Q3 Nov 14, and Q4 Mar 31 of the next year. The run reads the 9 latest due seasons.
   - The market's latest revenue month is the previous month from the 11th on, and the month before that until then. The run reads the 25 months up to it.
   - The ISIN lists and snapshot tables for a past `asof` come only from the cache of a live run on that date.
-- **Windows**: 270 trading dates of daily tables, with flows and holdings for the latest 30.
+- **Windows**: 270 trading dates of daily tables, with flows and holdings for the latest 30. A calendar date before `asof` that neither board traded (a typhoon closure the calendar still lists) is skipped, never cached, and listed in `funnel.json` `closed_dates`; the next older date takes its place.
 - **Units**: percent or percentage points, except `rev_surge` (a z-score) and counts. Revenue and income are in thousand NT$.
 - **Shared definitions**, imported through `scripts/shared.py` and never restated here:
   - the trend filter: [`tw-equity-report` methodology](../../tw-equity-report/references/methodology.md) section 2, run on the last 120 dates with a close;
@@ -42,7 +42,7 @@ The rules and parameters of the weekly screen. The scripts implement them, and e
 | `opm_delta_4q` | `opm_ttm` of the last 4 quarters − the same over quarters 5 to 8 back | 8 consecutive quarters |
 | `opm_spread_4q` | max − min of the last 4 quarterly operating margins | 4 consecutive quarters |
 | `roe_ttm` | TTM EPS ÷ (close ÷ PBR) × 100 | 4 consecutive quarters; PBR > 0 |
-| `ttm_op_income` | Σ operating income over the last 4 quarters (the L2 loss test) | 4 consecutive quarters |
+| `op_income_recent` | Σ operating income over the latest consecutive quarters, at most 4: the TTM, or fewer for a recent listing (the L2 loss test) | 1 to 4 consecutive quarters ending at the latest, each with operating income |
 | `earnings_yield`, `book_yield` | 100 ÷ PER when PER > 0; 100 ÷ PBR when PBR > 0 | The `asof` valuation tables |
 | `flow20_pct` | Σ (foreign + investment trust) net shares over the last 20 dates ÷ shares outstanding × 100 | Shares outstanding |
 | `trust_days20` | Dates in the last 20 with investment-trust net buying above 0 | |
@@ -71,7 +71,8 @@ Statuses are evaluated in this order, and the first match is final:
 | L1 | Close below NT$10 [J] | `excluded_price` |
 | L2 | Industry 金融保險業 (excluded in v1) | `excluded_financial` |
 | L2 | Non-general template (section 2) | `insufficient_data` (`non_general_template`) |
-| L2 | `ttm_op_income` known and ≤ 0 | `excluded_loss` |
+| L2 | `op_income_recent` unknown (no quarter to test) | `insufficient_data` (`no_income`) |
+| L2 | `op_income_recent` ≤ 0 | `excluded_loss` |
 | Score | Availability below 0.70 (section 4) | `insufficient_data` (`availability`) |
 | L3 | Unfavoured industry, outside the exception lane (section 5) | `excluded_sector` (the industry) |
 | L4 | Any group score below −1 [J] | `excluded_floor` (the groups) |

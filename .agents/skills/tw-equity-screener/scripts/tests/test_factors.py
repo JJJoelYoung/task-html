@@ -113,7 +113,7 @@ class StockFactors(unittest.TestCase):
     def test_quality_valuation_flow(self):
         f = factors_for()
         for key, want in (("opm_ttm", 10.0), ("opm_delta_4q", 5.0), ("opm_spread_4q", 4.0), ("roe_ttm", 10.0),
-                          ("earnings_yield", 5.0), ("book_yield", 50.0), ("flow20_pct", 1.0), ("ttm_op_income", 40)):
+                          ("earnings_yield", 5.0), ("book_yield", 50.0), ("flow20_pct", 1.0), ("op_income_recent", 40)):
             self.assertAlmostEqual(f[key], want, msg=key)
         self.assertEqual((f["trust_days20"], f["close"], f["adv20"]), (20, 100.0, 100000.0))
 
@@ -125,6 +125,14 @@ class StockFactors(unittest.TestCase):
     def test_quarter_gap_gives_none(self):
         f = factors_for(qs=[q for q in quarters() if (q["year"], q["season"]) != (2026, 1)])
         self.assertEqual([f[k] for k in ("opm_ttm", "opm_delta_4q", "opm_spread_4q", "roe_ttm")], [None] * 4)
+
+    def test_recent_op_income_sums_the_latest_run(self):     # final review I2: the L2 loss test on fewer quarters
+        gap = [q for q in quarters() if (q["year"], q["season"]) != (2026, 1)]
+        self.assertEqual(factors_for(qs=gap)["op_income_recent"], 22)          # 2026Q2 + Q3; the gap ends the run
+        self.assertEqual(factors_for(qs=quarters()[-1:])["op_income_recent"], 10)
+        self.assertIsNone(factors_for(qs=[])["op_income_recent"])
+        unknown = quarters(op=(5, 5, 5, 5, 8, 10, None, 10))
+        self.assertIsNone(factors_for(qs=unknown)["op_income_recent"])
 
     def test_nonpositive_valuation_and_missing_shares(self):
         f = factors_for(per=-5.0, pbr=-1.0, shares=None)

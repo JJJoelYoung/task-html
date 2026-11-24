@@ -87,6 +87,7 @@ The token comes from `FINMIND_TOKEN` when it is set. A quota error exits 2; deep
 | **T86 omissions**: T86 and the TPEx institutional table list only the stocks that institutions traded that day. | A missing row is zero flow, never a dropped stock. |
 | **Full-width `Ｙ`**: `tpex_cmode` marks a mode with the full-width `Ｙ`, not `Y`. | Any non-blank value sets the tag. |
 | **`notice` placeholder row**: on a day without notices, `announcement/notice` returns one row with a blank Code. | Blank codes are skipped. |
+| **Calendar closures**: `TaiwanStockTradingDate` can list a date the market did not trade, such as a typhoon closure, until FinMind corrects it (the 2024-07-24 and 07-25 closures were absent when checked on 2026-11-25). | A date before `asof` whose TWSE quotes fail and whose TPEx quotes have no rows dated that day is skipped, never cached, and listed in `funnel.json` `closed_dates`. If either board traded, the run exits 3. |
 | **`TaiwanStockTradingDate` lists future dates**: it is the exchange calendar, not a record of trading. | `asof` resolves among the dates on or before today, stepping back at most 3 dates to the latest one with TWSE quotes. |
 | **TPEx 管理股票 table**: managed stocks trade in their own table of the TPEx quotes, not in 上櫃股票行情. | Read both tables for quotes, and tag the second table's codes `managed`. |
 | **`applylistingLocal` keys**: the keys are shifted by one column. | Read its rows by position. |

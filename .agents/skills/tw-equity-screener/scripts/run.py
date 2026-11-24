@@ -177,13 +177,25 @@ def run(args, fetcher, finmind, build, today):
     prev = hs.read_week(root, prev_week) if prev_week else None
     events = un.events(securities(prev["universe"]) if prev else None, master, pipeline["delisted"])
 
-    # Step 2: the daily tables.
+    # Step 2: the daily tables, newest first. A date before asof that neither board traded is a closure the calendar
+    # still lists (a typhoon day): it is skipped and never cached, and the next older date takes its place.
     print(f"daily tables: {len(past)} dates, {len(missing)} not cached", flush=True)
-    days = {}
-    for i, d in enumerate(past, 1):
-        days[d] = ex.fetch_day(fetcher, d, d in flow_dates)
+    days, closed = {}, []
+    for i, d in enumerate(reversed([d for d in dates if d <= asof]), 1):
+        if len(days) == PANEL_DATES:
+            break
+        try:
+            days[d] = ex.fetch_day(fetcher, d, len(days) < FLOW_DATES)
+        except NoDataError:
+            if d == asof or ex.traded(fetcher, d):
+                raise
+            closed.append(d)
         if len(missing) > BACKFILL_FREE and i % 50 == 0:
-            print(f"daily tables: {i}/{len(past)}", flush=True)
+            print(f"daily tables: {len(days)}/{len(past)}", flush=True)
+    past, closed = sorted(days), sorted(closed)
+    if closed:
+        print(f"skipped {len(closed)} calendar date{'s' * (len(closed) > 1)} that neither board traded: "
+              f"{', '.join(closed)}", flush=True)
     panel = fa.Panel(dates=past, days=days)
     day = days[asof]
 
@@ -256,7 +268,7 @@ def run(args, fetcher, finmind, build, today):
             if r["week"] != week and r["asof"] <= asof]
     tracked = kept + [dict(r, week=week, asof=asof) for r in new_rows]
     look = PanelLookup(panel, root)
-    funnel = {"counts": counts, "statuses": statuses, "sectors": sectors, "regime": regime,
+    funnel = {"counts": counts, "statuses": statuses, "sectors": sectors, "regime": regime, "closed_dates": closed,
               "params": dict(score.PARAMS, shortlist=dict(SHORTLIST, tier_a_proxy=sl.TIER_A_PROXY)),
               "forward": {"stats": hs.forward_stats(tracked, look.close_at, look.taiex_at, look.universe_ret),
                           "buy_conversion": hs.buy_conversion(tracked, reports)}}

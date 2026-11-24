@@ -147,13 +147,24 @@ def _revenue_factors(rev, market_month):
     return out
 
 
+def _latest_run(qs, n):
+    """The latest quarters, at most n, that run consecutively up to the last one."""
+    run = qs[-1:]
+    for q in reversed(qs[-n:-1]):
+        if run[0]["year"] * 4 + run[0]["season"] - (q["year"] * 4 + q["season"]) != 1:
+            break
+        run.insert(0, q)
+    return run
+
+
 def _quality(quarters, close, pbr):
     last4, last8 = _consecutive(quarters, 4), _consecutive(quarters, 8)
-    out = dict.fromkeys(("opm_ttm", "opm_delta_4q", "opm_spread_4q", "roe_ttm", "ttm_op_income"))
+    out = dict.fromkeys(("opm_ttm", "opm_delta_4q", "opm_spread_4q", "roe_ttm", "op_income_recent"))
+    run = _latest_run(quarters, 4)       # the TTM when 4 quarters run consecutively, fewer for a recent listing
+    if run and all(q["op_income"] is not None for q in run):
+        out["op_income_recent"] = sum(q["op_income"] for q in run)
     if last4:
         out["opm_ttm"] = _opm(last4)
-        if all(q["op_income"] is not None for q in last4):
-            out["ttm_op_income"] = sum(q["op_income"] for q in last4)
         margins = [_opm([q]) for q in last4]
         if None not in margins:
             out["opm_spread_4q"] = max(margins) - min(margins)

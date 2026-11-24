@@ -116,7 +116,7 @@ In Traditional Chinese, give the user:
 - the funnel counts and the universe events;
 - the entries and exits;
 - Tier A, with each BUY proxy and its `/tw-equity-report <code>` command;
-- the regime flag, and any gaps: the shortlisted names' `deep.gaps`, the `reconciliation` lists, and the `insufficient_data` count;
+- the regime flag, and any gaps: the shortlisted names' `deep.gaps`, the `reconciliation` lists, `funnel.json` `closed_dates`, and the `insufficient_data` count;
 - any research files, and the linter outcome or why it was skipped;
 - the commit hash and the push result.
 
