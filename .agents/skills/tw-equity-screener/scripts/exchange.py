@@ -119,11 +119,14 @@ def parse_taiex(j):
 
 
 def parse_tpex_quotes(j):
+    """Quotes from 上櫃股票行情 plus 管理股票, whose stocks trade outside the main table, and the managed codes."""
     t = _table(j, "上櫃股票行情")
     managed = _table(j, "管理股票")
+    quotes = _by_code(t["fields"], t["data"], "代號", TPEX_QUOTE_SPEC)
+    if managed["data"]:
+        quotes.update(_by_code(managed["fields"], managed["data"], "代號", TPEX_QUOTE_SPEC))
     code = _columns(managed["fields"], ["代號"])["代號"]
-    return (_by_code(t["fields"], t["data"], "代號", TPEX_QUOTE_SPEC),
-            {str(row[code]).strip() for row in managed["data"]})
+    return quotes, {str(row[code]).strip() for row in managed["data"]}
 
 
 def parse_t86(j):

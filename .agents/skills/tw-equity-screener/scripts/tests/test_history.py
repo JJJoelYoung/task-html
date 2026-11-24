@@ -163,6 +163,14 @@ class Forward(unittest.TestCase):
         s = forward_stats(rows, lambda code, d: 100.0, lambda d: 1000.0, lambda week, d: None)[0]
         self.assertEqual((s["list"], s["hit_rate"], s["median_excess_ew"], s["turnover"]), ("tier_a", 0.0, None, 0.0))
 
+    def test_forward_stats_skips_cohort_before_price_history(self):   # the TAIEX lookup is None before the panel
+        rows = [{"week": w, "asof": a, "list": "actionable", "code": "A", "close": "100"}
+                for w, a in (("2025-w01", "2025-01-03"), ("2025-w36", "2025-09-05"), ("2026-w44", "2026-10-30"))]
+        stats = forward_stats(rows, lambda code, d: 110.0, lambda d: 1000.0 if d >= "2025-06-01" else None,
+                              lambda week, d: None)
+        self.assertEqual([(s["horizon"], s["weeks"], s["names"]) for s in stats],
+                         [(4, 1, 1), (13, 1, 1), (26, 1, 1), (52, 1, 1)])
+
     def test_buy_conversion_rate(self):
         rows = [{"week": "2026-w40", "asof": "2026-10-02", "list": "tier_a", "code": c, "close": "1"}
                 for c in ("A", "B", "C", "D", "E", "F")]

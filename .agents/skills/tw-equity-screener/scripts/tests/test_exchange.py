@@ -119,6 +119,13 @@ class Parsers(unittest.TestCase):
         q, managed = parse_tpex_quotes(fx("tpex_quotes_20261120.json"))
         self.assertEqual((q["00411A"]["close"], q["00411A"]["shares"], managed), (8.19, 481076000, set()))
 
+    def test_tpex_managed_rows_are_quoted(self):    # managed stocks trade in their own table, not 上櫃股票行情
+        j = fx("tpex_quotes_20261120.json")
+        row = ["8044"] + list(j["tables"][0]["data"][0])[1:]
+        next(t for t in j["tables"] if "管理股票" in (t.get("title") or ""))["data"] = [row]
+        q, managed = parse_tpex_quotes(j)
+        self.assertEqual((q["8044"]["close"], q["8044"]["shares"], managed), (8.19, 481076000, {"8044"}))
+
     def test_qfiis(self):
         h = parse_qfiis(fx("twse_qfiis_20261120.json"))["00400A"]
         self.assertEqual((h["shares"], h["foreign_pct"]), (2458640000, 0.54))

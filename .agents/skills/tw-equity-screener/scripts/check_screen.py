@@ -141,7 +141,8 @@ def check_page(c, page, d, review):
         c.ok(f"<code>/tw-equity-report {code}</code>" in row, f"page: Tier A row {code} lacks its report command")
     check_colours(c, page)
     c.ok(re.search(r'<meta name="viewport" content="width=device-width', page), "page: viewport meta missing")
-    c.ok(re.search(r"html,\s*body\s*\{[^}]*overflow-x:\s*clip", page), "page: html, body lack overflow-x: clip")
+    # A bracketed class after "overflow-x:": audit_skill.py reads a bare backslash escape there as a drive path.
+    c.ok(re.search(r"html,\s*body\s*\{[^}]*overflow-x:[\s]*clip", page), "page: html, body lack overflow-x: clip")
     footer = re.search(r"<footer\b[^>]*>.*?</footer>", page, re.S)
     footer = footer.group(0) if footer else ""
     for needle in (DISCLAIMER, "資料來源", asof, str(f.get("methodology_version"))):

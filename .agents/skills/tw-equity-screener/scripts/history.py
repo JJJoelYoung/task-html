@@ -272,7 +272,8 @@ def forward_stats(rows, close_at, taiex_at, universe_ret):
     """Per list and fully elapsed horizon: hit rate vs TAIEX and median excess returns, in percent.
 
     close_at(code, date) and taiex_at(date) give the close on or before a date; universe_ret(week, date) is the
-    equal-weight percent return of that week's L1 stocks to the date. A name with no later close is skipped."""
+    equal-weight percent return of that week's L1 stocks to the date. A name with no later close is skipped, and
+    so is a cohort whose TAIEX close at either end is unknown (taiex_at gives None before the price history)."""
     if not rows:
         return []
     latest = max(r["asof"] for r in rows)
@@ -286,8 +287,10 @@ def forward_stats(rows, close_at, taiex_at, universe_ret):
                 end = (date.fromisoformat(asof) + timedelta(weeks=h)).isoformat()
                 if end > latest:
                     continue
-                cohorts += 1
                 t0, t1 = taiex_at(asof), taiex_at(end)
+                if not t0 or not t1:
+                    continue                    # the cohort starts before the price history the run holds
+                cohorts += 1
                 bench = (t1 / t0 - 1) * 100
                 ew = universe_ret(week, end)
                 for r in names:
