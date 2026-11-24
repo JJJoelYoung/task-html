@@ -33,3 +33,5 @@ __pycache__/
 !.agents/skills/
 .hallmark/
 
+# Per-machine agent settings
+AGENTS.local.md
