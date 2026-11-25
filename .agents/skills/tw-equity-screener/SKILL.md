@@ -21,6 +21,7 @@ Read these when the task needs them:
 - [references/methodology.md](references/methodology.md): every rule and parameter, `methodology_version`, the adoption bar, and the changelog.
 - [references/data-sources.md](references/data-sources.md): each endpoint's URL, encoding, validation, fields, cache key, and quirks.
 - [references/page-contract.md](references/page-contract.md): the weekly page, the portal card, the README row, and what `check_screen.py` checks.
+- [references/known-issues.md](references/known-issues.md): open defects and deferred fixes, with deadlines. Read it before changing a script.
 
 ## Language
 
