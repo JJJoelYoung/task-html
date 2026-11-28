@@ -188,7 +188,7 @@ def derive(d, a):
     rr_hold = (round((base["target"] - close) / (close - bear["target"]), 2)
                if hold_status == "active" else None)
 
-    zone_txt = f"{fmt_price(z_lo)}–{fmt_price(z_hi)}"
+    zone_txt = f"{fmt_price(z_lo)} 至 {fmt_price(z_hi)}"
     if rating_en == "SELL":
         action, note = "avoid", f"Base 上漲空間 {fmt_pct(base['upside_pct'])}，評等賣出"
     elif rating_en == "NEUTRAL":

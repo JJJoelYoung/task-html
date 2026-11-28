@@ -87,7 +87,7 @@ class Uptrend(unittest.TestCase):
 
     def test_action_above_zone(self):
         self.assertEqual((self.x["action"], self.x["action_zh"]), ("wait_pullback", "等回檔或突破"))
-        self.assertEqual(self.x["action_note"], "等回檔至 141.0–145.0，或帶量突破 160.0")
+        self.assertEqual(self.x["action_note"], "等回檔至 141.0 至 145.0，或帶量突破 160.0")
 
 
 class InactiveSetups(unittest.TestCase):
@@ -134,7 +134,7 @@ class Action(unittest.TestCase):
     def test_accumulate_in_zone(self):
         x = self.action(143)
         self.assertEqual(x["action"], "accumulate")
-        self.assertEqual(x["action_note"], "進場區 141.0–145.0，停損 136.0")
+        self.assertEqual(x["action_note"], "進場區 141.0 至 145.0，停損 136.0")
 
     def test_wait_reclaim_below_zone(self):
         self.assertEqual(self.action(138)["action"], "wait_reclaim")
@@ -143,6 +143,15 @@ class Action(unittest.TestCase):
         x = self.action(150, eps=(12, 8.5, 8))  # Base 153, upside +2.0%
         self.assertEqual((x["rating_en"], x["action"]), ("NEUTRAL", "watch"))
         self.assertEqual(x["action_note"], "合理買進價 133.0 以下再評估")
+
+    def test_notes_carry_no_dash(self):
+        """Hallmark gate 19 fails any en or em dash in page copy, and the note is shown verbatim."""
+        cases = [self.action(c) for c in (143, 138, 150)]
+        cases += [self.action(150, eps=(12, 8.5, 8)), self.action(150, eps=(8, 7, 6), mult=(20, 20, 12))]
+        self.assertEqual(len({x["action"] for x in cases}), 5)
+        for x in cases:
+            self.assertNotIn("–", x["action_note"])
+            self.assertNotIn("—", x["action_note"])
 
     def test_avoid_when_sell(self):
         x = self.action(150, eps=(8, 7, 6), mult=(20, 20, 12))  # Base 140, upside -6.7%

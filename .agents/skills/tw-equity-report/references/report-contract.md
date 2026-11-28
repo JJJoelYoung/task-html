@@ -30,6 +30,7 @@ Fetching, metrics, derived values, and checks live once in the skill's `scripts/
   - Red and green hues are reserved for direction; keep MA lines, accents, and other series off them.
   - Candle legend: `收紅（收 > 開）`, `收綠（收 < 開）`, and that a doji follows the previous close.
 - Header shows company, code, market, industry, and `asof`.
+- Page copy carries no en or em dash (Hallmark gate 19 fails it and cannot be waived). Write ranges with 「至」, as `derive` does in `action_note` (`141.0 至 145.0`), so the derived text can be shown as is.
 
 **Markup hooks** that `check_report.py` reads. Prices, signed percentages, multiples, EPS baselines, and R:R use `derive.fmt_price`, `fmt_pct`, `fmt_mult`, `fmt_eps`, and `fmt_rr`.
 
