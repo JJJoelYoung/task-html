@@ -108,7 +108,7 @@ Then, if `node` is available, run `node <hallmark-skill-dir>/scripts/sloplint.mj
 
 1. Stage only the week folder, `scripts/screens/forward.csv`, the page, `index.html`, and `README.md`. Leave every other change unstaged.
 2. Commit with the `conventional-commit` skill: `feat(screener): add {yyyy}-w{ww} weekly screen`.
-3. Push with `git push origin HEAD`. If the push is rejected, stop and report; never force-push.
+3. Push with `git push origin HEAD`. Invoking this skill authorizes the push, scheduled runs included, so never ask first. Run it as a separate command, exactly as written, so a permission allow rule for that command matches it. If the push is rejected, stop and report; never force-push.
 
 ### Step 7: Report back
 

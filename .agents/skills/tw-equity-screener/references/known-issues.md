@@ -42,6 +42,7 @@ Open defects and gaps in `tw-equity-screener`, kept here so they can be schedule
 | M18 | tests | No end-to-end test covers a board transfer between two weeks. | normal | no |
 | M19 | cache | Nothing ever prunes the raw cache, so it grows about 5-8 MB a week. | normal | no |
 | M20 | MOPS | A throttle page during a cold backfill exits 3 as "not published". | normal | no |
+| M21 | BUY proxy | NTM revenue extrapolates past YoY a second time, so hypergrowth names get BUY proxies in the thousands of percent. | normal | yes |
 
 ## Deferred with a deadline
 
@@ -188,3 +189,9 @@ Open defects and gaps in `tw-equity-screener`, kept here so they can be schedule
 - **Where:** `scripts/cache.py` `Fetcher.get`, which raises `NoDataError` when a page fails validation, and `scripts/run.py` `main`, which reports every `NoDataError` as exit 3.
 - **Effect:** the first live backfill (2026-11-28) exited 3 on `rev_sii_0/2026-09` after about 115 MOPS requests, although that month had been out since October. A manual fetch of the same URL moments later returned the full table. MOPS had served a throttle page, and nothing backs off and retries it. A rerun resumes from the cache.
 - **Fix:** for MOPS months and seasons whose publication date has passed, treat a failed validation as a throttle: wait and retry with backoff, and if it still fails, exit with a message that names throttling, not "not published".
+
+### M21. NTM revenue re-extrapolates past growth
+
+- **Where:** `tw-equity-report/scripts/metrics.py` `core_baseline`, reached through `fetch.build`, whose `ntm_eps` `scripts/shortlist.py` copies into `deep.ntm_eps`. The BUY proxy (methodology section 7) multiplies it by the 5-year PER P50.
+- **Effect:** NTM revenue is TTM revenue × (1 + `yoy6_median_pct` ÷ 100). When the last 6 months grew several-fold year over year, the TTM already holds most of that ramp, so the formula counts the growth again. In week 2026-w48, during the memory upcycle, 5289 宜鼎 had a YoY median of 606%, an NTM EPS of 2,032 against a close of 784, and a BUY proxy of 4,775%. 8299, 3006, 3260, 5351, 4973, and 2344 ranged from 803% to 1,962%. Every one of them was trend-fail Tier B with `high_volatility` set, so Tier A was unaffected, but a trend-pass name with the same profile would enter Tier A on a meaningless number. `tw-equity-report` reads the same baseline.
+- **Fix:** project from a run rate, for example the latest 3 months × 4, and cap the growth applied, or keep high-volatility baselines out of Tier A. Either one changes output, so it needs a `METHODOLOGY_VERSION` bump and must be checked against `tw-equity-report`'s BUY rule.
