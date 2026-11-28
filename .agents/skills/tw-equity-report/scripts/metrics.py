@@ -4,6 +4,7 @@ Pure functions: FinMind rows in, metric dicts out. No network access.
 """
 
 LOT = 1000
+TAX_OUTLIER_PP = 10.0  # a quarter this far from the other three's pooled tax rate is left out of the baseline
 Q_DEADLINE = {"03-31": "05-15", "06-30": "08-14", "09-30": "11-14", "12-31": "03-31"}
 STATEMENT_TYPES = [
     "Revenue", "GrossProfit", "OperatingIncome", "CostOfGoodsSold", "EPS",
@@ -391,6 +392,7 @@ def core_baseline(rev, fin):
             "ttm_opm_pct": None,
             "effective_tax_rate_pct": None,
             "tax_source": None,
+            "tax_excluded_quarter": None,
             "parent_ratio_pct": None,
             "parent_source": None,
             "core_net_margin_pct": None,
@@ -438,6 +440,18 @@ def core_baseline(rev, fin):
             eff_tax, tax_src = 0.20, "default_20pct"
     else:
         eff_tax, tax_src = 0.20, "default_20pct"
+
+    tax_excluded = None
+    if tax_src == "ttm_actual" and all(q["pretax_income"] > 0 for q in last4):
+        # One-off quarters (a year-end true-up, a reversal) skew the pooled rate; drop at most one.
+        gaps = []
+        for i, q in enumerate(last4):
+            rest = [o for j, o in enumerate(last4) if j != i]
+            rest_rate = sum(o["tax"] for o in rest) / sum(o["pretax_income"] for o in rest)
+            gaps.append((abs(q["tax"] / q["pretax_income"] - rest_rate), rest_rate, q["quarter"]))
+        gap, rest_rate, quarter = max(gaps)
+        if gap * 100 > TAX_OUTLIER_PP and 0.0 <= rest_rate <= 0.40:
+            eff_tax, tax_src, tax_excluded = rest_rate, "ttm_ex_outlier", quarter
 
     if all(q.get("net_income_parent") is not None and q.get("net_income") is not None for q in last4):
         sum_ni = sum(q["net_income"] for q in last4)
@@ -490,6 +504,7 @@ def core_baseline(rev, fin):
         "ttm_opm_pct": r2(ttm_opm * 100),
         "effective_tax_rate_pct": r2(eff_tax * 100),
         "tax_source": tax_src,
+        "tax_excluded_quarter": tax_excluded,
         "parent_ratio_pct": r2(parent_ratio * 100),
         "parent_source": parent_src,
         "core_net_margin_pct": r2(core_margin * 100),

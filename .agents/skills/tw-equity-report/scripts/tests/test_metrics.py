@@ -239,12 +239,15 @@ class CoreBaseline(unittest.TestCase):
 
     @staticmethod
     def _fin(tax=25.0, pt=100.0, nip=63.75, ni=75.0, eps=0.6375, share_cap=5000.0,
-             ois=(200.0, 200.0, 200.0, 200.0), qs=("2025-12-31", "2026-03-31", "2026-06-30", "2026-09-30")):
+             ois=(200.0, 200.0, 200.0, 200.0), qs=("2025-12-31", "2026-03-31", "2026-06-30", "2026-09-30"),
+             taxes=None, pts=None):
         inc = []
-        for q, oi in zip(qs, ois):
+        for i, (q, oi) in enumerate(zip(qs, ois)):
+            q_tax = taxes[i] if taxes else tax
+            q_pt = pts[i] if pts else pt
             for t, v in (("Revenue", 1000.0), ("OperatingIncome", oi), ("EPS", eps),
                          ("EquityAttributableToOwnersOfParent", nip), ("IncomeAfterTaxes", ni),
-                         ("TAX", tax), ("PreTaxIncome", pt)):
+                         ("TAX", q_tax), ("PreTaxIncome", q_pt)):
                 if v is not None:
                     inc.append({"date": q, "type": t, "value": v})
         bal = [{"date": qs[-1], "type": "OrdinaryShare", "value": share_cap}]
@@ -264,6 +267,7 @@ class CoreBaseline(unittest.TestCase):
         self.assertEqual(cb["shares_used"], 1000)
         self.assertEqual(cb["shares_source"], "implied_latest_q")
         self.assertEqual(cb["tax_source"], "ttm_actual")
+        self.assertIsNone(cb["tax_excluded_quarter"])
         self.assertEqual(cb["parent_source"], "ttm_actual")
         self.assertEqual(cb["effective_tax_rate_pct"], 25.0)
         self.assertEqual(cb["parent_ratio_pct"], 85.0)
@@ -294,12 +298,39 @@ class CoreBaseline(unittest.TestCase):
         self.assertEqual(cb2["shares_used"], 500)
         self.assertEqual(cb2["tax_source"], "default_20pct")
 
+    def test_outlier_tax_quarter_excluded(self):
+        # Pooled TTM 80 / 400 = 20%; the first quarter (5%) sits 20 pp below the other three (25%).
+        rev = self._rev(yoy=20.0, rev=10000.0)
+        cb = mt.core_baseline(rev, self._fin(taxes=(5.0, 25.0, 25.0, 25.0)))
+        self.assertEqual(cb["tax_source"], "ttm_ex_outlier")
+        self.assertEqual(cb["tax_excluded_quarter"], "2025-12-31")
+        self.assertEqual(cb["effective_tax_rate_pct"], 25.0)
+        self.assertEqual(cb["core_net_margin_pct"], 12.75)  # 0.20 x 0.75 x 0.85
+        self.assertFalse(cb["high_volatility"])
+
+    def test_tax_quarter_within_band_kept(self):
+        # The first quarter (20%) is 5 pp off the others: keep the pooled 95 / 400.
+        rev = self._rev(yoy=20.0, rev=10000.0)
+        cb = mt.core_baseline(rev, self._fin(taxes=(20.0, 25.0, 25.0, 25.0)))
+        self.assertEqual(cb["tax_source"], "ttm_actual")
+        self.assertIsNone(cb["tax_excluded_quarter"])
+        self.assertEqual(cb["effective_tax_rate_pct"], 23.75)
+
+    def test_tax_outlier_needs_positive_quarters(self):
+        # A loss quarter has no meaningful rate, so the pooled 80 / 290 stands.
+        rev = self._rev(yoy=20.0, rev=10000.0)
+        cb = mt.core_baseline(rev, self._fin(taxes=(5.0, 25.0, 25.0, 25.0), pts=(-10.0, 100.0, 100.0, 100.0)))
+        self.assertEqual(cb["tax_source"], "ttm_actual")
+        self.assertIsNone(cb["tax_excluded_quarter"])
+        self.assertEqual(cb["effective_tax_rate_pct"], round(80 / 290 * 100, 2))
+
     def test_inapplicable_cases(self):
         rev = self._rev(yoy=20.0, rev=10000.0)
         fin_loss = self._fin(ois=(-50.0, -20.0, 10.0, 20.0))
         cb_loss = mt.core_baseline(rev, fin_loss)
         self.assertFalse(cb_loss["applicable"])
         self.assertEqual(cb_loss["reason"], "nonpositive_operating_income")
+        self.assertIsNone(cb_loss["tax_excluded_quarter"])
 
         fin_gap = self._fin(qs=("2025-09-30", "2026-03-31", "2026-06-30", "2026-09-30"))
         cb_gap = mt.core_baseline(rev, fin_gap)
