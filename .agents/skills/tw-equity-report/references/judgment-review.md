@@ -23,7 +23,8 @@ Apply every check to every item it covers.
 8. **External facts.** Every fact used appears in `research_{code}.md` with the same claim and URL, and none rests on a claim the research file lists as refuted or conflicting without saying so.
 9. **Earnings quality.** The commentary addresses the industry focus in methodology section 4, using the data file's DSI and cash conversion.
 10. **Share dilution.** Verify `analysis.dilution` (`has_cb`, `has_spo`, `summary`, `basis`) accurately reflects `research_{code}.md` (unconverted convertible bonds and announced cash capital increases / 現增), and confirm any potential dilution above `5%` is mirrored in `risks` and reflected in scenario assumptions where material.
+11. **Unverified central claims.** Each claim the research file lists as single-source or unverified that bears on earnings, receivables, impairments, litigation, or dilution is either reflected in `risks` or the scenarios, labelled `單一來源`, or set aside in the research file with a reason. One that is silently dropped is a finding.
 
 ## Output
 
-Return a Markdown list, most consequential first. Each finding gives: the check number, the item (for example `scenarios.Base.eps`), what is wrong with the evidence from the files, and the fix. End with one line: `findings: <n>` and, if there are none, `no findings` after confirming all 10 checks ran on every item.
+Return a Markdown list, most consequential first. Each finding gives: the check number, the item (for example `scenarios.Base.eps`), what is wrong with the evidence from the files, and the fix. End with one line: `findings: <n>` and, if there are none, `no findings` after confirming all 11 checks ran on every item.
