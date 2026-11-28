@@ -96,7 +96,7 @@ def parse_income(page):
             continue
         code_col = head.index("公司代號")
         cols = ({key: head.index(name) for key, name in GENERAL_FIELDS}
-                if "營業收入" in head and "營業利益（損失）" in head else None)
+                if all(name in head for _, name in GENERAL_FIELDS) else None)
         for row in ROW_RE.findall(table):
             cells = [_text(c) for c in CELL_RE.findall(row)]
             if not cells:

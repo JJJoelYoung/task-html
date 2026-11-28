@@ -94,6 +94,14 @@ class Income(unittest.TestCase):
         self.assertEqual(gen["1101"], {"revenue": 112522875, "op_income": 9571599, "pretax": 11467348,
                                        "net_income": 7921300, "net_parent": 5089876, "eps": 0.63})
 
+    def test_parse_income_partial_general_header_is_other(self):   # property insurers print 稅前純益（純損）
+        head = ["公司代號", "公司名稱", "營業收入", "營業成本", "營業費用", "營業利益（損失）", "營業外收入及支出",
+                "繼續營業單位稅前純益（純損）", "本期淨利（淨損）", "淨利（淨損）歸屬於母公司業主", "基本每股盈餘（元）"]
+        cells = ["2816", "旺旺保", "8,116,878", "1", "1", "987,339", "1", "1,006,663", "1", "1", "1.00"]
+        page = ("<table><tr>" + "".join(f"<th>{h}</th>" for h in head) + "</tr><tr>"
+                + "".join(f"<td>{c}</td>" for c in cells) + "</tr></table>")
+        self.assertEqual(parse_income(page), ({}, {"2816"}))
+
     def test_standalone_differencing(self):
         ytd = {(2026, 1): {"X": inc(100, 10, 1.0)}, (2026, 2): {"X": inc(250, 30, 2.5)},
                (2026, 3): {"X": inc(400, 45, 4.0)}}

@@ -41,6 +41,7 @@ Open defects and gaps in `tw-equity-screener`, kept here so they can be schedule
 | M17 | page | The page omits composite delta and each code's latest report. | cheap polish | no |
 | M18 | tests | No end-to-end test covers a board transfer between two weeks. | normal | no |
 | M19 | cache | Nothing ever prunes the raw cache, so it grows about 5-8 MB a week. | normal | no |
+| M20 | MOPS | A throttle page during a cold backfill exits 3 as "not published". | normal | no |
 
 ## Deferred with a deadline
 
@@ -181,3 +182,9 @@ Open defects and gaps in `tw-equity-screener`, kept here so they can be schedule
   - Keep the daily tables inside the 270-date window, and keep the TAIEX close of every date, which the I4 fix needs.
   - Keep the ISIN lists, snapshots, and `finmind/{asof}/` folders for the latest N weeks. Deleting them makes a rerun of that week exit 4, so choose N, and print what was pruned.
   - Set N after the first live run shows real sizes.
+
+### M20. A MOPS throttle page during a backfill exits 3 as "not published"
+
+- **Where:** `scripts/cache.py` `Fetcher.get`, which raises `NoDataError` when a page fails validation, and `scripts/run.py` `main`, which reports every `NoDataError` as exit 3.
+- **Effect:** the first live backfill (2026-11-28) exited 3 on `rev_sii_0/2026-09` after about 115 MOPS requests, although that month had been out since October. A manual fetch of the same URL moments later returned the full table. MOPS had served a throttle page, and nothing backs off and retries it. A rerun resumes from the cache.
+- **Fix:** for MOPS months and seasons whose publication date has passed, treat a failed validation as a throttle: wait and retry with backoff, and if it still fails, exit with a message that names throttling, not "not published".
