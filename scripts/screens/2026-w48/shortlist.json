@@ -1,0 +1,1262 @@
+{
+ "asof": "2026-11-27",
+ "week": "2026-w48",
+ "methodology_version": "1.0",
+ "actionable": [
+  {
+   "code": "9933",
+   "name": "中鼎",
+   "industry": "其他業",
+   "rank": 10,
+   "rank_trend": 1,
+   "composite": 0.7464316741515482,
+   "groups": {
+    "growth": 0.7680575894693433,
+    "valuation": 0.7081197083056112,
+    "quality": 0.26214910037562683,
+    "flow": 1.7238445510104203,
+    "persistence": 1.0476454436543672
+   },
+   "flags": [],
+   "deep": {
+    "close": 54.1,
+    "per_p50": 18.81,
+    "per_pct": 4.8,
+    "pbr_pct": 71.8,
+    "ntm_eps": 6.33,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 29789282000.0,
+     "ttm_net_income": 7452288000.0,
+     "ratio": 4.0
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 15,
+     "price": 54.12,
+     "low": 53.04,
+     "high": 55.2
+    },
+    "gaps": []
+   },
+   "buy_proxy": 120.08743068391863,
+   "tier": "A",
+   "command": "/tw-equity-report 9933",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "2025年之簽約案於2026年底逐漸進入執行高峰期。"
+   }
+  },
+  {
+   "code": "2480",
+   "name": "敦陽科",
+   "industry": "資訊服務業",
+   "rank": 18,
+   "rank_trend": 2,
+   "composite": 0.5897960659628707,
+   "groups": {
+    "growth": 0.24749104863678156,
+    "valuation": -0.5257272478863222,
+    "quality": 0.7845752446495203,
+    "flow": 0.7406083629411313,
+    "persistence": 1.5339841409326136
+   },
+   "flags": [],
+   "deep": {
+    "close": 175.0,
+    "per_p50": 16.85,
+    "per_pct": 78.9,
+    "pbr_pct": 80.4,
+    "ntm_eps": 10.85,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 943684000.0,
+     "ttm_net_income": 984473000.0,
+     "ratio": 0.96
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 12,
+     "price": 178.98,
+     "low": 175.4,
+     "high": 182.56
+    },
+    "gaps": []
+   },
+   "buy_proxy": 4.470000000000018,
+   "tier": "B",
+   "command": "/tw-equity-report 2480",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本月營收較去年同期成長，主要受惠於客戶需求擴增，帶動出貨量顯著提升所致。"
+   }
+  },
+  {
+   "code": "6782",
+   "name": "視陽",
+   "industry": "生技醫療業",
+   "rank": 58,
+   "rank_trend": 3,
+   "composite": 0.34697445371079444,
+   "groups": {
+    "growth": 0.5922170944979797,
+    "valuation": -0.34063292276963086,
+    "quality": 1.0101506078812437,
+    "flow": 1.1215308065392564,
+    "persistence": 0.59857488939635
+   },
+   "flags": [],
+   "deep": {
+    "close": 306.5,
+    "per_p50": 20.37,
+    "per_pct": 30.1,
+    "pbr_pct": 55.8,
+    "ntm_eps": 26.77,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 1555533000.0,
+     "ttm_net_income": 1181707000.0,
+     "ratio": 1.32
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 12,
+     "price": 284.15,
+     "low": 278.47,
+     "high": 289.83
+    },
+    "gaps": []
+   },
+   "buy_proxy": 77.91350734094615,
+   "tier": "A",
+   "command": "/tw-equity-report 6782",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "主因客戶需求成長，使營收較去年同期增加逾50%。"
+   }
+  },
+  {
+   "code": "3661",
+   "name": "世芯-KY",
+   "industry": "半導體業",
+   "rank": 60,
+   "rank_trend": 4,
+   "composite": 0.3425715369630415,
+   "groups": {
+    "growth": 1.4383595702680871,
+    "valuation": -0.8574950055027948,
+    "quality": -0.5768716484187666,
+    "flow": 1.6787699464142067,
+    "persistence": -0.20207718369469574
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 3595.0,
+    "per_p50": 47.39,
+    "per_pct": 25.9,
+    "pbr_pct": 12.6,
+    "ntm_eps": 291.21,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -17886167000.0,
+     "ttm_net_income": 7801619000.0,
+     "ratio": -2.29
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 7,
+     "price": 3691.23,
+     "low": 3617.4,
+     "high": 3765.05
+    },
+    "gaps": []
+   },
+   "buy_proxy": 283.87877329624473,
+   "tier": "B",
+   "command": "/tw-equity-report 3661",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本月營收較去年同期增加，係因量產產品增加所致。"
+   }
+  },
+  {
+   "code": "8415",
+   "name": "大國鋼",
+   "industry": "鋼鐵工業",
+   "rank": 66,
+   "rank_trend": 5,
+   "composite": 0.3186841445101881,
+   "groups": {
+    "growth": 0.5395871261886696,
+    "valuation": 0.2679180960137778,
+    "quality": 0.779181913470126,
+    "flow": -0.32599206577072026,
+    "persistence": 0.17666171857208532
+   },
+   "flags": [],
+   "deep": {
+    "close": 42.5,
+    "per_p50": 11.07,
+    "per_pct": 31.9,
+    "pbr_pct": 27.5,
+    "ntm_eps": 6.15,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 5522254000.0,
+     "ttm_net_income": 4706594000.0,
+     "ratio": 1.17
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 13,
+     "price": 40.52,
+     "low": 39.71,
+     "high": 41.33
+    },
+    "gaps": []
+   },
+   "buy_proxy": 60.189411764705895,
+   "tier": "A",
+   "command": "/tw-equity-report 8415",
+   "revenue_note": null
+  },
+  {
+   "code": "1210",
+   "name": "大成",
+   "industry": "食品工業",
+   "rank": 78,
+   "rank_trend": 6,
+   "composite": 0.28941102200913965,
+   "groups": {
+    "growth": 0.14694812034927895,
+    "valuation": 0.8793277049172972,
+    "quality": -0.1764557838801091,
+    "flow": 0.6511191617036264,
+    "persistence": -0.2335496832484569
+   },
+   "flags": [],
+   "deep": {
+    "close": 51.2,
+    "per_p50": 13.62,
+    "per_pct": 14.4,
+    "pbr_pct": 0.4,
+    "ntm_eps": 4.11,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 5933675000.0,
+     "ttm_net_income": 4251664000.0,
+     "ratio": 1.4
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 14,
+     "price": 51.53,
+     "low": 50.5,
+     "high": 52.56
+    },
+    "gaps": []
+   },
+   "buy_proxy": 9.332421874999985,
+   "tier": "B",
+   "command": "/tw-equity-report 1210",
+   "revenue_note": null
+  },
+  {
+   "code": "7767",
+   "name": "仁大資訊",
+   "industry": "資訊服務業",
+   "rank": 79,
+   "rank_trend": 7,
+   "composite": 0.2881507347824274,
+   "groups": {
+    "growth": -0.6784517115380967,
+    "valuation": 1.0648318036824012,
+    "quality": -0.04952098984998999,
+    "flow": -0.38028861151953225,
+    "persistence": null
+   },
+   "flags": [
+    "attention"
+   ],
+   "deep": {
+    "close": 58.0,
+    "per_p50": 11.68,
+    "per_pct": 81.5,
+    "pbr_pct": 95.7,
+    "ntm_eps": 6.33,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 191997000.0,
+     "ttm_net_income": 139414000.0,
+     "ratio": 1.38
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 14,
+     "price": 56.9,
+     "low": 55.76,
+     "high": 58.04
+    },
+    "gaps": []
+   },
+   "buy_proxy": 27.47310344827585,
+   "tier": "B",
+   "command": "/tw-equity-report 7767",
+   "revenue_note": null
+  },
+  {
+   "code": "2610",
+   "name": "華航",
+   "industry": "航運業",
+   "rank": 81,
+   "rank_trend": 8,
+   "composite": 0.2853328308599395,
+   "groups": {
+    "growth": -0.2986253900335542,
+    "valuation": 0.15915411410703728,
+    "quality": 0.0040599318406636985,
+    "flow": 2.014781442864434,
+    "persistence": 0.707835381875653
+   },
+   "flags": [],
+   "deep": {
+    "close": 21.6,
+    "per_p50": 11.25,
+    "per_pct": 28.9,
+    "pbr_pct": 14.0,
+    "ntm_eps": 3.17,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 58321643000.0,
+     "ttm_net_income": 16546456000.0,
+     "ratio": 3.52
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 18,
+     "price": 22.09,
+     "low": 21.64,
+     "high": 22.53
+    },
+    "gaps": []
+   },
+   "buy_proxy": 65.10416666666666,
+   "tier": "A",
+   "command": "/tw-equity-report 2610",
+   "revenue_note": null
+  },
+  {
+   "code": "2618",
+   "name": "長榮航",
+   "industry": "航運業",
+   "rank": 112,
+   "rank_trend": 9,
+   "composite": 0.19389270149828486,
+   "groups": {
+    "growth": -0.36362028080307185,
+    "valuation": -0.07633180928131447,
+    "quality": 0.19943040332993248,
+    "flow": 1.321902508087863,
+    "persistence": 1.127293385950114
+   },
+   "flags": [],
+   "deep": {
+    "close": 45.45,
+    "per_p50": 9.03,
+    "per_pct": 53.7,
+    "pbr_pct": 33.1,
+    "ntm_eps": 6.35,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 70532234000.0,
+     "ttm_net_income": 28486786000.0,
+     "ratio": 2.48
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 15,
+     "price": 45.9,
+     "low": 44.98,
+     "high": 46.81
+    },
+    "gaps": []
+   },
+   "buy_proxy": 26.161716171617133,
+   "tier": "A",
+   "command": "/tw-equity-report 2618",
+   "revenue_note": null
+  },
+  {
+   "code": "6690",
+   "name": "安碁資訊",
+   "industry": "數位雲端",
+   "rank": 119,
+   "rank_trend": 10,
+   "composite": 0.1703510544953667,
+   "groups": {
+    "growth": -0.5242942094345988,
+    "valuation": 0.903448262046818,
+    "quality": -0.022715845829998697,
+    "flow": -0.27025135816429885,
+    "persistence": -0.4186703212093317
+   },
+   "flags": [
+    "attention"
+   ],
+   "deep": {
+    "close": 192.0,
+    "per_p50": 20.71,
+    "per_pct": 16.6,
+    "pbr_pct": 28.0,
+    "ntm_eps": 11.79,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 1302007000.0,
+     "ttm_net_income": 338822000.0,
+     "ratio": 3.84
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 13,
+     "price": 195.49,
+     "low": 191.58,
+     "high": 199.4
+    },
+    "gaps": []
+   },
+   "buy_proxy": 27.172343749999996,
+   "tier": "B",
+   "command": "/tw-equity-report 6690",
+   "revenue_note": null
+  },
+  {
+   "code": "1229",
+   "name": "聯華",
+   "industry": "食品工業",
+   "rank": 128,
+   "rank_trend": 11,
+   "composite": 0.14004400432308922,
+   "groups": {
+    "growth": -0.35051363722653706,
+    "valuation": 1.1072592370505432,
+    "quality": -0.38422975000096343,
+    "flow": 0.7064257722268301,
+    "persistence": -0.7006490497453707
+   },
+   "flags": [],
+   "deep": {
+    "close": 40.15,
+    "per_p50": 20.34,
+    "per_pct": 0.7,
+    "pbr_pct": 1.2,
+    "ntm_eps": 1.05,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 6794803000.0,
+     "ttm_net_income": 7146804000.0,
+     "ratio": 0.95
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 13,
+     "price": 39.91,
+     "low": 39.11,
+     "high": 40.71
+    },
+    "gaps": []
+   },
+   "buy_proxy": -46.80697384806973,
+   "tier": "B",
+   "command": "/tw-equity-report 1229",
+   "revenue_note": null
+  },
+  {
+   "code": "3293",
+   "name": "鈊象",
+   "industry": "文化創意業",
+   "rank": 132,
+   "rank_trend": 12,
+   "composite": 0.126846460701942,
+   "groups": {
+    "growth": -0.3380762299016094,
+    "valuation": -0.5254531623788199,
+    "quality": 1.8521780188775567,
+    "flow": 1.127130209744393,
+    "persistence": -0.386481873555967
+   },
+   "flags": [],
+   "deep": {
+    "close": 781.0,
+    "per_p50": 17.5,
+    "per_pct": 48.3,
+    "pbr_pct": 53.2,
+    "ntm_eps": 54.11,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": 13655060000.0,
+     "ttm_net_income": 12918061000.0,
+     "ratio": 1.06
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 14,
+     "price": 777.89,
+     "low": 762.33,
+     "high": 793.45
+    },
+    "gaps": []
+   },
+   "buy_proxy": 21.24519846350832,
+   "tier": "A",
+   "command": "/tw-equity-report 3293",
+   "revenue_note": null
+  },
+  {
+   "code": "7765",
+   "name": "中華資安",
+   "industry": "數位雲端",
+   "rank": 138,
+   "rank_trend": 13,
+   "composite": 0.11192494626827648,
+   "groups": {
+    "growth": 0.03290151935359773,
+    "valuation": -0.3654607937172099,
+    "quality": 0.48721650107784226,
+    "flow": -0.20114068847137098,
+    "persistence": -0.7954736102977302
+   },
+   "flags": [],
+   "deep": {
+    "close": 291.5,
+    "per_p50": 22.16,
+    "per_pct": 62.5,
+    "pbr_pct": 84.5,
+    "ntm_eps": 12.05,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 574497000.0,
+     "ttm_net_income": 475720000.0,
+     "ratio": 1.21
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 15,
+     "price": 277.87,
+     "low": 272.31,
+     "high": 283.43
+    },
+    "gaps": []
+   },
+   "buy_proxy": -8.395197255574605,
+   "tier": "B",
+   "command": "/tw-equity-report 7765",
+   "revenue_note": null
+  },
+  {
+   "code": "6199",
+   "name": "天品",
+   "industry": "其他業",
+   "rank": 147,
+   "rank_trend": 14,
+   "composite": 0.09455465152060348,
+   "groups": {
+    "growth": 0.7114633156302393,
+    "valuation": -0.6909905509876548,
+    "quality": 0.3434451258155433,
+    "flow": -0.48773990365052255,
+    "persistence": -0.20952908873087345
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 173.0,
+    "per_p50": 91.06,
+    "per_pct": 6.1,
+    "pbr_pct": 69.7,
+    "ntm_eps": 11.96,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -152327000.0,
+     "ttm_net_income": 723616000.0,
+     "ratio": -0.21
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 11,
+     "price": 170.09,
+     "low": 166.68,
+     "high": 173.49
+    },
+    "gaps": []
+   },
+   "buy_proxy": 529.5246242774567,
+   "tier": "B",
+   "command": "/tw-equity-report 6199",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "主係子公司奈科公司較去年本月增加43,473仟元，較去年累計增加495,132仟元;殯葬部份較去年累計增加144,376仟元。"
+   }
+  },
+  {
+   "code": "6590",
+   "name": "普鴻",
+   "industry": "資訊服務業",
+   "rank": 187,
+   "rank_trend": 15,
+   "composite": 0.03129670189154793,
+   "groups": {
+    "growth": -0.66577946520953,
+    "valuation": -0.2269408240767218,
+    "quality": 0.32561109220195733,
+    "flow": -0.21457068779372193,
+    "persistence": -0.8765623662472077
+   },
+   "flags": [],
+   "deep": {
+    "close": 82.0,
+    "per_p50": 14.23,
+    "per_pct": 96.3,
+    "pbr_pct": 83.9,
+    "ntm_eps": 4.66,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 180733000.0,
+     "ttm_net_income": 142436000.0,
+     "ratio": 1.27
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 15,
+     "price": 82.57,
+     "low": 80.91,
+     "high": 84.22
+    },
+    "gaps": [
+     "TaiwanStockMarginPurchaseShortSale has no rows for 2026-11-02, 2026-11-03, 2026-11-04, 2026-11-05, 2026-11-06, 2026-11-09, 2026-11-10, 2026-11-11; those days are null and excluded."
+    ]
+   },
+   "buy_proxy": -19.13195121951219,
+   "tier": "B",
+   "command": "/tw-equity-report 6590",
+   "revenue_note": null
+  },
+  {
+   "code": "2412",
+   "name": "中華電",
+   "industry": "通信網路業",
+   "rank": 217,
+   "rank_trend": 16,
+   "composite": -0.043417198100580215,
+   "groups": {
+    "growth": -0.44698716703613867,
+    "valuation": -0.3368347762528529,
+    "quality": 0.16985258307120374,
+    "flow": 0.7725202749538422,
+    "persistence": 0.09290455523851004
+   },
+   "flags": [],
+   "deep": {
+    "close": 165.5,
+    "per_p50": 26.46,
+    "per_pct": 99.0,
+    "pbr_pct": 99.6,
+    "ntm_eps": 5.98,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 81820920000.0,
+     "ttm_net_income": 44620706000.0,
+     "ratio": 1.83
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 10,
+     "price": 162.42,
+     "low": 159.18,
+     "high": 165.67
+    },
+    "gaps": []
+   },
+   "buy_proxy": -4.3922658610271785,
+   "tier": "B",
+   "command": "/tw-equity-report 2412",
+   "revenue_note": null
+  },
+  {
+   "code": "2413",
+   "name": "環科",
+   "industry": "電子零組件業",
+   "rank": 280,
+   "rank_trend": 17,
+   "composite": -0.2501227476272123,
+   "groups": {
+    "growth": -0.29493300408113154,
+    "valuation": -0.08948197375918497,
+    "quality": -0.24303113718211045,
+    "flow": -0.4193073106523723,
+    "persistence": -0.5437381987252945
+   },
+   "flags": [],
+   "deep": {
+    "close": 54.0,
+    "per_p50": 22.52,
+    "per_pct": 43.2,
+    "pbr_pct": 92.8,
+    "ntm_eps": 1.35,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 317713000.0,
+     "ttm_net_income": 368677000.0,
+     "ratio": 0.86
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 13,
+     "price": 49.05,
+     "low": 48.07,
+     "high": 50.03
+    },
+    "gaps": []
+   },
+   "buy_proxy": -43.699999999999996,
+   "tier": "B",
+   "command": "/tw-equity-report 2413",
+   "revenue_note": null
+  },
+  {
+   "code": "6925",
+   "name": "意藍",
+   "industry": "數位雲端",
+   "rank": 281,
+   "rank_trend": 18,
+   "composite": -0.26068402516653916,
+   "groups": {
+    "growth": -0.6692522201665854,
+    "valuation": -0.8146608993610822,
+    "quality": -0.4946530168726655,
+    "flow": 0.06267963580922092,
+    "persistence": -0.7954736102977302
+   },
+   "flags": [],
+   "deep": {
+    "close": 110.5,
+    "per_p50": 32.99,
+    "per_pct": 63.0,
+    "pbr_pct": 64.7,
+    "ntm_eps": 2.72,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 80342000.0,
+     "ttm_net_income": 61142000.0,
+     "ratio": 1.31
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 12,
+     "price": 105.15,
+     "low": 103.05,
+     "high": 107.25
+    },
+    "gaps": []
+   },
+   "buy_proxy": -18.79384615384614,
+   "tier": "B",
+   "command": "/tw-equity-report 6925",
+   "revenue_note": null
+  }
+ ],
+ "left_watch": [
+  {
+   "code": "8299",
+   "name": "群聯",
+   "industry": "半導體業",
+   "rank": 1,
+   "rank_trend": 1,
+   "composite": 1.0053317974398366,
+   "groups": {
+    "growth": 1.7981540805328295,
+    "valuation": 1.5093502987712577,
+    "quality": 0.6153168903853282,
+    "flow": 1.0834495834017273,
+    "persistence": 0.010729761966089999
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 1580.0,
+    "per_p50": 15.25,
+    "per_pct": 0.7,
+    "pbr_pct": 73.2,
+    "ntm_eps": 1514.91,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -7944256000.0,
+     "ttm_net_income": 76571344000.0,
+     "ratio": -0.1
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 10,
+     "price": 1477.06,
+     "low": 1447.51,
+     "high": 1506.6
+    },
+    "gaps": []
+   },
+   "buy_proxy": 1362.1757911392406,
+   "tier": "B",
+   "command": "/tw-equity-report 8299",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "係總出貨量及均價增加"
+   }
+  },
+  {
+   "code": "5289",
+   "name": "宜鼎",
+   "industry": "電腦及週邊設備業",
+   "rank": 2,
+   "rank_trend": 2,
+   "composite": 0.9905958227759882,
+   "groups": {
+    "growth": 1.6927249491218856,
+    "valuation": 1.5889756343549655,
+    "quality": 0.6723679083118261,
+    "flow": 0.8429569785587852,
+    "persistence": -0.12659891330389905
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 784.0,
+    "per_p50": 18.81,
+    "per_pct": 0.4,
+    "pbr_pct": 6.4,
+    "ntm_eps": 2031.93,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 6064057000.0,
+     "ttm_net_income": 25821211000.0,
+     "ratio": 0.23
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 12,
+     "price": 879.38,
+     "low": 861.79,
+     "high": 896.97
+    },
+    "gaps": []
+   },
+   "buy_proxy": 4775.076951530612,
+   "tier": "B",
+   "command": "/tw-equity-report 5289",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本月營收及本年累計營收較去年同期增加係因出貨量增加及銷售單價上漲所致"
+   }
+  },
+  {
+   "code": "4973",
+   "name": "廣穎",
+   "industry": "半導體業",
+   "rank": 3,
+   "rank_trend": 3,
+   "composite": 0.9696618000215121,
+   "groups": {
+    "growth": 1.6562557144841055,
+    "valuation": 1.910631470421555,
+    "quality": 0.6080301442678336,
+    "flow": -0.25357589980623935,
+    "persistence": 1.0747644902700186
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 101.5,
+    "per_p50": 11.71,
+    "per_pct": 0.5,
+    "pbr_pct": 84.5,
+    "ntm_eps": 97.72,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -1192625000.0,
+     "ttm_net_income": 2011692000.0,
+     "ratio": -0.59
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 14,
+     "price": 103.56,
+     "low": 101.49,
+     "high": 105.63
+    },
+    "gaps": []
+   },
+   "buy_proxy": 1027.3903448275864,
+   "tier": "B",
+   "command": "/tw-equity-report 4973",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本月營收較去年同期增加係因市場價格上漲所致"
+   }
+  },
+  {
+   "code": "3006",
+   "name": "晶豪科",
+   "industry": "半導體業",
+   "rank": 4,
+   "rank_trend": 4,
+   "composite": 0.9343567210382879,
+   "groups": {
+    "growth": 1.7031461166641453,
+    "valuation": 1.8307975656220052,
+    "quality": 0.5817548461936071,
+    "flow": -0.3559927265725345,
+    "persistence": 0.8619575446092329
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 184.5,
+    "per_p50": 9.24,
+    "per_pct": 0.6,
+    "pbr_pct": 24.6,
+    "ntm_eps": 404.77,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 23301576000.0,
+     "ttm_net_income": 19761987000.0,
+     "ratio": 1.18
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 12,
+     "price": 197.54,
+     "low": 193.59,
+     "high": 201.49
+    },
+    "gaps": []
+   },
+   "buy_proxy": 1927.1408130081302,
+   "tier": "B",
+   "command": "/tw-equity-report 3006",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本期營收較前期成長係因產品市場供需因素所致"
+   }
+  },
+  {
+   "code": "3260",
+   "name": "威剛",
+   "industry": "半導體業",
+   "rank": 5,
+   "rank_trend": 5,
+   "composite": 0.9336846641289478,
+   "groups": {
+    "growth": 1.6227112837383137,
+    "valuation": 1.768360621360325,
+    "quality": 0.8603825510262851,
+    "flow": 0.7864923218042175,
+    "persistence": -0.8404980206770529
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 275.5,
+    "per_p50": 14.2,
+    "per_pct": 0.7,
+    "pbr_pct": 49.1,
+    "ntm_eps": 399.98,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -5213650000.0,
+     "ttm_net_income": 37962108000.0,
+     "ratio": -0.14
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 11,
+     "price": 262.42,
+     "low": 257.17,
+     "high": 267.66
+    },
+    "gaps": []
+   },
+   "buy_proxy": 1961.6029038112522,
+   "tier": "B",
+   "command": "/tw-equity-report 3260",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "記憶體售價上漲"
+   }
+  },
+  {
+   "code": "6811",
+   "name": "宏碁資訊",
+   "industry": "數位雲端",
+   "rank": 6,
+   "rank_trend": 6,
+   "composite": 0.9280197620635307,
+   "groups": {
+    "growth": 1.562202511896368,
+    "valuation": 1.3171161024118825,
+    "quality": 0.4151489515271118,
+    "flow": -0.9569577804031364,
+    "persistence": 1.0885428351442623
+   },
+   "flags": [],
+   "deep": {
+    "close": 216.0,
+    "per_p50": 18.38,
+    "per_pct": 5.3,
+    "pbr_pct": 9.2,
+    "ntm_eps": 28.5,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -91808000.0,
+     "ttm_net_income": 715974000.0,
+     "ratio": -0.13
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 7,
+     "price": 238.1,
+     "low": 233.34,
+     "high": 242.86
+    },
+    "gaps": []
+   },
+   "buy_proxy": 142.51388888888889,
+   "tier": "B",
+   "command": "/tw-equity-report 6811",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "營收成長係受惠於既有客戶持續擴大數位轉型與 AI 應用需求,帶動訂單規模成長;子公司新專案陸續落地,帶動業務穩健成長."
+   }
+  },
+  {
+   "code": "2344",
+   "name": "華邦電",
+   "industry": "半導體業",
+   "rank": 7,
+   "rank_trend": 7,
+   "composite": 0.8745284441744063,
+   "groups": {
+    "growth": 1.8081748968719038,
+    "valuation": 1.4944315293286412,
+    "quality": 0.312370327600101,
+    "flow": -0.41150557228106094,
+    "persistence": 1.0747644902700186
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 104.0,
+    "per_p50": 15.59,
+    "per_pct": 21.7,
+    "pbr_pct": 78.3,
+    "ntm_eps": 60.26,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 87056602000.0,
+     "ttm_net_income": 72549551000.0,
+     "ratio": 1.2
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 7,
+     "price": 103.95,
+     "low": 101.87,
+     "high": 106.02
+    },
+    "gaps": []
+   },
+   "buy_proxy": 803.3205769230768,
+   "tier": "B",
+   "command": "/tw-equity-report 2344",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "受市場供需影響。"
+   }
+  },
+  {
+   "code": "5351",
+   "name": "鈺創",
+   "industry": "半導體業",
+   "rank": 8,
+   "rank_trend": 8,
+   "composite": 0.8609555881882578,
+   "groups": {
+    "growth": 1.6891448939047895,
+    "valuation": 1.4870970534005663,
+    "quality": 0.43371114881039435,
+    "flow": -0.3559927265725345,
+    "persistence": 1.0747644902700186
+   },
+   "flags": [
+    "one_off_revenue"
+   ],
+   "deep": {
+    "close": 91.3,
+    "per_p50": 16.75,
+    "per_pct": 2.1,
+    "pbr_pct": 39.7,
+    "ntm_eps": 104.38,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": 4650786000.0,
+     "ttm_net_income": 4680474000.0,
+     "ratio": 0.99
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 5,
+     "price": 77.6,
+     "low": 76.04,
+     "high": 79.15
+    },
+    "gaps": []
+   },
+   "buy_proxy": 1814.9671412924426,
+   "tier": "B",
+   "command": "/tw-equity-report 5351",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本月營收及本年累計營收皆較去年同期增加，主係市場需求增加所致。"
+   }
+  },
+  {
+   "code": "3147",
+   "name": "大綜",
+   "industry": "資訊服務業",
+   "rank": 9,
+   "rank_trend": 9,
+   "composite": 0.7635610755236557,
+   "groups": {
+    "growth": 0.5273407124203638,
+    "valuation": 0.27840798301204084,
+    "quality": 1.0305376985252466,
+    "flow": -0.19661400596155232,
+    "persistence": 1.7531247324944155
+   },
+   "flags": [],
+   "deep": {
+    "close": 256.5,
+    "per_p50": 14.21,
+    "per_pct": 38.7,
+    "pbr_pct": 82.0,
+    "ntm_eps": 71.82,
+    "cb_applicable": true,
+    "cb_high_vol": true,
+    "cash_conversion": {
+     "ttm_ocf": -1391572000.0,
+     "ttm_net_income": 867104000.0,
+     "ratio": -1.6
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 11,
+     "price": 310.47,
+     "low": 304.26,
+     "high": 316.68
+    },
+    "gaps": []
+   },
+   "buy_proxy": 297.88,
+   "tier": "B",
+   "command": "/tw-equity-report 3147",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "本年累計營收較去年增加111.89% 主要係115年第一季後各月營收大幅成長所致"
+   }
+  },
+  {
+   "code": "3029",
+   "name": "零壹",
+   "industry": "資訊服務業",
+   "rank": 11,
+   "rank_trend": 10,
+   "composite": 0.7415340894770289,
+   "groups": {
+    "growth": 0.48021665742915853,
+    "valuation": 0.15494525861268588,
+    "quality": 0.30438243187480735,
+    "flow": 1.0999915624023384,
+    "persistence": 1.0957029578090096
+   },
+   "flags": [],
+   "deep": {
+    "close": 112.0,
+    "per_p50": 15.62,
+    "per_pct": 40.8,
+    "pbr_pct": 57.2,
+    "ntm_eps": 10.38,
+    "cb_applicable": true,
+    "cb_high_vol": false,
+    "cash_conversion": {
+     "ttm_ocf": -26847000.0,
+     "ttm_net_income": 1515561000.0,
+     "ratio": -0.02
+    },
+    "cost_zone": {
+     "group": "foreign",
+     "days": 8,
+     "price": 123.2,
+     "low": 120.74,
+     "high": 125.67
+    },
+    "gaps": []
+   },
+   "buy_proxy": 44.76392857142859,
+   "tier": "B",
+   "command": "/tw-equity-report 3029",
+   "revenue_note": {
+    "month": "2026-10",
+    "note": "主要受惠於IT基建AI化及雲運算與服務之專案驗收挹注"
+   }
+  }
+ ],
+ "tier_a": [
+  "9933",
+  "6782",
+  "8415",
+  "2610",
+  "2618",
+  "3293"
+ ]
+}

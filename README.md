@@ -35,6 +35,7 @@ task-html/
 
 | Category | Deliverable | Live Link | Local Path |
 | :--- | :--- | :--- | :--- |
+| **Equity Screen** | [台股每週選股 2026-W48](https://jjjoelyoung.github.io/task-html/reports/screens/tw-screen-2026-w48.html) | [View Online](https://jjjoelyoung.github.io/task-html/reports/screens/tw-screen-2026-w48.html) | [`reports/screens/tw-screen-2026-w48.html`](./reports/screens/tw-screen-2026-w48.html) |
 | **Equity Research** | [2330 台積電 (TSMC) 投資決策報告](https://jjjoelyoung.github.io/task-html/reports/equity/2330-tsmc-20261120.html) | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2330-tsmc-20261120.html) | [`reports/equity/2330-tsmc-20261120.html`](./reports/equity/2330-tsmc-20261120.html) |
 | **Equity Research** | [2308 台達電 (Delta Electronics) 股權研究年鑑](https://jjjoelyoung.github.io/task-html/reports/equity/2308-delta-20261113.html) | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/2308-delta-20261113.html) | [`reports/equity/2308-delta-20261113.html`](./reports/equity/2308-delta-20261113.html) |
 | **Equity Research** | [6834 天二科技 (Ever Ohms Technology) 投資決策報告](https://jjjoelyoung.github.io/task-html/reports/equity/6834-ever-ohms-20261112.html) | [View Online](https://jjjoelyoung.github.io/task-html/reports/equity/6834-ever-ohms-20261112.html) | [`reports/equity/6834-ever-ohms-20261112.html`](./reports/equity/6834-ever-ohms-20261112.html) |

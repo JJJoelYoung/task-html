@@ -1,0 +1,372 @@
+{
+ "asof": "2026-11-27",
+ "week": "2026-w48",
+ "methodology_version": "1.0",
+ "counts": {
+  "L0": 2364,
+  "L0_full": 1959,
+  "L0_watch": 405,
+  "L1": 695,
+  "L2": 569,
+  "L3": 486,
+  "L4": 291,
+  "L5": 28,
+  "L6": 6
+ },
+ "statuses": {
+  "watch_track": 405,
+  "excluded_status": 27,
+  "excluded_no_quote": 30,
+  "excluded_liquidity": 1203,
+  "excluded_price": 4,
+  "excluded_financial": 28,
+  "excluded_loss": 95,
+  "insufficient_data": 3,
+  "excluded_sector": 83,
+  "excluded_floor": 195,
+  "ranked": 263,
+  "shortlist_actionable": 18,
+  "shortlist_left_watch": 10
+ },
+ "sectors": {
+  "水泥工業": {
+   "n": 2,
+   "rev_breadth": 50.0,
+   "rev_yoy3": 8.1086547443671,
+   "rel_ret13": 13.745150286781666,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "食品工業": {
+   "n": 6,
+   "rev_breadth": 83.33333333333334,
+   "rev_yoy3": 6.664673759857635,
+   "rel_ret13": 10.090722115381855,
+   "trend_breadth": 33.33333333333333,
+   "score": 0.17062188324468297,
+   "unfavoured": false
+  },
+  "塑膠工業": {
+   "n": 2,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 50.56214091925423,
+   "rel_ret13": 30.437011866334934,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "汽車工業": {
+   "n": 9,
+   "rev_breadth": 66.66666666666666,
+   "rev_yoy3": 1.3313297363928882,
+   "rel_ret13": -3.0322977142019027,
+   "trend_breadth": 0.0,
+   "score": -1.0442957141153448,
+   "unfavoured": true
+  },
+  "紡織纖維": {
+   "n": 4,
+   "rev_breadth": 75.0,
+   "rev_yoy3": 8.398170831054188,
+   "rel_ret13": 17.808369917816893,
+   "trend_breadth": 50.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "其他業": {
+   "n": 18,
+   "rev_breadth": 94.44444444444444,
+   "rev_yoy3": 13.536018209770134,
+   "rel_ret13": 20.48528003181503,
+   "trend_breadth": 16.666666666666664,
+   "score": 0.33810366890167415,
+   "unfavoured": false
+  },
+  "電機機械": {
+   "n": 21,
+   "rev_breadth": 80.95238095238095,
+   "rev_yoy3": 24.902236209275614,
+   "rel_ret13": -4.208280703468837,
+   "trend_breadth": 0.0,
+   "score": -0.5537078817053479,
+   "unfavoured": true
+  },
+  "電器電纜": {
+   "n": 3,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 27.704611114809154,
+   "rel_ret13": -1.7300578553428068,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "化學工業": {
+   "n": 21,
+   "rev_breadth": 90.47619047619048,
+   "rev_yoy3": 28.75475722345476,
+   "rel_ret13": -3.1125542735384926,
+   "trend_breadth": 0.0,
+   "score": -0.31137835532806335,
+   "unfavoured": false
+  },
+  "運動休閒": {
+   "n": 7,
+   "rev_breadth": 71.42857142857143,
+   "rev_yoy3": 5.0271791572706945,
+   "rel_ret13": -0.8381509684621093,
+   "trend_breadth": 14.285714285714285,
+   "score": -0.6170123724246367,
+   "unfavoured": true
+  },
+  "生技醫療業": {
+   "n": 12,
+   "rev_breadth": 75.0,
+   "rev_yoy3": 37.93724589440092,
+   "rel_ret13": 2.2530968402968075,
+   "trend_breadth": 8.333333333333332,
+   "score": -0.2720375453844085,
+   "unfavoured": false
+  },
+  "玻璃陶瓷": {
+   "n": 2,
+   "rev_breadth": 50.0,
+   "rev_yoy3": 38.62192026473207,
+   "rel_ret13": 5.482611772799679,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "造紙工業": {
+   "n": 1,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 16.029773810896785,
+   "rel_ret13": -6.52722851825969,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "鋼鐵工業": {
+   "n": 14,
+   "rev_breadth": 85.71428571428571,
+   "rev_yoy3": 29.119104947669626,
+   "rel_ret13": 24.699664725458902,
+   "trend_breadth": 7.142857142857142,
+   "score": 0.22750205382454788,
+   "unfavoured": false
+  },
+  "電子零組件業": {
+   "n": 86,
+   "rev_breadth": 93.02325581395348,
+   "rev_yoy3": 43.21316611915114,
+   "rel_ret13": -7.51257467009464,
+   "trend_breadth": 3.488372093023256,
+   "score": -0.133327210472485,
+   "unfavoured": false
+  },
+  "綠能環保": {
+   "n": 9,
+   "rev_breadth": 88.88888888888889,
+   "rev_yoy3": 47.68664077554391,
+   "rel_ret13": -12.176987242065636,
+   "trend_breadth": 0.0,
+   "score": -0.3154138006948827,
+   "unfavoured": true
+  },
+  "橡膠工業": {
+   "n": 3,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 27.630893080905892,
+   "rel_ret13": -3.480670355228103,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "電腦及週邊設備業": {
+   "n": 47,
+   "rev_breadth": 89.36170212765957,
+   "rev_yoy3": 78.34923198449312,
+   "rel_ret13": -4.586543903643989,
+   "trend_breadth": 0.0,
+   "score": 0.13563318395352783,
+   "unfavoured": false
+  },
+  "半導體業": {
+   "n": 121,
+   "rev_breadth": 91.73553719008265,
+   "rev_yoy3": 63.34511331901629,
+   "rel_ret13": -8.522485053443638,
+   "trend_breadth": 0.8264462809917356,
+   "score": -0.023658813376705806,
+   "unfavoured": false
+  },
+  "其他電子業": {
+   "n": 38,
+   "rev_breadth": 92.10526315789474,
+   "rev_yoy3": 44.34824538315081,
+   "rel_ret13": -4.627185163518625,
+   "trend_breadth": 5.263157894736842,
+   "score": -0.05593179841382982,
+   "unfavoured": false
+  },
+  "光電業": {
+   "n": 31,
+   "rev_breadth": 83.87096774193549,
+   "rev_yoy3": 8.003884975585422,
+   "rel_ret13": 3.028755865627833,
+   "trend_breadth": 6.451612903225806,
+   "score": -0.41937153058377635,
+   "unfavoured": true
+  },
+  "通信網路業": {
+   "n": 29,
+   "rev_breadth": 93.10344827586206,
+   "rev_yoy3": 37.595621121505815,
+   "rel_ret13": 4.021798060737556,
+   "trend_breadth": 10.344827586206897,
+   "score": 0.1429452826901144,
+   "unfavoured": false
+  },
+  "電子通路業": {
+   "n": 15,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 98.6820423093773,
+   "rel_ret13": -8.967792287866391,
+   "trend_breadth": 0.0,
+   "score": 0.46595510452509714,
+   "unfavoured": false
+  },
+  "資訊服務業": {
+   "n": 19,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 44.65215919076985,
+   "rel_ret13": 41.83542860045355,
+   "trend_breadth": 42.10526315789473,
+   "score": 1.5995162886817453,
+   "unfavoured": false
+  },
+  "建材營造業": {
+   "n": 9,
+   "rev_breadth": 44.44444444444444,
+   "rev_yoy3": 12.708174098696446,
+   "rel_ret13": 8.449739431444403,
+   "trend_breadth": 33.33333333333333,
+   "score": -0.5508564065069895,
+   "unfavoured": true
+  },
+  "航運業": {
+   "n": 16,
+   "rev_breadth": 87.5,
+   "rev_yoy3": 49.4696974729234,
+   "rel_ret13": 3.968146764869074,
+   "trend_breadth": 12.5,
+   "score": 0.1911466086663164,
+   "unfavoured": false
+  },
+  "觀光餐旅": {
+   "n": 4,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 9.127689679297475,
+   "rel_ret13": 7.868022021125437,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "貿易百貨業": {
+   "n": 3,
+   "rev_breadth": 66.66666666666666,
+   "rev_yoy3": 5.828143519163717,
+   "rel_ret13": 4.130227065146485,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "油電燃氣業": {
+   "n": 2,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 73.16114260352569,
+   "rel_ret13": 11.952189381705367,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "數位雲端": {
+   "n": 10,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 12.906274908805784,
+   "rel_ret13": 29.60451063640709,
+   "trend_breadth": 40.0,
+   "score": 1.025567354518765,
+   "unfavoured": false
+  },
+  "居家生活": {
+   "n": 3,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 11.20633176838868,
+   "rel_ret13": 8.539088011088065,
+   "trend_breadth": 0.0,
+   "score": 0.0,
+   "unfavoured": false
+  },
+  "文化創意業": {
+   "n": 2,
+   "rev_breadth": 100.0,
+   "rev_yoy3": 30.77176572612254,
+   "rel_ret13": 8.928406211038904,
+   "trend_breadth": 50.0,
+   "score": 0.0,
+   "unfavoured": false
+  }
+ },
+ "regime": {
+  "close": 39308.08,
+  "ma60": 45136.22816666667,
+  "ma60_slope_5d": -574.6918333333379,
+  "ret12m": 43.47323660917968,
+  "above_ma60": false,
+  "transition": false,
+  "reasons": []
+ },
+ "closed_dates": [],
+ "params": {
+  "min_history": 120,
+  "adv20_min": 30000000,
+  "close_min": 10.0,
+  "winsor": [
+   5,
+   95
+  ],
+  "z_clip": 3.0,
+  "small_industry_n": 5,
+  "floor_z": -1.0,
+  "availability_min": 0.7,
+  "group_weights": {
+   "growth": 0.35,
+   "valuation": 0.25,
+   "quality": 0.15,
+   "flow": 0.15,
+   "persistence": 0.1
+  },
+  "mix": [
+   0.8,
+   0.2
+  ],
+  "unfavoured_fraction": 0.3333333333333333,
+  "exception_top_pct": 5.0,
+  "shortlist": {
+   "enter": 20,
+   "stay": 40,
+   "cap": 30,
+   "left_n": 10,
+   "tier_a_proxy": 15.0
+  }
+ },
+ "forward": {
+  "stats": [],
+  "buy_conversion": {
+   "eligible": 0,
+   "converted": 0,
+   "rate": null
+  }
+ }
+}

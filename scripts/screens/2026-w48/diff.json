@@ -1,0 +1,188 @@
+{
+ "asof": "2026-11-27",
+ "week": "2026-w48",
+ "methodology_version": "1.0",
+ "entered": [
+  {
+   "code": "9933",
+   "list": "actionable",
+   "rank": 10
+  },
+  {
+   "code": "2480",
+   "list": "actionable",
+   "rank": 18
+  },
+  {
+   "code": "6782",
+   "list": "actionable",
+   "rank": 58
+  },
+  {
+   "code": "3661",
+   "list": "actionable",
+   "rank": 60
+  },
+  {
+   "code": "8415",
+   "list": "actionable",
+   "rank": 66
+  },
+  {
+   "code": "1210",
+   "list": "actionable",
+   "rank": 78
+  },
+  {
+   "code": "7767",
+   "list": "actionable",
+   "rank": 79
+  },
+  {
+   "code": "2610",
+   "list": "actionable",
+   "rank": 81
+  },
+  {
+   "code": "2618",
+   "list": "actionable",
+   "rank": 112
+  },
+  {
+   "code": "6690",
+   "list": "actionable",
+   "rank": 119
+  },
+  {
+   "code": "1229",
+   "list": "actionable",
+   "rank": 128
+  },
+  {
+   "code": "3293",
+   "list": "actionable",
+   "rank": 132
+  },
+  {
+   "code": "7765",
+   "list": "actionable",
+   "rank": 138
+  },
+  {
+   "code": "6199",
+   "list": "actionable",
+   "rank": 147
+  },
+  {
+   "code": "6590",
+   "list": "actionable",
+   "rank": 187
+  },
+  {
+   "code": "2412",
+   "list": "actionable",
+   "rank": 217
+  },
+  {
+   "code": "2413",
+   "list": "actionable",
+   "rank": 280
+  },
+  {
+   "code": "6925",
+   "list": "actionable",
+   "rank": 281
+  },
+  {
+   "code": "8299",
+   "list": "left_watch",
+   "rank": 1
+  },
+  {
+   "code": "5289",
+   "list": "left_watch",
+   "rank": 2
+  },
+  {
+   "code": "4973",
+   "list": "left_watch",
+   "rank": 3
+  },
+  {
+   "code": "3006",
+   "list": "left_watch",
+   "rank": 4
+  },
+  {
+   "code": "3260",
+   "list": "left_watch",
+   "rank": 5
+  },
+  {
+   "code": "6811",
+   "list": "left_watch",
+   "rank": 6
+  },
+  {
+   "code": "2344",
+   "list": "left_watch",
+   "rank": 7
+  },
+  {
+   "code": "5351",
+   "list": "left_watch",
+   "rank": 8
+  },
+  {
+   "code": "3147",
+   "list": "left_watch",
+   "rank": 9
+  },
+  {
+   "code": "3029",
+   "list": "left_watch",
+   "rank": 11
+  }
+ ],
+ "exited": [],
+ "rank_delta": {},
+ "streak": {
+  "9933": 1,
+  "2480": 1,
+  "6782": 1,
+  "3661": 1,
+  "8415": 1,
+  "1210": 1,
+  "7767": 1,
+  "2610": 1,
+  "2618": 1,
+  "6690": 1,
+  "1229": 1,
+  "3293": 1,
+  "7765": 1,
+  "6199": 1,
+  "6590": 1,
+  "2412": 1,
+  "2413": 1,
+  "6925": 1,
+  "8299": 1,
+  "5289": 1,
+  "4973": 1,
+  "3006": 1,
+  "3260": 1,
+  "6811": 1,
+  "2344": 1,
+  "5351": 1,
+  "3147": 1,
+  "3029": 1
+ },
+ "composite_delta": {},
+ "reports": {
+  "8299": {
+   "path": "reports/equity/8299-phison-20261109.html",
+   "date": "2026-11-09",
+   "rating": null,
+   "action": null
+  }
+ }
+}

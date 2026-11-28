@@ -1,0 +1,1687 @@
+{
+ "asof": "2026-11-27",
+ "week": "2026-w48",
+ "methodology_version": "1.0",
+ "upcoming": [
+  {
+   "code": "7583",
+   "name": "國際海洋",
+   "market": "tpex",
+   "applied": "2026-03-27",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7801",
+   "name": "華芸科技",
+   "market": "tpex",
+   "applied": "2026-04-22",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7763",
+   "name": "崇舜",
+   "market": "twse",
+   "applied": "2026-04-28",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7840",
+   "name": "祥圃",
+   "market": "tpex",
+   "applied": "2026-05-11",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7861",
+   "name": "貝爾威勒",
+   "market": "twse",
+   "applied": "2026-05-26",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "3595",
+   "name": "山太士",
+   "market": "tpex",
+   "applied": "2026-06-17",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "4565",
+   "name": "宏偉",
+   "market": "tpex",
+   "applied": "2026-06-26",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7706",
+   "name": "宏碁創達",
+   "market": "tpex",
+   "applied": "2026-06-30",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7881",
+   "name": "科明",
+   "market": "tpex",
+   "applied": "2026-06-30",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "4537",
+   "name": "旭東",
+   "market": "twse",
+   "applied": "2026-07-09",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "8058",
+   "name": "耐特",
+   "market": "twse",
+   "applied": "2026-07-20",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7843",
+   "name": "英柏得",
+   "market": "twse",
+   "applied": "2026-07-24",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7883",
+   "name": "饗賓",
+   "market": "twse",
+   "applied": "2026-07-27",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7562",
+   "name": "博來科技",
+   "market": "tpex",
+   "applied": "2026-07-27",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7669",
+   "name": "碩正科技",
+   "market": "tpex",
+   "applied": "2026-07-27",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7889",
+   "name": "騰勢",
+   "market": "tpex",
+   "applied": "2026-07-29",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7868",
+   "name": "聖育",
+   "market": "tpex",
+   "applied": "2026-07-30",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7872",
+   "name": "登豐",
+   "market": "tpex",
+   "applied": "2026-07-30",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "6599",
+   "name": "普達系統",
+   "market": "tpex",
+   "applied": "2026-07-31",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7762",
+   "name": "吉晟生",
+   "market": "tpex",
+   "applied": "2026-08-24",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7901",
+   "name": "大大寬頻",
+   "market": "twse",
+   "applied": "2026-08-27",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7789",
+   "name": "開展",
+   "market": "tpex",
+   "applied": "2026-08-31",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "8345",
+   "name": "超秦",
+   "market": "twse",
+   "applied": "2026-09-02",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7729",
+   "name": "仲恩生醫",
+   "market": "twse",
+   "applied": "2026-09-02",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7427",
+   "name": "華上生醫",
+   "market": "tpex",
+   "applied": "2026-09-15",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7893",
+   "name": "睿信",
+   "market": "tpex",
+   "applied": "2026-09-15",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7895",
+   "name": "元進莊",
+   "market": "tpex",
+   "applied": "2026-09-22",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7918",
+   "name": "創鉅材料",
+   "market": "tpex",
+   "applied": "2026-09-24",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7815",
+   "name": "新特",
+   "market": "tpex",
+   "applied": "2026-09-29",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "5262",
+   "name": "立達",
+   "market": "tpex",
+   "applied": "2026-10-01",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7909",
+   "name": "鈺祥",
+   "market": "twse",
+   "applied": "2026-10-06",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7837",
+   "name": "啟新生",
+   "market": "tpex",
+   "applied": "2026-10-06",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7849",
+   "name": "旭誼",
+   "market": "tpex",
+   "applied": "2026-10-22",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7879",
+   "name": "益材科技",
+   "market": "tpex",
+   "applied": "2026-10-22",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7912",
+   "name": "新聿科",
+   "market": "tpex",
+   "applied": "2026-10-27",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "6848",
+   "name": "拉法醫",
+   "market": "tpex",
+   "applied": "2026-10-28",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7915",
+   "name": "廌家科技",
+   "market": "tpex",
+   "applied": "2026-10-28",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7863",
+   "name": "中科物流",
+   "market": "tpex",
+   "applied": "2026-10-29",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7853",
+   "name": "政美應用",
+   "market": "twse",
+   "applied": "2026-11-24",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "7785",
+   "name": "北祥科服",
+   "market": "tpex",
+   "applied": "2026-11-25",
+   "listing_date": null,
+   "price": null
+  },
+  {
+   "code": "8999",
+   "name": "台灣積層",
+   "market": "tpex",
+   "applied": "2026-11-25",
+   "listing_date": null,
+   "price": null
+  }
+ ],
+ "recent": [
+  {
+   "code": "6945",
+   "name": "圓祥生技",
+   "market": "tpex",
+   "listing_date": "2026-06-05",
+   "history_days": 119,
+   "days_to_full": 1,
+   "first_five": null
+  },
+  {
+   "code": "7839",
+   "name": "達人網",
+   "market": "tpex",
+   "listing_date": "2026-06-15",
+   "history_days": 113,
+   "days_to_full": 7,
+   "first_five": null
+  },
+  {
+   "code": "1780",
+   "name": "立弘",
+   "market": "tpex",
+   "listing_date": "2010-04-29",
+   "history_days": 111,
+   "days_to_full": 9,
+   "first_five": null
+  },
+  {
+   "code": "6986",
+   "name": "和迅",
+   "market": "tpex",
+   "listing_date": "2026-06-26",
+   "history_days": 105,
+   "days_to_full": 15,
+   "first_five": null
+  },
+  {
+   "code": "7814",
+   "name": "海昌生技",
+   "market": "tpex",
+   "listing_date": "2026-07-16",
+   "history_days": 92,
+   "days_to_full": 28,
+   "first_five": null
+  },
+  {
+   "code": "6947",
+   "name": "台鎔科技",
+   "market": "twse",
+   "listing_date": "2026-07-23",
+   "history_days": 87,
+   "days_to_full": 33,
+   "first_five": null
+  },
+  {
+   "code": "7835",
+   "name": "永悅健康-創",
+   "market": "twse",
+   "listing_date": "2026-07-24",
+   "history_days": 86,
+   "days_to_full": 34,
+   "first_five": null
+  },
+  {
+   "code": "7689",
+   "name": "大鵬科CLMX",
+   "market": "twse",
+   "listing_date": "2026-07-28",
+   "history_days": 84,
+   "days_to_full": 36,
+   "first_five": null
+  },
+  {
+   "code": "2237",
+   "name": "華德動能-創",
+   "market": "twse",
+   "listing_date": "2026-08-10",
+   "history_days": 75,
+   "days_to_full": 45,
+   "first_five": null
+  },
+  {
+   "code": "6236",
+   "name": "中湛",
+   "market": "tpex",
+   "listing_date": "2003-03-31",
+   "history_days": 75,
+   "days_to_full": 45,
+   "first_five": null
+  },
+  {
+   "code": "7855",
+   "name": "和運租車",
+   "market": "twse",
+   "listing_date": "2026-08-11",
+   "history_days": 74,
+   "days_to_full": 46,
+   "first_five": null
+  },
+  {
+   "code": "3718",
+   "name": "中光電投控",
+   "market": "tpex",
+   "listing_date": "1999-01-20",
+   "history_days": 57,
+   "days_to_full": 63,
+   "first_five": null
+  },
+  {
+   "code": "7825",
+   "name": "和亞智慧",
+   "market": "tpex",
+   "listing_date": "2026-09-10",
+   "history_days": 52,
+   "days_to_full": 68,
+   "first_five": null
+  },
+  {
+   "code": "2938",
+   "name": "床的世界",
+   "market": "tpex",
+   "listing_date": "2026-09-16",
+   "history_days": 48,
+   "days_to_full": 72,
+   "first_five": null
+  },
+  {
+   "code": "7812",
+   "name": "稜研科技*-創",
+   "market": "twse",
+   "listing_date": "2026-09-22",
+   "history_days": 44,
+   "days_to_full": 76,
+   "first_five": null
+  },
+  {
+   "code": "7856",
+   "name": "漢測",
+   "market": "tpex",
+   "listing_date": "2026-09-22",
+   "history_days": 44,
+   "days_to_full": 76,
+   "first_five": null
+  },
+  {
+   "code": "6604",
+   "name": "儒億",
+   "market": "tpex",
+   "listing_date": "2026-10-06",
+   "history_days": 36,
+   "days_to_full": 84,
+   "first_five": null
+  },
+  {
+   "code": "7806",
+   "name": "精華生醫",
+   "market": "tpex",
+   "listing_date": "2026-10-15",
+   "history_days": 30,
+   "days_to_full": 90,
+   "first_five": null
+  },
+  {
+   "code": "6467",
+   "name": "泰合",
+   "market": "twse",
+   "listing_date": "2026-10-20",
+   "history_days": 27,
+   "days_to_full": 93,
+   "first_five": null
+  },
+  {
+   "code": "2249",
+   "name": "湧盛",
+   "market": "tpex",
+   "listing_date": "2026-10-22",
+   "history_days": 25,
+   "days_to_full": 95,
+   "first_five": null
+  },
+  {
+   "code": "6898",
+   "name": "程曦資訊",
+   "market": "tpex",
+   "listing_date": "2026-10-23",
+   "history_days": 24,
+   "days_to_full": 96,
+   "first_five": null
+  },
+  {
+   "code": "6938",
+   "name": "藍新資訊",
+   "market": "tpex",
+   "listing_date": "2026-10-23",
+   "history_days": 24,
+   "days_to_full": 96,
+   "first_five": null
+  },
+  {
+   "code": "7710",
+   "name": "東擎科技",
+   "market": "twse",
+   "listing_date": "2026-10-27",
+   "history_days": 24,
+   "days_to_full": 96,
+   "first_five": null
+  },
+  {
+   "code": "6825",
+   "name": "和暢科技",
+   "market": "tpex",
+   "listing_date": "2026-10-30",
+   "history_days": 21,
+   "days_to_full": 99,
+   "first_five": null
+  },
+  {
+   "code": "7867",
+   "name": "特力屋",
+   "market": "twse",
+   "listing_date": "2026-10-30",
+   "history_days": 21,
+   "days_to_full": 99,
+   "first_five": {
+    "first": "2026-10-30",
+    "fifth": "2026-11-05",
+    "price": 44.06
+   }
+  },
+  {
+   "code": "7848",
+   "name": "騏億鑫",
+   "market": "tpex",
+   "listing_date": "2026-11-16",
+   "history_days": 10,
+   "days_to_full": 110,
+   "first_five": null
+  },
+  {
+   "code": "7869",
+   "name": "宏于電機",
+   "market": "tpex",
+   "listing_date": "2026-11-26",
+   "history_days": 2,
+   "days_to_full": 118,
+   "first_five": {
+    "first": "2026-11-26",
+    "fifth": "2026-11-26",
+    "price": 20261202.0
+   }
+  },
+  {
+   "code": "4804",
+   "name": "大略-KY",
+   "market": "tpex",
+   "listing_date": "2015-12-04",
+   "history_days": 0,
+   "days_to_full": 120,
+   "first_five": null
+  }
+ ],
+ "emerging": [
+  {
+   "code": "6912",
+   "name": "益鈞環科*",
+   "industry": "綠能環保",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 1903.6499999999999,
+   "last3_yoy": [
+    1364.7,
+    2928.6,
+    1721.6
+   ],
+   "avg": 7.16,
+   "last": 7.08,
+   "volume": 79674.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7853",
+   "name": "政美應用",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 1440.25,
+   "last3_yoy": [
+    10.9,
+    2744.1,
+    5168.1
+   ],
+   "avg": 308.75,
+   "last": 307.0,
+   "volume": 160425.0,
+   "applying_status": "a"
+  },
+  {
+   "code": "7427",
+   "name": "華上生醫",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 915.25,
+   "last3_yoy": [
+    895.6,
+    885.3,
+    934.9
+   ],
+   "avg": 48.16,
+   "last": 48.1,
+   "volume": 140624.0,
+   "applying_status": "E"
+  },
+  {
+   "code": "6748",
+   "name": "亞果生醫",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 520.0,
+   "last3_yoy": [
+    538.0,
+    1201.5,
+    570.7
+   ],
+   "avg": 136.27,
+   "last": 134.0,
+   "volume": 622356.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6473",
+   "name": "美賣*",
+   "industry": "數位雲端",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 446.79999999999995,
+   "last3_yoy": [
+    197.9,
+    623.0,
+    411.2
+   ],
+   "avg": 6.91,
+   "last": 6.92,
+   "volume": 71186.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7758",
+   "name": "睿騰能源",
+   "industry": "電子零組件業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 378.75,
+   "last3_yoy": [
+    589.3,
+    312.4,
+    452.6
+   ],
+   "avg": 32.16,
+   "last": 32.0,
+   "volume": 67408.0,
+   "applying_status": ""
+  },
+  {
+   "code": "1271",
+   "name": "晨暉生技",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 364.29999999999995,
+   "last3_yoy": [
+    365.2,
+    453.1,
+    363.4
+   ],
+   "avg": 53.28,
+   "last": 53.6,
+   "volume": 31529.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4573",
+   "name": "高明鐵",
+   "industry": "電機機械",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 317.6,
+   "last3_yoy": [
+    337.8,
+    336.7,
+    409.6
+   ],
+   "avg": 351.93,
+   "last": 351.0,
+   "volume": 578790.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6864",
+   "name": "元樟生技",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 295.65,
+   "last3_yoy": [
+    407.8,
+    299.2,
+    1207.7
+   ],
+   "avg": 36.06,
+   "last": 35.9,
+   "volume": 9003.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7702",
+   "name": "前端風電",
+   "industry": "綠能環保",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 220.45000000000002,
+   "last3_yoy": [
+    109.4,
+    2196.9,
+    157.3
+   ],
+   "avg": 0.0,
+   "last": 0.0,
+   "volume": 0.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7843",
+   "name": "英柏得",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 192.8,
+   "last3_yoy": [
+    192.8,
+    222.4,
+    38.2
+   ],
+   "avg": 68.8,
+   "last": 70.7,
+   "volume": 61564.0,
+   "applying_status": "e"
+  },
+  {
+   "code": "7849",
+   "name": "旭誼",
+   "industry": "其他電子業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 191.15,
+   "last3_yoy": [
+    148.5,
+    233.8,
+    328.2
+   ],
+   "avg": 152.5,
+   "last": 152.5,
+   "volume": 1000.0,
+   "applying_status": "A"
+  },
+  {
+   "code": "6849",
+   "name": "奇鼎科技",
+   "industry": "其他電子業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 187.25,
+   "last3_yoy": [
+    466.2,
+    170.5,
+    184.9
+   ],
+   "avg": 114.58,
+   "last": 116.5,
+   "volume": 47401.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6673",
+   "name": "和詮",
+   "industry": "光電業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 186.60000000000002,
+   "last3_yoy": [
+    185.3,
+    187.9,
+    327.3
+   ],
+   "avg": 10.77,
+   "last": 10.95,
+   "volume": 103282.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7796",
+   "name": "擷發科",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 181.64999999999998,
+   "last3_yoy": [
+    58.9,
+    137.1,
+    610.9
+   ],
+   "avg": 42.1,
+   "last": 41.5,
+   "volume": 62679.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6930",
+   "name": "盛新",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 163.85,
+   "last3_yoy": [
+    122.8,
+    87.4,
+    271.8
+   ],
+   "avg": 28.42,
+   "last": 29.4,
+   "volume": 12820.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6927",
+   "name": "聯合聚晶",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 142.0,
+   "last3_yoy": [
+    153.4,
+    130.6,
+    515.1
+   ],
+   "avg": 45.79,
+   "last": 45.15,
+   "volume": 18062.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6428",
+   "name": "淘米",
+   "industry": "文化創意業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 125.25,
+   "last3_yoy": [
+    724.7,
+    409.9,
+    132.4
+   ],
+   "avg": 24.98,
+   "last": 24.9,
+   "volume": 2215.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7530",
+   "name": "鋒魁科技",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 121.2,
+   "last3_yoy": [
+    170.1,
+    146.5,
+    50.6
+   ],
+   "avg": 21.8,
+   "last": 21.7,
+   "volume": 91593.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4537",
+   "name": "旭東",
+   "industry": "光電業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 103.5,
+   "last3_yoy": [
+    215.8,
+    194.6,
+    154.4
+   ],
+   "avg": 114.93,
+   "last": 115.5,
+   "volume": 9095.0,
+   "applying_status": "c"
+  },
+  {
+   "code": "6990",
+   "name": "華鉬",
+   "industry": "綠能環保",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 100.05000000000001,
+   "last3_yoy": [
+    122.2,
+    75.7,
+    20.2
+   ],
+   "avg": 72.79,
+   "last": 73.8,
+   "volume": 162087.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6810",
+   "name": "新穎生醫",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 97.25,
+   "last3_yoy": [
+    232.0,
+    174.4,
+    104.9
+   ],
+   "avg": 19.44,
+   "last": 19.95,
+   "volume": 7026.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6820",
+   "name": "連訊",
+   "industry": "通信網路業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 84.3,
+   "last3_yoy": [
+    96.9,
+    78.0,
+    90.6
+   ],
+   "avg": 221.91,
+   "last": 223.5,
+   "volume": 50331.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7771",
+   "name": "綠基",
+   "industry": "光電業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 84.05,
+   "last3_yoy": [
+    85.8,
+    131.6,
+    1.6
+   ],
+   "avg": 41.5,
+   "last": 41.5,
+   "volume": 101.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7785",
+   "name": "北祥科服",
+   "industry": "數位雲端",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 83.9,
+   "last3_yoy": [
+    18.5,
+    104.3,
+    66.5
+   ],
+   "avg": 25.97,
+   "last": 26.15,
+   "volume": 59043.0,
+   "applying_status": "A"
+  },
+  {
+   "code": "7752",
+   "name": "世紀樺欣",
+   "industry": "綠能環保",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 82.80000000000001,
+   "last3_yoy": [
+    106.4,
+    130.5,
+    104.4
+   ],
+   "avg": 16.05,
+   "last": 16.05,
+   "volume": 23749.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6920",
+   "name": "恆勁科技",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 75.95,
+   "last3_yoy": [
+    100.1,
+    77.0,
+    82.4
+   ],
+   "avg": 60.98,
+   "last": 60.9,
+   "volume": 701863.0,
+   "applying_status": ""
+  },
+  {
+   "code": "5262",
+   "name": "立達",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 72.05,
+   "last3_yoy": [
+    59.6,
+    74.3,
+    69.8
+   ],
+   "avg": 38.33,
+   "last": 39.0,
+   "volume": 7115.0,
+   "applying_status": "A"
+  },
+  {
+   "code": "8119",
+   "name": "公信",
+   "industry": "電腦及週邊設備業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 71.85,
+   "last3_yoy": [
+    135.6,
+    67.6,
+    54.6
+   ],
+   "avg": 8.94,
+   "last": 9.1,
+   "volume": 6315.0,
+   "applying_status": ""
+  },
+  {
+   "code": "8098",
+   "name": "慶康科技",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 70.55000000000001,
+   "last3_yoy": [
+    62.7,
+    38.6,
+    108.2
+   ],
+   "avg": 311.87,
+   "last": 316.5,
+   "volume": 9933.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7507",
+   "name": "環拓科技",
+   "industry": "綠能環保",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 70.25,
+   "last3_yoy": [
+    84.0,
+    103.7,
+    56.5
+   ],
+   "avg": 15.42,
+   "last": 15.5,
+   "volume": 10596.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6980",
+   "name": "鐳洋科技",
+   "industry": "通信網路業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 67.8,
+   "last3_yoy": [
+    127.5,
+    29.6,
+    65.8
+   ],
+   "avg": 119.7,
+   "last": 124.0,
+   "volume": 334979.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7861",
+   "name": "貝爾威勒",
+   "industry": "電子零組件業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 65.6,
+   "last3_yoy": [
+    99.4,
+    34.9,
+    65.6
+   ],
+   "avg": 686.99,
+   "last": 689.0,
+   "volume": 42516.0,
+   "applying_status": "c"
+  },
+  {
+   "code": "6847",
+   "name": "普瑞博",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 63.60000000000001,
+   "last3_yoy": [
+    27.8,
+    99.4,
+    634.9
+   ],
+   "avg": 58.2,
+   "last": 60.2,
+   "volume": 12051.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4548",
+   "name": "名超",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 62.15,
+   "last3_yoy": [
+    98.7,
+    66.7,
+    64.8
+   ],
+   "avg": 74.48,
+   "last": 76.6,
+   "volume": 66827.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4117",
+   "name": "普生",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 61.5,
+   "last3_yoy": [
+    74.7,
+    65.2,
+    15.8
+   ],
+   "avg": 7.15,
+   "last": 7.3,
+   "volume": 32776.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6786",
+   "name": "芯測",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 60.95,
+   "last3_yoy": [
+    33.8,
+    79.5,
+    35.3
+   ],
+   "avg": 44.05,
+   "last": 44.95,
+   "volume": 28714.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6707",
+   "name": "富基電通",
+   "industry": "電子通路業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 60.5,
+   "last3_yoy": [
+    57.5,
+    63.5,
+    41.3
+   ],
+   "avg": 24.5,
+   "last": 25.7,
+   "volume": 47185.0,
+   "applying_status": ""
+  },
+  {
+   "code": "5246",
+   "name": "勵威",
+   "industry": "半導體業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 56.4,
+   "last3_yoy": [
+    70.8,
+    94.6,
+    70.8
+   ],
+   "avg": 87.3,
+   "last": 88.0,
+   "volume": 205625.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7726",
+   "name": "暄達",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 55.099999999999994,
+   "last3_yoy": [
+    43.1,
+    15.8,
+    67.1
+   ],
+   "avg": 31.95,
+   "last": 31.95,
+   "volume": 5.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6816",
+   "name": "捷智商訊",
+   "industry": "資訊服務業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 54.35,
+   "last3_yoy": [
+    40.3,
+    50.0,
+    75.9
+   ],
+   "avg": 32.0,
+   "last": 32.0,
+   "volume": 1030.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4565",
+   "name": "宏偉",
+   "industry": "電機機械",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 54.3,
+   "last3_yoy": [
+    66.8,
+    78.7,
+    174.0
+   ],
+   "avg": 103.72,
+   "last": 100.5,
+   "volume": 141197.0,
+   "applying_status": "E"
+  },
+  {
+   "code": "7551",
+   "name": "知識科技",
+   "industry": "數位雲端",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 53.2,
+   "last3_yoy": [
+    52.2,
+    45.0,
+    29.1
+   ],
+   "avg": 11.77,
+   "last": 12.3,
+   "volume": 3110.0,
+   "applying_status": ""
+  },
+  {
+   "code": "2256",
+   "name": "歐特明",
+   "industry": "其他電子業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 50.900000000000006,
+   "last3_yoy": [
+    102.0,
+    33.9,
+    26.8
+   ],
+   "avg": 51.21,
+   "last": 53.0,
+   "volume": 132937.0,
+   "applying_status": ""
+  },
+  {
+   "code": "3117",
+   "name": "年程",
+   "industry": "電子零組件業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 48.85,
+   "last3_yoy": [
+    31.5,
+    63.7,
+    39.1
+   ],
+   "avg": 16.01,
+   "last": 15.8,
+   "volume": 124944.0,
+   "applying_status": ""
+  },
+  {
+   "code": "3595",
+   "name": "山太士",
+   "industry": "光電業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 45.9,
+   "last3_yoy": [
+    24.5,
+    31.1,
+    55.0
+   ],
+   "avg": 473.85,
+   "last": 472.5,
+   "volume": 253530.0,
+   "applying_status": "E"
+  },
+  {
+   "code": "4570",
+   "name": "傑生",
+   "industry": "電機機械",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 45.7,
+   "last3_yoy": [
+    71.8,
+    6.6,
+    47.6
+   ],
+   "avg": 69.9,
+   "last": 69.9,
+   "volume": 1000.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6868",
+   "name": "采威國際",
+   "industry": "資訊服務業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 41.35,
+   "last3_yoy": [
+    18.1,
+    87.7,
+    104.2
+   ],
+   "avg": 21.0,
+   "last": 21.1,
+   "volume": 199.0,
+   "applying_status": ""
+  },
+  {
+   "code": "2942",
+   "name": "京站",
+   "industry": "居家生活",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 39.4,
+   "last3_yoy": [
+    36.2,
+    41.2,
+    26.2
+   ],
+   "avg": 34.38,
+   "last": 34.0,
+   "volume": 4000.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6564",
+   "name": "安特羅",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 38.55,
+   "last3_yoy": [
+    8.2,
+    32.7,
+    44.4
+   ],
+   "avg": 13.94,
+   "last": 14.05,
+   "volume": 15138.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7419",
+   "name": "達勝",
+   "industry": "電子零組件業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 36.9,
+   "last3_yoy": [
+    394.0,
+    79.2,
+    47.0
+   ],
+   "avg": 32.56,
+   "last": 32.8,
+   "volume": 61525.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4559",
+   "name": "久裕興",
+   "industry": "運動休閒",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 35.6,
+   "last3_yoy": [
+    30.5,
+    24.3,
+    36.7
+   ],
+   "avg": 0.0,
+   "last": 0.0,
+   "volume": 0.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6878",
+   "name": "歐付寶",
+   "industry": "金融保險業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 34.3,
+   "last3_yoy": [
+    34.0,
+    18.1,
+    34.6
+   ],
+   "avg": 17.6,
+   "last": 18.55,
+   "volume": 36904.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7781",
+   "name": "昕力資*",
+   "industry": "數位雲端",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 34.25,
+   "last3_yoy": [
+    33.0,
+    51.5,
+    50.4
+   ],
+   "avg": 16.65,
+   "last": 16.9,
+   "volume": 480332.0,
+   "applying_status": ""
+  },
+  {
+   "code": "2255",
+   "name": "凱銳光電",
+   "industry": "其他電子業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 29.15,
+   "last3_yoy": [
+    99.5,
+    60.2,
+    15.2
+   ],
+   "avg": 10.88,
+   "last": 10.9,
+   "volume": 12842.0,
+   "applying_status": ""
+  },
+  {
+   "code": "5254",
+   "name": "欣訊科技",
+   "industry": "電子零組件業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 28.65,
+   "last3_yoy": [
+    46.2,
+    10.6,
+    54.8
+   ],
+   "avg": 30.0,
+   "last": 30.0,
+   "volume": 308.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6935",
+   "name": "王子製藥",
+   "industry": "食品工業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 27.8,
+   "last3_yoy": [
+    28.3,
+    27.3,
+    8.4
+   ],
+   "avg": 24.75,
+   "last": 24.75,
+   "volume": 5.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7578",
+   "name": "利百景",
+   "industry": "其他業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 27.299999999999997,
+   "last3_yoy": [
+    41.8,
+    14.6,
+    38.9
+   ],
+   "avg": 20.5,
+   "last": 21.0,
+   "volume": 35749.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4732",
+   "name": "彥臣",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 26.65,
+   "last3_yoy": [
+    25.3,
+    8.9,
+    28.0
+   ],
+   "avg": 13.5,
+   "last": 13.9,
+   "volume": 4100.0,
+   "applying_status": ""
+  },
+  {
+   "code": "4544",
+   "name": "春日",
+   "industry": "電機機械",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 25.95,
+   "last3_yoy": [
+    6.8,
+    82.1,
+    35.0
+   ],
+   "avg": 0.0,
+   "last": 0.0,
+   "volume": 0.0,
+   "applying_status": ""
+  },
+  {
+   "code": "5863",
+   "name": "瑞興銀",
+   "industry": "金融保險業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 25.95,
+   "last3_yoy": [
+    6.6,
+    28.0,
+    19.8
+   ],
+   "avg": 10.57,
+   "last": 10.75,
+   "volume": 71403.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7854",
+   "name": "佐茂",
+   "industry": "電腦及週邊設備業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 24.85,
+   "last3_yoy": [
+    47.2,
+    21.4,
+    16.5
+   ],
+   "avg": 52.61,
+   "last": 53.0,
+   "volume": 6308.0,
+   "applying_status": ""
+  },
+  {
+   "code": "6493",
+   "name": "雷虎生",
+   "industry": "生技醫療業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 24.35,
+   "last3_yoy": [
+    11.4,
+    42.4,
+    82.5
+   ],
+   "avg": 24.62,
+   "last": 25.0,
+   "volume": 16374.0,
+   "applying_status": ""
+  },
+  {
+   "code": "8058",
+   "name": "耐特",
+   "industry": "其他電子業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 23.8,
+   "last3_yoy": [
+    47.6,
+    45.2,
+    23.8
+   ],
+   "avg": 73.45,
+   "last": 73.5,
+   "volume": 100864.0,
+   "applying_status": "e"
+  },
+  {
+   "code": "6826",
+   "name": "和淞",
+   "industry": "其他電子業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 23.6,
+   "last3_yoy": [
+    17.1,
+    26.3,
+    127.6
+   ],
+   "avg": 308.77,
+   "last": 308.5,
+   "volume": 68373.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7706",
+   "name": "宏碁創達",
+   "industry": "其他業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 23.549999999999997,
+   "last3_yoy": [
+    26.4,
+    20.7,
+    19.6
+   ],
+   "avg": 0.0,
+   "last": 0.0,
+   "volume": 0.0,
+   "applying_status": "A"
+  },
+  {
+   "code": "3633",
+   "name": "云光",
+   "industry": "光電業",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 22.7,
+   "last3_yoy": [
+    24.9,
+    17.5,
+    6.2
+   ],
+   "avg": 118.62,
+   "last": 120.5,
+   "volume": 20139.0,
+   "applying_status": ""
+  },
+  {
+   "code": "7789",
+   "name": "開展",
+   "industry": "觀光餐旅",
+   "latest_period": "2026-10",
+   "rev_yoy_med6": 20.65,
+   "last3_yoy": [
+    13.1,
+    27.4,
+    22.8
+   ],
+   "avg": 0.0,
+   "last": 0.0,
+   "volume": 0.0,
+   "applying_status": ""
+  }
+ ]
+}

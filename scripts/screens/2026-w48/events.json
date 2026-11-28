@@ -1,0 +1,24 @@
+{
+ "asof": "2026-11-27",
+ "week": "2026-w48",
+ "methodology_version": "1.0",
+ "new": [],
+ "exits": [],
+ "transfers": [],
+ "renames": [],
+ "code_reuse": [],
+ "status_changes": [],
+ "reconciliation": {
+  "not_in_finmind": [],
+  "not_quoted": [
+   "4804",
+   "8084",
+   "8291"
+  ],
+  "finmind_stale": [
+   "4804",
+   "8084",
+   "8291"
+  ]
+ }
+}
