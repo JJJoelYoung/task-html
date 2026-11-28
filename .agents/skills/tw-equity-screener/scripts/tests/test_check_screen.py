@@ -64,6 +64,10 @@ INDEX_EDITS = [
     ('<span class="artifact-date">2026-11-20</span>', '<span class="artifact-date">2026-11-19</span>', "card date"),
     ('本週 Tier A：1 檔', '本週 Tier A：2 檔', "card badge"),
     ('data-meta="effort">high<', 'data-meta="effort">low<', "card data-meta=effort"),
+    ('data-category="screener" data-keywords="tw-equity-screener', 'data-category="equity" data-keywords="tw-equity-screener',
+     "card data-category is not screener"),
+    ('<button class="filter-btn" data-category="screener">', '<button class="filter-btn" data-category="other">',
+     "index.html has no screener filter button"),
     ('href="reports/screens/tw-screen-2026-w47.html" class="artifact-title-link"',
      'href="reports/screens/tw-screen-2026-w46.html" class="artifact-title-link"',
      "card link reports/screens/tw-screen-2026-w46.html does not exist"),
@@ -176,7 +180,7 @@ class CheckScreen(unittest.TestCase):
         root = self.fresh()
         index = root / "index.html"
         text = index.read_text(encoding="utf-8")
-        start = text.index('<article class="artifact-card" data-category="equity" data-keywords="tw-equity-screener')
+        start = text.index('<article class="artifact-card" data-category="screener" data-keywords="tw-equity-screener')
         card = text[start:text.index("</article>", start) + len("</article>")]
         index.write_text(text.replace(card, card + "\n    " + card, 1), encoding="utf-8")
         self.assertFails(root, "2 screener cards")

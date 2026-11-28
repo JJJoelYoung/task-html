@@ -160,8 +160,11 @@ def check_portal(c, root, rel, d, review):
     index = (root / "index.html").read_text(encoding="utf-8")
     cards = [k for k in re.findall(r'<article class="artifact-card".*?</article>', index, re.S)
              if 'data-keywords="tw-equity-screener' in k.split(">", 1)[0]]
+    c.ok('<button class="filter-btn" data-category="screener">' in index,
+         "portal: index.html has no screener filter button")
     if c.ok(len(cards) == 1, f"portal: {len(cards)} screener cards in index.html, expected 1"):
         card = cards[0]
+        c.ok('data-category="screener"' in card.split(">", 1)[0], "portal: card data-category is not screener")
         c.ok(f'href="{rel}"' in card, f"portal: the screener card does not link {rel}")
         c.ok(f'<span class="artifact-date">{f["asof"]}</span>' in card, f"portal: card date is not {f['asof']}")
         tele = {label.strip(): html.unescape(value) for label, value in TELEMETRY_RE.findall(card)}

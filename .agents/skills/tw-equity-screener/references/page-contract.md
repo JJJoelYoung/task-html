@@ -56,7 +56,8 @@ The footer carries the data sources, `asof`, `methodology_version`, the model an
 
 ## 5. Portal entries
 
-- Card: `article.artifact-card`, `data-category="equity"`, `data-keywords` starting `tw-equity-screener 選股 weekly screen`; category `equity screen`; date `asof`; title `台股每週選股 {yyyy} 第 {w} 週` linking to the page; a three-sentence description with the funnel counts, the Tier A codes, and the regime; telemetry `全市場`, `完整漏斗`, `入圍`, `Tier A`, then wide `市場狀態` and wide `生成模型`; badge `本週 Tier A：{n} 檔` (`--active` when n > 0); action `閱讀週報` with an `aria-label`.
+- Filter: `index.html` holds `<button class="filter-btn" data-category="screener">每週選股 (Screener)</button>` in its filter nav. `render.py` never writes it.
+- Card: `article.artifact-card`, `data-category="screener"`, `data-keywords` starting `tw-equity-screener 選股 weekly screen`; category `equity screen`; date `asof`; title `台股每週選股 {yyyy} 第 {w} 週` linking to the page; a three-sentence description with the funnel counts, the Tier A codes, and the regime; telemetry `全市場`, `完整漏斗`, `入圍`, `Tier A`, then wide `市場狀態` and wide `生成模型`; badge `本週 Tier A：{n} 檔` (`--active` when n > 0); action `閱讀週報` with an `aria-label`.
 - README row: `| **Equity Screen** | [台股每週選股 {yyyy}-W{ww}]({url}) | [View Online]({url}) | [`reports/screens/tw-screen-{week}.html`](./reports/screens/tw-screen-{week}.html) |`, where `{url}` is `pages_base(README)` plus the page path. It replaces the previous week's row, or becomes the table's first row.
 
 ## 6. Checks (`check_screen.py <week-folder> [--root .]`)

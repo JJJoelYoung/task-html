@@ -553,7 +553,7 @@ def card_html(s):
         for label, value, tone, wide in card_telemetry(s))
     badge = "artifact-badge--active" if codes else "artifact-badge--neutral"
     keywords = " ".join(["tw-equity-screener 選股 weekly screen taiwan equity funnel", s["week"], *codes])
-    return f"""<article class="artifact-card" data-category="equity" data-keywords="{esc(keywords)}">
+    return f"""<article class="artifact-card" data-category="screener" data-keywords="{esc(keywords)}">
       <div>
         <div class="artifact-meta-top">
           <span class="artifact-category">equity screen</span>

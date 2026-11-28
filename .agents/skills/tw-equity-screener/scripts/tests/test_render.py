@@ -17,7 +17,8 @@ WEEK, ASOF = "2026-w47", "2026-11-20"
 SHORTLIST_PARAMS = {"enter": 20, "stay": 40, "cap": 30, "left_n": 10, "tier_a_proxy": 15.0}
 EQUITY_CARD = ('<article class="artifact-card" data-category="equity" data-keywords="{code} x">\n'
                '      <a href="reports/equity/{code}.html" class="artifact-title-link">{code}</a>\n    </article>')
-INDEX = ('<!doctype html>\n<main class="artifacts-grid" id="artifactsContainer">\n    {a}\n    {b}\n  </main>\n'
+INDEX = ('<!doctype html>\n<nav class="filter-nav">\n  <button class="filter-btn" data-category="screener">每週選股 (Screener)</button>\n</nav>\n'
+         '<main class="artifacts-grid" id="artifactsContainer">\n    {a}\n    {b}\n  </main>\n'
          .format(a=EQUITY_CARD.format(code="2330"), b=EQUITY_CARD.format(code="2308")))
 README = ("# Portal\n\n## Published Deliverables\n\n| Category | Deliverable | Live Link | Local Path |\n"
           "| :--- | :--- | :--- | :--- |\n"
